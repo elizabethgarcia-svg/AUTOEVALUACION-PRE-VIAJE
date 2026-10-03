@@ -29,7 +29,8 @@ Configurables en el objeto `REGLAS` al inicio del script (los umbrales de visió
 | `descansoEfectivo` | 8 h | Descanso mínimo tras alcanzar el máximo |
 | `pausaReinicio` | 6 h | Una pausa de esta duración o mayor cierra la jornada y permite continuar |
 | `ventanaDescanso` | 24 h | Debe existir un descanso efectivo dentro de este periodo previo a la encuesta |
-| `avisoRestante` | 2 h | Horas restantes a partir de las cuales se advierte al operador |
+| `minimoParaViaje` | 4 h | Horas de conducción disponibles que se exigen para tomar un viaje. Con menos, se bloquea hasta completar 8 h de descanso efectivo aunque no haya llegado a 14 h (candado anti-viaje) |
+| `avisoRestante` | 6 h | Horas restantes a partir de las cuales se advierte al operador |
 | `conduccionSinPausa` | 5 h | Manejo seguido tras el cual se recomienda una pausa corta |
 | `pausaCorta` | 30 min | Duración de la pausa corta recomendada |
 | `pausaCortaBloquea` | false | Si es `true`, la pausa corta pendiente también bloquea la evaluación (hoy solo advierte) |
@@ -43,7 +44,7 @@ Si el operador está bloqueado, la pantalla muestra "Por el momento no puede rea
 
 ## Conexión con la plataforma GPS
 
-El archivo incluye un **modo demostración** con unidades de ejemplo (`T-118`, `T-311`, `T-204`, `T-077`, `T-422`, `T-500`). Para producción, reemplace `GPS_PROVIDER.consultarActividad` por la llamada a la API de telemetría (Geotab, Samsara, Webfleet, etc.). Debe devolver:
+El archivo incluye un **modo demostración** con unidades de ejemplo (`T-118`, `T-311`, `T-204`, `T-077`, `T-422`, `T-330`, `T-500`). Para producción, reemplace `GPS_PROVIDER.consultarActividad` por la llamada a la API de telemetría (Geotab, Samsara, Webfleet, etc.). Debe devolver:
 
 ```js
 { unidad, ubicacion: { texto }, desde: Date, segmentos: [{ inicio: Date, fin: Date }] }

@@ -527,7 +527,8 @@ const REGLAS = {
   descansoEfectivo: 8,   // h mínimas de descanso efectivo tras alcanzar el máximo
   pausaReinicio: 6,      // h: una pausa de esta duración o mayor cierra la jornada y permite continuar
   ventanaDescanso: 24,   // h previas a la encuesta en las que debe existir un descanso efectivo
-  avisoRestante: 2,      // h restantes a partir de las cuales se muestra advertencia
+  minimoParaViaje: 4,    // h de conducción disponibles que se exigen para tomar un viaje nuevo
+  avisoRestante: 6,      // h restantes a partir de las cuales se muestra advertencia
   conduccionSinPausa: 5, // h de manejo seguidas tras las cuales se recomienda una pausa corta
   pausaCorta: 0.5,       // h de la pausa corta recomendada (30 min)
   pausaCortaBloquea: false, // true: la pausa corta pendiente también bloquea la evaluación
@@ -542,11 +543,12 @@ const REGLAS = {
    con los periodos de conducción (motor en movimiento) desde `desde` (últimas 36 h).
    ===================================================================== */
 const DEMO = {
-  'T-118': { nombre: 'Jornada normal, descanso cumplido', ubicacion: 'Patio Querétaro, Qro. (Ruta 57)', seg: [[30,26],[25.5,22],[13,9.5],[9,4.5],[4,1]] },
-  'T-311': { nombre: 'Cerca del límite de 14 h',          ubicacion: 'Km 118 Ruta 57, Matehuala, S.L.P.', seg: [[28,26],[15,8],[7.5,1.5]] },
+  'T-118': { nombre: 'Jornada normal, descanso cumplido', ubicacion: 'Patio Querétaro, Qro. (Ruta 57)', seg: [[30,26],[25.5,22],[8,5],[4.5,1]] },
+  'T-311': { nombre: 'Solo 1 h restante: no alcanza para viaje', ubicacion: 'Km 118 Ruta 57, Matehuala, S.L.P.', seg: [[28,26],[15,8],[7.5,1.5]] },
   'T-204': { nombre: 'Excedió 14 h continuas',            ubicacion: 'Parador Ruta 57, Saltillo, Coah.', seg: [[33,30],[20,12],[11.5,4]] },
   'T-077': { nombre: 'Sin descanso efectivo en 24 h',     ubicacion: 'Caseta Ruta 57, San Luis Potosí, S.L.P.', seg: [[36,28],[21,14],[8,2]] },
   'T-422': { nombre: '6 h seguidas sin pausa de 30 min', ubicacion: 'Km 212 Ruta 57, El Huizache, S.L.P.', seg: [[30,28],[6.2,0.15]] },
+  'T-330': { nombre: '9 h de manejo, pausa de 7 h (jornada no reabierta)', ubicacion: 'Pensión Ruta 57, San Luis Potosí, S.L.P.', seg: [[34,30],[19,16],[16.5,10.5],[10.2,7]] },
   'T-500': { nombre: 'Sin señal GPS',                     ubicacion: null, seg: null }
 };
 const GPS_PROVIDER = {
@@ -601,17 +603,24 @@ function analizarActividad(segmentos, ahora = new Date(), desde = null) {
   const jornadaAbierta = !!ultima && pausaActual < REGLAS.pausaReinicio;
   const horasJornada = jornadaAbierta ? ultima.horas : 0;
   const alcanzoMaximo = !!ultima && ultima.horas >= REGLAS.maxConduccion && pausaActual < REGLAS.descansoEfectivo;
+  // Candado anti-viaje: si en la última jornada ya consumió tanto que no le alcanza para un viaje, solo un descanso efectivo de 8 h abre una jornada nueva
+  const sinHorasParaViaje = !!ultima && !alcanzoMaximo && (REGLAS.maxConduccion - ultima.horas) < REGLAS.minimoParaViaje && pausaActual < REGLAS.descansoEfectivo;
   const horasSinPausa = (jornadaAbierta && pausaActual < REGLAS.pausaCorta) ? tramo : 0;
   const pausaCortaPendiente = horasSinPausa >= REGLAS.conduccionSinPausa;
 
   const r = { horasJornada, horasUltimaJornada: ultima ? ultima.horas : 0, pausaActual, ultimoDescanso, descansoVigente, jornadaAbierta,
-              restante: Math.max(0, REGLAS.maxConduccion - horasJornada), estado: 'permitido', motivo: '', esperaHoras: 0, advertencia: '',
+              restante: Math.max(0, REGLAS.maxConduccion - horasJornada), restanteJornada: ultima && pausaActual < REGLAS.descansoEfectivo ? Math.max(0, REGLAS.maxConduccion - ultima.horas) : REGLAS.maxConduccion, horasJornadaVista: ultima && pausaActual < REGLAS.descansoEfectivo ? ultima.horas : 0, estado: 'permitido', motivo: '', esperaHoras: 0, advertencia: '',
               horasSinPausa, pausaCortaPendiente, pausaCortaFalta: pausaCortaPendiente ? Math.max(0, REGLAS.pausaCorta - (isFinite(pausaActual) ? pausaActual : 0)) : 0 };
 
   if (alcanzoMaximo) {
     r.estado = 'bloqueado';
     r.codigo = 'MAX_CONDUCCION';
     r.motivo = 'Condujo ' + fmtH(ultima.horas) + ' continuas y el máximo es ' + REGLAS.maxConduccion + ' h. Le corresponde un descanso efectivo mínimo de ' + REGLAS.descansoEfectivo + ' h.';
+    r.esperaHoras = REGLAS.descansoEfectivo - pausaActual;
+  } else if (sinHorasParaViaje) {
+    r.estado = 'bloqueado';
+    r.codigo = 'SIN_HORAS_PARA_VIAJE';
+    r.motivo = 'Lleva ' + fmtH(ultima.horas) + ' de manejo en su jornada y solo le quedan ' + fmtH(Math.max(0, REGLAS.maxConduccion - ultima.horas)) + ', menos del mínimo de ' + REGLAS.minimoParaViaje + ' h para tomar un viaje. Necesita un descanso efectivo de ' + REGLAS.descansoEfectivo + ' h para abrir una jornada nueva.';
     r.esperaHoras = REGLAS.descansoEfectivo - pausaActual;
   } else if (!descansoVigente) {
     r.estado = 'bloqueado';
@@ -953,7 +962,7 @@ function pintarVeredictoGps() {
   g.analisis = a;
   const ultimoFin = g.segmentos.length ? Math.max(...g.segmentos.map(x => x.fin.getTime())) : null;
   const enMovimiento = isFinite(a.pausaActual) && a.pausaActual < 5 / 60;
-  const claseManejo = a.horasJornada >= REGLAS.maxConduccion ? 'danger' : a.restante <= REGLAS.avisoRestante ? 'warn' : '';
+  const claseManejo = a.horasJornadaVista >= REGLAS.maxConduccion || a.restanteJornada < REGLAS.minimoParaViaje ? 'danger' : a.restanteJornada <= REGLAS.avisoRestante ? 'warn' : '';
   const clasePausa = a.pausaActual >= REGLAS.descansoEfectivo ? 'ok' : a.pausaActual >= REGLAS.pausaReinicio ? 'warn' : '';
   let ventanaH = null, claseVentana = 'danger', ventanaTxt = '—', ventanaSub = 'sin descanso 8 h';
   if (a.ultimoDescanso) {
@@ -969,9 +978,9 @@ function pintarVeredictoGps() {
     '<div class="hos">' +
       '<div class="hos-item"><div class="estado-tile ' + (enMovimiento ? 'on' : '') + '">' + (enMovimiento ? 'ON' : 'OFF') + '</div><div class="hos-v cron" id="hosTimer">' + fmtHMS(ultimoFin ? (ahora - ultimoFin) / 1000 : 0) + '</div><div class="hos-k">' + (enMovimiento ? 'Manejando' : 'Detenido') + '</div><div class="hos-sub">' + (enMovimiento ? 'motor en marcha' : 'desde última parada') + '</div></div>' +
       anillo('Pausa', fmtHM(a.pausaActual), a.pausaActual / REGLAS.descansoEfectivo, clasePausa, 'meta ' + fmtHM(REGLAS.descansoEfectivo), ICONO.reloj) +
-      anillo('Manejo', fmtHM(a.horasJornada), a.horasJornada / REGLAS.maxConduccion, claseManejo, 'máx ' + fmtHM(REGLAS.maxConduccion), ICONO.camion) +
+      anillo('Manejo', fmtHM(a.horasJornadaVista), a.horasJornadaVista / REGLAS.maxConduccion, claseManejo, 'máx ' + fmtHM(REGLAS.maxConduccion), ICONO.camion) +
       anillo('Ventana', ventanaTxt, ventanaH === null ? 1 : ventanaH / REGLAS.ventanaDescanso, claseVentana, ventanaSub, ICONO.gps) +
-      anillo('Restante', fmtHM(a.restante), a.restante / REGLAS.maxConduccion, a.restante <= REGLAS.avisoRestante ? 'warn' : 'ok', 'para manejar', ICONO.check) +
+      anillo('Restante', fmtHM(a.restanteJornada), a.restanteJornada / REGLAS.maxConduccion, a.restanteJornada < REGLAS.minimoParaViaje ? 'danger' : a.restanteJornada <= REGLAS.avisoRestante ? 'warn' : 'ok', 'mín. viaje ' + fmtHM(REGLAS.minimoParaViaje), ICONO.check) +
     '</div>' +
     '<div class="hos-leyenda"><span class="l-az"><i></i>En curso</span><span class="l-ok"><i></i>En regla</span><span class="l-warn"><i></i>Atención</span><span class="l-danger"><i></i>Fuera de norma</span></div>' +
     '</div>';
@@ -989,7 +998,7 @@ function pintarVeredictoGps() {
     html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo">' +
       '<div><div class="ojal" style="color:var(--ok-text)">Horas en regla</div><h2>' + ICONO.checkCirculo + 'Puede continuar</h2></div>' +
       (a.advertencia ? '<div class="aviso warn">' + ICONO.alerta + '<div>' + esc(a.advertencia) + '</div></div>' : '') +
-      '<p class="texto-2">Descanso efectivo vigente y ' + esc(fmtH(a.restante)) + ' disponibles de conducción. La encuesta toma 3 minutos.</p>' +
+      '<p class="texto-2">Descanso efectivo vigente y ' + esc(fmtH(a.restanteJornada)) + ' disponibles de conducción (mínimo ' + REGLAS.minimoParaViaje + ' h para tomar viaje). La encuesta toma 3 minutos.</p>' +
       '<button class="btn primario" id="btnIniciar" type="button">Continuar evaluación ' + ICONO.check + '</button>' +
       '</div></div>';
   }
