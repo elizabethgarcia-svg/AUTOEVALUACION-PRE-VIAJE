@@ -705,7 +705,7 @@ const SECCIONES = [
       { id: 'r_camaras', tipo: 'sino', texto: '¿Sabe que no debe manipular, tapar ni desconectar las cámaras de la unidad?', nota: 'Cabina le dará la instrucción antes de salir.',
         riesgo: v => v === NO ? { p: 2, t: 'No conoce la prohibición de manipular las cámaras' } : null },
       { id: 'r_paro', tipo: 'sino', texto: '¿Sabe que debe solicitar a Cabina el paro de motor en cada detención para evitar robos?', ayuda: 'Al detenerse, reporte por radio o WhatsApp y pida el paro de motor.', nota: 'Cabina le explicará el procedimiento de paro de motor.',
-        riesgo: v => v === NO ? { p: 2, t: 'No conoce el procedimiento de paro de motor en cada detención (+2)' } : null }
+        riesgo: v => v === NO ? { p: 2, t: 'No conoce el procedimiento de paro de motor en cada detención' } : null }
     ] },
   { id: 'confirmacion', nombre: 'Firma', titulo: 'Confirmación', senal: 'verde', icono: 'bandera', sub: 'Revise y firme. El dictamen se calcula al enviar.' }
 ];
