@@ -697,13 +697,13 @@ const SECCIONES = [
   { id: 'reglas', nombre: 'Reglas', titulo: 'Reglas de la ruta', senal: 'restrictivo', icono: 'mano', sub: 'Confirme que conoce las restricciones de la empresa para este viaje. Si alguna no la conoce, Cabina se la explicará antes de salir.',
     preguntas: [
       { id: 'r_paradas', tipo: 'sino', texto: '¿Sabe que no está autorizado detenerse sobre la carretera ni en lugares oscuros o desolados?', ayuda: 'Ni en el acotamiento. Toda parada debe avisarse a Cabina.', nota: 'Cabina le dará la instrucción antes de salir.',
-        riesgo: v => v === NO ? { p: 2, t: 'No conoce la regla de no detenerse en carretera ni lugares desolados (+2)' } : null },
+        riesgo: v => v === NO ? { p: 2, t: 'No conoce la regla de no detenerse en carretera ni lugares desolados' } : null },
       { id: 'r_pensiones', tipo: 'sino', texto: '¿Sabe que solo puede descansar o pernoctar en pensiones y paradores oficiales autorizados?', nota: 'Cabina le indicará las pensiones autorizadas de su ruta.',
-        riesgo: v => v === NO ? { p: 2, t: 'No conoce la regla de uso exclusivo de pensiones oficiales (+2)' } : null },
+        riesgo: v => v === NO ? { p: 2, t: 'No conoce la regla de uso exclusivo de pensiones oficiales' } : null },
       { id: 'r_velocidad', tipo: 'sino', texto: '¿Sabe que no debe rebasar el límite de velocidad de 100 km/h?', ayuda: 'El GPS registra los excesos de velocidad.', nota: 'Cabina le dará la instrucción antes de salir.',
-        riesgo: v => v === NO ? { p: 2, t: 'No conoce el límite de velocidad de 100 km/h (+2)' } : null },
+        riesgo: v => v === NO ? { p: 2, t: 'No conoce el límite de velocidad de 100 km/h' } : null },
       { id: 'r_camaras', tipo: 'sino', texto: '¿Sabe que no debe manipular, tapar ni desconectar las cámaras de la unidad?', nota: 'Cabina le dará la instrucción antes de salir.',
-        riesgo: v => v === NO ? { p: 2, t: 'No conoce la prohibición de manipular las cámaras (+2)' } : null },
+        riesgo: v => v === NO ? { p: 2, t: 'No conoce la prohibición de manipular las cámaras' } : null },
       { id: 'r_paro', tipo: 'sino', texto: '¿Sabe que debe solicitar a Cabina el paro de motor en cada detención para evitar robos?', ayuda: 'Al detenerse, reporte por radio o WhatsApp y pida el paro de motor.', nota: 'Cabina le explicará el procedimiento de paro de motor.',
         riesgo: v => v === NO ? { p: 2, t: 'No conoce el procedimiento de paro de motor en cada detención (+2)' } : null }
     ] },
