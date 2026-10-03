@@ -5,12 +5,16 @@ Encuesta de autoevaluación que realiza el operador antes de salir a ruta. Un so
 ## Flujo
 
 1. **Inicio y horas de servicio** (barrera obligatoria). El operador captura su nombre y número económico; la app consulta el GPS y muestra un tablero en vivo tipo horas de servicio: estado (ON/OFF con cronómetro), pausa actual, manejo acumulado, ventana de 24 h y horas restantes. Solo si cumple las reglas aparece "Continuar evaluación"; si no, se bloquea con cuenta regresiva.
-2. **Datos** del operador y unidad (nombre, número económico, fecha y hora, ruta).
-3. **Estado físico**: horas de sueño, cansancio (1–5), malestar, medicamentos, alcohol.
-4. **Estado emocional**: ánimo (1–5), estrés (1–5), capacidad de atención, eventos del día.
-5. **Revisión de la unidad**: llantas, frenos, luces, acoplamiento, documentos, equipo de emergencia.
-6. **Confirmación**: resumen, declaración de veracidad y firma con el dedo.
-7. **Dictamen** con factores detectados, folio, envío por WhatsApp y copia del resumen.
+2. **Compromiso del operador**: texto de compromiso (NOM-087-SCT-2-2017, paradas autorizadas, reporte a Cabina) que debe aceptarse para continuar.
+3. **Foto y ubicación**: foto del operador con la cámara del teléfono (obligatoria) y ubicación del dispositivo (recomendada; si no hay permiso se usa la del GPS de la unidad).
+4. **Datos** del operador y unidad (nombre, número económico, fecha y hora, ruta).
+5. **Estado físico**: horas de sueño, cansancio (1–5), malestar, medicamentos, alcohol.
+6. **Estado emocional**: ánimo (1–5), estrés (1–5), capacidad de atención, eventos del día.
+7. **Revisión de la unidad**: llantas, frenos, luces, acoplamiento, documentos, equipo de emergencia.
+8. **Confirmación**: resumen, declaración de veracidad y firma con el dedo (o firma escrita).
+9. **Dictamen** con factores detectados, identificación (foto, ubicación, compromiso), folio, envío por WhatsApp y copia del resumen.
+
+Cada sección se encabeza con una señal de carretera (preventiva amarilla, informativa azul, destino verde, restrictiva roja) y un poste kilométrico con el número de tramo.
 
 ## Reglas de fatiga (bloquean la evaluación)
 
@@ -23,6 +27,9 @@ Configurables en el objeto `REGLAS` al inicio del script (referencia NOM-087-SCT
 | `pausaReinicio` | 6 h | Una pausa de esta duración o mayor cierra la jornada y permite continuar |
 | `ventanaDescanso` | 24 h | Debe existir un descanso efectivo dentro de este periodo previo a la encuesta |
 | `avisoRestante` | 2 h | Horas restantes a partir de las cuales se advierte al operador |
+| `conduccionSinPausa` | 5 h | Manejo seguido tras el cual se recomienda una pausa corta |
+| `pausaCorta` | 30 min | Duración de la pausa corta recomendada |
+| `pausaCortaBloquea` | false | Si es `true`, la pausa corta pendiente también bloquea la evaluación (hoy solo advierte) |
 
 Si el operador está bloqueado, la pantalla muestra "Por el momento no puede realizar la prueba", la hora a partir de la cual podrá presentarla y una cuenta regresiva que se actualiza sola.
 
@@ -33,7 +40,7 @@ Si el operador está bloqueado, la pantalla muestra "Por el momento no puede rea
 
 ## Conexión con la plataforma GPS
 
-El archivo incluye un **modo demostración** con unidades de ejemplo (`T-118`, `T-311`, `T-204`, `T-077`, `T-500`). Para producción, reemplace `GPS_PROVIDER.consultarActividad` por la llamada a la API de telemetría (Geotab, Samsara, Webfleet, etc.). Debe devolver:
+El archivo incluye un **modo demostración** con unidades de ejemplo (`T-118`, `T-311`, `T-204`, `T-077`, `T-422`, `T-500`). Para producción, reemplace `GPS_PROVIDER.consultarActividad` por la llamada a la API de telemetría (Geotab, Samsara, Webfleet, etc.). Debe devolver:
 
 ```js
 { unidad, ubicacion: { texto }, desde: Date, segmentos: [{ inicio: Date, fin: Date }] }

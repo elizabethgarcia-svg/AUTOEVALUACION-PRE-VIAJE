@@ -401,6 +401,40 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .hos-leyenda span { display: inline-flex; align-items: center; gap: 6px; }
 .hos-leyenda i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
+/* Cabecera de sección con señal y poste kilométrico */
+.seccion-cab { display: flex; align-items: center; gap: 14px; }
+.senal-svg { width: 72px; height: 72px; flex-shrink: 0; filter: drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
+.seccion-txt { min-width: 0; flex: 1; }
+.seccion-txt .titulo { font-size: clamp(30px, 9vw, 40px); }
+.seccion-txt .ojal { display: flex; align-items: center; gap: 8px; }
+.poste { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 4px 4px 2px 2px; background: #FFFFFF; border: 2px solid #0B1B3F; color: #0B1B3F; line-height: 1; font-family: var(--f-impact); }
+.poste b { font-size: 7px; letter-spacing: .05em; font-weight: 700; }
+.poste i { font-style: normal; font-size: 15px; font-weight: 800; }
+/* Compromiso */
+.compromiso { background: var(--warn-bg); border-left: 5px solid var(--warn-border); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 16px; line-height: 1.55; }
+.compromiso .ojal { color: var(--warn-text); font-family: var(--f-display); font-size: 20px; letter-spacing: .02em; }
+.compromiso p b { font-weight: 600; }
+.compromiso .casilla { margin-top: 4px; background: var(--card); }
+/* Identificación */
+.foto-marco { aspect-ratio: 4 / 3; border-radius: var(--radius); background: var(--card-2); border: 1px dashed var(--border-2); overflow: hidden; display: grid; place-items: center; }
+.foto-marco img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto-vacia { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--fg-2); font-size: 14px; text-align: center; padding: 8px; }
+.foto-vacia svg { width: 36px; height: 36px; }
+.ubi-dato { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; font-size: 14px; padding: 8px; }
+.ubi-dato b { font-family: var(--f-impact); font-size: 20px; font-variant-numeric: tabular-nums; }
+.ubi-dato span { color: var(--fg-2); }
+.estado-permiso { font-size: 13px; color: var(--fg-2); display: flex; align-items: center; gap: 6px; }
+.estado-permiso svg { width: 16px; height: 16px; }
+.tarjeta.error { border-color: var(--danger-text); border-width: 2px; }
+.foto-mini { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; display: block; }
+.foto-mini.grande { width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0; }
+.foto-mini.vacia { display: grid; place-items: center; background: var(--card-2); color: var(--fg-2); }
+.foto-mini.vacia svg { width: 28px; height: 28px; }
+.identidad { display: flex; gap: 14px; align-items: center; }
+.identidad-txt { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--fg-2); min-width: 0; }
+.identidad-txt b { font-size: 17px; color: var(--fg); }
+.identidad-txt span { display: flex; align-items: center; gap: 6px; overflow-wrap: anywhere; }
+.identidad-txt svg { width: 14px; height: 14px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -466,6 +500,9 @@ const REGLAS = {
   pausaReinicio: 6,      // h: una pausa de esta duración o mayor cierra la jornada y permite continuar
   ventanaDescanso: 24,   // h previas a la encuesta en las que debe existir un descanso efectivo
   avisoRestante: 2,      // h restantes a partir de las cuales se muestra advertencia
+  conduccionSinPausa: 5, // h de manejo seguidas tras las cuales se recomienda una pausa corta
+  pausaCorta: 0.5,       // h de la pausa corta recomendada (30 min)
+  pausaCortaBloquea: false, // true: la pausa corta pendiente también bloquea la evaluación
   puntosNoApto: 4        // suma de puntos de riesgo (no críticos) que vuelve NO APTO
 };
 
@@ -481,6 +518,7 @@ const DEMO = {
   'T-311': { nombre: 'Cerca del límite de 14 h',          ubicacion: 'Km 118 Ruta 57, Matehuala, S.L.P.', seg: [[28,26],[15,8],[7.5,1.5]] },
   'T-204': { nombre: 'Excedió 14 h continuas',            ubicacion: 'Parador Ruta 57, Saltillo, Coah.', seg: [[33,30],[20,12],[11.5,4]] },
   'T-077': { nombre: 'Sin descanso efectivo en 24 h',     ubicacion: 'Caseta Ruta 57, San Luis Potosí, S.L.P.', seg: [[36,28],[21,14],[8,2]] },
+  'T-422': { nombre: '6 h seguidas sin pausa de 30 min', ubicacion: 'Km 212 Ruta 57, El Huizache, S.L.P.', seg: [[30,28],[6.2,0.15]] },
   'T-500': { nombre: 'Sin señal GPS',                     ubicacion: null, seg: null }
 };
 const GPS_PROVIDER = {
@@ -508,18 +546,20 @@ function analizarActividad(segmentos, ahora = new Date(), desde = null) {
   const H = 3600e3;
   const segs = [...segmentos].sort((a, b) => a.inicio - b.inicio);
   const jornadas = [];
-  let actual = null, prevFin = null, ultimoDescanso = null;
+  let actual = null, prevFin = null, ultimoDescanso = null, tramo = 0;
   if (desde && segs.length && (segs[0].inicio - desde) / H >= REGLAS.descansoEfectivo) {
     ultimoDescanso = { inicio: desde, fin: segs[0].inicio, horas: (segs[0].inicio - desde) / H, enCurso: false };
   }
   for (const s of segs) {
     if (prevFin) {
       const pausa = (s.inicio - prevFin) / H;
+      if (pausa >= REGLAS.pausaCorta) tramo = 0;
       if (pausa >= REGLAS.pausaReinicio && actual) { jornadas.push(actual); actual = null; }
       if (pausa >= REGLAS.descansoEfectivo) ultimoDescanso = { inicio: prevFin, fin: s.inicio, horas: pausa, enCurso: false };
     }
     if (!actual) actual = { inicio: s.inicio, fin: s.fin, horas: 0 };
     actual.horas += (s.fin - s.inicio) / H;
+    tramo += (s.fin - s.inicio) / H;
     actual.fin = s.fin;
     prevFin = s.fin;
   }
@@ -532,9 +572,12 @@ function analizarActividad(segmentos, ahora = new Date(), desde = null) {
   const jornadaAbierta = !!ultima && pausaActual < REGLAS.pausaReinicio;
   const horasJornada = jornadaAbierta ? ultima.horas : 0;
   const alcanzoMaximo = !!ultima && ultima.horas >= REGLAS.maxConduccion && pausaActual < REGLAS.descansoEfectivo;
+  const horasSinPausa = (jornadaAbierta && pausaActual < REGLAS.pausaCorta) ? tramo : 0;
+  const pausaCortaPendiente = horasSinPausa >= REGLAS.conduccionSinPausa;
 
   const r = { horasJornada, horasUltimaJornada: ultima ? ultima.horas : 0, pausaActual, ultimoDescanso, descansoVigente, jornadaAbierta,
-              restante: Math.max(0, REGLAS.maxConduccion - horasJornada), estado: 'permitido', motivo: '', esperaHoras: 0, advertencia: '' };
+              restante: Math.max(0, REGLAS.maxConduccion - horasJornada), estado: 'permitido', motivo: '', esperaHoras: 0, advertencia: '',
+              horasSinPausa, pausaCortaPendiente, pausaCortaFalta: pausaCortaPendiente ? Math.max(0, REGLAS.pausaCorta - (isFinite(pausaActual) ? pausaActual : 0)) : 0 };
 
   if (alcanzoMaximo) {
     r.estado = 'bloqueado';
@@ -546,8 +589,16 @@ function analizarActividad(segmentos, ahora = new Date(), desde = null) {
     r.codigo = 'SIN_DESCANSO_24H';
     r.motivo = 'No registra un descanso efectivo de ' + REGLAS.descansoEfectivo + ' h dentro de las últimas ' + REGLAS.ventanaDescanso + ' h. Debe completar su descanso antes de evaluarse.';
     r.esperaHoras = Math.max(0, REGLAS.descansoEfectivo - (isFinite(pausaActual) ? pausaActual : 0));
-  } else if (r.restante <= REGLAS.avisoRestante) {
-    r.advertencia = 'Le queda' + (r.restante === 1 ? '' : 'n') + ' ' + fmtH(r.restante) + ' de conducción antes del descanso obligatorio. Planee su parada.';
+  } else if (pausaCortaPendiente && REGLAS.pausaCortaBloquea) {
+    r.estado = 'bloqueado';
+    r.codigo = 'PAUSA_CORTA';
+    r.motivo = 'Lleva ' + fmtH(horasSinPausa) + ' de manejo sin una pausa de ' + Math.round(REGLAS.pausaCorta * 60) + ' min. Complete la pausa antes de evaluarse.';
+    r.esperaHoras = r.pausaCortaFalta;
+  } else {
+    const avisos = [];
+    if (pausaCortaPendiente) avisos.push('Lleva ' + fmtH(horasSinPausa) + ' de manejo seguidas. Tome una pausa de ' + Math.round(REGLAS.pausaCorta * 60) + ' min antes de salir; le faltan ' + fmtH(r.pausaCortaFalta) + '.');
+    if (r.restante <= REGLAS.avisoRestante) avisos.push('Le queda' + (r.restante === 1 ? '' : 'n') + ' ' + fmtH(r.restante) + ' de conducción antes del descanso obligatorio. Planee su parada.');
+    r.advertencia = avisos.join(' ');
   }
   return r;
 }
@@ -568,8 +619,10 @@ const fmtFechaHora = d => fmtFecha(d) + ' ' + fmtHora(d);
    ===================================================================== */
 const SI = 'si', NO = 'no';
 const SECCIONES = [
-  { id: 'datos', nombre: 'Datos', titulo: 'Operador y unidad', ojal: 'Paso 1 de 5', sub: 'Confirme sus datos. La unidad y la hora vienen del GPS.' },
-  { id: 'fisico', nombre: 'Físico', titulo: 'Estado físico', ojal: 'Paso 2 de 5', sub: 'Responda con honestidad. Esta evaluación protege su vida y la de otros en el camino.',
+  { id: 'compromiso', nombre: 'Compromiso', titulo: 'Antes de iniciar, lea y acepte', senal: 'restrictivo', icono: 'manos', sub: 'Esta autoevaluación solo sirve si se contesta con la verdad. Lea el compromiso con calma: aceptarlo es parte del procedimiento.' },
+  { id: 'identificacion', nombre: 'Identidad', titulo: 'Foto y ubicación', senal: 'azul', icono: 'camara', sub: 'Una foto de quien contesta y el lugar donde se aplica la evaluación.' },
+  { id: 'datos', nombre: 'Datos', titulo: 'Operador y unidad', senal: 'verde', icono: 'ruta', sub: 'Confirme sus datos. La unidad y la hora vienen del GPS.' },
+  { id: 'fisico', nombre: 'Físico', titulo: 'Estado físico', senal: 'diamante', icono: 'cama', sub: 'Responda con honestidad. Esta evaluación protege su vida y la de otros en el camino.',
     preguntas: [
       { id: 'sueno', tipo: 'opciones', texto: '¿Cuántas horas durmió antes de este viaje?',
         opciones: [{ v: '<5', l: 'Menos de 5' }, { v: '5-6', l: '5 a 6' }, { v: '6-7', l: '6 a 7' }, { v: '7+', l: '7 o más' }],
@@ -583,7 +636,7 @@ const SECCIONES = [
       { id: 'alcohol', tipo: 'sino', texto: '¿Consumió alcohol en las últimas 12 horas?',
         riesgo: v => v === SI ? { critico: true, t: 'Consumo de alcohol en las últimas 12 h' } : null }
     ] },
-  { id: 'emocional', nombre: 'Ánimo', titulo: 'Estado emocional', ojal: 'Paso 3 de 5', sub: 'Lo que trae en la cabeza también viaja con usted.',
+  { id: 'emocional', nombre: 'Ánimo', titulo: 'Estado emocional', senal: 'diamante', icono: 'corazon', sub: 'Lo que trae en la cabeza también viaja con usted.',
     preguntas: [
       { id: 'animo', tipo: 'escala', texto: '¿Cómo está su ánimo hoy?', min: 'Muy bajo', max: 'Muy bien',
         riesgo: v => v <= 2 ? { p: 2, t: 'Ánimo bajo (' + v + ' de 5)' } : null },
@@ -594,7 +647,7 @@ const SECCIONES = [
       { id: 'evento', tipo: 'sino', texto: '¿Tuvo hoy una discusión fuerte, una mala noticia o un problema que lo distraiga?',
         riesgo: v => v === SI ? { p: 2, t: 'Evento personal que puede distraerlo' } : null }
     ] },
-  { id: 'unidad', nombre: 'Unidad', titulo: 'Revisión de la unidad', ojal: 'Paso 4 de 5', sub: 'Dé la vuelta completa al tractocamión y al remolque antes de responder.',
+  { id: 'unidad', nombre: 'Unidad', titulo: 'Revisión de la unidad', senal: 'azul', icono: 'llave', sub: 'Dé la vuelta completa al tractocamión y al remolque antes de responder.',
     preguntas: [
       { id: 'llantas', tipo: 'sino', texto: '¿Llantas en buen estado y con presión correcta?', ayuda: 'Tractor y remolque. Sin cortes, sin alambre expuesto, birlos completos.',
         riesgo: v => v === NO ? { critico: true, t: 'Llantas en mal estado o sin presión' } : null },
@@ -609,7 +662,7 @@ const SECCIONES = [
       { id: 'emergencia', tipo: 'sino', texto: '¿Extintor cargado, triángulos y chaleco a bordo?',
         riesgo: v => v === NO ? { p: 1, t: 'Falta equipo de emergencia' } : null }
     ] },
-  { id: 'confirmacion', nombre: 'Firma', titulo: 'Confirmación', ojal: 'Paso 5 de 5', sub: 'Revise y firme. El dictamen se calcula al enviar.' }
+  { id: 'confirmacion', nombre: 'Firma', titulo: 'Confirmación', senal: 'verde', icono: 'bandera', sub: 'Revise y firme. El dictamen se calcula al enviar.' }
 ];
 const TOTAL_PREGUNTAS = SECCIONES.reduce((n, s) => n + (s.preguntas ? s.preguntas.length : 0), 0);
 
@@ -617,12 +670,13 @@ const TOTAL_PREGUNTAS = SECCIONES.reduce((n, s) => n + (s.preguntas ? s.pregunta
    ESTADO
    ===================================================================== */
 const estado = {
-  paso: -1,                      // -1 barrera GPS, 0..4 secciones, 5 resultado
+  paso: -1,                      // -1 inicio/GPS, 0..N-1 secciones, N = resultado
   gps: null,                     // { unidad, ubicacion, segmentos, desde, analisis, origen:'gps'|'manual', consultadoEn }
   posicion: null,                // geolocalización del teléfono (opcional)
   datos: { nombre: '', economico: '', fecha: '', ruta: '' },
   respuestas: {},
   firma: false, firmaTexto: '', acepta: false,
+  compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente',
   mostrarErrores: false,
   resultado: null
 };
@@ -661,10 +715,27 @@ const ICONO = {
   info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'),
   cargando: svg('<path d="M21 12a9 9 0 1 1-6.2-8.6"/>'),
   usuario: svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+  camara: svg('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+  pin: svg('<path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>'),
+  manos: svg('<path d="M3 11l4-4 4 3 3-3 4 4-2 2"/><path d="M3 11l5 5c1 1 2.5 1 3.5 0l5-5"/><path d="M14 7l4-1 3 4-3 3"/>'),
+  ruta: svg('<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/>'),
+  cama: svg('<path d="M3 18V8M3 14h18v4M21 14v-3a2 2 0 0 0-2-2h-9v5"/><circle cx="7" cy="10.5" r="1.5"/><path d="M15 3h4l-4 4h4"/>'),
+  llave: svg('<path d="M14 4a5 5 0 0 0-4.6 7l-6 6 3 3 6-6A5 5 0 0 0 20 8l-3 3-3-3 3-3a5 5 0 0 0-3-1z"/>'),
+  bandera: svg('<path d="M5 22V3"/><path d="M5 4h12l-2 4 2 4H5"/>'),
   camion: svg('<path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
   wa: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.2z"/></svg>',
   copiar: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>')
 };
+function senalSVG(tipo, icono) {
+  const ico = ICONO[icono] || ICONO.info;
+  const inner = ico.replace(/<svg[^>]*>/, '').replace('</svg>', '');
+  let fondo = '', color = '#0B1B3F', sw = 2;
+  if (tipo === 'diamante') fondo = '<rect x="12" y="12" width="40" height="40" rx="6" transform="rotate(45 32 32)" fill="#FFC72C" stroke="#0B1B3F" stroke-width="3"/>';
+  else if (tipo === 'azul') { fondo = '<rect x="4" y="4" width="56" height="56" rx="8" fill="#1E4DB7" stroke="#FFFFFF" stroke-width="3"/>'; color = '#FFFFFF'; }
+  else if (tipo === 'verde') { fondo = '<rect x="4" y="8" width="56" height="48" rx="6" fill="#0A6B43" stroke="#FFFFFF" stroke-width="3"/>'; color = '#FFFFFF'; }
+  else { fondo = '<circle cx="32" cy="32" r="27" fill="#FFFFFF" stroke="#B9131F" stroke-width="6"/>'; color = '#B9131F'; sw = 2.2; }
+  return '<svg class="senal-svg" viewBox="0 0 64 64" aria-hidden="true">' + fondo + '<g transform="translate(20 20)" fill="none" stroke="' + color + '" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">' + inner + '</g></svg>';
+}
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const errorLinea = (id, texto) => '<div class="error-linea" id="' + id + '" role="alert">' + ICONO.alerta + '<span>' + esc(texto) + '</span></div>';
 
@@ -675,7 +746,7 @@ function render() {
   clearInterval(temporizador);
   const pie = $('#pie'), prog = $('#progreso');
   if (estado.paso === -1) { pie.hidden = true; prog.hidden = true; renderBarrera(); }
-  else if (estado.paso === 5) { pie.hidden = true; prog.hidden = true; renderResultado(); }
+  else if (estado.paso === SECCIONES.length) { pie.hidden = true; prog.hidden = true; renderResultado(); }
   else { pie.hidden = false; prog.hidden = false; renderProgreso(); renderSeccion(); }
   window.scrollTo({ top: 0 });
 }
@@ -894,18 +965,85 @@ function pintarVeredictoGps() {
 /* ---------- Secciones ---------- */
 function renderSeccion() {
   const s = SECCIONES[estado.paso];
-  let html = '<section class="etapa pila-24"><div><h1 class="titulo">' + esc(s.titulo) + '</h1><p class="subtitulo">' + esc(s.sub) + '</p></div>' +
+  const poste = '<span class="poste" aria-hidden="true"><b>KM</b><i>' + (estado.paso + 1) + '</i></span>';
+  let html = '<section class="etapa pila-24"><div class="seccion-cab">' + senalSVG(s.senal, s.icono) +
+    '<div class="seccion-txt"><div class="ojal">' + poste + 'Tramo ' + (estado.paso + 1) + ' de ' + SECCIONES.length + (s.preguntas ? ' · ' + s.preguntas.length + ' preguntas' : '') + '</div><h1 class="titulo">' + esc(s.titulo) + '</h1></div></div>' +
+    '<p class="subtitulo">' + esc(s.sub) + '</p>' +
     '<div id="resumenErrores"></div>';
-  if (s.id === 'datos') html += renderDatos();
+  if (s.id === 'compromiso') html += renderCompromiso();
+  else if (s.id === 'identificacion') html += renderIdentificacion();
+  else if (s.id === 'datos') html += renderDatos();
   else if (s.id === 'confirmacion') html += renderConfirmacion();
   else html += '<div class="tarjeta">' + s.preguntas.map(renderPregunta).join('') + '</div>';
   html += '</section>';
   vista.innerHTML = html;
-  if (s.id === 'datos') enlazarDatos();
+  if (s.id === 'compromiso') enlazarCompromiso();
+  else if (s.id === 'identificacion') enlazarIdentificacion();
+  else if (s.id === 'datos') enlazarDatos();
   else if (s.id === 'confirmacion') enlazarConfirmacion();
   else enlazarPreguntas(s);
   actualizarPie();
   if (estado.mostrarErrores) mostrarErrores(false);
+}
+
+function renderCompromiso() {
+  const n = estado.datos.nombre || 'el operador';
+  return '<div class="pila">' +
+    '<div class="compromiso"><div class="ojal">Compromiso del operador</div>' +
+    '<p>Yo, <b>' + esc(n) + '</b>, manifiesto que contesto esta autoevaluación <b>por mí mismo y con la verdad</b>, y reconozco que de mis respuestas depende que se detecte a tiempo una condición que ponga en riesgo mi vida, la de terceros y la carga que transporto.</p>' +
+    '<p>Me comprometo a conducir conforme a los <b>hábitos de conducción, límites de velocidad, paradas autorizadas y descansos efectivos</b> establecidos en la NOM-087-SCT-2-2017 y en la política de descanso de ILG; a <b>no detenerme sobre la carretera ni en el acotamiento</b>, y a permanecer únicamente en paradores y pensiones autorizados.</p>' +
+    '<p>Asimismo, asumo la responsabilidad de <b>reportar oportunamente a Cabina de Seguridad</b> cualquier condición que comprometa la seguridad (fatiga, enfermedad, falla mecánica o situación de riesgo en el camino) antes de continuar, y de <b>iniciar mi descanso en el lugar y la fecha acordados</b>, sin extender la jornada por mi cuenta.</p>' +
+    '<p>Entiendo que <b>reportar una condición desfavorable no se sanciona</b>: lo que sí constituye una falta es ocultarla.</p>' +
+    '<label class="casilla" id="casillaCompromiso"><input type="checkbox" id="chkCompromiso"' + (estado.compromiso ? ' checked' : '') + '><span><b>Leí y acepto el compromiso.</b> Contestaré con la verdad.</span></label><div id="chkCompromisoErr"></div>' +
+    '</div></div>';
+}
+function enlazarCompromiso() {
+  $('#chkCompromiso').addEventListener('change', e => { estado.compromiso = e.target.checked; $('#casillaCompromiso').classList.remove('error'); $('#chkCompromisoErr').innerHTML = ''; actualizarPie(); if (estado.mostrarErrores) mostrarErrores(false); });
+}
+
+function renderIdentificacion() {
+  const u = estado.ubicacion;
+  return '<div class="fila-2">' +
+    '<div class="tarjeta pila" id="fotoBox"><div class="tarjeta-titulo"><span class="ico">' + ICONO.camara + '</span><div>Foto del operador<div class="ayuda">Para identificación visual. Mire a la cámara.</div></div></div>' +
+      '<div class="foto-marco" id="fotoMarco">' + (estado.foto ? '<img src="' + estado.foto + '" alt="Foto del operador">' : '<div class="foto-vacia">' + ICONO.usuario + '<span>Sin foto</span></div>') + '</div>' +
+      '<input type="file" id="fotoInput" accept="image/*" capture="user" class="sr" aria-label="Tomar foto del operador">' +
+      '<button class="btn secundario" id="btnFoto" type="button">' + ICONO.camara + ' ' + (estado.foto ? 'Repetir foto' : 'Tomar foto') + '</button>' +
+      '<div class="estado-permiso" id="fotoEstado">' + (estado.foto ? ICONO.checkCirculo + ' Foto capturada' : 'Obligatoria para continuar') + '</div><div id="fotoErr"></div></div>' +
+    '<div class="tarjeta pila" id="ubiBox"><div class="tarjeta-titulo"><span class="ico">' + ICONO.pin + '</span><div>Ubicación<div class="ayuda">Registra el lugar donde se aplica la evaluación.</div></div></div>' +
+      '<div class="foto-marco ubi" id="ubiMarco">' + (u ? '<div class="ubi-dato"><b>' + u.lat.toFixed(5) + ', ' + u.lon.toFixed(5) + '</b><span>± ' + Math.round(u.precision) + ' m · ' + fmtHora(u.hora) + '</span><a href="https://www.google.com/maps?q=' + u.lat + ',' + u.lon + '" target="_blank" rel="noopener">Ver en el mapa</a></div>' : '<div class="foto-vacia">' + ICONO.pin + '<span>' + (estado.gps ? esc(estado.gps.ubicacion) : 'Sin ubicación') + '</span></div>') + '</div>' +
+      '<button class="btn secundario" id="btnUbi" type="button">' + ICONO.pin + ' ' + (u ? 'Actualizar ubicación' : 'Compartir ubicación') + '</button>' +
+      '<div class="estado-permiso" id="ubiEstado">' + (u ? ICONO.checkCirculo + ' Ubicación registrada' : estado.ubicacionEstado === 'denegada' ? ICONO.alerta + ' Sin permiso. Se usará la posición del GPS de la unidad.' : 'Recomendada. Si no hay permiso, se usa el GPS de la unidad.') + '</div></div>' +
+    '</div>';
+}
+function enlazarIdentificacion() {
+  const inp = $('#fotoInput');
+  $('#btnFoto').addEventListener('click', () => inp.click());
+  inp.addEventListener('change', () => {
+    const f = inp.files && inp.files[0]; if (!f) return;
+    const img = new Image(); const url = URL.createObjectURL(f);
+    img.onload = () => {
+      const lado = 480, esc_ = Math.min(1, lado / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * esc_); c.height = Math.round(img.height * esc_);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      estado.foto = c.toDataURL('image/jpeg', 0.72); URL.revokeObjectURL(url);
+      $('#fotoMarco').innerHTML = '<img src="' + estado.foto + '" alt="Foto del operador">';
+      $('#btnFoto').innerHTML = ICONO.camara + ' Repetir foto';
+      $('#fotoEstado').innerHTML = ICONO.checkCirculo + ' Foto capturada'; $('#fotoBox').classList.remove('error'); $('#fotoErr').innerHTML = '';
+      actualizarPie(); if (estado.mostrarErrores) mostrarErrores(false);
+    };
+    img.onerror = () => { toast('No se pudo leer la imagen. Intente de nuevo.'); URL.revokeObjectURL(url); };
+    img.src = url;
+  });
+  $('#btnUbi').addEventListener('click', () => {
+    const est = $('#ubiEstado');
+    if (!navigator.geolocation) { estado.ubicacionEstado = 'denegada'; est.innerHTML = ICONO.alerta + ' Este dispositivo no ofrece ubicación.'; return; }
+    est.innerHTML = '<span class="spinner" aria-hidden="true" style="width:14px;height:14px;border-width:2px"></span> Obteniendo ubicación…';
+    navigator.geolocation.getCurrentPosition(p => {
+      estado.ubicacion = { lat: p.coords.latitude, lon: p.coords.longitude, precision: p.coords.accuracy || 0, hora: new Date().toISOString() };
+      estado.posicion = { lat: estado.ubicacion.lat, lon: estado.ubicacion.lon }; estado.ubicacionEstado = 'ok';
+      renderSeccion();
+    }, () => { estado.ubicacionEstado = 'denegada'; est.innerHTML = ICONO.alerta + ' Sin permiso o sin señal. Se usará la posición del GPS de la unidad.'; }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
+  });
 }
 
 function renderDatos() {
@@ -978,6 +1116,8 @@ function renderConfirmacion() {
       '<div><div class="k">Fecha</div><div class="v">' + esc(fmtFechaHora(d.fecha)) + '</div></div>' +
       '<div><div class="k">Conducción jornada</div><div class="v">' + esc(fmtH(g.analisis.horasJornada)) + '</div></div>' +
       '<div><div class="k">Respuestas</div><div class="v">' + contestadas + ' de ' + TOTAL_PREGUNTAS + '</div></div>' +
+      '<div><div class="k">Ubicación</div><div class="v">' + (estado.ubicacion ? estado.ubicacion.lat.toFixed(4) + ', ' + estado.ubicacion.lon.toFixed(4) : 'GPS de la unidad') + '</div></div>' +
+      '<div><div class="k">Foto</div><div class="v">' + (estado.foto ? '<img class="foto-mini" src="' + estado.foto + '" alt="Foto del operador">' : '—') + '</div></div>' +
     '</div></div>' +
     '<div><label class="casilla" id="casillaAcepta"><input type="checkbox" id="chkAcepta"' + (estado.acepta ? ' checked' : '') + '><span>Declaro que mis respuestas son verdaderas, que revisé físicamente la unidad y que me comprometo a reportar a Cabina de Seguridad cualquier cambio en mi estado o en la unidad durante la ruta.</span></label><div id="chkAceptaErr"></div></div>' +
     '<div class="pila" style="gap:8px"><div class="ojal" id="firmaTitulo">Firma del operador</div>' +
@@ -1010,7 +1150,11 @@ function enlazarConfirmacion() {
 /* ---------- Validación, errores y navegación ---------- */
 function faltantes() {
   const s = SECCIONES[estado.paso], f = [];
-  if (s.id === 'datos') {
+  if (s.id === 'compromiso') {
+    if (!estado.compromiso) f.push({ id: 'chkCompromiso', texto: 'Marque que leyó y acepta el compromiso.', tipo: 'compromiso' });
+  } else if (s.id === 'identificacion') {
+    if (!estado.foto) f.push({ id: 'btnFoto', texto: 'Tome la foto del operador.', tipo: 'foto' });
+  } else if (s.id === 'datos') {
     for (const id of Object.keys(VALIDA_DATOS)) if (!VALIDA_DATOS[id].ok(estado.datos[VALIDA_DATOS[id].campo])) f.push({ id, texto: VALIDA_DATOS[id].msg, tipo: 'campo' });
   } else if (s.id === 'confirmacion') {
     if (!estado.acepta) f.push({ id: 'chkAcepta', texto: 'Marque la declaración de veracidad.', tipo: 'casilla' });
@@ -1032,6 +1176,8 @@ function mostrarErrores(enfocar) {
     else if (x.tipo === 'campo') validarCampo(x.id, true);
     else if (x.tipo === 'casilla') { $('#casillaAcepta').classList.add('error'); $('#chkAceptaErr').innerHTML = errorLinea('chkAceptaErrTxt', x.texto); }
     else if (x.tipo === 'firma') { $('#firmaBox').classList.add('error'); $('#firmaErr').innerHTML = errorLinea('firmaErrTxt', x.texto); }
+    else if (x.tipo === 'compromiso') { $('#casillaCompromiso').classList.add('error'); $('#chkCompromisoErr').innerHTML = errorLinea('chkCompromisoErrTxt', x.texto); }
+    else if (x.tipo === 'foto') { $('#fotoBox').classList.add('error'); $('#fotoErr').innerHTML = errorLinea('fotoErrTxt', x.texto); }
   }
   caja.querySelectorAll('a[data-ir]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault(); const el = $('#' + a.dataset.ir);
@@ -1048,7 +1194,7 @@ function actualizarPie() {
   $('#btnAtras').textContent = estado.paso === 0 ? 'Horas' : 'Atrás';
   const pe = $('#pieEstado');
   pe.classList.toggle('ok', n === 0);
-  pe.innerHTML = n > 0 ? 'Falta' + (n === 1 ? '' : 'n') + ' ' + n + ' ' + (SECCIONES[estado.paso].preguntas ? 'respuesta' : 'dato') + (n === 1 ? '' : 's')
+  pe.innerHTML = n > 0 ? 'Falta' + (n === 1 ? '' : 'n') + ' ' + n + ' ' + (SECCIONES[estado.paso].preguntas ? 'respuesta' : 'paso') + (n === 1 ? '' : 's')
                        : ICONO.checkCirculo + ' Todo listo';
 }
 $('#btnSiguiente').addEventListener('click', async () => {
@@ -1058,7 +1204,7 @@ $('#btnSiguiente').addEventListener('click', async () => {
     const btn = $('#btnSiguiente'); btn.setAttribute('aria-busy', 'true'); btn.disabled = true;
     btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Calculando dictamen…';
     await esperar(700);
-    calcularResultado(); estado.paso = 5;
+    calcularResultado(); estado.paso = SECCIONES.length;
     btn.removeAttribute('aria-busy'); btn.disabled = false;
     vibrar(estado.resultado.apto ? 30 : [40, 60, 40]);
   } else estado.paso++;
@@ -1097,6 +1243,7 @@ function textoResumen() {
   return 'PRE-VIAJE · ' + (r.apto ? 'APTO' : 'NO APTO') + (r.pendienteValidacion ? ' (pendiente validación GPS)' : '') + '\n' +
     'Folio: ' + r.folio + '\nOperador: ' + d.nombre + '\nUnidad: ' + d.economico + '\nRuta: ' + d.ruta + '\nFecha: ' + fmtFechaHora(d.fecha) + '\n' +
     'Conducción jornada: ' + fmtH(g.horasJornada) + ' · Disponible: ' + fmtH(g.restante) + '\n' +
+    'Ubicación: ' + (estado.ubicacion ? estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) + ' (teléfono)' : estado.gps.ubicacion + ' (GPS unidad)') + '\nCompromiso aceptado: sí · Foto: ' + (estado.foto ? 'sí' : 'no') + '\n' +
     (r.factores.length ? 'Factores:\n' + r.factores.map(x => '- [' + (x.sev === 'critico' ? 'CRÍTICO' : 'RIESGO') + '] ' + x.t).join('\n') : 'Sin factores de riesgo.');
 }
 
@@ -1107,6 +1254,7 @@ function renderResultado() {
     '<p>' + (r.apto ? 'Puede iniciar el viaje. Buen camino, ' + esc(d.nombre.split(' ')[0]) + '.' : 'No salga. Repórtese con Cabina de Seguridad.') + '</p>' +
     '<div class="folio">Folio ' + esc(r.folio) + '</div></div>';
   if (r.pendienteValidacion) html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Pendiente de validación</b>Las horas de conducción se declararon sin GPS. Cabina debe validar antes de autorizar la salida.</div></div>';
+  html += '<div class="tarjeta identidad">' + (estado.foto ? '<img class="foto-mini grande" src="' + estado.foto + '" alt="Foto del operador">' : '<div class="foto-mini grande vacia">' + ICONO.usuario + '</div>') + '<div class="identidad-txt"><b>' + esc(d.nombre) + '</b><span>Unidad ' + esc(d.economico) + ' · ' + esc(d.ruta) + '</span><span>' + esc(fmtFechaHora(d.fecha)) + '</span><span>' + (estado.ubicacion ? ICONO.pin + ' ' + estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) : ICONO.gps + ' ' + esc(estado.gps.ubicacion)) + '</span><span>' + ICONO.checkCirculo + ' Compromiso aceptado</span></div></div>';
 
   html += '<div class="tarjeta"><div class="ojal">' + (r.factores.length ? 'Factores detectados' : 'Sin factores de riesgo') + '</div>';
   if (r.factores.length) {
@@ -1130,7 +1278,7 @@ function renderResultado() {
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
   $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
+    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
     render();
   });
 }
