@@ -362,9 +362,9 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .inicio-hero { background: radial-gradient(120% 140% at 50% -20%, var(--brand-bright) 0%, var(--brand) 45%, var(--brand-deep) 100%); color: #FFFFFF; border-radius: 14px; padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
 .inicio-hero::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 10px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 18px, transparent 18px 30px); opacity: .8; }
 .inicio-hero .ojal { color: rgba(255,255,255,.75); }
-.inicio-hero.compacta h1 { font-size: 26px; }
+.inicio-hero.compacta h1 { font-size: 22px; }
 .inicio-hero.compacta .chips { display: none; }
-.inicio-hero h1 { font-family: var(--f-impact); font-weight: 800; font-size: 40px; text-transform: uppercase; line-height: .95; letter-spacing: .02em; }
+.inicio-hero h1 { font-family: var(--f-impact); font-weight: 800; font-size: 32px; text-transform: uppercase; line-height: .95; letter-spacing: .02em; }
 .inicio-hero h1 em { font-style: normal; color: var(--accent); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 8px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
@@ -401,6 +401,7 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .hos-leyenda span { display: inline-flex; align-items: center; gap: 6px; }
 .hos-leyenda i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
+.nota-mtto { margin-top: 10px; }
 /* Pruebas de visión y reacción */
 .rondas { display: flex; justify-content: center; gap: 8px; }
 .rondas span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: var(--card-2); color: var(--fg-2); border: 1px solid var(--border-2); }
@@ -565,6 +566,7 @@ const GPS_PROVIDER = {
   }
 };
 const esperar = ms => new Promise(r => setTimeout(r, ms));
+const WHATSAPP_CABINA = '524441492690'; // Cabina de Seguridad (+52 444 149 2690)
 
 /* =====================================================================
    ANÁLISIS DE HORAS DE CONDUCCIÓN
@@ -678,18 +680,18 @@ const SECCIONES = [
   { id: 'reaccion', nombre: 'Reacción', titulo: 'Toque en cuanto aparezca', senal: 'diamante', icono: 'rayo', sub: 'La pantalla se queda en negro. En cualquier momento aparece un cronómetro corriendo: toque lo más rápido que pueda. Son 5 intentos y dura menos de minuto y medio.' },
   { id: 'unidad', nombre: 'Unidad', titulo: 'Revisión de la unidad', senal: 'azul', icono: 'llave', sub: 'Dé la vuelta completa al tractocamión y al remolque antes de responder.',
     preguntas: [
-      { id: 'llantas', tipo: 'sino', texto: '¿Llantas en buen estado y con presión correcta?', ayuda: 'Tractor y remolque. Sin cortes, sin alambre expuesto, birlos completos.',
+      { id: 'llantas', tipo: 'sino', mtto: 'Llantas en mal estado o sin presión', texto: '¿Llantas en buen estado y con presión correcta?', ayuda: 'Tractor y remolque. Sin cortes, sin alambre expuesto, birlos completos.',
         riesgo: v => v === NO ? { critico: true, t: 'Llantas en mal estado o sin presión' } : null },
-      { id: 'frenos', tipo: 'sino', texto: '¿Frenos de servicio y de estacionamiento funcionando, sin fugas de aire?',
+      { id: 'frenos', tipo: 'sino', mtto: 'Falla en frenos o fuga de aire', texto: '¿Frenos de servicio y de estacionamiento funcionando, sin fugas de aire?',
         riesgo: v => v === NO ? { critico: true, t: 'Falla en frenos o fuga de aire' } : null },
-      { id: 'luces', tipo: 'sino', texto: '¿Luces, direccionales, stop y reflejantes funcionando?',
+      { id: 'luces', tipo: 'sino', mtto: 'Falla en luces o reflejantes', texto: '¿Luces, direccionales, stop y reflejantes funcionando?',
         riesgo: v => v === NO ? { critico: true, t: 'Falla en luces o reflejantes' } : null },
-      { id: 'acoplamiento', tipo: 'sino', texto: '¿Quinta rueda asegurada y mangueras de aire y luces conectadas?',
+      { id: 'acoplamiento', tipo: 'sino', mtto: 'Acoplamiento inseguro', texto: '¿Quinta rueda asegurada y mangueras de aire y luces conectadas?',
         riesgo: v => v === NO ? { critico: true, t: 'Acoplamiento inseguro' } : null },
       { id: 'documentos', tipo: 'sino', texto: '¿Trae licencia federal vigente, tarjeta de circulación, póliza y carta porte?',
         riesgo: v => v === NO ? { critico: true, t: 'Documentación incompleta' } : null },
-      { id: 'emergencia', tipo: 'sino', texto: '¿Extintor cargado, triángulos y chaleco a bordo?',
-        riesgo: v => v === NO ? { p: 1, t: 'Falta equipo de emergencia' } : null }
+      { id: 'emergencia', tipo: 'sino', texto: '¿Extintor cargado, triángulos y chaleco a bordo?', mtto: 'Equipo de emergencia incompleto', soloMtto: true,
+        riesgo: () => null }
     ] },
   { id: 'confirmacion', nombre: 'Firma', titulo: 'Confirmación', senal: 'verde', icono: 'bandera', sub: 'Revise y firme. El dictamen se calcula al enviar.' }
 ];
@@ -799,7 +801,7 @@ const fmtHMS = seg => { seg = Math.max(0, Math.floor(seg)); return String(Math.f
 function renderBarrera() {
   const g = estado.gps, d = estado.datos;
   let html = '<section class="etapa pila-24">' +
-    '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta 57</div><h1>Maneje con cabeza,<br><em>llegue con bien.</em></h1>' +
+    '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta 57</div><h1>Tu familia te espera en casa.<br><em>Revisemos cómo estás antes de salir de viaje.</em></h1>' +
       '<div class="chips"><span class="chip">' + ICONO.gps + ' GPS</span><span class="chip">' + ICONO.reloj + ' Descanso</span><span class="chip">' + ICONO.checkCirculo + ' Estado</span><span class="chip">' + ICONO.camion + ' Unidad</span></div></div>';
 
   if (!g) {
@@ -1286,7 +1288,11 @@ function renderPregunta(q) {
   } else {
     cuerpo = '<div class="opciones" role="group" aria-labelledby="pt-' + q.id + '">' + q.opciones.map(o => btn(o.v, esc(o.l))).join('') + '</div>';
   }
-  return '<div class="pregunta" id="p-' + q.id + '"><div class="pregunta-texto" id="pt-' + q.id + '">' + esc(q.texto) + (q.ayuda ? '<small>' + esc(q.ayuda) + '</small>' : '') + '</div>' + cuerpo + '<div id="p-' + q.id + '-err"></div></div>';
+  return '<div class="pregunta" id="p-' + q.id + '"><div class="pregunta-texto" id="pt-' + q.id + '">' + esc(q.texto) + (q.ayuda ? '<small>' + esc(q.ayuda) + '</small>' : '') + '</div>' + cuerpo + '<div id="p-' + q.id + '-nota">' + notaMtto(q, v) + '</div><div id="p-' + q.id + '-err"></div></div>';
+}
+function notaMtto(q, v) {
+  if (!q.mtto || v !== NO) return '';
+  return '<div class="aviso ' + (q.soloMtto ? 'info' : 'warn') + ' nota-mtto">' + ICONO.info + '<div><b>Se envía folio a Mantenimiento</b>' + (q.soloMtto ? 'Para dotar el equipo. No impide la salida.' : 'La unidad no sale hasta que se atienda.') + '</div></div>';
 }
 function enlazarPreguntas(s) {
   vista.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => {
@@ -1294,6 +1300,7 @@ function enlazarPreguntas(s) {
     estado.respuestas[q.id] = q.tipo === 'escala' ? Number(b.dataset.v) : b.dataset.v;
     b.parentElement.querySelectorAll('.opcion').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     $('#p-' + q.id).classList.remove('error'); $('#p-' + q.id + '-err').innerHTML = '';
+    $('#p-' + q.id + '-nota').innerHTML = notaMtto(q, estado.respuestas[q.id]);
     actualizarPie();
     if (estado.mostrarErrores) mostrarErrores(false);
   }));
@@ -1440,7 +1447,16 @@ function calcularResultado() {
   const apto = criticos === 0 && puntos < REGLAS.puntosNoApto;
   const f = new Date(estado.datos.fecha);
   const folio = 'PV-' + f.getFullYear() + String(f.getMonth() + 1).padStart(2, '0') + String(f.getDate()).padStart(2, '0') + '-' + String(f.getHours()).padStart(2, '0') + String(f.getMinutes()).padStart(2, '0') + '-' + estado.datos.economico.replace(/[^A-Z0-9]/g, '');
-  estado.resultado = { apto, factores, puntos, criticos, folio, pendienteValidacion: estado.gps.origen === 'manual' };
+  const mtto = SECCIONES.find(x => x.id === 'unidad').preguntas.filter(q => q.mtto && estado.respuestas[q.id] === NO).map(q => ({ id: q.id, t: q.mtto, bloquea: !q.soloMtto }));
+  const folioMtto = mtto.length ? 'MTTO-' + f.getFullYear() + String(f.getMonth() + 1).padStart(2, '0') + String(f.getDate()).padStart(2, '0') + '-' + String(f.getHours()).padStart(2, '0') + String(f.getMinutes()).padStart(2, '0') + '-' + estado.datos.economico.replace(/[^A-Z0-9]/g, '') : null;
+  let reintentoHoras = 0, reintentoMotivo = '';
+  if (!apto) {
+    const sueno = estado.respuestas.sueno, cans = estado.respuestas.cansancio;
+    if (sueno === '<5') { reintentoHoras = 3; reintentoMotivo = 'Durmió menos de 5 h'; }
+    else if (sueno === '5-6') { reintentoHoras = 2; reintentoMotivo = 'Durmió entre 5 y 6 h'; }
+    if (cans >= 4 && reintentoHoras < 2) { reintentoHoras = 2; reintentoMotivo = 'Cansancio alto'; }
+  }
+  estado.resultado = { apto, factores, puntos, criticos, folio, pendienteValidacion: estado.gps.origen === 'manual', mtto, folioMtto, reintentoHoras, reintentoMotivo };
   try {
     const h = JSON.parse(localStorage.getItem('previaje.historial') || '[]');
     h.unshift({ folio, fecha: estado.datos.fecha, nombre: estado.datos.nombre, economico: estado.datos.economico, ruta: estado.datos.ruta, apto, puntos, criticos });
@@ -1455,6 +1471,8 @@ function textoResumen() {
     'Conducción jornada: ' + fmtH(g.horasJornada) + ' · Disponible: ' + fmtH(g.restante) + '\n' +
     'Visión: ' + (estado.vision ? estado.vision.correctos + '/3' : '—') + ' · Reacción: ' + (estado.reaccion ? estado.reaccion.aTiempo + '/5 a tiempo, promedio ' + estado.reaccion.promedio + ' ms, ' + estado.reaccion.anticipados + ' anticipados' : '—') + '\n' +
     'Ubicación: ' + (estado.ubicacion ? estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) + ' (teléfono)' : estado.gps.ubicacion + ' (GPS unidad)') + '\nCompromiso aceptado: sí · Foto: ' + (estado.foto ? 'sí' : 'no') + '\n' +
+    (r.reintentoHoras ? 'REPETIR EVALUACIÓN EN ' + r.reintentoHoras + ' h (' + r.reintentoMotivo + ')\n' : '') +
+    (r.mtto.length ? 'FOLIO MANTENIMIENTO ' + r.folioMtto + ':\n' + r.mtto.map(x => '- ' + x.t + (x.bloquea ? ' (no sale)' : ' (atender)')).join('\n') + '\n' : '') +
     (r.factores.length ? 'Factores:\n' + r.factores.map(x => '- [' + (x.sev === 'critico' ? 'CRÍTICO' : 'RIESGO') + '] ' + x.t).join('\n') : 'Sin factores de riesgo.');
 }
 
@@ -1474,10 +1492,19 @@ function renderResultado() {
   } else html += '<p class="texto-2" style="margin-top:4px">Descanso en regla, sin malestares, unidad revisada y documentos completos.</p>';
   html += '</div>';
 
+  if (!r.apto && r.reintentoHoras) {
+    const hasta = new Date(new Date(d.fecha).getTime() + r.reintentoHoras * 3600e3);
+    html += '<div class="estado-card bloqueo"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--danger-text)">' + esc(r.reintentoMotivo) + '</div><h2>' + ICONO.reloj + 'Vuelva a hacer la evaluación en ' + r.reintentoHoras + ' h</h2></div>' +
+      '<div class="cuenta"><div class="k">Descanse y repita la prueba a partir de las</div><div class="reloj">' + fmtHora(hasta) + '</div><div class="h">' + (hasta.getDate() !== new Date(d.fecha).getDate() ? 'de mañana · ' : '') + 'Duerma o repose en un lugar seguro. No salga antes.</div></div></div></div>';
+  }
+  if (r.mtto.length) {
+    html += '<div class="tarjeta pila" style="gap:8px"><div class="tarjeta-titulo"><span class="ico">' + ICONO.llave + '</span><div>Folio de Mantenimiento <b>' + esc(r.folioMtto) + '</b><div class="ayuda">Se envía junto con el dictamen para su atención.</div></div></div>' +
+      '<ul class="factores">' + r.mtto.map(x => '<li><span class="sev ' + (x.bloquea ? 'critico' : 'riesgo') + '">' + (x.bloquea ? ICONO.xOctagono + 'No sale' : ICONO.info + 'Atender') + '</span><span>' + esc(x.t) + '</span></li>').join('') + '</ul></div>';
+  }
   if (!r.apto) html += '<div class="aviso info">' + ICONO.info + '<div><b>¿Qué sigue?</b>Cabina de Seguridad recibe este dictamen. Si el motivo es descanso o salud, se reprograma la salida. Si es la unidad, se levanta reporte a Mantenimiento. Esto no es una sanción: es la decisión correcta.</div></div>';
 
   html += '<div class="acciones">' +
-    '<a class="btn ok" id="btnWa" href="https://wa.me/?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar a Cabina por WhatsApp</a>' +
+    '<a class="btn ok" id="btnWa" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar a Cabina por WhatsApp</a><div class="ayuda" style="text-align:center">Se envía al 444 149 2690 (Cabina de Seguridad)</div>' +
     '<button class="btn fantasma" id="btnCopiar" type="button">' + ICONO.copiar + ' <span id="btnCopiarTxt">Copiar resumen</span></button>' +
     '<button class="btn secundario" id="btnNueva" type="button">Nueva evaluación</button></div>';
   html += renderHistorialCorto();
