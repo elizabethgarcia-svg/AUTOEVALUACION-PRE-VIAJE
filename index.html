@@ -357,6 +357,50 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .etiqueta.apto { background: var(--ok-bg); color: var(--ok-text); }
 .etiqueta.noapto { background: var(--danger-bg); color: var(--danger-text); }
 .aviso-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(112px + env(safe-area-inset-bottom, 0px)); background: var(--primary); color: var(--on-primary); padding: 10px 16px; border-radius: var(--radius); font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+
+/* ---------- Inicio y horas de servicio (HoS) ---------- */
+.inicio-hero { background: radial-gradient(120% 140% at 50% -20%, var(--brand-bright) 0%, var(--brand) 45%, var(--brand-deep) 100%); color: #FFFFFF; border-radius: 14px; padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+.inicio-hero::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 10px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 18px, transparent 18px 30px); opacity: .8; }
+.inicio-hero .ojal { color: rgba(255,255,255,.75); }
+.inicio-hero.compacta h1 { font-size: 26px; }
+.inicio-hero.compacta .chips { display: none; }
+.inicio-hero h1 { font-family: var(--f-impact); font-weight: 800; font-size: 40px; text-transform: uppercase; line-height: .95; letter-spacing: .02em; }
+.inicio-hero h1 em { font-style: normal; color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.chip svg { width: 14px; height: 14px; }
+.operador-resumen { display: flex; align-items: center; gap: 12px; }
+.operador-resumen .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: var(--accent); display: grid; place-items: center; font-family: var(--f-impact); font-weight: 800; font-size: 20px; flex-shrink: 0; }
+.operador-resumen .txt { flex: 1; min-width: 0; line-height: 1.2; }
+.operador-resumen .txt b { display: block; font-size: 17px; overflow-wrap: anywhere; }
+.operador-resumen .txt span { font-size: 14px; color: var(--fg-2); }
+.hos-cab { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hos-cab .ojal { margin: 0; }
+.hos-vivo { font-size: 12px; color: var(--fg-2); display: inline-flex; align-items: center; gap: 6px; }
+.hos-vivo i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok-text); display: inline-block; animation: latido 1.6s infinite; }
+@keyframes latido { 50% { opacity: .25; } }
+.hos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 12px; }
+@media (max-width: 400px) { .hos { grid-template-columns: repeat(5, 1fr); gap: 4px; } }
+.hos-item { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.estado-tile { width: 100%; max-width: 56px; aspect-ratio: 1; height: auto; border-radius: 10px; display: grid; place-items: center; font-family: var(--f-impact); font-weight: 800; font-size: 18px; letter-spacing: .04em; color: #FFFFFF; background: #6B7280; }
+.estado-tile.on { background: var(--brand-bright); }
+.anillo { position: relative; width: 100%; max-width: 56px; aspect-ratio: 1; }
+.anillo svg { width: 100%; height: 100%; transform: rotate(-90deg); display: block; }
+.anillo .pista { fill: none; stroke: var(--border); stroke-width: 6; }
+.anillo .valor { fill: none; stroke: var(--brand-bright); stroke-width: 6; stroke-linecap: round; transition: stroke-dasharray .5s ease-out; }
+.anillo.warn .valor { stroke: var(--accent); }
+.anillo.danger .valor { stroke: var(--danger-fill); }
+.anillo.ok .valor { stroke: var(--ok-fill); }
+.anillo .anillo-ico { position: absolute; inset: 0; display: grid; place-items: center; color: var(--fg-2); }
+.anillo .anillo-ico svg { width: 18px; height: 18px; transform: none; }
+.hos-v { font-family: var(--f-impact); font-weight: 800; font-size: clamp(14px, 4.4vw, 19px); line-height: 1; margin-top: 8px; font-variant-numeric: tabular-nums; max-width: 100%; overflow-wrap: anywhere; }
+.hos-v.cron { font-size: clamp(12px, 3.6vw, 16px); letter-spacing: -.02em; }
+.hos-k { font-size: clamp(9px, 2.7vw, 11px); font-weight: 600; color: var(--fg-2); text-transform: uppercase; letter-spacing: 0; margin-top: 3px; max-width: 100%; }
+.hos-sub { font-size: 10px; color: var(--fg-2); margin-top: 1px; font-variant-numeric: tabular-nums; }
+.hos-leyenda { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 12px; font-size: 13px; color: var(--fg-2); }
+.hos-leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+.hos-leyenda i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -616,6 +660,8 @@ const ICONO = {
   alerta: svg('<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>'),
   info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'),
   cargando: svg('<path d="M21 12a9 9 0 1 1-6.2-8.6"/>'),
+  usuario: svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+  camion: svg('<path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
   wa: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.2z"/></svg>',
   copiar: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>')
 };
@@ -643,35 +689,49 @@ function renderProgreso() {
   $('#progresoNum').textContent = 'Paso ' + (estado.paso + 1) + ' de ' + SECCIONES.length;
 }
 
-/* ---------- Barrera GPS ---------- */
+/* ---------- Inicio: operador + unidad → horas de servicio ---------- */
+const fmtHM = h => { if (!isFinite(h)) return '—'; const t = Math.max(0, Math.round(h * 60)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+const fmtHMS = seg => { seg = Math.max(0, Math.floor(seg)); return String(Math.floor(seg / 3600)).padStart(2, '0') + ':' + String(Math.floor(seg % 3600 / 60)).padStart(2, '0') + ':' + String(seg % 60).padStart(2, '0'); };
+
 function renderBarrera() {
+  const g = estado.gps, d = estado.datos;
   let html = '<section class="etapa pila-24">' +
-    '<div><div class="ojal">Antes de empezar</div><h1 class="titulo">Control de horas de conducción</h1>' +
-    '<p class="subtitulo">Conectamos con el GPS de su unidad para verificar que trae el descanso que marca la norma. Sin esto no se puede abrir la evaluación.</p></div>';
+    '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta 57</div><h1>Maneje con cabeza,<br><em>llegue con bien.</em></h1>' +
+      '<div class="chips"><span class="chip">' + ICONO.gps + ' GPS</span><span class="chip">' + ICONO.reloj + ' Descanso</span><span class="chip">' + ICONO.checkCirculo + ' Estado</span><span class="chip">' + ICONO.camion + ' Unidad</span></div></div>';
 
-  html += '<div class="tarjeta pila">' +
-    '<div class="tarjeta-titulo"><span class="ico">' + ICONO.gps + '</span><div>Unidad a consultar<div class="ayuda">Escriba el número económico del tractocamión.</div></div></div>' +
-    '<div class="campo"><label for="ecoGps">Número económico <span class="req" aria-hidden="true">*</span></label>' +
-    '<input id="ecoGps" list="unidadesDemo" placeholder="Ej. T-118" autocomplete="off" autocapitalize="characters" aria-describedby="ecoAyuda" value="' + esc(estado.datos.economico) + '">' +
-    '<datalist id="unidadesDemo">' + Object.keys(DEMO).map(k => '<option value="' + k + '">' + esc(DEMO[k].nombre) + '</option>').join('') + '</datalist>' +
-    '<div class="ayuda" id="ecoAyuda">Como aparece en la puerta de la unidad.</div><div id="ecoError"></div></div>' +
-    '<button class="btn secundario" id="btnConectar" type="button"><span id="btnConectarIco" style="display:inline-flex">' + ICONO.gps + '</span><span id="btnConectarTxt">Conectar con GPS de la unidad</span></button>' +
-    '<div class="demo"><label for="selDemo">Modo demostración:</label><select id="selDemo"><option value="">Elegir escenario…</option>' +
-      Object.keys(DEMO).map(k => '<option value="' + k + '">' + k + ' · ' + esc(DEMO[k].nombre) + '</option>').join('') + '</select></div>' +
-    '<div class="bitacora" id="bitacora" aria-live="polite"></div>' +
-    '</div>';
-
+  if (!g) {
+    html += '<div class="tarjeta pila" id="inicioForm">' +
+      '<div class="tarjeta-titulo"><span class="ico">' + ICONO.usuario + '</span><div>¿Quién va a salir?<div class="ayuda">Con su nombre y unidad consultamos sus horas de servicio en el GPS.</div></div></div>' +
+      '<div class="campo"><label for="iNombre">Nombre del operador <span class="req" aria-hidden="true">*</span></label><input id="iNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '"><div id="iNombreErr"></div></div>' +
+      '<div class="campo"><label for="ecoGps">Número económico <span class="req" aria-hidden="true">*</span></label>' +
+      '<input id="ecoGps" list="unidadesDemo" placeholder="Ej. T-118" autocomplete="off" autocapitalize="characters" aria-describedby="ecoAyuda" value="' + esc(d.economico) + '">' +
+      '<datalist id="unidadesDemo">' + Object.keys(DEMO).map(k => '<option value="' + k + '">' + esc(DEMO[k].nombre) + '</option>').join('') + '</datalist>' +
+      '<div class="ayuda" id="ecoAyuda">Como aparece en la puerta de la unidad.</div><div id="ecoError"></div></div>' +
+      '<button class="btn primario" id="btnConectar" type="button"><span id="btnConectarIco" style="display:inline-flex">' + ICONO.check + '</span><span id="btnConectarTxt">Iniciar evaluación</span></button>' +
+      '<div class="demo"><label for="selDemo">Modo demostración:</label><select id="selDemo"><option value="">Elegir escenario…</option>' +
+        Object.keys(DEMO).map(k => '<option value="' + k + '">' + k + ' · ' + esc(DEMO[k].nombre) + '</option>').join('') + '</select></div>' +
+      '<div class="bitacora" id="bitacora" aria-live="polite"></div>' +
+      '</div>';
+  } else {
+    html += '<div class="tarjeta operador-resumen"><div class="avatar" aria-hidden="true">' + esc(iniciales(d.nombre)) + '</div><div class="txt"><b>' + esc(d.nombre) + '</b><span>Unidad ' + esc(d.economico) + ' · ' + esc(g.ubicacion) + '</span></div><button class="btn fantasma btn-chico" id="btnCambiar" type="button">Cambiar</button></div>';
+  }
   html += '<div id="veredictoGps"></div>';
   html += renderHistorialCorto();
   html += '</section>';
   vista.innerHTML = html;
 
-  $('#selDemo').addEventListener('change', e => { if (e.target.value) { $('#ecoGps').value = e.target.value; conectarGps(); } });
-  $('#btnConectar').addEventListener('click', conectarGps);
-  $('#ecoGps').addEventListener('keydown', e => { if (e.key === 'Enter') conectarGps(); });
-  $('#ecoGps').addEventListener('input', () => { $('#ecoError').innerHTML = ''; $('#ecoGps').removeAttribute('aria-invalid'); });
-  if (estado.gps) pintarVeredictoGps();
+  if (!g) {
+    $('#selDemo').addEventListener('change', e => { if (e.target.value) { $('#ecoGps').value = e.target.value; if (!$('#iNombre').value.trim()) $('#iNombre').value = 'Operador de prueba'; conectarGps(); } });
+    $('#btnConectar').addEventListener('click', conectarGps);
+    $('#ecoGps').addEventListener('keydown', e => { if (e.key === 'Enter') conectarGps(); });
+    $('#ecoGps').addEventListener('input', () => { $('#ecoError').innerHTML = ''; $('#ecoGps').removeAttribute('aria-invalid'); });
+    $('#iNombre').addEventListener('input', e => { estado.datos.nombre = e.target.value; $('#iNombreErr').innerHTML = ''; $('#iNombre').removeAttribute('aria-invalid'); });
+  } else {
+    $('#btnCambiar').addEventListener('click', () => { estado.gps = null; render(); });
+    pintarVeredictoGps();
+  }
 }
+const iniciales = n => n.trim().split(/\s+/).slice(0, 2).map(x => x[0] || '').join('').toUpperCase() || '·';
 
 function log(texto, clase) {
   const b = $('#bitacora'); if (!b) return;
@@ -690,14 +750,20 @@ function ocupado(btn, icoId, txtId, activo, txtActivo, txtNormal, icoNormal) {
 }
 
 async function conectarGps() {
-  const inp = $('#ecoGps'), eco = inp.value.trim().toUpperCase();
+  const inp = $('#ecoGps'), nom = $('#iNombre'), eco = inp.value.trim().toUpperCase();
+  let ok = true;
+  if (nom.value.trim().length < 5) {
+    nom.setAttribute('aria-invalid', 'true'); $('#iNombreErr').innerHTML = errorLinea('iNombreErrTxt', 'Escriba su nombre y apellidos completos.'); nom.focus(); ok = false;
+  }
   if (!eco) {
     inp.setAttribute('aria-invalid', 'true'); inp.setAttribute('aria-describedby', 'ecoAyuda ecoErrorTxt');
-    $('#ecoError').innerHTML = errorLinea('ecoErrorTxt', 'Escriba el número económico para poder consultar el GPS.');
-    inp.focus(); return;
+    $('#ecoError').innerHTML = errorLinea('ecoErrorTxt', 'Escriba el número económico para consultar sus horas de servicio.');
+    if (ok) inp.focus(); ok = false;
   }
+  if (!ok) return;
+  estado.datos.nombre = nom.value.trim();
   const btn = $('#btnConectar');
-  ocupado(btn, 'btnConectarIco', 'btnConectarTxt', true, 'Conectando con el GPS…', 'Conectar con GPS de la unidad', ICONO.gps);
+  ocupado(btn, 'btnConectarIco', 'btnConectarTxt', true, 'Consultando horas de servicio…', 'Iniciar evaluación', ICONO.check);
   $('#bitacora').innerHTML = ''; $('#veredictoGps').innerHTML = '';
   estado.datos.economico = eco; estado.gps = null;
   log('Buscando la unidad <b>' + esc(eco) + '</b> en la plataforma GPS…');
@@ -708,18 +774,16 @@ async function conectarGps() {
 
   try {
     const r = await GPS_PROVIDER.consultarActividad(eco);
-    reemplazarUltimoLog('Unidad <b>' + esc(r.unidad) + '</b> encontrada · Última posición: ' + esc(r.ubicacion.texto), 'ok');
-    log('Leyendo periodos de conducción de las últimas 36 h…');
+    reemplazarUltimoLog('Unidad <b>' + esc(r.unidad) + '</b> encontrada · ' + esc(r.ubicacion.texto), 'ok');
+    log('Leyendo horas de servicio de las últimas 36 h…');
     await esperar(600);
     const a = analizarActividad(r.segmentos, new Date(), r.desde);
-    reemplazarUltimoLog('Análisis de horas completado.', 'ok');
     estado.gps = { unidad: r.unidad, ubicacion: r.ubicacion.texto, segmentos: r.segmentos, desde: r.desde, analisis: a, origen: 'gps', consultadoEn: new Date() };
-    pintarVeredictoGps();
+    render();
   } catch (err) {
     reemplazarUltimoLog(esc(err.message), 'mal');
+    ocupado(btn, 'btnConectarIco', 'btnConectarTxt', false, '', 'Iniciar evaluación', ICONO.check);
     pintarFalloGps();
-  } finally {
-    ocupado(btn, 'btnConectarIco', 'btnConectarTxt', false, '', 'Conectar con GPS de la unidad', ICONO.gps);
   }
 }
 
@@ -751,58 +815,77 @@ function pintarFalloGps() {
     else if (horas > 0) segmentos.push({ inicio: finD, fin: finCond });
     const a = analizarActividad(segmentos, ahora);
     estado.gps = { unidad: estado.datos.economico, ubicacion: 'Sin señal GPS', segmentos, analisis: a, origen: 'manual', consultadoEn: ahora };
-    pintarVeredictoGps();
+    render();
   });
+}
+
+function anillo(etiqueta, valorTxt, frac, clase, sub, ico) {
+  const r = 24, c = 2 * Math.PI * r, f = Math.max(0, Math.min(1, isFinite(frac) ? frac : 0));
+  return '<div class="hos-item"><div class="anillo ' + clase + '"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="pista" cx="28" cy="28" r="' + r + '"/><circle class="valor" cx="28" cy="28" r="' + r + '" stroke-dasharray="' + (c * f).toFixed(1) + ' ' + c.toFixed(1) + '"/></svg><div class="anillo-ico">' + ico + '</div></div>' +
+    '<div class="hos-v">' + valorTxt + '</div><div class="hos-k">' + etiqueta + '</div><div class="hos-sub">' + sub + '</div></div>';
 }
 
 function pintarVeredictoGps() {
   const g = estado.gps; if (!g) return;
-  const a = analizarActividad(g.segmentos, new Date(), g.desde);
+  clearInterval(temporizador);
+  const ahora = new Date();
+  const a = analizarActividad(g.segmentos, ahora, g.desde);
   g.analisis = a;
-  const porcentaje = Math.min(100, (a.horasJornada / REGLAS.maxConduccion) * 100);
-  const claseMedidor = a.estado === 'bloqueado' ? 'danger' : a.restante <= REGLAS.avisoRestante ? 'warn' : '';
-  const descansoTxt = a.ultimoDescanso
-    ? (a.ultimoDescanso.enCurso ? 'En curso · lleva ' + fmtH(a.ultimoDescanso.horas) : fmtH(a.ultimoDescanso.horas) + ' · terminó ' + fmtHora(a.ultimoDescanso.fin))
-    : 'Sin registro en 36 h';
+  const ultimoFin = g.segmentos.length ? Math.max(...g.segmentos.map(x => x.fin.getTime())) : null;
+  const enMovimiento = isFinite(a.pausaActual) && a.pausaActual < 5 / 60;
+  const claseManejo = a.horasJornada >= REGLAS.maxConduccion ? 'danger' : a.restante <= REGLAS.avisoRestante ? 'warn' : '';
+  const clasePausa = a.pausaActual >= REGLAS.descansoEfectivo ? 'ok' : a.pausaActual >= REGLAS.pausaReinicio ? 'warn' : '';
+  let ventanaH = null, claseVentana = 'danger', ventanaTxt = '—', ventanaSub = 'sin descanso 8 h';
+  if (a.ultimoDescanso) {
+    ventanaH = a.ultimoDescanso.enCurso ? 0 : (ahora - a.ultimoDescanso.fin) / 3600e3;
+    claseVentana = ventanaH <= REGLAS.ventanaDescanso ? 'ok' : 'danger';
+    ventanaTxt = fmtHM(ventanaH); ventanaSub = 'tras desc. de ' + fmtHM(a.ultimoDescanso.horas);
+  }
 
   let html = '<div class="pila">';
   if (g.origen === 'manual') html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Horas declaradas por el operador</b>No se verificaron con GPS. Cabina de Seguridad debe validar antes de autorizar la salida.</div></div>';
 
-  html += '<div class="tarjeta"><div class="ojal">Tablero de horas · ' + esc(g.unidad) + '</div><div class="tablero">' +
-    '<div class="indicador ancho"><div class="k">Conducción en la jornada actual</div><div class="v">' + esc(fmtH(a.horasJornada)) + '<small>de ' + REGLAS.maxConduccion + ' h</small></div>' +
-      '<div class="medidor" role="meter" aria-label="Horas de conducción" aria-valuemin="0" aria-valuemax="' + REGLAS.maxConduccion + '" aria-valuenow="' + a.horasJornada.toFixed(1) + '"><i class="' + claseMedidor + '" style="width:' + porcentaje.toFixed(1) + '%"></i></div><div class="medidor-marcas" aria-hidden="true"><span>0</span><span>7 h</span><span>' + REGLAS.maxConduccion + ' h</span></div></div>' +
-    '<div class="indicador"><div class="k">Último descanso ≥ ' + REGLAS.descansoEfectivo + ' h</div><div class="d fuerte">' + esc(descansoTxt) + '</div></div>' +
-    '<div class="indicador"><div class="k">Pausa actual</div><div class="v" style="font-size:24px">' + esc(fmtH(a.pausaActual)) + '</div><div class="d">' + (a.jornadaAbierta ? 'La jornada sigue abierta' : 'Jornada cerrada') + '</div></div>' +
-    '</div></div>';
+  html += '<div class="tarjeta"><div class="hos-cab"><div class="ojal">Horas de servicio · ' + esc(g.unidad) + '</div><span class="hos-vivo"><i aria-hidden="true"></i>En vivo</span></div>' +
+    '<div class="hos">' +
+      '<div class="hos-item"><div class="estado-tile ' + (enMovimiento ? 'on' : '') + '">' + (enMovimiento ? 'ON' : 'OFF') + '</div><div class="hos-v cron" id="hosTimer">' + fmtHMS(ultimoFin ? (ahora - ultimoFin) / 1000 : 0) + '</div><div class="hos-k">' + (enMovimiento ? 'Manejando' : 'Detenido') + '</div><div class="hos-sub">' + (enMovimiento ? 'motor en marcha' : 'desde última parada') + '</div></div>' +
+      anillo('Pausa', fmtHM(a.pausaActual), a.pausaActual / REGLAS.descansoEfectivo, clasePausa, 'meta ' + fmtHM(REGLAS.descansoEfectivo), ICONO.reloj) +
+      anillo('Manejo', fmtHM(a.horasJornada), a.horasJornada / REGLAS.maxConduccion, claseManejo, 'máx ' + fmtHM(REGLAS.maxConduccion), ICONO.camion) +
+      anillo('Ventana', ventanaTxt, ventanaH === null ? 1 : ventanaH / REGLAS.ventanaDescanso, claseVentana, ventanaSub, ICONO.gps) +
+      anillo('Restante', fmtHM(a.restante), a.restante / REGLAS.maxConduccion, a.restante <= REGLAS.avisoRestante ? 'warn' : 'ok', 'para manejar', ICONO.check) +
+    '</div>' +
+    '<div class="hos-leyenda"><span class="l-az"><i></i>En curso</span><span class="l-ok"><i></i>En regla</span><span class="l-warn"><i></i>Atención</span><span class="l-danger"><i></i>Fuera de norma</span></div>' +
+    '</div>';
 
   if (a.estado === 'bloqueado') {
     const fin = new Date(Date.now() + a.esperaHoras * 3600e3);
     html += '<div class="estado-card bloqueo" role="alert"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo">' +
       '<div><div class="ojal" style="color:var(--danger-text)">Por el momento no puede realizar la prueba</div>' +
       '<h2>' + ICONO.xOctagono + 'Descanso obligatorio</h2></div><p>' + esc(a.motivo) + '</p>' +
-      '<div class="cuenta"><div class="k">Podrá presentar la evaluación en</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
+      '<div class="cuenta"><div class="k">Podrá continuar la evaluación en</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
       '<p class="texto-2">Apague la unidad, busque un parador seguro y descanse. Cabina de Seguridad ya tiene este registro. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
       '<button class="btn fantasma" id="btnReconsultar" type="button">' + ICONO.reloj + ' Volver a consultar</button>' +
       '</div></div>';
   } else {
     html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo">' +
-      '<div><div class="ojal" style="color:var(--ok-text)">Horas en regla</div><h2>' + ICONO.checkCirculo + 'Puede presentar la evaluación</h2></div>' +
+      '<div><div class="ojal" style="color:var(--ok-text)">Horas en regla</div><h2>' + ICONO.checkCirculo + 'Puede continuar</h2></div>' +
       (a.advertencia ? '<div class="aviso warn">' + ICONO.alerta + '<div>' + esc(a.advertencia) + '</div></div>' : '') +
-      '<p class="texto-2">Descanso efectivo vigente y ' + esc(fmtH(a.restante)) + ' disponibles de conducción. Tiempo estimado de la encuesta: 3 minutos.</p>' +
-      '<button class="btn primario" id="btnIniciar" type="button">Iniciar evaluación ' + ICONO.check + '</button>' +
+      '<p class="texto-2">Descanso efectivo vigente y ' + esc(fmtH(a.restante)) + ' disponibles de conducción. La encuesta toma 3 minutos.</p>' +
+      '<button class="btn primario" id="btnIniciar" type="button">Continuar evaluación ' + ICONO.check + '</button>' +
       '</div></div>';
   }
   html += '</div>';
   $('#veredictoGps').innerHTML = html;
 
+  let ticks = 0;
+  temporizador = setInterval(() => {
+    ticks++;
+    const t = $('#hosTimer'); if (t && ultimoFin) t.textContent = fmtHMS((Date.now() - ultimoFin) / 1000);
+    if (ticks % 30 === 0) { pintarVeredictoGps(); }
+  }, 1000);
+
   if (a.estado === 'bloqueado') {
-    vibrar([40, 60, 40]);
+    if (!g.vibrado) { vibrar([40, 60, 40]); g.vibrado = true; }
     $('#btnReconsultar').addEventListener('click', pintarVeredictoGps);
-    temporizador = setInterval(() => {
-      const b = analizarActividad(g.segmentos, new Date(), g.desde);
-      if (b.estado !== 'bloqueado') { pintarVeredictoGps(); return; }
-      const r = $('#reloj'); if (r) r.textContent = fmtH(b.esperaHoras);
-    }, 30000);
   } else {
     $('#btnIniciar').addEventListener('click', () => { estado.datos.fecha = new Date().toISOString(); estado.paso = 0; estado.mostrarErrores = false; render(); });
   }
@@ -828,7 +911,7 @@ function renderSeccion() {
 function renderDatos() {
   const d = estado.datos, g = estado.gps;
   return '<div class="tarjeta pila">' +
-    '<div class="campo"><label for="fNombre">Nombre completo del operador <span class="req" aria-hidden="true">*</span></label><input id="fNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '"><div id="fNombreErr"></div></div>' +
+    '<div class="campo"><label for="fNombre">Nombre completo del operador <span class="req" aria-hidden="true">*</span></label><input id="fNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '" aria-describedby="fNombreAyuda"><div class="ayuda" id="fNombreAyuda">Capturado al iniciar. Corríjalo si hace falta.</div><div id="fNombreErr"></div></div>' +
     '<div class="fila-2">' +
       '<div class="campo"><label for="fEco">Número económico</label><input id="fEco" readonly value="' + esc(d.economico) + '" aria-describedby="fEcoAyuda"><div class="ayuda" id="fEcoAyuda">Verificado por GPS' + (g && g.origen === 'manual' ? ' (manual)' : '') + '</div></div>' +
       '<div class="campo"><label for="fFecha">Fecha y hora</label><input id="fFecha" readonly value="' + esc(fmtFechaHora(d.fecha)) + '"></div>' +
@@ -962,7 +1045,7 @@ function actualizarPie() {
   const btn = $('#btnSiguiente');
   btn.innerHTML = ultimo ? 'Enviar y ver dictamen ' + ICONO.check : 'Continuar';
   btn.classList.toggle('ok', ultimo); btn.classList.toggle('primario', !ultimo);
-  $('#btnAtras').textContent = estado.paso === 0 ? 'GPS' : 'Atrás';
+  $('#btnAtras').textContent = estado.paso === 0 ? 'Horas' : 'Atrás';
   const pe = $('#pieEstado');
   pe.classList.toggle('ok', n === 0);
   pe.innerHTML = n > 0 ? 'Falta' + (n === 1 ? '' : 'n') + ' ' + n + ' ' + (SECCIONES[estado.paso].preguntas ? 'respuesta' : 'dato') + (n === 1 ? '' : 's')
@@ -1047,7 +1130,7 @@ function renderResultado() {
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
   $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, mostrarErrores: false, resultado: null, datos: { nombre: '', economico: '', fecha: '', ruta: '' } });
+    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
     render();
   });
 }

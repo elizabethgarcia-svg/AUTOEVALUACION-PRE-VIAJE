@@ -4,7 +4,7 @@ Encuesta de autoevaluación que realiza el operador antes de salir a ruta. Un so
 
 ## Flujo
 
-1. **Barrera GPS** (obligatoria). Se consulta la unidad por número económico y se analizan sus periodos de conducción de las últimas 36 h.
+1. **Inicio y horas de servicio** (barrera obligatoria). El operador captura su nombre y número económico; la app consulta el GPS y muestra un tablero en vivo tipo horas de servicio: estado (ON/OFF con cronómetro), pausa actual, manejo acumulado, ventana de 24 h y horas restantes. Solo si cumple las reglas aparece "Continuar evaluación"; si no, se bloquea con cuenta regresiva.
 2. **Datos** del operador y unidad (nombre, número económico, fecha y hora, ruta).
 3. **Estado físico**: horas de sueño, cansancio (1–5), malestar, medicamentos, alcohol.
 4. **Estado emocional**: ánimo (1–5), estrés (1–5), capacidad de atención, eventos del día.
