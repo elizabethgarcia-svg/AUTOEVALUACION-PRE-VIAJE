@@ -4,6 +4,15 @@ Fuente de verdad global para la app de autoevaluación pre-viaje. Sintetizado co
 `ui-ux-pro-max` a partir de coincidencias verificadas por dominio (la salida automática de
 `--design-system` devolvió "HUD / Sci-Fi FUI", descartada por no ajustarse al producto).
 
+## Marca e identidad visual (actualización: lenguaje de carretera)
+
+- **Logo:** monograma ILG en círculo blanco sobre azul marino (`assets/logo-ilg.png`, embebido a 160 px en `index.html`).
+- **Azul de marca:** `#021C4F` (borde) a `#062661` (centro), tomado del propio logo; brillo `#1E4DB7` para el degradado radial de la cabecera.
+- **Acento:** amarillo de línea central `#FFC72C` (texto encima `#0B1B3F`). No hubo paleta azul marino + amarillo en la base de la habilidad; se adoptó como color de marca derivado del logo y de la señalización vial.
+- **Motivos de carretera:** línea central amarilla discontinua (cabecera y pie), barra de progreso tipo asfalto con camión que avanza, escudo de la Ruta federal 57 (estilo SCT), señal verde SIGA para APTO, señal roja ALTO para NO APTO, franja rojo/blanco en bloqueos.
+- **Tipografía de impacto:** Saira Extra Condensed 800 (coincidencia verificada en el dominio `google-fonts`) para títulos, cifras del tablero y dictamen; Barlow Condensed para botones y subtítulos; Barlow para cuerpo.
+- **Modo noche:** fondo azul marino profundo `#040B1C`, tarjetas `#0B172F`, con el mismo amarillo de acento.
+
 ## Producto y audiencia
 
 - **Tipo:** herramienta de cumplimiento en campo (checklist de seguridad) para operadores de tractocamión.
