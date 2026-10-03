@@ -6,72 +6,77 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pre-Viaje">
-<meta name="theme-color" content="#15212b">
+<meta name="theme-color" content="#0F172A">
 <title>Pre-Viaje Operador</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   PLAN DE DISEÑO
-   Concepto: "tablero de cabina + señalización carretera".
-   Una sola columna, botones grandes (≥56 px) para dedo con guante,
-   lectura rápida a pleno sol y en cabina de noche (modo noche).
-   Color: asfalto, concreto, ámbar reflejante (acento), verde carretera
-   (apto), rojo alto (no apto). La franja de chevrones ámbar/negro
-   (como la defensa trasera de un remolque) marca las barreras.
-   Tipografía: Barlow Condensed (rótulos, como letrero vial) + Barlow.
+   SISTEMA DE DISEÑO · ver design-system/pre-viaje-operador/MASTER.md
+   Estilo: Minimalism & Swiss + Flat Design (perfil Logística) ·
+   Dark Mode OLED para cabina de noche · Inclusive Design.
+   Paleta: industrial slate + safety orange (ui-ux-pro-max, dominio color).
+   Tipografía: Barlow Condensed (títulos) + Barlow (cuerpo).
+   Layout: una columna, 560 px máx., ritmo 8 px, pie fijo con safe-area.
    ============================================================ */
 :root {
-  --bg: #ecefe9;            /* concreto claro con sesgo verde */
-  --bg-2: #e1e5dd;
-  --panel: #ffffff;
-  --panel-2: #f6f7f3;
-  --ink: #15212b;           /* asfalto */
-  --ink-2: #4b5a67;
-  --ink-3: #7d8a95;
-  --linea: #cfd5cc;
-  --linea-2: #aeb7ac;
-  --ambar: #f2a900;         /* reflejante */
-  --ambar-ink: #8a5a00;     /* texto ámbar legible sobre claro */
-  --ambar-suave: #fff1cc;
-  --verde: #0d7a48;         /* letrero carretero */
-  --verde-ink: #0a5e38;
-  --verde-suave: #d8efe2;
-  --rojo: #c8242b;          /* ALTO */
-  --rojo-ink: #9c1b21;
-  --rojo-suave: #fadadb;
-  --azul: #1e4f8f;          /* servicios / GPS */
-  --azul-suave: #dce7f6;
-  --sombra: 0 1px 2px rgba(21,33,43,.06), 0 6px 18px rgba(21,33,43,.08);
-  --radio: 14px;
-  --f-display: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --card-2: #F1F5F9;
+  --fg: #0F172A;
+  --fg-2: #475569;
+  --border: #E2E8F0;
+  --border-2: #CBD5E1;
+  --primary: #334155;
+  --on-primary: #FFFFFF;
+  --accent: #EA580C;
+  --accent-hover: #C2410C;
+  --on-accent: #0F172A;
+  --ok-fill: #047857;
+  --ok-text: #047857;
+  --ok-bg: #ECFDF5;
+  --warn-text: #92400E;
+  --warn-bg: #FEF3C7;
+  --warn-border: #F59E0B;
+  --danger-fill: #B91C1C;
+  --danger-text: #B91C1C;
+  --danger-bg: #FEF2F2;
+  --info-text: #1D4ED8;
+  --info-bg: #EFF6FF;
+  --focus: #EA580C;
+  --radius: 8px;
+  --radius-sm: 4px;
+  --tap: 48px;
+  --dur: 160ms;
+  --f-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
   --f-body: 'Barlow', 'Segoe UI', Roboto, Arial, sans-serif;
-  --toque: 56px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #11161a; --bg-2: #0b0f12; --panel: #1a2128; --panel-2: #212a32;
-    --ink: #eef1ec; --ink-2: #b3bcc4; --ink-3: #7f8b96;
-    --linea: #2e3842; --linea-2: #45515c;
-    --ambar: #f5b325; --ambar-ink: #f5c457; --ambar-suave: #3a2d0b;
-    --verde: #19a45f; --verde-ink: #5fd79a; --verde-suave: #10311f;
-    --rojo: #e0393f; --rojo-ink: #ff7a7f; --rojo-suave: #3d1517;
-    --azul: #5b93dc; --azul-suave: #172a44;
-    --sombra: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.45);
+    --bg: #000000; --card: #121212; --card-2: #1C1C1E;
+    --fg: #F1F5F9; --fg-2: #A1A1AA; --border: #2A2A2E; --border-2: #3F3F46;
+    --primary: #E2E8F0; --on-primary: #0F172A;
+    --accent: #FB923C; --accent-hover: #FDBA74; --on-accent: #000000;
+    --ok-fill: #047857; --ok-text: #34D399; --ok-bg: #052E22;
+    --warn-text: #FCD34D; --warn-bg: #2A1F05; --warn-border: #D97706;
+    --danger-fill: #B91C1C; --danger-text: #F87171; --danger-bg: #2D0B0B;
+    --info-text: #60A5FA; --info-bg: #0B1A33;
+    --focus: #FB923C;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #11161a; --bg-2: #0b0f12; --panel: #1a2128; --panel-2: #212a32;
-  --ink: #eef1ec; --ink-2: #b3bcc4; --ink-3: #7f8b96;
-  --linea: #2e3842; --linea-2: #45515c;
-  --ambar: #f5b325; --ambar-ink: #f5c457; --ambar-suave: #3a2d0b;
-  --verde: #19a45f; --verde-ink: #5fd79a; --verde-suave: #10311f;
-  --rojo: #e0393f; --rojo-ink: #ff7a7f; --rojo-suave: #3d1517;
-  --azul: #5b93dc; --azul-suave: #172a44;
-  --sombra: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.45);
+  --bg: #000000; --card: #121212; --card-2: #1C1C1E;
+  --fg: #F1F5F9; --fg-2: #A1A1AA; --border: #2A2A2E; --border-2: #3F3F46;
+  --primary: #E2E8F0; --on-primary: #0F172A;
+  --accent: #FB923C; --accent-hover: #FDBA74; --on-accent: #000000;
+  --ok-fill: #047857; --ok-text: #34D399; --ok-bg: #052E22;
+  --warn-text: #FCD34D; --warn-bg: #2A1F05; --warn-border: #D97706;
+  --danger-fill: #B91C1C; --danger-text: #F87171; --danger-bg: #2D0B0B;
+  --info-text: #60A5FA; --info-bg: #0B1A33;
+  --focus: #FB923C;
   color-scheme: dark;
 }
 
@@ -79,218 +84,246 @@
 html { height: 100%; }
 body {
   margin: 0; min-height: 100%;
-  background: var(--bg); color: var(--ink);
-  font-family: var(--f-body); font-size: 17px; line-height: 1.45;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  touch-action: manipulation;
 }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
-:focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
+a { color: var(--info-text); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 [hidden] { display: none !important; }
 h1, h2, h3 { margin: 0; font-family: var(--f-display); text-wrap: balance; line-height: 1.05; }
-p { margin: 0; }
+p, ul { margin: 0; }
+svg { flex-shrink: 0; }
+.ico-20 { width: 20px; height: 20px; }
+.ico-24 { width: 24px; height: 24px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- Cabecera ---------- */
 .cabecera {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-  background: var(--ink); color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: var(--card); border-bottom: 1px solid var(--border);
 }
-.cabecera-int {
-  max-width: 560px; margin: 0 auto; padding: 10px 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.marca { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-.marca-icono {
-  width: 40px; height: 40px; border-radius: 10px; background: var(--ambar);
-  display: grid; place-items: center; flex-shrink: 0;
-}
-.marca-icono svg { width: 26px; height: 26px; }
-.marca-texto { line-height: 1.05; min-width: 0; }
-.marca-texto .t { font-family: var(--f-display); font-weight: 800; font-size: 22px; letter-spacing: .02em; text-transform: uppercase; }
-.marca-texto .s { font-size: 12px; color: rgba(255,255,255,.65); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cabecera-int { max-width: 560px; margin: 0 auto; padding: 8px 16px; display: flex; align-items: center; gap: 12px; }
+.marca { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+.marca-icono { width: 40px; height: 40px; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); display: grid; place-items: center; }
+.marca-texto { min-width: 0; line-height: 1.1; }
+.marca-texto .t { font-family: var(--f-display); font-weight: 700; font-size: 22px; letter-spacing: .02em; text-transform: uppercase; }
+.marca-texto .s { font-size: 12px; color: var(--fg-2); letter-spacing: .06em; text-transform: uppercase; font-weight: 600; line-height: 1.2; }
 .btn-tema {
-  width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06); color: #fff; display: grid; place-items: center; flex-shrink: 0;
+  min-width: var(--tap); height: var(--tap); border-radius: var(--radius); border: 1px solid var(--border-2);
+  background: var(--card); color: var(--fg); display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 0 12px; font-size: 14px; font-weight: 600; transition: background var(--dur);
 }
-.btn-tema svg { width: 20px; height: 20px; }
-.chevrones {
-  height: 8px;
-  background: repeating-linear-gradient(135deg, var(--ambar) 0 14px, #15212b 14px 28px);
-}
+.btn-tema:hover { background: var(--card-2); }
+.acento-linea { height: 4px; background: var(--accent); }
 
-/* ---------- Progreso (odómetro de etapas) ---------- */
-.progreso { max-width: 560px; margin: 0 auto; padding: 14px 16px 0; }
+/* ---------- Progreso ---------- */
+.progreso { max-width: 560px; margin: 0 auto; padding: 16px 16px 0; }
 .progreso-barras { display: flex; gap: 4px; }
-.progreso-barras span { flex: 1; height: 6px; border-radius: 3px; background: var(--linea); transition: background .3s; }
-.progreso-barras span.hecha { background: var(--verde); }
-.progreso-barras span.actual { background: var(--ambar); }
-.progreso-texto { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.progreso-barras span { flex: 1; height: 6px; border-radius: 3px; background: var(--border); transition: background var(--dur); }
+.progreso-barras span.hecha { background: var(--ok-text); }
+.progreso-barras span.actual { background: var(--accent); }
+.progreso-texto { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; color: var(--fg-2); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
 
 /* ---------- Contenido ---------- */
-main { max-width: 560px; margin: 0 auto; padding: 16px 16px 120px; }
-.etapa { animation: entrar .25s ease-out; }
-@keyframes entrar { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.ojal { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ambar-ink); margin-bottom: 6px; }
-.titulo { font-size: 34px; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; }
-.subtitulo { color: var(--ink-2); margin-top: 6px; margin-bottom: 18px; max-width: 60ch; }
-
-.tarjeta {
-  background: var(--panel); border: 1px solid var(--linea); border-radius: var(--radio);
-  padding: 16px; box-shadow: var(--sombra);
-}
-.pila { display: flex; flex-direction: column; gap: 14px; }
+main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
+@media (min-width: 600px) { main, .progreso, .cabecera-int, .pie-int { padding-left: 20px; padding-right: 20px; } }
+.etapa { animation: entrar var(--dur) ease-out; }
+@keyframes entrar { from { opacity: 0; } to { opacity: 1; } }
+.ojal { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); margin-bottom: 4px; }
+.titulo { font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.subtitulo { color: var(--fg-2); margin-top: 8px; max-width: 60ch; }
+.pila { display: flex; flex-direction: column; gap: 16px; }
+.pila-24 { display: flex; flex-direction: column; gap: 24px; }
+.tarjeta { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.tarjeta-titulo { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.tarjeta-titulo .ico { width: 40px; height: 40px; border-radius: var(--radius); background: var(--info-bg); color: var(--info-text); display: grid; place-items: center; flex-shrink: 0; }
+.tarjeta-titulo .ico svg { width: 24px; height: 24px; }
 
 /* Campos */
 .campo { display: flex; flex-direction: column; gap: 6px; }
-.campo label { font-size: 14px; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; }
-.campo input, .campo select, .campo textarea {
-  min-height: var(--toque); padding: 12px 14px; border-radius: 12px;
-  border: 1.5px solid var(--linea-2); background: var(--panel); color: var(--ink); width: 100%;
+.campo label { font-size: 14px; font-weight: 600; color: var(--fg); }
+.campo label .req { color: var(--danger-text); }
+.campo input, .campo select {
+  min-height: var(--tap); padding: 10px 14px; border-radius: var(--radius);
+  border: 1px solid var(--border-2); background: var(--card); color: var(--fg); width: 100%;
+  transition: border-color var(--dur);
 }
-.campo input:focus, .campo select:focus { outline: none; border-color: var(--ambar); box-shadow: 0 0 0 3px var(--ambar-suave); }
-.campo input[readonly] { background: var(--panel-2); color: var(--ink-2); }
-.campo .ayuda { font-size: 13px; color: var(--ink-3); }
-.fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.campo input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.campo input[readonly] { background: var(--card-2); color: var(--fg-2); border-style: dashed; }
+.campo input[aria-invalid="true"] { border-color: var(--danger-text); border-width: 2px; }
+.ayuda { font-size: 14px; color: var(--fg-2); }
+.error-linea { display: flex; gap: 6px; align-items: flex-start; font-size: 14px; color: var(--danger-text); font-weight: 500; }
+.error-linea svg { width: 18px; height: 18px; margin-top: 2px; }
+.fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 420px) { .fila-2 { grid-template-columns: 1fr; } }
 
 /* Preguntas */
-.pregunta { padding: 16px 0; border-bottom: 1px dashed var(--linea); }
-.pregunta:last-child { border-bottom: 0; padding-bottom: 4px; }
+.pregunta { padding: 16px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 96px; }
+.pregunta:first-child { padding-top: 0; }
+.pregunta:last-child { border-bottom: 0; padding-bottom: 0; }
 .pregunta-texto { font-weight: 600; font-size: 18px; margin-bottom: 12px; }
-.pregunta-texto small { display: block; font-weight: 400; font-size: 14px; color: var(--ink-3); margin-top: 2px; }
+.pregunta-texto small { display: block; font-weight: 400; font-size: 14px; color: var(--fg-2); margin-top: 2px; }
+.pregunta.error .pregunta-texto { color: var(--danger-text); }
 .opciones { display: flex; gap: 8px; flex-wrap: wrap; }
 .opcion {
-  flex: 1 1 calc(50% - 8px); min-height: var(--toque); min-width: 0;
-  border: 1.5px solid var(--linea-2); border-radius: 12px; background: var(--panel-2);
-  font-weight: 600; font-size: 17px; padding: 8px 10px;
+  flex: 1 1 calc(50% - 8px); min-height: var(--tap); min-width: 0;
+  border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--card-2); color: var(--fg);
+  font-weight: 600; font-size: 17px; padding: 8px 12px; position: relative;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background .15s, border-color .15s, transform .05s;
+  transition: background var(--dur), border-color var(--dur), color var(--dur);
 }
-.opcion:active { transform: scale(.98); }
-.opcion.activa { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.opcion svg { width: 20px; height: 20px; flex-shrink: 0; }
-.escala { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.opcion svg { width: 20px; height: 20px; }
+.opcion:hover { border-color: var(--primary); }
+.opcion:active { background: var(--border); }
+.opcion[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.opcion .sel { position: absolute; top: 4px; right: 6px; opacity: 0; display: inline-flex; }
+.opcion .sel svg { width: 14px; height: 14px; }
+.opcion[aria-pressed="true"] .sel { opacity: 1; }
+.escala { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .escala .opcion { flex: unset; font-family: var(--f-display); font-size: 24px; font-weight: 700; padding: 0; }
-.escala-ext { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; color: var(--ink-3); }
+.escala-ext { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; color: var(--fg-2); }
+.pregunta .error-linea { margin-top: 8px; }
 
 /* Avisos */
-.aviso { display: flex; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid; align-items: flex-start; }
-.aviso svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px; }
-.aviso.info { background: var(--azul-suave); border-color: var(--azul); color: var(--ink); }
-.aviso.ambar { background: var(--ambar-suave); border-color: var(--ambar); color: var(--ink); }
-.aviso.verde { background: var(--verde-suave); border-color: var(--verde); color: var(--ink); }
-.aviso.rojo { background: var(--rojo-suave); border-color: var(--rojo); color: var(--ink); }
-.aviso b { display: block; }
+.aviso { display: flex; gap: 12px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid; align-items: flex-start; font-size: 15px; }
+.aviso svg { width: 22px; height: 22px; margin-top: 1px; }
+.aviso b { display: block; font-weight: 600; }
+.aviso.info { background: var(--info-bg); border-color: var(--info-text); color: var(--fg); }
+.aviso.info svg { color: var(--info-text); }
+.aviso.warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--fg); }
+.aviso.warn svg { color: var(--warn-text); }
+.aviso.ok { background: var(--ok-bg); border-color: var(--ok-text); color: var(--fg); }
+.aviso.ok svg { color: var(--ok-text); }
+.aviso.danger { background: var(--danger-bg); border-color: var(--danger-text); color: var(--fg); }
+.aviso.danger svg { color: var(--danger-text); }
+.resumen-errores { background: var(--danger-bg); border: 2px solid var(--danger-text); border-radius: var(--radius); padding: 14px; }
+.resumen-errores h2 { font-size: 20px; text-transform: uppercase; color: var(--danger-text); display: flex; align-items: center; gap: 8px; }
+.resumen-errores h2 svg { width: 22px; height: 22px; }
+.resumen-errores ul { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.resumen-errores a { color: var(--danger-text); font-weight: 500; min-height: 32px; display: inline-flex; align-items: center; }
 
 /* Botones */
 .btn {
-  min-height: var(--toque); padding: 12px 20px; border-radius: 12px; border: 1.5px solid transparent;
-  font-weight: 700; font-size: 17px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; transition: transform .05s, filter .15s;
+  min-height: var(--tap); padding: 10px 20px; border-radius: var(--radius); border: 1px solid transparent;
+  font-weight: 600; font-size: 17px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; transition: background var(--dur), border-color var(--dur), color var(--dur), opacity var(--dur);
+  text-decoration: none;
 }
-.btn:active { transform: scale(.985); }
-a.btn { text-decoration: none; }
 .btn svg { width: 20px; height: 20px; }
-.btn.primario { background: var(--ambar); color: #15212b; }
-.btn.primario:hover { filter: brightness(1.05); }
-.btn.oscuro { background: var(--ink); color: var(--bg); }
-.btn.verde { background: var(--verde); color: #fff; }
-.btn.fantasma { background: transparent; border-color: var(--linea-2); color: var(--ink-2); }
-.btn:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+.btn.primario { background: var(--accent); color: var(--on-accent); }
+.btn.primario:hover { background: var(--accent-hover); }
+.btn.secundario { background: var(--primary); color: var(--on-primary); }
+.btn.secundario:hover { opacity: .9; }
+.btn.ok { background: var(--ok-fill); color: #FFFFFF; }
+.btn.ok:hover { opacity: .9; }
+.btn.fantasma { background: var(--card); border-color: var(--border-2); color: var(--fg); }
+.btn.fantasma:hover { background: var(--card-2); }
+.btn:active { opacity: .8; }
+.btn[disabled], .btn[aria-busy="true"] { opacity: .5; cursor: not-allowed; }
+.btn-chico { min-height: 40px; padding: 6px 12px; font-size: 14px; width: auto; }
+.spinner { width: 20px; height: 20px; border: 3px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: girar .8s linear infinite; display: inline-block; }
+@keyframes girar { to { transform: rotate(360deg); } }
 
-/* Barra inferior fija */
+/* Pie fijo */
 .pie {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-  background: var(--panel); border-top: 1px solid var(--linea);
-  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--card); border-top: 1px solid var(--border);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
 }
-.pie-int { max-width: 560px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
+.pie-int { max-width: 560px; margin: 0 auto; display: flex; gap: 8px; align-items: center; }
 .pie-int .btn.fantasma { width: auto; flex: 0 0 auto; padding-inline: 16px; }
-.pie-estado { font-size: 13px; color: var(--ink-3); text-align: center; margin-top: 6px; }
+.pie-estado { font-size: 13px; color: var(--fg-2); text-align: center; margin-top: 6px; display: flex; justify-content: center; align-items: center; gap: 6px; }
+.pie-estado svg { width: 16px; height: 16px; }
+.pie-estado.ok { color: var(--ok-text); }
 
 /* ---------- Barrera GPS ---------- */
-.gps-cabecera { display: flex; align-items: center; gap: 12px; }
-.gps-icono { width: 48px; height: 48px; border-radius: 12px; background: var(--azul-suave); color: var(--azul); display: grid; place-items: center; flex-shrink: 0; }
-.gps-icono svg { width: 28px; height: 28px; }
-.bitacora { font-size: 14px; color: var(--ink-2); display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.bitacora { font-size: 15px; color: var(--fg-2); display: flex; flex-direction: column; gap: 8px; }
+.bitacora:empty { display: none; }
 .bitacora div { display: flex; gap: 8px; align-items: flex-start; }
-.bitacora .punto { width: 8px; height: 8px; border-radius: 50%; background: var(--azul); margin-top: 7px; flex-shrink: 0; }
-.bitacora .punto.ok { background: var(--verde); }
-.bitacora .punto.mal { background: var(--rojo); }
-.bitacora .punto.espera { animation: latido 1s infinite; }
-@keyframes latido { 50% { opacity: .3; } }
+.bitacora svg { width: 18px; height: 18px; margin-top: 3px; }
+.bitacora .ok { color: var(--ok-text); }
+.bitacora .mal { color: var(--danger-text); }
+.bitacora .espera { color: var(--info-text); display: inline-flex; animation: girar .8s linear infinite; }
+.bitacora b { color: var(--fg); }
 
-.tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.indicador { background: var(--panel-2); border: 1px solid var(--linea); border-radius: 12px; padding: 12px; min-width: 0; }
-.indicador .k { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.indicador .v { font-family: var(--f-display); font-size: 34px; font-weight: 800; line-height: 1; margin-top: 4px; font-variant-numeric: tabular-nums; }
-.indicador .v small { font-size: 16px; font-weight: 600; color: var(--ink-2); margin-left: 2px; }
-.indicador .d { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.indicador { background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; min-width: 0; }
+.indicador .k { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); }
+.indicador .v { font-family: var(--f-display); font-size: 32px; font-weight: 700; line-height: 1; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.indicador .v small { font-size: 16px; font-weight: 600; color: var(--fg-2); margin-left: 4px; font-family: var(--f-body); }
+.indicador .d { font-size: 14px; color: var(--fg-2); margin-top: 4px; }
+.indicador .d.fuerte { color: var(--fg); font-weight: 500; font-size: 15px; margin-top: 8px; }
 .indicador.ancho { grid-column: 1 / -1; }
-.medidor { height: 10px; border-radius: 5px; background: var(--linea); overflow: hidden; margin-top: 8px; position: relative; }
-.medidor > i { display: block; height: 100%; border-radius: 5px; background: var(--verde); transition: width .5s; }
-.medidor > i.ambar { background: var(--ambar); }
-.medidor > i.rojo { background: var(--rojo); }
-.medidor-marcas { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.medidor { height: 10px; border-radius: 5px; background: var(--border); overflow: hidden; margin-top: 10px; }
+.medidor > i { display: block; height: 100%; border-radius: 5px; background: var(--ok-fill); transition: width .4s ease-out; }
+.medidor > i.warn { background: var(--warn-border); }
+.medidor > i.danger { background: var(--danger-fill); }
+.medidor-marcas { display: flex; justify-content: space-between; font-size: 12px; color: var(--fg-2); margin-top: 4px; font-variant-numeric: tabular-nums; }
 
-.bloqueo {
-  border-radius: var(--radio); overflow: hidden; border: 2px solid var(--rojo); background: var(--panel);
-}
-.bloqueo .franja { height: 10px; background: repeating-linear-gradient(135deg, var(--rojo) 0 14px, #15212b 14px 28px); }
-.bloqueo-cuerpo { padding: 18px 16px; }
-.bloqueo h2 { font-size: 30px; text-transform: uppercase; color: var(--rojo-ink); }
-.cuenta { margin-top: 14px; background: var(--panel-2); border-radius: 12px; padding: 14px; text-align: center; }
-.cuenta .k { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.cuenta .reloj { font-family: var(--f-display); font-size: 52px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; margin: 4px 0; }
-.cuenta .h { font-size: 15px; color: var(--ink-2); }
+.estado-card { border-radius: var(--radius); overflow: hidden; border: 2px solid; background: var(--card); }
+.estado-card.bloqueo { border-color: var(--danger-text); }
+.estado-card.permiso { border-color: var(--ok-text); }
+.franja-peligro { height: 8px; background: repeating-linear-gradient(135deg, var(--danger-fill) 0 12px, var(--fg) 12px 24px); }
+.franja-ok { height: 8px; background: var(--ok-fill); }
+.estado-cuerpo { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.estado-cuerpo h2 { font-size: 28px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.estado-card.bloqueo h2 { color: var(--danger-text); }
+.estado-card.permiso h2 { color: var(--ok-text); }
+.estado-cuerpo h2 svg { width: 28px; height: 28px; }
+.cuenta { background: var(--card-2); border-radius: var(--radius); padding: 14px; text-align: center; }
+.cuenta .k { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); }
+.cuenta .reloj { font-family: var(--f-display); font-size: 48px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; margin: 6px 0; }
+.cuenta .h { font-size: 15px; color: var(--fg-2); }
+.texto-2 { font-size: 15px; color: var(--fg-2); }
+.demo { font-size: 14px; color: var(--fg-2); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.demo select { min-height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border-2); background: var(--card); padding: 6px 8px; font-size: 14px; max-width: 100%; }
 
-.permiso { border-radius: var(--radio); border: 2px solid var(--verde); background: var(--panel); overflow: hidden; }
-.permiso .franja { height: 10px; background: var(--verde); }
-.permiso-cuerpo { padding: 18px 16px; }
-.permiso h2 { font-size: 30px; text-transform: uppercase; color: var(--verde-ink); }
-
-/* Lista de verificación de confirmación */
-.resumen { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; font-size: 15px; }
-.resumen .k { color: var(--ink-3); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
-.resumen .v { font-weight: 600; overflow-wrap: anywhere; }
-.casilla { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1.5px solid var(--linea-2); border-radius: 12px; background: var(--panel-2); cursor: pointer; }
-.casilla input { width: 26px; height: 26px; margin: 2px 0 0; accent-color: var(--verde); flex-shrink: 0; }
+/* Confirmación */
+.resumen { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 15px; margin-top: 8px; }
+.resumen .k { color: var(--fg-2); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+.resumen .v { font-weight: 500; overflow-wrap: anywhere; }
+.casilla { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--card); cursor: pointer; }
+.casilla input { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--ok-fill); flex-shrink: 0; }
 .casilla span { font-size: 15px; }
-.firma { border: 1.5px dashed var(--linea-2); border-radius: 12px; background: var(--panel-2); position: relative; }
-.firma canvas { width: 100%; height: 140px; display: block; touch-action: none; border-radius: 12px; }
-.firma .pista { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 13px; color: var(--ink-3); pointer-events: none; }
-.firma .limpiar { position: absolute; top: 8px; right: 8px; font-size: 13px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--linea-2); background: var(--panel); color: var(--ink-2); }
+.casilla.error { border-color: var(--danger-text); border-width: 2px; }
+.firma { border: 1px dashed var(--border-2); border-radius: var(--radius); background: var(--card-2); position: relative; }
+.firma canvas { width: 100%; height: 140px; display: block; touch-action: none; border-radius: var(--radius); }
+.firma .pista { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 14px; color: var(--fg-2); pointer-events: none; }
+.firma .limpiar { position: absolute; top: 6px; right: 6px; }
+.firma.error { border-color: var(--danger-text); border-width: 2px; }
 
-/* ---------- Resultado (letrero) ---------- */
-.letrero { border-radius: 18px; padding: 26px 20px; text-align: center; color: #fff; box-shadow: var(--sombra); position: relative; }
-.letrero::after { content: ""; position: absolute; inset: 8px; border: 3px solid rgba(255,255,255,.85); border-radius: 12px; pointer-events: none; }
-.letrero.apto { background: var(--verde); }
-.letrero.noapto { background: var(--rojo); }
-.letrero .ojal { color: rgba(255,255,255,.85); }
-.letrero h2 { font-size: 64px; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; line-height: .95; }
+/* Resultado */
+.letrero { border-radius: var(--radius); padding: 24px 20px; text-align: center; color: #FFFFFF; border: 2px solid; }
+.letrero.apto { background: var(--ok-fill); border-color: var(--ok-fill); }
+.letrero.noapto { background: var(--danger-fill); border-color: var(--danger-fill); }
+.letrero .ojal { color: rgba(255,255,255,.9); }
+.letrero h2 { font-size: 64px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; line-height: .95; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.letrero h2 svg { width: 48px; height: 48px; }
 .letrero p { margin-top: 8px; font-size: 18px; font-weight: 500; }
-.letrero .folio { margin-top: 12px; font-size: 13px; opacity: .85; letter-spacing: .08em; text-transform: uppercase; }
-.factores { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.factores li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--linea); font-size: 15px; }
-.factores .sev { flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 7px; border-radius: 6px; margin-top: 2px; }
-.sev.critico { background: var(--rojo); color: #fff; }
-.sev.riesgo { background: var(--ambar); color: #15212b; }
-.sev.ok { background: var(--verde); color: #fff; }
-.acciones { display: flex; flex-direction: column; gap: 10px; }
-.historial { font-size: 14px; color: var(--ink-2); }
-.historial li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--linea); }
+.letrero .folio { margin-top: 12px; font-size: 13px; opacity: .9; letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.factores { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.factores li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius); background: var(--card-2); border: 1px solid var(--border); font-size: 15px; }
+.sev { flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 7px; border-radius: var(--radius-sm); margin-top: 2px; display: inline-flex; align-items: center; gap: 4px; }
+.sev svg { width: 12px; height: 12px; }
+.sev.critico { background: var(--danger-fill); color: #FFFFFF; }
+.sev.riesgo { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
+.acciones { display: flex; flex-direction: column; gap: 8px; }
+.historial { font-size: 14px; color: var(--fg-2); }
 .historial ul { list-style: none; padding: 0; margin: 8px 0 0; }
-.etiqueta { font-size: 12px; font-weight: 800; letter-spacing: .06em; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; flex-shrink: 0; }
-.etiqueta.apto { background: var(--verde-suave); color: var(--verde-ink); }
-.etiqueta.noapto { background: var(--rojo-suave); color: var(--rojo-ink); }
-.demo { font-size: 13px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.demo select { min-height: 40px; border-radius: 8px; border: 1px solid var(--linea-2); background: var(--panel); padding: 6px 8px; font-size: 14px; max-width: 100%; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.aviso-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(96px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; z-index: 20; box-shadow: var(--sombra); }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+.historial li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: center; }
+.historial li:last-child { border-bottom: 0; }
+.etiqueta { font-size: 12px; font-weight: 600; letter-spacing: .06em; padding: 3px 8px; border-radius: var(--radius-sm); text-transform: uppercase; flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; }
+.etiqueta svg { width: 12px; height: 12px; }
+.etiqueta.apto { background: var(--ok-bg); color: var(--ok-text); }
+.etiqueta.noapto { background: var(--danger-bg); color: var(--danger-text); }
+.aviso-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(112px + env(safe-area-inset-bottom, 0px)); background: var(--primary); color: var(--on-primary); padding: 10px 16px; border-radius: var(--radius); font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
@@ -299,33 +332,34 @@ a.btn { text-decoration: none; }
   <div class="cabecera-int">
     <div class="marca">
       <div class="marca-icono" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#15212b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        <svg class="ico-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
       </div>
       <div class="marca-texto">
         <div class="t">Pre-Viaje</div>
         <div class="s">Autoevaluación del operador</div>
       </div>
     </div>
-    <button class="btn-tema" id="btnTema" type="button" aria-label="Cambiar modo día o noche" title="Modo día / noche">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <button class="btn-tema" id="btnTema" type="button" aria-pressed="false" aria-label="Activar modo noche">
+      <svg class="ico-20" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span id="btnTemaTxt">Noche</span>
     </button>
   </div>
-  <div class="chevrones" aria-hidden="true"></div>
+  <div class="acento-linea" aria-hidden="true"></div>
 </header>
 
 <div class="progreso" id="progreso" hidden>
-  <div class="progreso-barras" id="progresoBarras"></div>
+  <div class="progreso-barras" id="progresoBarras" aria-hidden="true"></div>
   <div class="progreso-texto"><span id="progresoNombre"></span><span id="progresoNum"></span></div>
 </div>
 
-<main id="vista" aria-live="polite"></main>
+<main id="vista"></main>
 
 <footer class="pie" id="pie" hidden>
   <div class="pie-int">
     <button class="btn fantasma" id="btnAtras" type="button">Atrás</button>
     <button class="btn primario" id="btnSiguiente" type="button">Continuar</button>
   </div>
-  <div class="pie-estado" id="pieEstado"></div>
+  <div class="pie-estado" id="pieEstado" aria-live="polite"></div>
 </footer>
 
 <script>
@@ -338,7 +372,7 @@ const REGLAS = {
   descansoEfectivo: 8,   // h mínimas de descanso efectivo tras alcanzar el máximo
   pausaReinicio: 6,      // h: una pausa de esta duración o mayor cierra la jornada y permite continuar
   ventanaDescanso: 24,   // h previas a la encuesta en las que debe existir un descanso efectivo
-  avisoRestante: 2,      // h restantes a partir de las cuales se muestra advertencia ámbar
+  avisoRestante: 2,      // h restantes a partir de las cuales se muestra advertencia
   puntosNoApto: 4        // suma de puntos de riesgo (no críticos) que vuelve NO APTO
 };
 
@@ -484,50 +518,64 @@ const SECCIONES = [
     ] },
   { id: 'confirmacion', nombre: 'Firma', titulo: 'Confirmación', ojal: 'Paso 5 de 5', sub: 'Revise y firme. El dictamen se calcula al enviar.' }
 ];
+const TOTAL_PREGUNTAS = SECCIONES.reduce((n, s) => n + (s.preguntas ? s.preguntas.length : 0), 0);
 
 /* =====================================================================
    ESTADO
    ===================================================================== */
 const estado = {
   paso: -1,                      // -1 barrera GPS, 0..4 secciones, 5 resultado
-  gps: null,                     // { unidad, ubicacion, analisis, origen:'gps'|'manual', consultadoEn }
+  gps: null,                     // { unidad, ubicacion, segmentos, desde, analisis, origen:'gps'|'manual', consultadoEn }
   posicion: null,                // geolocalización del teléfono (opcional)
   datos: { nombre: '', economico: '', fecha: '', ruta: '' },
   respuestas: {},
-  firma: false, acepta: false,
+  firma: false, firmaTexto: '', acepta: false,
+  mostrarErrores: false,
   resultado: null
 };
 let temporizador = null;
 const $ = s => document.querySelector(s);
 const vista = $('#vista');
+const vibrar = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 
 /* Tema día / noche */
 (function tema() {
-  try { const t = localStorage.getItem('previaje.tema'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
-  $('#btnTema').addEventListener('click', () => {
-    const root = document.documentElement;
-    const oscuro = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-    const nuevo = oscuro ? 'light' : 'dark';
+  const root = document.documentElement, btn = $('#btnTema');
+  const esOscuro = () => root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  const pintar = () => { const o = esOscuro(); btn.setAttribute('aria-pressed', String(o)); btn.setAttribute('aria-label', o ? 'Desactivar modo noche' : 'Activar modo noche'); $('#btnTemaTxt').textContent = o ? 'Día' : 'Noche'; };
+  try { const t = localStorage.getItem('previaje.tema'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+  pintar();
+  btn.addEventListener('click', () => {
+    const nuevo = esOscuro() ? 'light' : 'dark';
     root.setAttribute('data-theme', nuevo);
     try { localStorage.setItem('previaje.tema', nuevo); } catch (e) {}
+    pintar();
   });
 })();
 
 /* =====================================================================
-   RENDER
+   ICONOS (trazo 2 px, estilo outline consistente)
    ===================================================================== */
+const svg = p => '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
 const ICONO = {
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
-  gps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>',
-  reloj: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-  alerta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg>',
-  info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
-  wa: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.2z"/></svg>',
-  copiar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'
+  check: svg('<path d="M20 6 9 17l-5-5"/>'),
+  checkCirculo: svg('<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>'),
+  x: svg('<path d="M18 6 6 18M6 6l12 12"/>'),
+  xOctagono: svg('<path d="M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z"/><path d="m15 9-6 6M9 9l6 6"/>'),
+  gps: svg('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/>'),
+  reloj: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+  alerta: svg('<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>'),
+  info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'),
+  cargando: svg('<path d="M21 12a9 9 0 1 1-6.2-8.6"/>'),
+  wa: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.2z"/></svg>',
+  copiar: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>')
 };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const errorLinea = (id, texto) => '<div class="error-linea" id="' + id + '" role="alert">' + ICONO.alerta + '<span>' + esc(texto) + '</span></div>';
 
+/* =====================================================================
+   RENDER
+   ===================================================================== */
 function render() {
   clearInterval(temporizador);
   const pie = $('#pie'), prog = $('#progreso');
@@ -541,25 +589,25 @@ function renderProgreso() {
   const s = SECCIONES[estado.paso];
   $('#progresoBarras').innerHTML = SECCIONES.map((x, i) => '<span class="' + (i < estado.paso ? 'hecha' : i === estado.paso ? 'actual' : '') + '"></span>').join('');
   $('#progresoNombre').textContent = s.nombre;
-  $('#progresoNum').textContent = (estado.paso + 1) + ' / ' + SECCIONES.length;
+  $('#progresoNum').textContent = 'Paso ' + (estado.paso + 1) + ' de ' + SECCIONES.length;
 }
 
 /* ---------- Barrera GPS ---------- */
 function renderBarrera() {
-  const g = estado.gps;
-  let html = '<section class="etapa pila">' +
+  let html = '<section class="etapa pila-24">' +
     '<div><div class="ojal">Antes de empezar</div><h1 class="titulo">Control de horas de conducción</h1>' +
     '<p class="subtitulo">Conectamos con el GPS de su unidad para verificar que trae el descanso que marca la norma. Sin esto no se puede abrir la evaluación.</p></div>';
 
   html += '<div class="tarjeta pila">' +
-    '<div class="gps-cabecera"><div class="gps-icono">' + ICONO.gps + '</div><div><b>Unidad a consultar</b><div class="ayuda" style="font-size:14px;color:var(--ink-3)">Escriba el número económico del tractocamión.</div></div></div>' +
-    '<div class="campo"><label for="ecoGps">Número económico</label>' +
-    '<input id="ecoGps" list="unidadesDemo" placeholder="Ej. T-118" autocomplete="off" autocapitalize="characters" value="' + esc(estado.datos.economico) + '">' +
-    '<datalist id="unidadesDemo">' + Object.keys(DEMO).map(k => '<option value="' + k + '">' + esc(DEMO[k].nombre) + '</option>').join('') + '</datalist></div>' +
-    '<button class="btn oscuro" id="btnConectar" type="button">' + ICONO.gps + ' Conectar con GPS de la unidad</button>' +
-    '<div class="demo"><span>Modo demostración:</span><select id="selDemo"><option value="">Elegir escenario…</option>' +
+    '<div class="tarjeta-titulo"><span class="ico">' + ICONO.gps + '</span><div>Unidad a consultar<div class="ayuda">Escriba el número económico del tractocamión.</div></div></div>' +
+    '<div class="campo"><label for="ecoGps">Número económico <span class="req" aria-hidden="true">*</span></label>' +
+    '<input id="ecoGps" list="unidadesDemo" placeholder="Ej. T-118" autocomplete="off" autocapitalize="characters" aria-describedby="ecoAyuda" value="' + esc(estado.datos.economico) + '">' +
+    '<datalist id="unidadesDemo">' + Object.keys(DEMO).map(k => '<option value="' + k + '">' + esc(DEMO[k].nombre) + '</option>').join('') + '</datalist>' +
+    '<div class="ayuda" id="ecoAyuda">Como aparece en la puerta de la unidad.</div><div id="ecoError"></div></div>' +
+    '<button class="btn secundario" id="btnConectar" type="button"><span id="btnConectarIco" style="display:inline-flex">' + ICONO.gps + '</span><span id="btnConectarTxt">Conectar con GPS de la unidad</span></button>' +
+    '<div class="demo"><label for="selDemo">Modo demostración:</label><select id="selDemo"><option value="">Elegir escenario…</option>' +
       Object.keys(DEMO).map(k => '<option value="' + k + '">' + k + ' · ' + esc(DEMO[k].nombre) + '</option>').join('') + '</select></div>' +
-    '<div class="bitacora" id="bitacora"></div>' +
+    '<div class="bitacora" id="bitacora" aria-live="polite"></div>' +
     '</div>';
 
   html += '<div id="veredictoGps"></div>';
@@ -570,27 +618,39 @@ function renderBarrera() {
   $('#selDemo').addEventListener('change', e => { if (e.target.value) { $('#ecoGps').value = e.target.value; conectarGps(); } });
   $('#btnConectar').addEventListener('click', conectarGps);
   $('#ecoGps').addEventListener('keydown', e => { if (e.key === 'Enter') conectarGps(); });
-  if (g) pintarVeredictoGps();
+  $('#ecoGps').addEventListener('input', () => { $('#ecoError').innerHTML = ''; $('#ecoGps').removeAttribute('aria-invalid'); });
+  if (estado.gps) pintarVeredictoGps();
 }
 
 function log(texto, clase) {
   const b = $('#bitacora'); if (!b) return;
-  b.insertAdjacentHTML('beforeend', '<div><span class="punto ' + (clase || '') + '"></span><span>' + texto + '</span></div>');
+  const ico = clase === 'ok' ? ICONO.checkCirculo : clase === 'mal' ? ICONO.xOctagono : ICONO.cargando;
+  b.insertAdjacentHTML('beforeend', '<div><span class="' + (clase || 'espera') + '">' + ico + '</span><span>' + texto + '</span></div>');
 }
 function reemplazarUltimoLog(texto, clase) {
   const b = $('#bitacora'); if (!b || !b.lastElementChild) return;
-  b.lastElementChild.innerHTML = '<span class="punto ' + (clase || '') + '"></span><span>' + texto + '</span>';
+  b.lastElementChild.remove(); log(texto, clase);
+}
+function ocupado(btn, icoId, txtId, activo, txtActivo, txtNormal, icoNormal) {
+  btn.setAttribute('aria-busy', String(activo));
+  btn.disabled = activo;
+  $('#' + icoId).innerHTML = activo ? '<span class="spinner" aria-hidden="true"></span>' : icoNormal;
+  $('#' + txtId).textContent = activo ? txtActivo : txtNormal;
 }
 
 async function conectarGps() {
-  const eco = $('#ecoGps').value.trim().toUpperCase();
-  if (!eco) { toast('Escriba el número económico de la unidad.'); $('#ecoGps').focus(); return; }
-  const btn = $('#btnConectar'); btn.disabled = true;
+  const inp = $('#ecoGps'), eco = inp.value.trim().toUpperCase();
+  if (!eco) {
+    inp.setAttribute('aria-invalid', 'true'); inp.setAttribute('aria-describedby', 'ecoAyuda ecoErrorTxt');
+    $('#ecoError').innerHTML = errorLinea('ecoErrorTxt', 'Escriba el número económico para poder consultar el GPS.');
+    inp.focus(); return;
+  }
+  const btn = $('#btnConectar');
+  ocupado(btn, 'btnConectarIco', 'btnConectarTxt', true, 'Conectando con el GPS…', 'Conectar con GPS de la unidad', ICONO.gps);
   $('#bitacora').innerHTML = ''; $('#veredictoGps').innerHTML = '';
   estado.datos.economico = eco; estado.gps = null;
-  log('Buscando la unidad <b>' + esc(eco) + '</b> en la plataforma GPS…', 'espera');
+  log('Buscando la unidad <b>' + esc(eco) + '</b> en la plataforma GPS…');
 
-  // Ubicación del teléfono (opcional, no bloquea)
   if (navigator.geolocation && !estado.posicion) {
     navigator.geolocation.getCurrentPosition(p => { estado.posicion = { lat: p.coords.latitude, lon: p.coords.longitude }; }, () => {}, { timeout: 5000, maximumAge: 60000 });
   }
@@ -598,7 +658,7 @@ async function conectarGps() {
   try {
     const r = await GPS_PROVIDER.consultarActividad(eco);
     reemplazarUltimoLog('Unidad <b>' + esc(r.unidad) + '</b> encontrada · Última posición: ' + esc(r.ubicacion.texto), 'ok');
-    log('Leyendo periodos de conducción de las últimas 36 h…', 'espera');
+    log('Leyendo periodos de conducción de las últimas 36 h…');
     await esperar(600);
     const a = analizarActividad(r.segmentos, new Date(), r.desde);
     reemplazarUltimoLog('Análisis de horas completado.', 'ok');
@@ -607,25 +667,31 @@ async function conectarGps() {
   } catch (err) {
     reemplazarUltimoLog(esc(err.message), 'mal');
     pintarFalloGps();
-  } finally { btn.disabled = false; }
+  } finally {
+    ocupado(btn, 'btnConectarIco', 'btnConectarTxt', false, '', 'Conectar con GPS de la unidad', ICONO.gps);
+  }
 }
 
 function pintarFalloGps() {
   $('#veredictoGps').innerHTML =
     '<div class="pila">' +
-    '<div class="aviso ambar">' + ICONO.alerta + '<div><b>No se pudo verificar con el GPS</b>Revise el número económico o intente de nuevo. Si la unidad no tiene señal, puede registrar sus horas de forma manual; la evaluación quedará marcada para validación de Cabina de Seguridad.</div></div>' +
+    '<div class="aviso warn" role="alert">' + ICONO.alerta + '<div><b>No se pudo verificar con el GPS</b>Revise el número económico e intente de nuevo. Si la unidad no tiene señal, registre sus horas de forma manual; la evaluación quedará marcada para validación de Cabina de Seguridad.</div></div>' +
     '<div class="tarjeta pila" id="manualBox">' +
-      '<b>Registro manual de horas</b>' +
-      '<div class="campo"><label for="mFinDescanso">¿A qué hora terminó su último descanso de ' + REGLAS.descansoEfectivo + ' h o más?</label><input id="mFinDescanso" type="datetime-local"></div>' +
-      '<div class="campo"><label for="mHoras">¿Cuántas horas ha manejado desde ese descanso?</label><input id="mHoras" type="number" inputmode="decimal" min="0" max="24" step="0.5" placeholder="Ej. 6.5"></div>' +
-      '<div class="campo"><label for="mPausa">¿Hace cuántas horas apagó la unidad por última vez?</label><input id="mPausa" type="number" inputmode="decimal" min="0" max="24" step="0.5" placeholder="Ej. 0.5"><div class="ayuda">Ponga 0 si acaba de detenerse.</div></div>' +
+      '<div class="tarjeta-titulo"><span class="ico">' + ICONO.reloj + '</span><div>Registro manual de horas</div></div>' +
+      '<div class="campo"><label for="mFinDescanso">¿A qué hora terminó su último descanso de ' + REGLAS.descansoEfectivo + ' h o más? <span class="req" aria-hidden="true">*</span></label><input id="mFinDescanso" type="datetime-local"><div id="mFinDescansoErr"></div></div>' +
+      '<div class="campo"><label for="mHoras">¿Cuántas horas ha manejado desde ese descanso? <span class="req" aria-hidden="true">*</span></label><input id="mHoras" type="number" inputmode="decimal" min="0" max="24" step="0.5" placeholder="Ej. 6.5"><div id="mHorasErr"></div></div>' +
+      '<div class="campo"><label for="mPausa">¿Hace cuántas horas apagó la unidad por última vez? <span class="req" aria-hidden="true">*</span></label><input id="mPausa" type="number" inputmode="decimal" min="0" max="24" step="0.5" placeholder="Ej. 0.5" aria-describedby="mPausaAyuda"><div class="ayuda" id="mPausaAyuda">Ponga 0 si acaba de detenerse.</div><div id="mPausaErr"></div></div>' +
       '<button class="btn primario" id="btnManual" type="button">Registrar horas declaradas</button>' +
     '</div></div>';
   $('#btnManual').addEventListener('click', () => {
     const fin = $('#mFinDescanso').value, horas = parseFloat($('#mHoras').value), pausa = parseFloat($('#mPausa').value);
-    if (!fin || isNaN(horas) || isNaN(pausa)) { toast('Complete los tres datos para continuar.'); return; }
+    let ok = true;
+    const marcar = (id, cond, msg) => { const i = $('#' + id); $('#' + id + 'Err').innerHTML = cond ? '' : errorLinea(id + 'ErrTxt', msg); if (cond) i.removeAttribute('aria-invalid'); else { i.setAttribute('aria-invalid', 'true'); if (ok) i.focus(); ok = false; } };
+    marcar('mFinDescanso', !!fin && new Date(fin) <= new Date(), fin ? 'La hora del descanso no puede ser futura.' : 'Indique la fecha y hora en que terminó su descanso.');
+    marcar('mHoras', !isNaN(horas) && horas >= 0, 'Escriba las horas manejadas, por ejemplo 6.5.');
+    marcar('mPausa', !isNaN(pausa) && pausa >= 0, 'Escriba hace cuántas horas apagó la unidad; 0 si acaba de parar.');
+    if (!ok) return;
     const finD = new Date(fin), ahora = new Date();
-    if (finD > ahora) { toast('La hora del descanso no puede ser futura.'); return; }
     const inicioDesc = new Date(finD.getTime() - REGLAS.descansoEfectivo * 3600e3);
     const finCond = new Date(ahora.getTime() - pausa * 3600e3);
     const inicioCond = new Date(finCond.getTime() - horas * 3600e3);
@@ -643,42 +709,43 @@ function pintarVeredictoGps() {
   const a = analizarActividad(g.segmentos, new Date(), g.desde);
   g.analisis = a;
   const porcentaje = Math.min(100, (a.horasJornada / REGLAS.maxConduccion) * 100);
-  const colorMedidor = a.estado === 'bloqueado' ? 'rojo' : a.restante <= REGLAS.avisoRestante ? 'ambar' : '';
+  const claseMedidor = a.estado === 'bloqueado' ? 'danger' : a.restante <= REGLAS.avisoRestante ? 'warn' : '';
   const descansoTxt = a.ultimoDescanso
     ? (a.ultimoDescanso.enCurso ? 'En curso · lleva ' + fmtH(a.ultimoDescanso.horas) : fmtH(a.ultimoDescanso.horas) + ' · terminó ' + fmtHora(a.ultimoDescanso.fin))
     : 'Sin registro en 36 h';
 
   let html = '<div class="pila">';
-  if (g.origen === 'manual') html += '<div class="aviso ambar">' + ICONO.alerta + '<div><b>Horas declaradas por el operador</b>No se verificaron con GPS. Cabina de Seguridad debe validar antes de autorizar la salida.</div></div>';
+  if (g.origen === 'manual') html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Horas declaradas por el operador</b>No se verificaron con GPS. Cabina de Seguridad debe validar antes de autorizar la salida.</div></div>';
 
   html += '<div class="tarjeta"><div class="ojal">Tablero de horas · ' + esc(g.unidad) + '</div><div class="tablero">' +
     '<div class="indicador ancho"><div class="k">Conducción en la jornada actual</div><div class="v">' + esc(fmtH(a.horasJornada)) + '<small>de ' + REGLAS.maxConduccion + ' h</small></div>' +
-      '<div class="medidor"><i class="' + colorMedidor + '" style="width:' + porcentaje.toFixed(1) + '%"></i></div><div class="medidor-marcas"><span>0</span><span>7 h</span><span>' + REGLAS.maxConduccion + ' h</span></div></div>' +
-    '<div class="indicador"><div class="k">Último descanso ≥ ' + REGLAS.descansoEfectivo + ' h</div><div class="d" style="font-weight:600;color:var(--ink);font-size:15px;margin-top:6px">' + esc(descansoTxt) + '</div></div>' +
-    '<div class="indicador"><div class="k">Pausa actual</div><div class="v" style="font-size:26px">' + esc(fmtH(a.pausaActual)) + '</div><div class="d">' + (a.jornadaAbierta ? 'La jornada sigue abierta' : 'Jornada cerrada') + '</div></div>' +
+      '<div class="medidor" role="meter" aria-label="Horas de conducción" aria-valuemin="0" aria-valuemax="' + REGLAS.maxConduccion + '" aria-valuenow="' + a.horasJornada.toFixed(1) + '"><i class="' + claseMedidor + '" style="width:' + porcentaje.toFixed(1) + '%"></i></div><div class="medidor-marcas" aria-hidden="true"><span>0</span><span>7 h</span><span>' + REGLAS.maxConduccion + ' h</span></div></div>' +
+    '<div class="indicador"><div class="k">Último descanso ≥ ' + REGLAS.descansoEfectivo + ' h</div><div class="d fuerte">' + esc(descansoTxt) + '</div></div>' +
+    '<div class="indicador"><div class="k">Pausa actual</div><div class="v" style="font-size:24px">' + esc(fmtH(a.pausaActual)) + '</div><div class="d">' + (a.jornadaAbierta ? 'La jornada sigue abierta' : 'Jornada cerrada') + '</div></div>' +
     '</div></div>';
 
   if (a.estado === 'bloqueado') {
     const fin = new Date(Date.now() + a.esperaHoras * 3600e3);
-    html += '<div class="bloqueo"><div class="franja"></div><div class="bloqueo-cuerpo">' +
-      '<div class="ojal" style="color:var(--rojo-ink)">Por el momento no puede realizar la prueba</div>' +
-      '<h2>Descanso obligatorio</h2><p style="margin-top:8px">' + esc(a.motivo) + '</p>' +
+    html += '<div class="estado-card bloqueo" role="alert"><div class="franja-peligro" aria-hidden="true"></div><div class="estado-cuerpo">' +
+      '<div><div class="ojal" style="color:var(--danger-text)">Por el momento no puede realizar la prueba</div>' +
+      '<h2>' + ICONO.xOctagono + 'Descanso obligatorio</h2></div><p>' + esc(a.motivo) + '</p>' +
       '<div class="cuenta"><div class="k">Podrá presentar la evaluación en</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
-      '<p style="margin-top:14px;font-size:15px;color:var(--ink-2)">Apague la unidad, busque un parador seguro y descanse. Cabina de Seguridad ya tiene este registro. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
-      '</div></div>' +
-      '<button class="btn fantasma" id="btnReconsultar" type="button">' + ICONO.reloj + ' Volver a consultar</button>';
+      '<p class="texto-2">Apague la unidad, busque un parador seguro y descanse. Cabina de Seguridad ya tiene este registro. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
+      '<button class="btn fantasma" id="btnReconsultar" type="button">' + ICONO.reloj + ' Volver a consultar</button>' +
+      '</div></div>';
   } else {
-    html += '<div class="permiso"><div class="franja"></div><div class="permiso-cuerpo pila">' +
-      '<div><div class="ojal" style="color:var(--verde-ink)">Horas en regla</div><h2>Puede presentar la evaluación</h2></div>' +
-      (a.advertencia ? '<div class="aviso ambar">' + ICONO.alerta + '<div>' + esc(a.advertencia) + '</div></div>' : '') +
-      '<p style="font-size:15px;color:var(--ink-2)">Descanso efectivo vigente y ' + esc(fmtH(a.restante)) + ' disponibles de conducción. Tiempo estimado de la encuesta: 3 minutos.</p>' +
-      '<button class="btn verde" id="btnIniciar" type="button">Iniciar evaluación ' + ICONO.check + '</button>' +
+    html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo">' +
+      '<div><div class="ojal" style="color:var(--ok-text)">Horas en regla</div><h2>' + ICONO.checkCirculo + 'Puede presentar la evaluación</h2></div>' +
+      (a.advertencia ? '<div class="aviso warn">' + ICONO.alerta + '<div>' + esc(a.advertencia) + '</div></div>' : '') +
+      '<p class="texto-2">Descanso efectivo vigente y ' + esc(fmtH(a.restante)) + ' disponibles de conducción. Tiempo estimado de la encuesta: 3 minutos.</p>' +
+      '<button class="btn primario" id="btnIniciar" type="button">Iniciar evaluación ' + ICONO.check + '</button>' +
       '</div></div>';
   }
   html += '</div>';
   $('#veredictoGps').innerHTML = html;
 
   if (a.estado === 'bloqueado') {
+    vibrar([40, 60, 40]);
     $('#btnReconsultar').addEventListener('click', pintarVeredictoGps);
     temporizador = setInterval(() => {
       const b = analizarActividad(g.segmentos, new Date(), g.desde);
@@ -686,14 +753,15 @@ function pintarVeredictoGps() {
       const r = $('#reloj'); if (r) r.textContent = fmtH(b.esperaHoras);
     }, 30000);
   } else {
-    $('#btnIniciar').addEventListener('click', () => { estado.datos.fecha = new Date().toISOString(); estado.paso = 0; render(); });
+    $('#btnIniciar').addEventListener('click', () => { estado.datos.fecha = new Date().toISOString(); estado.paso = 0; estado.mostrarErrores = false; render(); });
   }
 }
 
 /* ---------- Secciones ---------- */
 function renderSeccion() {
   const s = SECCIONES[estado.paso];
-  let html = '<section class="etapa pila"><div><div class="ojal">' + esc(s.ojal) + '</div><h1 class="titulo">' + esc(s.titulo) + '</h1><p class="subtitulo">' + esc(s.sub) + '</p></div>';
+  let html = '<section class="etapa pila-24"><div><h1 class="titulo">' + esc(s.titulo) + '</h1><p class="subtitulo">' + esc(s.sub) + '</p></div>' +
+    '<div id="resumenErrores"></div>';
   if (s.id === 'datos') html += renderDatos();
   else if (s.id === 'confirmacion') html += renderConfirmacion();
   else html += '<div class="tarjeta">' + s.preguntas.map(renderPregunta).join('') + '</div>';
@@ -703,49 +771,65 @@ function renderSeccion() {
   else if (s.id === 'confirmacion') enlazarConfirmacion();
   else enlazarPreguntas(s);
   actualizarPie();
+  if (estado.mostrarErrores) mostrarErrores(false);
 }
 
 function renderDatos() {
   const d = estado.datos, g = estado.gps;
   return '<div class="tarjeta pila">' +
-    '<div class="campo"><label for="fNombre">Nombre completo del operador</label><input id="fNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '"></div>' +
+    '<div class="campo"><label for="fNombre">Nombre completo del operador <span class="req" aria-hidden="true">*</span></label><input id="fNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '"><div id="fNombreErr"></div></div>' +
     '<div class="fila-2">' +
-      '<div class="campo"><label for="fEco">Número económico</label><input id="fEco" readonly value="' + esc(d.economico) + '"><div class="ayuda">Verificado por GPS' + (g && g.origen === 'manual' ? ' (manual)' : '') + '</div></div>' +
+      '<div class="campo"><label for="fEco">Número económico</label><input id="fEco" readonly value="' + esc(d.economico) + '" aria-describedby="fEcoAyuda"><div class="ayuda" id="fEcoAyuda">Verificado por GPS' + (g && g.origen === 'manual' ? ' (manual)' : '') + '</div></div>' +
       '<div class="campo"><label for="fFecha">Fecha y hora</label><input id="fFecha" readonly value="' + esc(fmtFechaHora(d.fecha)) + '"></div>' +
     '</div>' +
-    '<div class="campo"><label for="fRuta">Ruta de hoy</label><input id="fRuta" list="rutas" placeholder="Origen → Destino" value="' + esc(d.ruta) + '">' +
+    '<div class="campo"><label for="fRuta">Ruta de hoy <span class="req" aria-hidden="true">*</span></label><input id="fRuta" list="rutas" placeholder="Origen → Destino" value="' + esc(d.ruta) + '" aria-describedby="fRutaAyuda">' +
       '<datalist id="rutas"><option value="Nuevo Laredo → Monterrey"><option value="Monterrey → Querétaro"><option value="Querétaro → CDMX"><option value="Manzanillo → Guadalajara"><option value="Veracruz → Puebla"><option value="Altamira → San Luis Potosí"></datalist>' +
-      '<div class="ayuda">Posición actual: ' + esc(g ? g.ubicacion : '—') + (estado.posicion ? ' · Teléfono: ' + estado.posicion.lat.toFixed(4) + ', ' + estado.posicion.lon.toFixed(4) : '') + '</div></div>' +
+      '<div class="ayuda" id="fRutaAyuda">Posición actual: ' + esc(g ? g.ubicacion : '—') + (estado.posicion ? ' · Teléfono: ' + estado.posicion.lat.toFixed(4) + ', ' + estado.posicion.lon.toFixed(4) : '') + '</div><div id="fRutaErr"></div></div>' +
     '</div>';
 }
+const VALIDA_DATOS = {
+  fNombre: { campo: 'nombre', ok: v => v.trim().length >= 5, msg: 'Escriba su nombre y apellidos completos.' },
+  fRuta: { campo: 'ruta', ok: v => v.trim().length >= 3, msg: 'Indique la ruta de hoy, por ejemplo Monterrey → Querétaro.' }
+};
+function validarCampo(id, mostrar) {
+  const v = VALIDA_DATOS[id], inp = $('#' + id), err = $('#' + id + 'Err');
+  const bien = v.ok(inp.value);
+  if (bien || !mostrar) { err.innerHTML = ''; inp.removeAttribute('aria-invalid'); }
+  else { err.innerHTML = errorLinea(id + 'ErrTxt', v.msg); inp.setAttribute('aria-invalid', 'true'); }
+  return bien;
+}
 function enlazarDatos() {
-  $('#fNombre').addEventListener('input', e => { estado.datos.nombre = e.target.value; actualizarPie(); });
-  $('#fRuta').addEventListener('input', e => { estado.datos.ruta = e.target.value; actualizarPie(); });
+  for (const id of Object.keys(VALIDA_DATOS)) {
+    const inp = $('#' + id);
+    inp.addEventListener('input', e => { estado.datos[VALIDA_DATOS[id].campo] = e.target.value; if (inp.getAttribute('aria-invalid')) validarCampo(id, true); actualizarPie(); if (estado.mostrarErrores) mostrarErrores(false); });
+    inp.addEventListener('blur', () => validarCampo(id, true));
+  }
 }
 
 function renderPregunta(q) {
   const v = estado.respuestas[q.id];
+  const sel = '<span class="sel" aria-hidden="true">' + ICONO.check + '</span>';
+  const btn = (val, etiqueta, aria) => '<button type="button" class="opcion" aria-pressed="' + (v === val ? 'true' : 'false') + '" data-q="' + q.id + '" data-v="' + esc(val) + '"' + (aria ? ' aria-label="' + aria + '"' : '') + '>' + etiqueta + sel + '</button>';
   let cuerpo = '';
   if (q.tipo === 'sino') {
-    cuerpo = '<div class="opciones" role="group" aria-label="' + esc(q.texto) + '">' +
-      '<button type="button" class="opcion' + (v === SI ? ' activa' : '') + '" data-q="' + q.id + '" data-v="si">' + ICONO.check + ' Sí</button>' +
-      '<button type="button" class="opcion' + (v === NO ? ' activa' : '') + '" data-q="' + q.id + '" data-v="no">' + ICONO.x + ' No</button></div>';
+    cuerpo = '<div class="opciones" role="group" aria-labelledby="pt-' + q.id + '">' + btn(SI, ICONO.check + ' Sí') + btn(NO, ICONO.x + ' No') + '</div>';
   } else if (q.tipo === 'escala') {
-    cuerpo = '<div class="escala" role="group" aria-label="' + esc(q.texto) + '">' +
-      [1, 2, 3, 4, 5].map(n => '<button type="button" class="opcion' + (v === n ? ' activa' : '') + '" data-q="' + q.id + '" data-v="' + n + '" aria-label="' + n + ' de 5">' + n + '</button>').join('') +
-      '</div><div class="escala-ext"><span>1 · ' + esc(q.min) + '</span><span>5 · ' + esc(q.max) + '</span></div>';
+    cuerpo = '<div class="escala" role="group" aria-labelledby="pt-' + q.id + '">' +
+      [1, 2, 3, 4, 5].map(n => btn(n, String(n), n + ' de 5' + (n === 1 ? ', ' + esc(q.min) : n === 5 ? ', ' + esc(q.max) : ''))).join('') +
+      '</div><div class="escala-ext" aria-hidden="true"><span>1 · ' + esc(q.min) + '</span><span>5 · ' + esc(q.max) + '</span></div>';
   } else {
-    cuerpo = '<div class="opciones" role="group" aria-label="' + esc(q.texto) + '">' +
-      q.opciones.map(o => '<button type="button" class="opcion' + (v === o.v ? ' activa' : '') + '" data-q="' + q.id + '" data-v="' + esc(o.v) + '">' + esc(o.l) + '</button>').join('') + '</div>';
+    cuerpo = '<div class="opciones" role="group" aria-labelledby="pt-' + q.id + '">' + q.opciones.map(o => btn(o.v, esc(o.l))).join('') + '</div>';
   }
-  return '<div class="pregunta" id="p-' + q.id + '"><div class="pregunta-texto">' + esc(q.texto) + (q.ayuda ? '<small>' + esc(q.ayuda) + '</small>' : '') + '</div>' + cuerpo + '</div>';
+  return '<div class="pregunta" id="p-' + q.id + '"><div class="pregunta-texto" id="pt-' + q.id + '">' + esc(q.texto) + (q.ayuda ? '<small>' + esc(q.ayuda) + '</small>' : '') + '</div>' + cuerpo + '<div id="p-' + q.id + '-err"></div></div>';
 }
 function enlazarPreguntas(s) {
   vista.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => {
     const q = s.preguntas.find(x => x.id === b.dataset.q);
     estado.respuestas[q.id] = q.tipo === 'escala' ? Number(b.dataset.v) : b.dataset.v;
-    b.parentElement.querySelectorAll('.opcion').forEach(x => x.classList.toggle('activa', x === b));
+    b.parentElement.querySelectorAll('.opcion').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $('#p-' + q.id).classList.remove('error'); $('#p-' + q.id + '-err').innerHTML = '';
     actualizarPie();
+    if (estado.mostrarErrores) mostrarErrores(false);
   }));
 }
 
@@ -759,49 +843,94 @@ function renderConfirmacion() {
       '<div><div class="k">Ruta</div><div class="v">' + esc(d.ruta) + '</div></div>' +
       '<div><div class="k">Fecha</div><div class="v">' + esc(fmtFechaHora(d.fecha)) + '</div></div>' +
       '<div><div class="k">Conducción jornada</div><div class="v">' + esc(fmtH(g.analisis.horasJornada)) + '</div></div>' +
-      '<div><div class="k">Respuestas</div><div class="v">' + contestadas + ' de 15</div></div>' +
+      '<div><div class="k">Respuestas</div><div class="v">' + contestadas + ' de ' + TOTAL_PREGUNTAS + '</div></div>' +
     '</div></div>' +
-    '<label class="casilla"><input type="checkbox" id="chkAcepta"' + (estado.acepta ? ' checked' : '') + '><span>Declaro que mis respuestas son verdaderas, que revisé físicamente la unidad y que me comprometo a reportar a Cabina de Seguridad cualquier cambio en mi estado o en la unidad durante la ruta.</span></label>' +
-    '<div><div class="ojal">Firma del operador</div><div class="firma"><canvas id="firmaCanvas" aria-label="Área para firmar con el dedo"></canvas><div class="pista" id="firmaPista">Firme aquí con el dedo</div><button type="button" class="limpiar" id="firmaLimpiar">Borrar</button></div></div>' +
+    '<div><label class="casilla" id="casillaAcepta"><input type="checkbox" id="chkAcepta"' + (estado.acepta ? ' checked' : '') + '><span>Declaro que mis respuestas son verdaderas, que revisé físicamente la unidad y que me comprometo a reportar a Cabina de Seguridad cualquier cambio en mi estado o en la unidad durante la ruta.</span></label><div id="chkAceptaErr"></div></div>' +
+    '<div class="pila" style="gap:8px"><div class="ojal" id="firmaTitulo">Firma del operador</div>' +
+      '<div class="firma" id="firmaBox"><canvas id="firmaCanvas" role="img" aria-labelledby="firmaTitulo"></canvas><div class="pista" id="firmaPista"' + (estado.firma ? ' hidden' : '') + '>Firme aquí con el dedo</div><button type="button" class="btn fantasma btn-chico limpiar" id="firmaLimpiar">Borrar</button></div>' +
+      '<div class="campo"><label for="firmaTexto">O escriba su nombre completo como firma</label><input id="firmaTexto" autocomplete="off" placeholder="Nombre y apellidos" value="' + esc(estado.firmaTexto) + '" aria-describedby="firmaAyuda"><div class="ayuda" id="firmaAyuda">Alternativa si no puede firmar con el dedo.</div></div>' +
+      '<div id="firmaErr"></div></div>' +
     '</div>';
 }
 function enlazarConfirmacion() {
-  $('#chkAcepta').addEventListener('change', e => { estado.acepta = e.target.checked; actualizarPie(); });
+  $('#chkAcepta').addEventListener('change', e => { estado.acepta = e.target.checked; $('#casillaAcepta').classList.remove('error'); $('#chkAceptaErr').innerHTML = ''; actualizarPie(); if (estado.mostrarErrores) mostrarErrores(false); });
   const c = $('#firmaCanvas'), ctx = c.getContext('2d');
-  const ajustar = () => { const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1; c.width = r.width * dpr; c.height = r.height * dpr; ctx.scale(dpr, dpr); ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(); };
-  ajustar();
-  let dibujando = false;
-  const pos = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr; ctx.scale(dpr, dpr);
+  ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim();
+  let dibujando = false, trazoPx = 0;
+  const pos = e => { const b = c.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+  const firmaOk = () => { $('#firmaBox').classList.remove('error'); $('#firmaErr').innerHTML = ''; actualizarPie(); if (estado.mostrarErrores) mostrarErrores(false); };
   c.addEventListener('pointerdown', e => { dibujando = true; c.setPointerCapture(e.pointerId); const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); });
-  c.addEventListener('pointermove', e => { if (!dibujando) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); if (!estado.firma) { estado.firma = true; $('#firmaPista').hidden = true; actualizarPie(); } });
+  c.addEventListener('pointermove', e => {
+    if (!dibujando) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); trazoPx += Math.abs(e.movementX || 1) + Math.abs(e.movementY || 0);
+    if (!estado.firma && trazoPx > 40) { estado.firma = true; $('#firmaPista').hidden = true; firmaOk(); }
+  });
   const fin = () => { dibujando = false; };
   c.addEventListener('pointerup', fin); c.addEventListener('pointercancel', fin);
-  $('#firmaLimpiar').addEventListener('click', () => { ctx.clearRect(0, 0, c.width, c.height); estado.firma = false; $('#firmaPista').hidden = false; actualizarPie(); });
+  $('#firmaLimpiar').addEventListener('click', () => { ctx.clearRect(0, 0, c.width, c.height); estado.firma = false; trazoPx = 0; $('#firmaPista').hidden = false; actualizarPie(); });
+  $('#firmaTexto').addEventListener('input', e => { estado.firmaTexto = e.target.value; if (estado.firmaTexto.trim().length >= 5) firmaOk(); else actualizarPie(); });
 }
 
-/* ---------- Pie / navegación ---------- */
-function pendientes() {
-  const s = SECCIONES[estado.paso];
-  if (s.id === 'datos') return (estado.datos.nombre.trim().length < 5 ? 1 : 0) + (estado.datos.ruta.trim().length < 3 ? 1 : 0);
-  if (s.id === 'confirmacion') return (estado.acepta ? 0 : 1) + (estado.firma ? 0 : 1);
-  return s.preguntas.filter(q => estado.respuestas[q.id] === undefined).length;
+/* ---------- Validación, errores y navegación ---------- */
+function faltantes() {
+  const s = SECCIONES[estado.paso], f = [];
+  if (s.id === 'datos') {
+    for (const id of Object.keys(VALIDA_DATOS)) if (!VALIDA_DATOS[id].ok(estado.datos[VALIDA_DATOS[id].campo])) f.push({ id, texto: VALIDA_DATOS[id].msg, tipo: 'campo' });
+  } else if (s.id === 'confirmacion') {
+    if (!estado.acepta) f.push({ id: 'chkAcepta', texto: 'Marque la declaración de veracidad.', tipo: 'casilla' });
+    if (!estado.firma && estado.firmaTexto.trim().length < 5) f.push({ id: 'firmaTexto', texto: 'Firme con el dedo o escriba su nombre completo como firma.', tipo: 'firma' });
+  } else {
+    for (const q of s.preguntas) if (estado.respuestas[q.id] === undefined) f.push({ id: 'p-' + q.id, texto: q.texto, tipo: 'pregunta' });
+  }
+  return f;
+}
+function mostrarErrores(enfocar) {
+  const f = faltantes(), caja = $('#resumenErrores');
+  estado.mostrarErrores = f.length > 0;
+  if (!f.length) { caja.innerHTML = ''; return; }
+  caja.innerHTML = '<div class="resumen-errores" role="alert" tabindex="-1" id="resumenErroresBox" aria-labelledby="resumenErroresTitulo">' +
+    '<h2 id="resumenErroresTitulo">' + ICONO.alerta + 'Falta' + (f.length === 1 ? '' : 'n') + ' ' + f.length + ' ' + (f.length === 1 ? 'respuesta' : 'respuestas') + '</h2>' +
+    '<ul>' + f.map(x => '<li><a href="#' + x.id + '" data-ir="' + x.id + '">' + esc(x.texto) + '</a></li>').join('') + '</ul></div>';
+  for (const x of f) {
+    if (x.tipo === 'pregunta') { $('#' + x.id).classList.add('error'); $('#' + x.id + '-err').innerHTML = errorLinea(x.id + '-errtxt', 'Elija una respuesta.'); }
+    else if (x.tipo === 'campo') validarCampo(x.id, true);
+    else if (x.tipo === 'casilla') { $('#casillaAcepta').classList.add('error'); $('#chkAceptaErr').innerHTML = errorLinea('chkAceptaErrTxt', x.texto); }
+    else if (x.tipo === 'firma') { $('#firmaBox').classList.add('error'); $('#firmaErr').innerHTML = errorLinea('firmaErrTxt', x.texto); }
+  }
+  caja.querySelectorAll('a[data-ir]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); const el = $('#' + a.dataset.ir);
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const foco = el.matches('input') ? el : el.querySelector('button, input') || el; foco.focus({ preventScroll: true });
+  }));
+  if (enfocar) { $('#resumenErroresBox').scrollIntoView({ behavior: 'smooth', block: 'start' }); $('#resumenErroresBox').focus({ preventScroll: true }); }
 }
 function actualizarPie() {
-  const n = pendientes(), ultimo = estado.paso === SECCIONES.length - 1;
+  const n = faltantes().length, ultimo = estado.paso === SECCIONES.length - 1;
   const btn = $('#btnSiguiente');
-  btn.disabled = n > 0;
   btn.innerHTML = ultimo ? 'Enviar y ver dictamen ' + ICONO.check : 'Continuar';
-  btn.classList.toggle('verde', ultimo); btn.classList.toggle('primario', !ultimo);
+  btn.classList.toggle('ok', ultimo); btn.classList.toggle('primario', !ultimo);
   $('#btnAtras').textContent = estado.paso === 0 ? 'GPS' : 'Atrás';
-  $('#pieEstado').textContent = n > 0 ? 'Falta' + (n === 1 ? '' : 'n') + ' ' + n + ' ' + (SECCIONES[estado.paso].preguntas ? 'respuesta' : 'dato') + (n === 1 ? '' : 's') : 'Todo listo';
+  const pe = $('#pieEstado');
+  pe.classList.toggle('ok', n === 0);
+  pe.innerHTML = n > 0 ? 'Falta' + (n === 1 ? '' : 'n') + ' ' + n + ' ' + (SECCIONES[estado.paso].preguntas ? 'respuesta' : 'dato') + (n === 1 ? '' : 's')
+                       : ICONO.checkCirculo + ' Todo listo';
 }
-$('#btnSiguiente').addEventListener('click', () => {
-  if (pendientes() > 0) return;
-  if (estado.paso === SECCIONES.length - 1) { calcularResultado(); estado.paso = 5; }
-  else estado.paso++;
+$('#btnSiguiente').addEventListener('click', async () => {
+  if (faltantes().length) { mostrarErrores(true); return; }
+  estado.mostrarErrores = false;
+  if (estado.paso === SECCIONES.length - 1) {
+    const btn = $('#btnSiguiente'); btn.setAttribute('aria-busy', 'true'); btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Calculando dictamen…';
+    await esperar(700);
+    calcularResultado(); estado.paso = 5;
+    btn.removeAttribute('aria-busy'); btn.disabled = false;
+    vibrar(estado.resultado.apto ? 30 : [40, 60, 40]);
+  } else estado.paso++;
   render();
 });
-$('#btnAtras').addEventListener('click', () => { estado.paso--; render(); });
+$('#btnAtras').addEventListener('click', () => { estado.paso--; estado.mostrarErrores = false; render(); });
 
 /* ---------- Dictamen ---------- */
 function calcularResultado() {
@@ -839,35 +968,35 @@ function textoResumen() {
 
 function renderResultado() {
   const r = estado.resultado, d = estado.datos;
-  let html = '<section class="etapa pila">';
-  html += '<div class="letrero ' + (r.apto ? 'apto' : 'noapto') + '"><div class="ojal">Dictamen pre-viaje</div><h2>' + (r.apto ? 'Apto' : 'No apto') + '</h2>' +
+  let html = '<section class="etapa pila-24">';
+  html += '<div class="letrero ' + (r.apto ? 'apto' : 'noapto') + '" role="status"><div class="ojal">Dictamen pre-viaje</div><h2>' + (r.apto ? ICONO.checkCirculo + 'Apto' : ICONO.xOctagono + 'No apto') + '</h2>' +
     '<p>' + (r.apto ? 'Puede iniciar el viaje. Buen camino, ' + esc(d.nombre.split(' ')[0]) + '.' : 'No salga. Repórtese con Cabina de Seguridad.') + '</p>' +
     '<div class="folio">Folio ' + esc(r.folio) + '</div></div>';
-  if (r.pendienteValidacion) html += '<div class="aviso ambar">' + ICONO.alerta + '<div><b>Pendiente de validación</b>Las horas de conducción se declararon sin GPS. Cabina debe validar antes de autorizar la salida.</div></div>';
+  if (r.pendienteValidacion) html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Pendiente de validación</b>Las horas de conducción se declararon sin GPS. Cabina debe validar antes de autorizar la salida.</div></div>';
 
   html += '<div class="tarjeta"><div class="ojal">' + (r.factores.length ? 'Factores detectados' : 'Sin factores de riesgo') + '</div>';
   if (r.factores.length) {
-    html += '<ul class="factores">' + r.factores.map(x => '<li><span class="sev ' + x.sev + '">' + (x.sev === 'critico' ? 'Crítico' : 'Riesgo') + '</span><span>' + esc(x.t) + '</span></li>').join('') + '</ul>' +
-      '<p style="font-size:14px;color:var(--ink-3);margin-top:10px">Un factor crítico vuelve NO APTO por sí solo. Los puntos de riesgo suman: ' + r.puntos + ' de ' + REGLAS.puntosNoApto + ' para NO APTO.</p>';
-  } else html += '<p style="color:var(--ink-2)">Descanso en regla, sin malestares, unidad revisada y documentos completos.</p>';
+    html += '<ul class="factores">' + r.factores.map(x => '<li><span class="sev ' + x.sev + '">' + (x.sev === 'critico' ? ICONO.xOctagono + 'Crítico' : ICONO.alerta + 'Riesgo') + '</span><span>' + esc(x.t) + '</span></li>').join('') + '</ul>' +
+      '<p class="texto-2" style="margin-top:12px">Un factor crítico vuelve NO APTO por sí solo. Los puntos de riesgo suman ' + r.puntos + ' de ' + REGLAS.puntosNoApto + ' necesarios para NO APTO.</p>';
+  } else html += '<p class="texto-2" style="margin-top:4px">Descanso en regla, sin malestares, unidad revisada y documentos completos.</p>';
   html += '</div>';
 
   if (!r.apto) html += '<div class="aviso info">' + ICONO.info + '<div><b>¿Qué sigue?</b>Cabina de Seguridad recibe este dictamen. Si el motivo es descanso o salud, se reprograma la salida. Si es la unidad, se levanta reporte a Mantenimiento. Esto no es una sanción: es la decisión correcta.</div></div>';
 
   html += '<div class="acciones">' +
-    '<a class="btn verde" id="btnWa" href="https://wa.me/?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar a Cabina por WhatsApp</a>' +
-    '<button class="btn fantasma" id="btnCopiar" type="button">' + ICONO.copiar + ' Copiar resumen</button>' +
-    '<button class="btn oscuro" id="btnNueva" type="button">Nueva evaluación</button></div>';
+    '<a class="btn ok" id="btnWa" href="https://wa.me/?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar a Cabina por WhatsApp</a>' +
+    '<button class="btn fantasma" id="btnCopiar" type="button">' + ICONO.copiar + ' <span id="btnCopiarTxt">Copiar resumen</span></button>' +
+    '<button class="btn secundario" id="btnNueva" type="button">Nueva evaluación</button></div>';
   html += renderHistorialCorto();
   html += '</section>';
   vista.innerHTML = html;
 
   $('#btnCopiar').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(textoResumen()); toast('Resumen copiado.'); }
+    try { await navigator.clipboard.writeText(textoResumen()); $('#btnCopiarTxt').textContent = 'Resumen copiado'; toast('Resumen copiado.'); setTimeout(() => { const t = $('#btnCopiarTxt'); if (t) t.textContent = 'Copiar resumen'; }, 2500); }
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
   $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, acepta: false, resultado: null, datos: { nombre: '', economico: '', fecha: '', ruta: '' } });
+    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, mostrarErrores: false, resultado: null, datos: { nombre: '', economico: '', fecha: '', ruta: '' } });
     render();
   });
 }
@@ -877,12 +1006,12 @@ function renderHistorialCorto() {
   try { h = JSON.parse(localStorage.getItem('previaje.historial') || '[]'); } catch (e) {}
   if (!h.length) return '';
   return '<div class="tarjeta historial"><div class="ojal">Últimas evaluaciones en este teléfono</div><ul>' +
-    h.slice(0, 5).map(x => '<li><span>' + esc(fmtFechaHora(x.fecha)) + ' · ' + esc(x.economico) + ' · ' + esc(x.nombre.split(' ')[0]) + '</span><span class="etiqueta ' + (x.apto ? 'apto' : 'noapto') + '">' + (x.apto ? 'Apto' : 'No apto') + '</span></li>').join('') + '</ul></div>';
+    h.slice(0, 5).map(x => '<li><span>' + esc(fmtFechaHora(x.fecha)) + ' · ' + esc(x.economico) + ' · ' + esc(x.nombre.split(' ')[0]) + '</span><span class="etiqueta ' + (x.apto ? 'apto' : 'noapto') + '">' + (x.apto ? ICONO.check + 'Apto' : ICONO.x + 'No apto') + '</span></li>').join('') + '</ul></div>';
 }
 
 function toast(msg) {
-  const t = document.createElement('div'); t.className = 'aviso-toast'; t.textContent = msg; t.setAttribute('role', 'status');
-  document.body.appendChild(t); setTimeout(() => t.remove(), 2600);
+  const t = document.createElement('div'); t.className = 'aviso-toast'; t.textContent = msg; t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite');
+  document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
 }
 
 render();

@@ -41,6 +41,13 @@ El archivo incluye un **modo demostración** con unidades de ejemplo (`T-118`, `
 
 con los periodos de conducción (motor en movimiento) desde `desde` hasta ahora. Si el GPS no responde, el operador puede declarar sus horas manualmente y la evaluación queda marcada como **pendiente de validación** por Cabina.
 
+## Diseño
+
+El diseño sigue el sistema documentado en `design-system/pre-viaje-operador/MASTER.md`, sintetizado con la habilidad
+`ui-ux-pro-max` instalada en `.claude/skills/ui-ux-pro-max`: estilo Minimalism & Swiss + Flat, modo noche OLED,
+paleta industrial slate + safety orange, tipografía Barlow Condensed + Barlow, targets de 48 px, estados con icono y
+texto, resumen de errores enfocable y alternativa de firma escrita.
+
 ## Publicación
 
 Suba `index.html` a cualquier hosting estático (GitHub Pages, Netlify, S3). Debe servirse por HTTPS para que el teléfono pueda compartir su ubicación.
