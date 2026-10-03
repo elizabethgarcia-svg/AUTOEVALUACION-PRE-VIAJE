@@ -638,6 +638,7 @@ function fmtH(h) {
   return mm ? hh + ' h ' + String(mm).padStart(2, '0') + ' min' : hh + ' h';
 }
 const fmtHora = d => d ? new Date(d).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }) : '—';
+const fmtHora24 = d => d ? new Date(d).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', hour12: false }) : '—';
 const fmtFecha = d => new Date(d).toLocaleDateString('es-MX', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
 const fmtFechaHora = d => fmtFecha(d) + ' ' + fmtHora(d);
 
@@ -1495,7 +1496,7 @@ function renderResultado() {
   if (!r.apto && r.reintentoHoras) {
     const hasta = new Date(new Date(d.fecha).getTime() + r.reintentoHoras * 3600e3);
     html += '<div class="estado-card bloqueo"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--danger-text)">' + esc(r.reintentoMotivo) + '</div><h2>' + ICONO.reloj + 'Vuelva a hacer la evaluación en ' + r.reintentoHoras + ' h</h2></div>' +
-      '<div class="cuenta"><div class="k">Descanse y repita la prueba a partir de las</div><div class="reloj">' + fmtHora(hasta) + '</div><div class="h">' + (hasta.getDate() !== new Date(d.fecha).getDate() ? 'de mañana · ' : '') + 'Duerma o repose en un lugar seguro. No salga antes.</div></div></div></div>';
+      '<div class="cuenta"><div class="k">Descanse y repita la prueba a partir de las</div><div class="reloj">' + fmtHora24(hasta) + '<small style="font-size:22px;color:rgba(255,255,255,.8)"> h</small></div><div class="h">' + (hasta.getDate() !== new Date(d.fecha).getDate() ? 'de mañana · ' : '') + 'Duerma o repose en un lugar seguro. No salga antes.</div></div></div></div>';
   }
   if (r.mtto.length) {
     html += '<div class="tarjeta pila" style="gap:8px"><div class="tarjeta-titulo"><span class="ico">' + ICONO.llave + '</span><div>Folio de Mantenimiento <b>' + esc(r.folioMtto) + '</b><div class="ayuda">Se envía junto con el dictamen para su atención.</div></div></div>' +
