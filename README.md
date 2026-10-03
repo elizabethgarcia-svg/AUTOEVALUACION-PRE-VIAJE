@@ -10,15 +10,17 @@ Encuesta de autoevaluación que realiza el operador antes de salir a ruta. Un so
 4. **Datos** del operador y unidad (nombre, número económico, fecha y hora, ruta).
 5. **Estado físico**: horas de sueño, cansancio (1–5), malestar, medicamentos, alcohol.
 6. **Estado emocional**: ánimo (1–5), estrés (1–5), capacidad de atención, eventos del día.
-7. **Revisión de la unidad**: llantas, frenos, luces, acoplamiento, documentos, equipo de emergencia.
-8. **Confirmación**: resumen, declaración de veracidad y firma con el dedo (o firma escrita).
-9. **Dictamen** con factores detectados, identificación (foto, ubicación, compromiso), folio, envío por WhatsApp y copia del resumen.
+7. **Visión (lea el letrero)**: tres letreros de carretera cada vez más chicos, con cuatro opciones parecidas (dígito cambiado, unidad cambiada, letra parecida). Las frases salen de un banco de 42 letreros y no se repiten en evaluaciones consecutivas del mismo teléfono. 3/3 en regla, 2/3 observación (+1), 1 o menos: crítico.
+8. **Reacción y vigilancia (toque)**: pantalla en negro; tras 2 a 5 s aparece un cronómetro y el operador debe tocar lo antes posible. Cinco intentos; a tiempo = menos de 1 000 ms; se cuentan los toques anticipados. 4 o 5 a tiempo en regla, 3 observación (+1), 2 o menos: crítico. Se puede repetir una vez (queda registrado).
+9. **Revisión de la unidad**: llantas, frenos, luces, acoplamiento, documentos, equipo de emergencia.
+10. **Confirmación**: resumen, declaración de veracidad y firma con el dedo (o firma escrita).
+11. **Dictamen** con factores detectados, identificación (foto, ubicación, compromiso), folio, envío por WhatsApp y copia del resumen.
 
 Cada sección se encabeza con una señal de carretera (preventiva amarilla, informativa azul, destino verde, restrictiva roja) y un poste kilométrico con el número de tramo.
 
 ## Reglas de fatiga (bloquean la evaluación)
 
-Configurables en el objeto `REGLAS` al inicio del script (referencia NOM-087-SCT-2-2017):
+Configurables en el objeto `REGLAS` al inicio del script (los umbrales de visión y reacción están en `PRUEBAS`) (referencia NOM-087-SCT-2-2017):
 
 | Parámetro | Valor | Significado |
 |---|---|---|

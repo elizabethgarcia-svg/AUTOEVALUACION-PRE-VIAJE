@@ -401,6 +401,33 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .hos-leyenda span { display: inline-flex; align-items: center; gap: 6px; }
 .hos-leyenda i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
+/* Pruebas de visión y reacción */
+.rondas { display: flex; justify-content: center; gap: 8px; }
+.rondas span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: var(--card-2); color: var(--fg-2); border: 1px solid var(--border-2); }
+.rondas span.actual { background: var(--brand); color: #FFFFFF; border-color: var(--brand); }
+.rondas span.hecha { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-text); }
+.letrero-vista { background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius); min-height: 120px; display: grid; place-items: center; padding: 16px; text-align: center; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-family: var(--f-body); line-height: 1.2; }
+.opciones-col .opcion { flex: 1 1 100%; font-weight: 500; text-transform: uppercase; letter-spacing: .03em; font-size: 16px; }
+.rx { background: #000000; color: #FFFFFF; border-radius: var(--radius); min-height: 240px; display: grid; place-items: center; text-align: center; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: manipulation; border: 2px solid var(--asfalto); transition: background var(--dur); padding: 16px; }
+.rx .rx-centro b { display: block; font-family: var(--f-impact); font-weight: 800; font-size: 56px; line-height: 1; font-variant-numeric: tabular-nums; }
+.rx .rx-centro span { display: block; margin-top: 8px; font-size: 15px; color: rgba(255,255,255,.75); }
+.rx.espera { background: #000000; }
+.rx.espera .rx-centro span { color: rgba(255,255,255,.35); }
+.rx.activo { background: var(--brand-deep); border-color: var(--accent); }
+.rx.activo .rx-centro b { color: var(--accent); }
+.rx.activo .rx-centro span { color: #FFFFFF; font-weight: 700; font-size: 20px; letter-spacing: .1em; }
+.rx.pausa { background: var(--asfalto); }
+.rx.anticipado { background: var(--danger-fill); }
+.rx-estado { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.rx-estado:empty { display: none; }
+.rx-estado span, .rx-detalle span { padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+.rx-estado span.ok, .rx-detalle span.ok { background: var(--ok-bg); color: var(--ok-text); }
+.rx-estado span.mal, .rx-detalle span.mal { background: var(--danger-bg); color: var(--danger-text); }
+.rx-resumen { background: var(--card-2); border-radius: var(--radius); padding: 16px; text-align: center; }
+.rx-gran { font-family: var(--f-impact); font-weight: 800; font-size: 56px; line-height: 1; color: var(--brand-bright); }
+.rx-gran small { font-size: 22px; color: var(--fg-2); }
+.rx-detalle { font-size: 14px; color: var(--fg-2); margin-top: 10px; line-height: 1.8; }
+.rx-detalle span { padding: 1px 6px; }
 /* Cabecera de sección con señal y poste kilométrico */
 .seccion-cab { display: flex; align-items: center; gap: 14px; }
 .senal-svg { width: 72px; height: 72px; flex-shrink: 0; filter: drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
@@ -647,6 +674,8 @@ const SECCIONES = [
       { id: 'evento', tipo: 'sino', texto: '¿Tuvo hoy una discusión fuerte, una mala noticia o un problema que lo distraiga?',
         riesgo: v => v === SI ? { p: 2, t: 'Evento personal que puede distraerlo' } : null }
     ] },
+  { id: 'vision', nombre: 'Visión', titulo: 'Lea el letrero', senal: 'azul', icono: 'ojo', sub: 'Tres letreros, cada vez más chicos. Sostenga el teléfono a la distancia en que normalmente lo usa y no lo acerque.' },
+  { id: 'reaccion', nombre: 'Reacción', titulo: 'Toque en cuanto aparezca', senal: 'diamante', icono: 'rayo', sub: 'La pantalla se queda en negro. En cualquier momento aparece un cronómetro corriendo: toque lo más rápido que pueda. Son 5 intentos y dura menos de minuto y medio.' },
   { id: 'unidad', nombre: 'Unidad', titulo: 'Revisión de la unidad', senal: 'azul', icono: 'llave', sub: 'Dé la vuelta completa al tractocamión y al remolque antes de responder.',
     preguntas: [
       { id: 'llantas', tipo: 'sino', texto: '¿Llantas en buen estado y con presión correcta?', ayuda: 'Tractor y remolque. Sin cortes, sin alambre expuesto, birlos completos.',
@@ -677,6 +706,7 @@ const estado = {
   respuestas: {},
   firma: false, firmaTexto: '', acepta: false,
   compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente',
+  vision: null, reaccion: null,
   mostrarErrores: false,
   resultado: null
 };
@@ -722,6 +752,8 @@ const ICONO = {
   cama: svg('<path d="M3 18V8M3 14h18v4M21 14v-3a2 2 0 0 0-2-2h-9v5"/><circle cx="7" cy="10.5" r="1.5"/><path d="M15 3h4l-4 4h4"/>'),
   llave: svg('<path d="M14 4a5 5 0 0 0-4.6 7l-6 6 3 3 6-6A5 5 0 0 0 20 8l-3 3-3-3 3-3a5 5 0 0 0-3-1z"/>'),
   bandera: svg('<path d="M5 22V3"/><path d="M5 4h12l-2 4 2 4H5"/>'),
+  ojo: svg('<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+  rayo: svg('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'),
   camion: svg('<path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
   wa: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.2z"/></svg>',
   copiar: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>')
@@ -973,6 +1005,8 @@ function renderSeccion() {
   if (s.id === 'compromiso') html += renderCompromiso();
   else if (s.id === 'identificacion') html += renderIdentificacion();
   else if (s.id === 'datos') html += renderDatos();
+  else if (s.id === 'vision') html += renderVision();
+  else if (s.id === 'reaccion') html += renderReaccion();
   else if (s.id === 'confirmacion') html += renderConfirmacion();
   else html += '<div class="tarjeta">' + s.preguntas.map(renderPregunta).join('') + '</div>';
   html += '</section>';
@@ -980,10 +1014,170 @@ function renderSeccion() {
   if (s.id === 'compromiso') enlazarCompromiso();
   else if (s.id === 'identificacion') enlazarIdentificacion();
   else if (s.id === 'datos') enlazarDatos();
+  else if (s.id === 'vision') enlazarVision();
+  else if (s.id === 'reaccion') enlazarReaccion();
   else if (s.id === 'confirmacion') enlazarConfirmacion();
   else enlazarPreguntas(s);
   actualizarPie();
   if (estado.mostrarErrores) mostrarErrores(false);
+}
+
+/* =====================================================================
+   PRUEBAS: VISIÓN (letreros) Y REACCIÓN (toque)
+   ===================================================================== */
+const PRUEBAS = {
+  visionTamanos: [30, 20, 13],      // px de cada letrero (grande, mediano, chico)
+  visionCritico: 1,                 // con este número de aciertos o menos: crítico
+  reaccionLimiteMs: 1000,           // un intento cuenta "a tiempo" por debajo de este valor
+  reaccionIntentos: 5,
+  reaccionBien: 4,                  // intentos a tiempo para considerarse bien
+  reaccionCritico: 2,               // con este número o menos: crítico
+  anticipadosRiesgo: 3,
+  esperaMinMs: 2000, esperaMaxMs: 5000, sinRespuestaMs: 3000
+};
+const BANCO_LETREROS = [
+  'CASETA A 800 M', 'CARGA PELIGROSA 1203', 'BÁSCULA 1.5 KM', 'CURVA PELIGROSA', 'ZONA DE NIEBLA', 'PARADOR A 2 KM', 'RETORNO A 500 M',
+  'VELOCIDAD MÁXIMA 80', 'PUENTE ANGOSTO', 'DESVIACIÓN A 300 M', 'CARRIL CERRADO', 'PENDIENTE 6 %', 'ALTO TOTAL', 'SALIDA 12 B',
+  'KM 118', 'PESO MÁXIMO 48.5 T', 'ALTURA LIBRE 4.2 M', 'ZONA ESCOLAR', 'CRUCE DE GANADO', 'TÚNEL 1.2 KM', 'GASOLINERA A 5 KM',
+  'SAN LUIS POTOSÍ 42 KM', 'MATEHUALA 18 KM', 'SALTILLO 96 KM', 'QUERÉTARO 64 KM', 'MONCLOVA 27 KM', 'NO REBASE', 'CARRETERA RESBALOSA',
+  'VIENTO LATERAL', 'TOPE A 100 M', 'ZONA DE DERRUMBES', 'INSPECCIÓN A 1 KM', 'PRECAUCIÓN ANIMALES', 'CAMINO SINUOSO', 'OBRAS A 400 M',
+  'ACOTAMIENTO CERRADO', 'ENTRONQUE A 700 M', 'LÍMITE 60 KM/H', 'CRUCE DE PEATONES', 'GRAVA SUELTA', 'PUESTO DE CONTROL', 'CASETA 12'
+];
+const LETRAS_SIMILARES = { A: 'R', B: 'R', C: 'G', D: 'O', E: 'F', F: 'E', G: 'C', H: 'N', I: 'L', L: 'I', M: 'N', N: 'M', O: 'Q', P: 'R', R: 'P', S: 'Z', T: 'I', U: 'V', V: 'U', Z: 'S', K: 'X', X: 'K' };
+const azar = n => Math.floor(Math.random() * n);
+const barajar = a => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = azar(i + 1); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+
+function distractores(frase) {
+  const set = new Set(), out = [];
+  const add = t => { if (t && t !== frase && !set.has(t)) { set.add(t); out.push(t); } };
+  const palabras = frase.split(' ');
+  // a) cambiar un dígito
+  const m = frase.match(/\d/g);
+  if (m) { for (let k = 0; k < 6 && out.length < 1; k++) { const idx = [...frase].map((c, i) => /\d/.test(c) ? i : -1).filter(i => i >= 0); const i = idx[azar(idx.length)]; const d = String((Number(frase[i]) + 3 + azar(6)) % 10); add(frase.slice(0, i) + d + frase.slice(i + 1)); } }
+  // b) cambiar unidad / sufijo
+  if (/ KM\b/.test(frase)) add(frase.replace(/ KM\b/, ' M')); else if (/ M\b/.test(frase)) add(frase.replace(/ M\b/, ' KM'));
+  if (/ KM\/H\b/.test(frase)) add(frase.replace(/ KM\/H\b/, ' KM'));
+  // c) letra parecida en una palabra larga
+  for (let k = 0; k < 10 && out.length < 3; k++) {
+    const cand = palabras.map((w, i) => ({ w, i })).filter(x => x.w.replace(/[^A-ZÁÉÍÓÚÑ]/g, '').length >= 4);
+    if (!cand.length) break;
+    const { w, i } = cand[azar(cand.length)];
+    const pos = 1 + azar(w.length - 2), ch = w[pos], nuevo = LETRAS_SIMILARES[ch];
+    if (!nuevo) continue;
+    const w2 = w.slice(0, pos) + nuevo + w.slice(pos + 1);
+    add([...palabras.slice(0, i), w2, ...palabras.slice(i + 1)].join(' '));
+  }
+  // d) transponer dos letras / invertir dígitos
+  for (let k = 0; k < 10 && out.length < 3; k++) {
+    const cand = palabras.map((w, i) => ({ w, i })).filter(x => x.w.length >= 3);
+    const { w, i } = cand[azar(cand.length)];
+    const pos = azar(w.length - 1); if (w[pos] === w[pos + 1]) continue;
+    const w2 = w.slice(0, pos) + w[pos + 1] + w[pos] + w.slice(pos + 2);
+    add([...palabras.slice(0, i), w2, ...palabras.slice(i + 1)].join(' '));
+  }
+  // e) respaldo: más variantes de dígitos o letra extra hasta tener 3
+  for (let k = 0; k < 30 && out.length < 3; k++) {
+    if (m) { const idx = [...frase].map((c, i) => /\d/.test(c) ? i : -1).filter(i => i >= 0); const i = idx[azar(idx.length)]; const d = String((Number(frase[i]) + 1 + azar(9)) % 10); add(frase.slice(0, i) + d + frase.slice(i + 1)); }
+    else { const i = 1 + azar(frase.length - 1); add(frase.slice(0, i) + frase[i - 1] + frase.slice(i)); }
+  }
+  return out.slice(0, 3);
+}
+function prepararVision() {
+  let usados = [];
+  try { usados = JSON.parse(localStorage.getItem('previaje.letrerosUsados') || '[]'); } catch (e) {}
+  let disponibles = BANCO_LETREROS.filter(f => !usados.includes(f));
+  if (disponibles.length < 3) { disponibles = BANCO_LETREROS; usados = []; }
+  const frases = barajar(disponibles).slice(0, 3);
+  try { localStorage.setItem('previaje.letrerosUsados', JSON.stringify([...usados, ...frases].slice(-18))); } catch (e) {}
+  estado.vision = { rondas: frases.map((f, i) => ({ frase: f, tamano: PRUEBAS.visionTamanos[i], opciones: barajar([f, ...distractores(f)]), elegida: null })), actual: 0, correctos: 0, completa: false };
+}
+function renderVision() {
+  if (!estado.vision) prepararVision();
+  const v = estado.vision;
+  let html = '<div class="tarjeta pila" id="visionBox">';
+  html += '<div class="rondas" aria-label="Avance de letreros">' + v.rondas.map((r, i) => '<span class="' + (i < v.actual ? 'hecha' : i === v.actual && !v.completa ? 'actual' : '') + '">' + (i + 1) + '</span>').join('') + '</div>';
+  if (!v.completa) {
+    const r = v.rondas[v.actual];
+    html += '<div class="letrero-vista" style="font-size:' + r.tamano + 'px"><span>' + esc(r.frase) + '</span></div>' +
+      '<div class="ayuda" style="text-align:center">¿Qué dice el letrero?</div>' +
+      '<div class="opciones opciones-col">' + r.opciones.map((o, i) => '<button type="button" class="opcion" data-op="' + i + '">' + esc(o) + '</button>').join('') + '</div>';
+  } else {
+    const ok = v.correctos === 3, crit = v.correctos <= PRUEBAS.visionCritico;
+    html += '<div class="aviso ' + (ok ? 'ok' : crit ? 'danger' : 'warn') + '">' + (ok ? ICONO.checkCirculo : ICONO.alerta) + '<div><b>' + v.correctos + ' de 3 correctos</b>' +
+      (ok ? 'Lectura correcta en los tres tamaños.' : crit ? 'Lectura insuficiente. Se registra como factor crítico; Cabina de Seguridad lo revisará.' : 'Quedará asentado como observación. Si usa lentes, póngaselos antes de continuar.') + '</div></div>';
+  }
+  html += '</div>';
+  return html;
+}
+function enlazarVision() {
+  const v = estado.vision; if (!v || v.completa) return;
+  vista.querySelectorAll('[data-op]').forEach(b => b.addEventListener('click', () => {
+    const r = v.rondas[v.actual]; r.elegida = r.opciones[Number(b.dataset.op)];
+    if (r.elegida === r.frase) v.correctos++;
+    v.actual++;
+    if (v.actual >= v.rondas.length) v.completa = true;
+    renderSeccion();
+  }));
+}
+
+function renderReaccion() {
+  if (!estado.reaccion) estado.reaccion = { intentos: [], anticipados: 0, completa: false, fase: 'inicio', repetida: false };
+  const rx = estado.reaccion;
+  let html = '<div class="tarjeta pila" id="rxBox">';
+  if (!rx.completa) {
+    html += '<div class="rx" id="rxPanel" role="button" tabindex="0" aria-label="Zona de reacción: toque cuando aparezca el cronómetro">' +
+      '<div class="rx-centro" id="rxCentro"><b>' + (rx.fase === 'inicio' ? 'Toque para iniciar' : '') + '</b><span>' + (rx.fase === 'inicio' ? 'Intento 1 de ' + PRUEBAS.reaccionIntentos : '') + '</span></div></div>' +
+      '<div class="rx-estado" id="rxEstado">' + rx.intentos.map(t => '<span class="' + (t < PRUEBAS.reaccionLimiteMs ? 'ok' : 'mal') + '">' + (t >= PRUEBAS.sinRespuestaMs ? 'sin resp.' : t + ' ms') + '</span>').join('') + '</div>';
+  } else {
+    const bien = rx.aTiempo >= PRUEBAS.reaccionBien, crit = rx.aTiempo <= PRUEBAS.reaccionCritico;
+    html += '<div class="rx-resumen"><div class="rx-gran">' + rx.aTiempo + '<small>/' + PRUEBAS.reaccionIntentos + '</small></div><div class="ayuda">intentos respondidos a tiempo (mínimo ' + (PRUEBAS.reaccionCritico + 1) + ')</div>' +
+      '<div class="rx-detalle">Promedio ' + rx.promedio + ' ms · mejor ' + rx.mejor + ' ms · más lento ' + rx.peor + ' ms<br>Intentos: ' + rx.intentos.map(t => '<span class="' + (t < PRUEBAS.reaccionLimiteMs ? 'ok' : 'mal') + '">' + (t >= PRUEBAS.sinRespuestaMs ? 'sin resp.' : t) + '</span>').join(' · ') + ' ms<br>' + rx.anticipados + ' toque(s) anticipado(s)</div></div>' +
+      '<div class="aviso ' + (bien ? 'ok' : crit ? 'danger' : 'warn') + '">' + (bien ? ICONO.checkCirculo : ICONO.alerta) + '<div><b>' + (bien ? 'Reacción en regla' : crit ? 'Reacción insuficiente' : 'Apenas en el límite') + '</b>' +
+      (bien ? 'Buena vigilancia. Mantenga sus pausas durante el viaje.' : crit ? 'Es un indicador de fatiga. Se registra como factor crítico.' : 'Queda asentado como observación. Refuerce las pausas durante el viaje.') + '</div></div>' +
+      (rx.repetida ? '' : '<button class="btn fantasma" id="btnRxRepetir" type="button">' + ICONO.reloj + ' Repetir prueba (una vez)</button>');
+  }
+  html += '</div>';
+  return html;
+}
+let rxTemp = { espera: null, raf: null, inicio: 0 };
+function enlazarReaccion() {
+  const rx = estado.reaccion;
+  const panel = $('#rxPanel');
+  if (!panel) { const b = $('#btnRxRepetir'); if (b) b.addEventListener('click', () => { estado.reaccion = { intentos: [], anticipados: 0, completa: false, fase: 'inicio', repetida: true }; renderSeccion(); }); return; }
+  const centro = $('#rxCentro');
+  const limpiar = () => { clearTimeout(rxTemp.espera); cancelAnimationFrame(rxTemp.raf); };
+  const esperar_ = () => {
+    rx.fase = 'espera'; panel.className = 'rx espera';
+    centro.innerHTML = '<b></b><span>Espere…</span>';
+    rxTemp.espera = setTimeout(mostrar, PRUEBAS.esperaMinMs + azar(PRUEBAS.esperaMaxMs - PRUEBAS.esperaMinMs));
+  };
+  const mostrar = () => {
+    rx.fase = 'activo'; panel.className = 'rx activo'; rxTemp.inicio = performance.now();
+    centro.innerHTML = '<b id="rxCrono">0</b><span>¡TOQUE!</span>';
+    const tick = () => { const ms = Math.round(performance.now() - rxTemp.inicio); const c = $('#rxCrono'); if (c) c.textContent = ms; if (ms >= PRUEBAS.sinRespuestaMs) { registrar(PRUEBAS.sinRespuestaMs); return; } rxTemp.raf = requestAnimationFrame(tick); };
+    rxTemp.raf = requestAnimationFrame(tick);
+  };
+  const registrar = ms => {
+    limpiar(); rx.intentos.push(ms);
+    if (rx.intentos.length >= PRUEBAS.reaccionIntentos) {
+      const validos = rx.intentos.filter(t => t < PRUEBAS.sinRespuestaMs);
+      rx.aTiempo = rx.intentos.filter(t => t < PRUEBAS.reaccionLimiteMs).length;
+      rx.promedio = validos.length ? Math.round(validos.reduce((a, b) => a + b, 0) / validos.length) : PRUEBAS.sinRespuestaMs;
+      rx.mejor = validos.length ? Math.min(...validos) : PRUEBAS.sinRespuestaMs; rx.peor = Math.max(...rx.intentos);
+      rx.completa = true; rx.fase = 'fin'; vibrar(30); renderSeccion(); actualizarPie(); return;
+    }
+    rx.fase = 'pausa'; panel.className = 'rx pausa';
+    centro.innerHTML = '<b>' + (ms >= PRUEBAS.sinRespuestaMs ? 'Sin respuesta' : ms + ' ms') + '</b><span>Intento ' + (rx.intentos.length + 1) + ' de ' + PRUEBAS.reaccionIntentos + ' · toque para seguir</span>';
+    $('#rxEstado').innerHTML = rx.intentos.map(t => '<span class="' + (t < PRUEBAS.reaccionLimiteMs ? 'ok' : 'mal') + '">' + (t >= PRUEBAS.sinRespuestaMs ? 'sin resp.' : t + ' ms') + '</span>').join('');
+  };
+  const toque = e => {
+    e.preventDefault();
+    if (rx.fase === 'inicio' || rx.fase === 'pausa') esperar_();
+    else if (rx.fase === 'espera') { rx.anticipados++; vibrar(60); limpiar(); panel.className = 'rx anticipado'; centro.innerHTML = '<b>Muy pronto</b><span>Espere a que aparezca el cronómetro. Toque para reintentar.</span>'; rx.fase = 'pausa'; }
+    else if (rx.fase === 'activo') registrar(Math.round(performance.now() - rxTemp.inicio));
+  };
+  panel.addEventListener('pointerdown', toque);
+  panel.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') toque(e); });
 }
 
 function renderCompromiso() {
@@ -1154,6 +1348,10 @@ function faltantes() {
     if (!estado.compromiso) f.push({ id: 'chkCompromiso', texto: 'Marque que leyó y acepta el compromiso.', tipo: 'compromiso' });
   } else if (s.id === 'identificacion') {
     if (!estado.foto) f.push({ id: 'btnFoto', texto: 'Tome la foto del operador.', tipo: 'foto' });
+  } else if (s.id === 'vision') {
+    if (!estado.vision || !estado.vision.completa) f.push({ id: 'visionBox', texto: 'Lea y conteste los 3 letreros.', tipo: 'prueba' });
+  } else if (s.id === 'reaccion') {
+    if (!estado.reaccion || !estado.reaccion.completa) f.push({ id: 'rxBox', texto: 'Complete los 5 intentos de la prueba de reacción.', tipo: 'prueba' });
   } else if (s.id === 'datos') {
     for (const id of Object.keys(VALIDA_DATOS)) if (!VALIDA_DATOS[id].ok(estado.datos[VALIDA_DATOS[id].campo])) f.push({ id, texto: VALIDA_DATOS[id].msg, tipo: 'campo' });
   } else if (s.id === 'confirmacion') {
@@ -1178,6 +1376,7 @@ function mostrarErrores(enfocar) {
     else if (x.tipo === 'firma') { $('#firmaBox').classList.add('error'); $('#firmaErr').innerHTML = errorLinea('firmaErrTxt', x.texto); }
     else if (x.tipo === 'compromiso') { $('#casillaCompromiso').classList.add('error'); $('#chkCompromisoErr').innerHTML = errorLinea('chkCompromisoErrTxt', x.texto); }
     else if (x.tipo === 'foto') { $('#fotoBox').classList.add('error'); $('#fotoErr').innerHTML = errorLinea('fotoErrTxt', x.texto); }
+    else if (x.tipo === 'prueba') { const el = $('#' + x.id); if (el) el.classList.add('error'); }
   }
   caja.querySelectorAll('a[data-ir]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault(); const el = $('#' + a.dataset.ir);
@@ -1227,6 +1426,17 @@ function calcularResultado() {
   const g = estado.gps.analisis;
   if (g.advertencia) factores.push({ sev: 'riesgo', t: 'GPS: ' + g.advertencia, seccion: 'GPS' });
   if (estado.gps.origen === 'manual') factores.push({ sev: 'riesgo', t: 'Horas de conducción sin verificar por GPS. Requiere validación de Cabina.', seccion: 'GPS' });
+  const v = estado.vision;
+  if (v && v.completa) {
+    if (v.correctos <= PRUEBAS.visionCritico) { criticos++; factores.push({ sev: 'critico', t: 'Visión: ' + v.correctos + ' de 3 letreros correctos', seccion: 'Visión' }); }
+    else if (v.correctos < 3) { puntos += 1; factores.push({ sev: 'riesgo', t: 'Visión: ' + v.correctos + ' de 3 letreros correctos. Si usa lentes, póngaselos (+1)', seccion: 'Visión' }); }
+  }
+  const rx = estado.reaccion;
+  if (rx && rx.completa) {
+    if (rx.aTiempo <= PRUEBAS.reaccionCritico) { criticos++; factores.push({ sev: 'critico', t: 'Reacción: solo ' + rx.aTiempo + ' de 5 intentos a tiempo (promedio ' + rx.promedio + ' ms)', seccion: 'Reacción' }); }
+    else if (rx.aTiempo < PRUEBAS.reaccionBien) { puntos += 1; factores.push({ sev: 'riesgo', t: 'Reacción apenas en el límite: ' + rx.aTiempo + ' de 5 a tiempo (promedio ' + rx.promedio + ' ms) (+1)', seccion: 'Reacción' }); }
+    if (rx.anticipados >= PRUEBAS.anticipadosRiesgo) { puntos += 1; factores.push({ sev: 'riesgo', t: 'Reacción: ' + rx.anticipados + ' toques anticipados (+1)', seccion: 'Reacción' }); }
+  }
   const apto = criticos === 0 && puntos < REGLAS.puntosNoApto;
   const f = new Date(estado.datos.fecha);
   const folio = 'PV-' + f.getFullYear() + String(f.getMonth() + 1).padStart(2, '0') + String(f.getDate()).padStart(2, '0') + '-' + String(f.getHours()).padStart(2, '0') + String(f.getMinutes()).padStart(2, '0') + '-' + estado.datos.economico.replace(/[^A-Z0-9]/g, '');
@@ -1243,6 +1453,7 @@ function textoResumen() {
   return 'PRE-VIAJE · ' + (r.apto ? 'APTO' : 'NO APTO') + (r.pendienteValidacion ? ' (pendiente validación GPS)' : '') + '\n' +
     'Folio: ' + r.folio + '\nOperador: ' + d.nombre + '\nUnidad: ' + d.economico + '\nRuta: ' + d.ruta + '\nFecha: ' + fmtFechaHora(d.fecha) + '\n' +
     'Conducción jornada: ' + fmtH(g.horasJornada) + ' · Disponible: ' + fmtH(g.restante) + '\n' +
+    'Visión: ' + (estado.vision ? estado.vision.correctos + '/3' : '—') + ' · Reacción: ' + (estado.reaccion ? estado.reaccion.aTiempo + '/5 a tiempo, promedio ' + estado.reaccion.promedio + ' ms, ' + estado.reaccion.anticipados + ' anticipados' : '—') + '\n' +
     'Ubicación: ' + (estado.ubicacion ? estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) + ' (teléfono)' : estado.gps.ubicacion + ' (GPS unidad)') + '\nCompromiso aceptado: sí · Foto: ' + (estado.foto ? 'sí' : 'no') + '\n' +
     (r.factores.length ? 'Factores:\n' + r.factores.map(x => '- [' + (x.sev === 'critico' ? 'CRÍTICO' : 'RIESGO') + '] ' + x.t).join('\n') : 'Sin factores de riesgo.');
 }
@@ -1278,7 +1489,7 @@ function renderResultado() {
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
   $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
+    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', vision: null, reaccion: null, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
     render();
   });
 }
