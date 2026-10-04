@@ -1921,8 +1921,43 @@ function responderLocal(pregunta) {
   const q = norm(pregunta), c = cab(), lista = catalogoParadas(), pos = posicionActual(), ahora = new Date();
   if (!q.trim()) return { texto: 'Escriba una pregunta, por ejemplo: "¿Dónde puedo pernoctar cerca de Matehuala?"', ids: [] };
   if (/^(hola|buenas|ayuda|que puedo preguntar|como funciona)/.test(q)) return { texto: 'Puedo buscar paradas autorizadas por lugar o servicio, decirle qué restricciones aplican en una zona u horario, a quién llamar y las reglas de cada cliente. Pruebe: "pensión para pernoctar cerca de Saltillo", "¿puedo circular por Puebla de noche?", "¿a quién llamo si me detiene la autoridad?" o "reglas de Bafar".', ids: [] };
+  const esc1 = c.escalamiento[0], esc2 = c.escalamiento[1];
+  const telEsc = x => x ? x.rol + ' · ' + x.tel : 'Cabina de Seguridad';
+  // Emergencias: falla mecánica, siniestro, seguimiento, autoridad
+  if (/sin frenos|poncha|ponchadura|llanta|falla|se apago|no arranca|descompu|averi|fuga|calent|motor fall|se me (fue|apago)/.test(q)) {
+    return { texto: '🔧 Falla mecánica: la regla del cliente y de Cabina es PARO DE MOTOR INMEDIATO y monitoreo activo de la unidad.\n1. Deténgase en el lugar más seguro posible, fuera del carril, con luces intermitentes y triángulos.\n2. Llame ahora al ' + telEsc(esc1) + '. Si no contesta, ' + telEsc(esc2) + '.\n3. No acepte ayuda de particulares ni abandone la unidad; espere las indicaciones de Cabina.\nSi puede seguir rodando con seguridad, la parada autorizada más cercana la encuentra preguntando "parada más cercana".', ids: [] };
+  }
+  if (/choque|choqu|accidente|volcad|siniestro|atropell|me pegaron|golpe/.test(q)) {
+    return { texto: '🚨 Siniestro: primero su integridad. Si hay lesionados llame al 911.\nDespués llame en este orden: ' + telEsc(esc1) + (esc2 ? ' y en paralelo ' + telEsc(esc2) : '') + '.\nNo mueva la unidad salvo riesgo mayor, no firme nada ni negocie con terceros; Cabina coordina el ajustador y la custodia.', ids: [] };
+  }
+  if (/me siguen|me estan siguiendo|me sigue|sospech|vehiculo extrano|me quieren (parar|detener)|me cierran|intento de robo|asalt|robo|secuestr|amenaz/.test(q)) {
+    return { texto: '🚨 Posible riesgo de seguridad: NO se detenga y no apague la unidad. Mantenga la velocidad permitida y siga sobre la autopista de cuota hacia la caseta, parador autorizado o zona con presencia de autoridad más cercana.\nLlame de inmediato al ' + telEsc(esc1) + (esc2 ? ' y en paralelo al ' + telEsc(esc2) : '') + '. Cabina da seguimiento por GPS y activa el protocolo.\nSi lo detienen por la fuerza, no oponga resistencia; su vida vale más que la carga.', ids: [] };
+  }
+  if (/guardia nacional|policia|transito|federal|reten|aduana|me paro|me paran|me detien|autoridad|inspeccion|verificacion/.test(q)) {
+    return { texto: '👮 Detención por autoridad: deténgase en lugar seguro, mantenga la calma y la cámara de cabina descubierta.\n1. Antes de bajar o entregar documentos, avise al ' + telEsc(esc1) + (esc2 ? '; con autoridad involucrada también se llama al ' + telEsc(esc2) : '') + '.\n2. Muestre licencia, tarjeta de circulación y carta porte; no entregue originales ni dinero.\n3. Pida nombre, corporación y número de unidad del oficial y dígalo a Cabina en la llamada.\nNo abandone la unidad ni permita que la muevan sin indicación de Cabina.', ids: [] };
+  }
+  // Horas de manejo y descanso
+  if (/cuantas horas|horas (puedo|de manejo|de conduccion|me quedan|llevo)|cuanto (puedo|tiempo) manej|jornada|descanso (efectivo|obligatorio)|cuando descanso|tiempo de manejo|limite de horas/.test(q)) {
+    const a = estado.gps && estado.gps.analisis; let mio = '';
+    if (a) mio = '\nSu unidad ' + (estado.gps.unidad || '') + ': ' + (a.horasJornadaVista ? 'lleva ' + fmtH(a.horasJornadaVista) + ' de manejo en esta jornada y le quedan ' + fmtH(a.restanteJornada) + '.' : 'está en jornada nueva, con ' + REGLAS.maxConduccion + ' h disponibles.') + (a.pausaCortaPendiente ? ' Ya debe una pausa de 30 min.' : '');
+    return { texto: 'Reglas de horas de servicio:\n• Máximo ' + REGLAS.maxConduccion + ' h de conducción por jornada; al llegar ahí, descanso efectivo de ' + REGLAS.descansoEfectivo + ' h.\n• Cada ' + REGLAS.conduccionSinPausa + ' h de manejo seguido, pausa de ' + Math.round(REGLAS.pausaCorta * 60) + ' min en parada autorizada.\n• Una pausa de ' + REGLAS.pausaReinicio + ' h o más cierra la jornada. Para tomar un viaje nuevo necesita al menos ' + REGLAS.minimoParaViaje + ' h disponibles.\n• En las últimas ' + REGLAS.ventanaDescanso + ' h debe existir un descanso efectivo de ' + REGLAS.descansoEfectivo + ' h.' + mio, ids: [] };
+  }
+  // Sueño o cansancio
+  if (/tengo sueno|sueno|cansad|fatiga|me duermo|cabece|agotad|descansar|descanso|media hora|pausa/.test(q) && !/pension|parador|gasolin/.test(q)) {
+    const ref = pos || (estado.gps && resolverLugar(norm(estado.gps.ubicacion)) ? (l => ({ lat: l.lat, lon: l.lon }))(resolverLugar(norm(estado.gps.ubicacion))) : null);
+    let cand = lista.filter(p => p.tipo === 'pensión' || p.tipo === 'patio' || p.tipo === 'parador');
+    if (ref) cand = cand.map(p => ({ ...p, d: distanciaKm(ref, p) })).sort((a, b) => a.d - b.d);
+    const top = cand.slice(0, 3);
+    const conSueno = /sueno|cansad|fatiga|me duermo|cabece|agotad/.test(q);
+    return { texto: (conSueno ? '😴 Con sueño no se maneja. Haga una pausa de al menos 30 minutos en la parada autorizada más cercana; si sigue con sueño, descanso efectivo y aviso a Cabina.' : '☕ Pausa de 30 minutos: solo en parada autorizada, con aviso previo a Cabina y paro de motor.') + '\n' + (top.length ? 'Opciones' + (ref ? ' más cercanas' : '') + ':\n' + top.map(p => lineaParada(p)).join('\n') : 'Comparta su ubicación para sugerirle la más cercana.') + '\nAvise a Cabina antes de detenerse y solicite paro de motor.', ids: top.map(p => p.id) };
+  }
+  // ¿Dónde estoy?
+  if (/donde estoy|mi ubicacion|mi posicion|donde esta la unidad/.test(q)) {
+    const txt = estado.gps && estado.gps.ubicacion ? (estado.gps.ubicacion.texto || estado.gps.ubicacion) : null;
+    return { texto: (txt ? 'Última posición del GPS de la unidad ' + (estado.gps.unidad || '') + ': ' + txt + '.' : 'No tengo la posición del GPS de la unidad.') + (pos ? ' Su teléfono reporta ' + pos.lat.toFixed(4) + ', ' + pos.lon.toFixed(4) + '.' : ' Comparta su ubicación en el tramo de identificación para ubicarlo con el teléfono.') + '\nPregunte "parada más cercana" para ver dónde puede detenerse.', ids: [] };
+  }
   // Escalamiento
-  if (/a quien (le )?(llamo|hablo|aviso)|telefono|numero de|contacto|escalam|comandante|gerente|emergencia|me detien|autoridad|robo|asalto/.test(q)) {
+  if (/a quien (le )?(llamo|hablo|aviso)|telefono|numero de|contacto|escalam|comandante|gerente|emergencia|no contesta/.test(q)) {
     const e = c.escalamiento; if (e.length) return { texto: 'Niveles de escalamiento (llame en este orden):\n' + e.map(x => x.nivel + '. ' + x.rol + ' · ' + x.tel + ' · ' + x.cuando).join('\n'), ids: [] };
   }
   // Reglas de cliente
@@ -1934,12 +1969,39 @@ function responderLocal(pregunta) {
   // Lugares prohibidos
   const prohib = c.prohibidos.find(p => { const k = (norm(p.nombre).match(/[a-z]{4,}/g) || []).filter(w => !['parador', 'restaurantes', 'carr'].includes(w))[0]; return k && q.includes(k); });
   if (prohib) return { texto: '⛔ ' + prohib.nombre + ': NO es parada autorizada. ' + (prohib.detalle || 'Prohibido detenerse.') + '\nSi necesita parar, elija una parada autorizada y avise a Cabina.', ids: [] };
+  // Kilómetro de carretera (p. ej. "puedo comer en el km 90")
+  const km = q.match(/\bkm\.?\s*(\d{1,3})\b|\bkilometro\s*(\d{1,3})\b/); const kmN = km ? +(km[1] || km[2]) : null;
+  if (kmN !== null) {
+    const zk = c.zonas.find(z => { const m = norm(z.nombre).match(/km\s*(\d+)\s*[–-]\s*(\d+)/); return m && kmN >= +m[1] && kmN <= +m[2]; });
+    if (zk) return { texto: '⛔ El km ' + kmN + ' cae en "' + zk.nombre + '": ' + zk.regla + ' · ' + horarioZona(zk) + '.\nNo se detenga ahí. Pregunte "parada más cercana" para una opción autorizada.', ids: [] };
+  }
+  // Reglas permanentes
+  const GENERICAS_REGLA = ['regla', 'reglas', 'cual', 'cuales', 'puedo', 'debo', 'tengo', 'para', 'como', 'donde', 'cuando', 'esta', 'estan', 'hacer', 'sobre', 'cual es', 'cuanto', 'que'];
+  const tokensRegla = (q.match(/[a-z0-9]{3,}/g) || []).filter(t => !GENERICAS_REGLA.includes(t));
+  const CLAVES_REGLA = /libre|cuota|libramiento|convoy|custodi|camara|bitacora|geocerca|desvio|desviar|rutina|contestar|telefono|300|primer|arranque|cliente mand|cambio de ruta|paro de motor|aviso/;
+  const reglasHit = c.reglas.filter(r => { const t = norm(r.titulo), d = norm(r.detalle); return tokensRegla.some(k => t.includes(k)) || (CLAVES_REGLA.test(q) && tokensRegla.some(k => k.length >= 4 && (d.includes(k) || t.includes(k)))); });
+  if (/\bregla|\bnorma|permitido|obligatorio|prohibido ir|por libre|carretera libre|cuota|convoy|camara|rutina|desvi/.test(q) && reglasHit.length && !lugar) {
+    return { texto: reglasHit.slice(0, 3).map(r => '📋 ' + r.titulo + ': ' + r.detalle).join('\n') + (reglasHit.length > 3 ? '\n…y ' + (reglasHit.length - 3) + ' más en "Reglas permanentes".' : ''), ids: [] };
+  }
+  if (/^(que |cuales son las )?reglas( permanentes| de la ruta| generales)?\??$/.test(q.trim())) return { texto: 'Reglas permanentes:\n' + c.reglas.map((r, i) => (i + 1) + '. ' + r.titulo).join('\n') + '\nPregunte por una para ver el detalle, por ejemplo "regla del convoy".', ids: [] };
+  // Parada por nombre (p. ej. "parador san pedro", "hay oxxo cerca")
+  const GENERICAS_NOMBRE = ['parador', 'paradero', 'pension', 'pensiones', 'gasolinera', 'gasolineras', 'patio', 'patios', 'cerca', 'cercana', 'cercano', 'donde', 'puedo', 'parar', 'para', 'hay', 'esta', 'estan', 'quiero', 'necesito', 'una', 'uno', 'del', 'los', 'las', 'que', 'con', 'por', 'dormir', 'comer', 'cargar', 'diesel', 'gasolina', 'pernoctar', 'restaurante', 'restaurant', 'estacion', 'servicio', 'cual', 'cuales', 'como', 'llego', 'llegar', 'queda', 'esta', 'autorizada', 'autorizado', 'parada', 'paradas', 'aqui', 'cerquita', 'mas', 'tengo', 'puede', 'pueden'];
+  const tokensNombre = (q.match(/[a-z0-9]{3,}/g) || []).filter(t => !GENERICAS_NOMBRE.includes(t));
+  if (tokensNombre.length && tokensNombre.length <= 4) {
+    const tiposQ = []; if (/pension|pernoct/.test(q)) tiposQ.push('pensión', 'patio'); if (/parador|paradero/.test(q)) tiposQ.push('parador'); if (/gasolin|diesel|combustible/.test(q)) tiposQ.push('gasolinera');
+    let porNombre = lista.filter(p => { const n = norm(p.nombre); return tokensNombre.every(t => n.includes(t)) && (!tiposQ.length || tiposQ.includes(p.tipo)); });
+    if (porNombre.length && porNombre.length <= 6) {
+      const ref = pos || (estado.gps && resolverLugar(norm(estado.gps.ubicacion)) ? (l => ({ lat: l.lat, lon: l.lon }))(resolverLugar(norm(estado.gps.ubicacion))) : null);
+      if (ref) porNombre = porNombre.map(p => ({ ...p, d: distanciaKm(ref, p) })).sort((a, b) => a.d - b.d);
+      return { texto: (porNombre.length === 1 ? 'Sí, es parada autorizada:' : 'Paradas autorizadas con ese nombre' + (ref ? ', de la más cercana a la más lejana' : '') + ':') + '\n' + porNombre.slice(0, 4).map(p => lineaParada(p, true) + ' · ' + p.region).join('\n') + '\nAvise a Cabina antes de detenerse y solicite paro de motor.', ids: porNombre.slice(0, 4).map(p => p.id) };
+    }
+  }
   // Restricciones / zonas
   const preguntaZona = /circular|restric|zona|riesgo|prohib|noche|horario|resguard|detener|parar en|seguro pasar|puedo pasar|puedo salir|iniciar viaje|salir de|de madrugada|toque de queda/.test(q);
   if (preguntaZona && !/pension|parador|gasolin|donde paro|donde puedo parar|comer|dormir/.test(q)) {
     const zonas = lugar ? zonasDeLugar(lugar) : c.zonas.filter(z => zonaActiva(z, ahora) && z.tipo !== 'detenerse');
     const encabezado = lugar ? 'Restricciones para ' + lugar.nombre + ':' : 'Restricciones activas ahora mismo (' + fmtHora(ahora) + '):';
-    const zs = zonas.filter(z => z.id !== 'nacional' || !lugar);
+    const zs = zonas.filter(z => z.id !== 'nacional' || !lugar).sort((a, b) => (/salir|iniciar|arrancar/.test(q) ? (b.tipo === 'salida' ? 1 : 0) - (a.tipo === 'salida' ? 1 : 0) : 0) || (zonaActiva(b, ahora) ? 1 : 0) - (zonaActiva(a, ahora) ? 1 : 0));
     if (!zs.length) return { texto: (lugar ? 'No tengo una restricción específica registrada para ' + lugar.nombre + '. ' : 'No hay restricciones de horario activas en este momento. ') + 'Aplica la regla general: prohibido detenerse sobre carretera y paro de motor en toda parada. Ante la duda, confirme con Cabina.', ids: [] };
     return { texto: encabezado + '\n' + zs.map(z => (zonaActiva(z, ahora) ? '🔴 ' : '• ') + z.nombre + ' · ' + ZONA_TIPO[z.tipo].lab + ' · ' + horarioZona(z) + (zonaActiva(z, ahora) ? ' · ACTIVA AHORA' : '') + '\n   ' + z.regla).join('\n') + '\nCualquier excepción la autoriza Gerencia de Seguridad; no entre a la zona sin autorización.', ids: [] };
   }
@@ -1949,17 +2011,21 @@ function responderLocal(pregunta) {
   const cerca = /cerca|cercan|proxim|donde estoy|aqui|siguiente|mas cerca/.test(q);
   const region = /\bnorte\b/.test(q) ? 'Norte' : /\bcentro\b/.test(q) ? 'Centro' : /\bsur\b/.test(q) ? 'Sur' : null;
   let cand = lista.filter(p => (!tipos.length || tipos.includes(p.tipo)) && (!region || p.region === region));
+  let enEstado = null; if (lugar && lugar.tipo === 'estado') { enEstado = cand.filter(p => norm(p.estado) === norm(lugar.estado)); }
   // servicios: si la parada tiene lista de servicios, debe contenerlos; si no tiene lista, se admite por tipo
   if (servicios.length) cand = cand.filter(p => !p.servicios || !p.servicios.length ? (servicios.includes('pernocta') ? (p.tipo === 'pensión' || p.tipo === 'patio') : true) : servicios.every(s => p.servicios.includes(s)));
   cand = cand.filter(p => !(servicios.includes('pernocta') && /no pernoct|no autoriza pernocta|solo de dia|solo paso|solo punto de espera|unicamente para bano/.test(norm(p.nota))));
   let ref = null, intro;
-  if (lugar) { ref = { lat: lugar.lat, lon: lugar.lon }; intro = 'Paradas autorizadas más cercanas a ' + lugar.nombre + ':'; }
+  if (enEstado && enEstado.length) { cand = enEstado; ref = pos; intro = 'Paradas autorizadas en ' + lugar.nombre + (pos ? ', de la más cercana a usted' : '') + ':'; }
+  else if (enEstado) { ref = { lat: lugar.lat, lon: lugar.lon }; intro = 'No hay ' + (tipos.length ? tipos.join(' ni ') : 'parada') + ' autorizada registrada en ' + lugar.nombre + '. Las más cercanas:'; }
+  else if (lugar) { ref = { lat: lugar.lat, lon: lugar.lon }; intro = 'Paradas autorizadas más cercanas a ' + lugar.nombre + ':'; }
   else if (pos && (cerca || !region)) { ref = pos; intro = 'Las paradas autorizadas más cercanas a su posición:'; }
   else if (!region && estado.gps && resolverLugar(norm(estado.gps.ubicacion))) { const lg = resolverLugar(norm(estado.gps.ubicacion)); ref = { lat: lg.lat, lon: lg.lon }; intro = 'Las paradas autorizadas más cercanas a la posición de la unidad (' + lg.nombre + '):'; }
   else if (region) intro = 'Paradas autorizadas en la región ' + region + ':';
   else intro = 'Estas paradas autorizadas cumplen lo que busca:';
   if (ref) cand = cand.map(p => ({ ...p, d: distanciaKm(ref, p) })).sort((a, b) => a.d - b.d); else cand = cand.sort((a, b) => (a.region + a.estado + a.nombre).localeCompare(b.region + b.estado + b.nombre));
-  const top = cand.slice(0, 3);
+  let top = cand.slice(0, 3);
+  if (top.length && ref && top[0].d > 150 && tipos.length) intro = 'No hay ' + tipos.join(' ni ') + ' autorizada cerca' + (lugar ? ' de ' + lugar.nombre : '') + '. Las más próximas:';
   if (!top.length) {
     const alt = (ref ? lista.map(p => ({ ...p, d: distanciaKm(ref, p) })).sort((a, b) => a.d - b.d) : lista).slice(0, 3);
     return { texto: 'No encontré una parada autorizada con esas condiciones' + (lugar ? ' cerca de ' + lugar.nombre : '') + '. Si es una emergencia, avise a Cabina antes de detenerse. Las más cercanas son:\n' + alt.map(p => lineaParada(p)).join('\n'), ids: alt.map(p => p.id) };
