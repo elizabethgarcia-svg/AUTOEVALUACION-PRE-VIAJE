@@ -2007,7 +2007,7 @@ function responderLocal(pregunta) {
   const q = norm(pregunta), c = cab(), lista = catalogoParadas(), pos = posicionActual(), ahora = new Date();
   const nom = nombreOperador(), hola = nom ? nom + ', ' : '';
   if (!q.trim()) return { texto: 'Escribe una pregunta, por ejemplo: "¿Dónde puedo pernoctar cerca de Matehuala?"', ids: [] };
-  if (/^(hola|buenas|ayuda|que puedo preguntar|como funciona)/.test(q)) return { texto: (nom ? 'Hola, ' + nom + '. ' : '') + 'Soy CONVOY. Puedo buscar paradas autorizadas por lugar o servicio, decirte qué restricciones aplican en una zona u horario, a quién llamar y las reglas de cada cliente. Prueba: "pensión para pernoctar cerca de Saltillo", "¿puedo circular por Puebla de noche?", "¿a quién llamo si me detiene la autoridad?" o "reglas de Bafar".', ids: [] };
+  if (/^(hola|buenas|ayuda|que puedo preguntar|como funciona)/.test(q)) return { texto: (nom ? 'Hola, ' + nom + '. ' : '') + 'Soy tu CONVOY. Puedo buscar paradas autorizadas por lugar o servicio, decirte qué restricciones aplican en una zona u horario, a quién llamar y las reglas de cada cliente. Prueba: "pensión para pernoctar cerca de Saltillo", "¿puedo circular por Puebla de noche?", "¿a quién llamo si me detiene la autoridad?" o "reglas de Bafar".', ids: [] };
   const esc1 = c.escalamiento[0], esc2 = c.escalamiento[1];
   const tels = x => x ? x.tel + (x.tel2 ? ' o ' + x.tel2 : '') : '';
   const centRuta = (esc1 ? esc1.rol + ' · ' + tels(esc1) : 'Centinela de Ruta'), centSeg = (esc2 ? esc2.rol + ' · ' + tels(esc2) : 'Centinela de Seguridad');
@@ -2225,7 +2225,7 @@ function renderParadas() {
   if (activas.length) html += '<div class="restr" role="region" aria-label="Restricciones activas"><div class="franja-roja"></div><div class="restr-cab">' + senalSVG('prohibido', 'camion') + '<div><b>' + activas.length + (activas.length === 1 ? ' restricción activa' : ' restricciones activas') + ' ahora</b><span>Son las ' + fmtHora24(ahora) + ' h. Tramos y zonas donde ahora no se circula o no se para.</span></div></div>' +
     activas.slice(0, 5).map(filaZona).join('') + (activas.length > 5 ? '<a class="restr-mas" href="#zonasRiesgo" id="lnkZonas">Ver las ' + activas.length + ' restricciones en el mapa de tramos ↓</a>' : '') + '</div>';
 
-  html += '<div class="tarjeta pila" id="chatBox"><div class="tarjeta-titulo"><span class="ico avatar">' + ICONO.convoy + '</span><div>CONVOY · tu asistente de ruta<div class="ayuda">Paradas, restricciones por zona u horario, reglas de cliente y a quién llamar.' + (ASISTENTE.endpoint ? '' : ' Funciona sin internet.') + '</div></div></div>' +
+  html += '<div class="tarjeta pila" id="chatBox"><div class="tarjeta-titulo"><span class="ico avatar">' + ICONO.convoy + '</span><div>Tu CONVOY · asistente de ruta<div class="ayuda">Paradas, restricciones por zona u horario, reglas de cliente y a quién llamar.' + (ASISTENTE.endpoint ? '' : ' Funciona sin internet.') + '</div></div></div>' +
     '<div class="chat" id="chat" aria-live="polite">' + (estado.chat || []).map(m => '<div class="burbuja ' + m.de + '">' + esc(m.texto).replace(/\n/g, '<br>') + '</div>').join('') + '</div>' +
     '<div class="sugerencias">' + ['¿Cuál es la parada más cercana?', '¿Puedo circular por la 57 de noche?', 'Pensión para pernoctar cerca de Saltillo', '¿A quién llamo si me detiene la autoridad?', 'Reglas de Bafar'].map(s => '<button type="button" class="chip-sug" data-sug="' + esc(s) + '">' + esc(s) + '</button>').join('') + '</div>' +
     '<form class="chat-form" id="chatForm"><label class="sr" for="chatInput">Pregunta</label><input id="chatInput" placeholder="' + (nombreOperador() ? nombreOperador() + ', ¿' : '¿') + 'dónde puedo parar cerca de…?" autocomplete="off"><button class="btn primario" id="btnPreguntar" type="submit" style="width:auto">' + ICONO.check + '<span class="sr">Preguntar</span></button></form>' +
@@ -2255,7 +2255,7 @@ function renderParadas() {
   };
   if (marcadas.size) {
     const sel = ordenar(lista.filter(p => marcadas.has(p.id)))(refPos);
-    html += '<div class="tarjeta pila" id="paradasConvoy" style="gap:8px;border:2px solid var(--accent)"><div class="tarjeta-titulo"><span class="ico avatar">' + ICONO.convoy + '</span><div>Paradas que sugirió CONVOY<div class="ayuda">Toca "Cómo llegar" o pregunta otra cosa.</div></div></div>' + sel.map(tarjetaParada).join('') + '<button type="button" class="btn fantasma btn-chico" id="btnTodasParadas">Quitar selección</button></div>';
+    html += '<div class="tarjeta pila" id="paradasConvoy" style="gap:8px;border:2px solid var(--accent)"><div class="tarjeta-titulo"><span class="ico avatar">' + ICONO.convoy + '</span><div>Paradas que sugirió tu CONVOY<div class="ayuda">Toca "Cómo llegar" o pregunta otra cosa.</div></div></div>' + sel.map(tarjetaParada).join('') + '<button type="button" class="btn fantasma btn-chico" id="btnTodasParadas">Quitar selección</button></div>';
   }
   const patios = lista.filter(p => p.tipo === 'patio').sort((a, b) => (a.orden || 99) - (b.orden || 99)).map(p => refPos ? { ...p, d: distanciaKm(refPos, p) } : p);
   html += modulo('patios', 'camion', 'Patios propios', 'Descanso y pernocta · Aguascalientes, Querétaro, Irapuato y Monterrey', patios, { abrir: false });
@@ -2290,7 +2290,7 @@ function renderParadas() {
   const enviar = async texto => {
     texto = (texto || '').trim(); if (!texto) return;
     estado.chat = estado.chat || []; estado.chat.push({ de: 'yo', texto });
-    const chat = $('#chat'); chat.insertAdjacentHTML('beforeend', '<div class="burbuja yo">' + esc(texto) + '</div><div class="burbuja bot pensando" id="pensando">CONVOY está buscando…</div>'); chat.scrollTop = chat.scrollHeight;
+    const chat = $('#chat'); chat.insertAdjacentHTML('beforeend', '<div class="burbuja yo">' + esc(texto) + '</div><div class="burbuja bot pensando" id="pensando">Tu CONVOY está buscando…</div>'); chat.scrollTop = chat.scrollHeight;
     $('#chatInput').value = '';
     const r = await responderAsistente(texto);
     estado.chat.push({ de: 'bot', texto: r.texto }); estado.paradasMarcadas = r.ids;
@@ -2354,7 +2354,7 @@ function renderResultado() {
   if (!r.apto) html += '<div class="aviso info">' + ICONO.info + '<div><b>¿Qué sigue?</b>Cabina de Seguridad recibe este dictamen. Si el motivo es descanso o salud, se reprograma la salida. Si es la unidad, se levanta reporte a Mantenimiento. Esto no es una sanción: es la decisión correcta.</div></div>';
 
   if (r.imagen) html += '<div class="tarjeta pila" style="gap:8px"><div class="ojal">Imagen del dictamen</div><img class="dictamen-img" src="' + r.imagen + '" alt="Dictamen en imagen para enviar a Cabina"><div class="ayuda">Esta imagen es la que se envía a Cabina. También puede mantenerla presionada para guardarla.</div></div>';
-  if (r.apto) html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--ok-text)">Siguiente paso</div><h2>' + ICONO.parking + 'Paradas y restricciones</h2></div><p class="texto-2">Envíe el dictamen a Cabina y consulte paradas autorizadas, zonas con restricción de horario, lugares prohibidos y a quién llamar. CONVOY, el asistente de ruta, responde preguntas de su viaje.</p><button class="btn primario" id="btnParadas" type="button">' + ICONO.parking + ' Ver paradas autorizadas</button></div></div>';
+  if (r.apto) html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--ok-text)">Siguiente paso</div><h2>' + ICONO.parking + 'Paradas y restricciones</h2></div><p class="texto-2">Envíe el dictamen a Cabina y consulte paradas autorizadas, zonas con restricción de horario, lugares prohibidos y a quién llamar. Tu CONVOY, el asistente de ruta, responde preguntas de su viaje.</p><button class="btn primario" id="btnParadas" type="button">' + ICONO.parking + ' Ver paradas autorizadas</button></div></div>';
   html += '<div class="acciones">' +
     (r.imagen ? '<button class="btn ok" id="btnWaImg" type="button">' + ICONO.wa + ' Enviar imagen a Cabina por WhatsApp</button>' : '') +
     '<a class="btn ' + (r.imagen ? 'fantasma' : 'ok') + '" id="btnWa" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar en texto por WhatsApp</a><div class="ayuda" style="text-align:center">Se envía al 444 149 2690 (Cabina de Seguridad)</div>' +
