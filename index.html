@@ -606,9 +606,9 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
         <div class="s">Autoevaluación del operador</div>
       </div>
     </div>
-    <div class="escudo" aria-label="Ruta federal 57" role="img">
+    <div class="escudo" aria-label="Carreteras de México" role="img">
       <svg viewBox="0 0 40 46" aria-hidden="true"><path d="M2 2h36v24c0 10-8 16-18 18C10 42 2 36 2 26z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="2"/></svg>
-      <small>México</small><b>57</b>
+      <small>México</small><b>MX</b>
     </div>
     <button class="btn-tema" id="btnTema" type="button" aria-pressed="false" aria-label="Activar modo noche">
       <svg class="ico-20" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -1040,7 +1040,7 @@ const fmtHMS = seg => { seg = Math.max(0, Math.floor(seg)); return String(Math.f
 function renderBarrera() {
   const g = estado.gps, d = estado.datos;
   let html = '<section class="etapa pila-24">' +
-    '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta 57</div><h1>Tu familia te espera en casa.<br><em>Revisemos cómo estás antes de salir de viaje.</em></h1>' +
+    '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta</div><h1>Tu familia te espera en casa.<br><em>Revisemos cómo estás antes de salir de viaje.</em></h1>' +
       '<div class="chips"><span class="chip">' + ICONO.gps + ' GPS</span><span class="chip">' + ICONO.reloj + ' Descanso</span><span class="chip">' + ICONO.checkCirculo + ' Estado</span><span class="chip">' + ICONO.camion + ' Unidad</span></div></div>';
 
   const requiereLogin = nube.activa() && !nube.cargarSesion();
@@ -1519,8 +1519,8 @@ function renderDatos() {
       '<div class="campo"><label for="fEco">Número económico</label><input id="fEco" readonly value="' + esc(d.economico) + '" aria-describedby="fEcoAyuda"><div class="ayuda" id="fEcoAyuda">Verificado por GPS' + (g && g.origen === 'manual' ? ' (manual)' : '') + '</div></div>' +
       '<div class="campo"><label for="fFecha">Fecha y hora</label><input id="fFecha" readonly value="' + esc(fmtFechaHora(d.fecha)) + '"></div>' +
     '</div>' +
-    '<div class="campo"><label for="fRuta">Ruta de hoy <span class="req" aria-hidden="true">*</span></label><input id="fRuta" list="rutas" placeholder="Ej. Ruta 57 · Querétaro → San Luis Potosí" value="' + esc(d.ruta) + '" aria-describedby="fRutaAyuda">' +
-      '<datalist id="rutas"><option value="Ruta 57 · Querétaro → San Luis Potosí"><option value="Ruta 57 · San Luis Potosí → Saltillo"><option value="Ruta 57 · Saltillo → Monclova"><option value="Ruta 57 · Monclova → Piedras Negras"><option value="Ruta 57 · CDMX → Querétaro"><option value="Nuevo Laredo → Monterrey"><option value="Monterrey → Querétaro"></datalist>' +
+    '<div class="campo"><label for="fRuta">Ruta de hoy <span class="req" aria-hidden="true">*</span></label><input id="fRuta" list="rutas" placeholder="Ej. Querétaro → San Luis Potosí" value="' + esc(d.ruta) + '" aria-describedby="fRutaAyuda">' +
+      '<datalist id="rutas"><option value="Ruta 57 · Querétaro → San Luis Potosí"><option value="Ruta 57 · San Luis Potosí → Saltillo"><option value="Ruta 57 · Saltillo → Monclova"><option value="Ruta 57 · Monclova → Piedras Negras"><option value="Ruta 57 · CDMX → Querétaro"><option value="Nuevo Laredo → Monterrey"><option value="Monterrey → Querétaro"><option value="Arco Norte · Edo. Méx. → Puebla"><option value="Puebla → Oaxaca"><option value="CDMX → Veracruz"><option value="Guadalajara → Aguascalientes"><option value="Querétaro → León"></datalist>' +
       '<div class="ayuda" id="fRutaAyuda">Posición actual: ' + esc(g ? g.ubicacion : '—') + (estado.posicion ? ' · Teléfono: ' + estado.posicion.lat.toFixed(4) + ', ' + estado.posicion.lon.toFixed(4) : '') + '</div><div id="fRutaErr"></div></div>' +
     '</div>';
 }

@@ -58,7 +58,7 @@ con los periodos de conducción (motor en movimiento) desde `desde` hasta ahora.
 
 El diseño sigue el sistema documentado en `design-system/pre-viaje-operador/MASTER.md`, sintetizado con la habilidad
 `ui-ux-pro-max` instalada en `.claude/skills/ui-ux-pro-max`: estilo Minimalism & Swiss + Flat, modo noche OLED,
-identidad de carretera (azul marino del logo ILG, amarillo de línea central, escudo Ruta 57, señales SIGA/ALTO), tipografía Saira Extra Condensed + Barlow, targets de 48 px, estados con icono y
+identidad de carretera (azul marino del logo ILG, amarillo de línea central, escudo de carretera federal, señales SIGA/ALTO), tipografía Saira Extra Condensed + Barlow, targets de 48 px, estados con icono y
 texto, resumen de errores enfocable y alternativa de firma escrita.
 
 ## Conexión a la base de datos (Supabase, opcional)
