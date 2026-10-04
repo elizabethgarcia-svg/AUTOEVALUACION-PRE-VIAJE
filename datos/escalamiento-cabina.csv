@@ -1,5 +1,6 @@
 ﻿nivel,rol,tel,cuando
-"1","Centinela de Ruta","449 274 3107","Primer contacto ante cualquier desviación, detención no programada o pérdida de comunicación."
-"2","Centinela de Seguridad","449 210 5715","En paralelo cuando hay condición de riesgo, robo, siniestro o autoridad involucrada."
-"3","Gerente de Seguimiento","449 199 4231","Si el comandante no responde o el evento requiere decisión operativa."
-"4","Gerente de Seguridad","444 149 2690","Autoriza excepciones a restricciones. Se escala cuando el evento no se resuelve en el nivel anterior."
+"1","Centinela de Ruta","449 274 1968","Primer contacto ante cualquier desviación, detención no programada, falla mecánica o pérdida de comunicación."
+"2","Centinela de Seguridad","449 387 2375","Riesgo, seguimiento, robo, siniestro o autoridad involucrada. Busca resguardo seguro y lleva la unidad en monitoreo activo. Cabina es quien llama al 911."
+"3","Comandante de Ruta","449 274 3107","Si el Centinela de Ruta no responde o el evento requiere decisión operativa."
+"4","Comandante de Seguridad","449 210 5715","Si el Centinela de Seguridad no responde o el evento no se resuelve en el nivel anterior."
+"5","Gerencia de Seguridad","444 149 2690","Autoriza excepciones a restricciones. Último nivel de escalamiento."
