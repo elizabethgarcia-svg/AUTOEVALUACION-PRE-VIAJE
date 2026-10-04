@@ -1,6 +1,6 @@
 {
  "origen": "49bc623e-Consola_del_Centinela_Grupo_Loma.html",
- "extraido": "2026-10-04T22:28:27.391Z",
+ "extraido": "2026-10-04T23:11:02.422Z",
  "paradas": [
   {
    "id": "parador-el-torito-truck-stop",
@@ -1699,17 +1699,18 @@
   },
   {
    "id": "michoacan",
-   "nombre": "Michoacán (todo el estado)",
-   "tipo": "circular",
-   "desde": 19,
-   "hasta": 7,
+   "nombre": "Michoacán (ingreso o cruce del estado)",
+   "tipo": "total",
+   "desde": 0,
+   "hasta": 24,
    "estados": [
     "Michoacán"
    ],
-   "regla": "Prohibido circular 19:00 – 07:00",
+   "regla": "Prohibido ingresar o cruzar el estado. Única excepción: La Piedad, con cliente Bafar y autorización de Cabina.",
    "mapa": {
     "tipo": "estados"
-   }
+   },
+   "excepcion": "La Piedad · cliente Bafar"
   },
   {
    "id": "ecatepec",

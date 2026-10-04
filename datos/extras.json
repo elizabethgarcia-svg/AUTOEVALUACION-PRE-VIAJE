@@ -1,5 +1,5 @@
 {
-  "_nota": "Datos que no vienen de la Consola del Centinela. Se combinan al correr scripts/extraer-consola.js. Las geometrías de zonas son aproximadas (puntos y corredores dibujados a mano sobre el mapa); corríjalas aquí si Cabina tiene coordenadas exactas. El bloque escalamiento sustituye al de la consola (teléfonos oficiales de Cabina).",
+  "_nota": "Datos que no vienen de la Consola del Centinela. Se combinan al correr scripts/extraer-consola.js. Las geometrías de zonas son aproximadas (puntos y corredores dibujados a mano sobre el mapa); corríjalas aquí si Cabina tiene coordenadas exactas. El bloque escalamiento sustituye al de la consola (teléfonos oficiales de Cabina). El bloque zonas corrige campos de una zona de la consola (p. ej. Michoacán).",
   "paradas": [
     {
       "id": "patio-aguascalientes",
@@ -393,5 +393,15 @@
       "tel": "444 149 2690",
       "cuando": "Autoriza excepciones a restricciones. Último nivel de escalamiento."
     }
-  ]
+  ],
+  "zonas": {
+    "michoacan": {
+      "nombre": "Michoacán (ingreso o cruce del estado)",
+      "tipo": "total",
+      "desde": 0,
+      "hasta": 24,
+      "regla": "Prohibido ingresar o cruzar el estado. Única excepción: La Piedad, con cliente Bafar y autorización de Cabina.",
+      "excepcion": "La Piedad · cliente Bafar"
+    }
+  }
 }

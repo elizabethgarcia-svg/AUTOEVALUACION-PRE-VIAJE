@@ -49,6 +49,8 @@ try { extras = Object.assign(extras, JSON.parse(fs.readFileSync(path.join(__dirn
 for (const p of extras.paradas) { if (!paradas.some(x => x.id === p.id)) paradas.push(p); }
 for (const p of paradas) if (extras.ordenPatios[p.id]) p.orden = extras.ordenPatios[p.id];
 for (const z of zonas) if (extras.zonasMapa[z.id]) z.mapa = extras.zonasMapa[z.id];
+// Correcciones de zonas indicadas por Seguridad (sustituyen campos de la consola)
+for (const z of zonas) if (extras.zonas && extras.zonas[z.id]) Object.assign(z, extras.zonas[z.id]);
 // Teléfonos oficiales de Cabina: si extras.json trae escalamiento, sustituye al de la consola
 if (Array.isArray(extras.escalamiento) && extras.escalamiento.length) escalamiento = extras.escalamiento;
 const cabina = { origen: path.basename(archivo), extraido: new Date().toISOString(), paradas, zonas, prohibidos, puntosClave, reglas, escalamiento, clientes, lugares };
