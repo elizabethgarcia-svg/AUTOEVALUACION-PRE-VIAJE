@@ -955,6 +955,15 @@ function anillo(etiqueta, valorTxt, frac, clase, sub, ico) {
     '<div class="hos-v">' + valorTxt + '</div><div class="hos-k">' + etiqueta + '</div><div class="hos-sub">' + sub + '</div></div>';
 }
 
+function textoAlertaResguardo(a, fin) {
+  const g = estado.gps, d = estado.datos;
+  return 'ALERTA PRE-VIAJE · RESGUARDO DE UNIDAD\n' +
+    'Operador: ' + d.nombre + '\nUnidad: ' + g.unidad + '\nPosición: ' + g.ubicacion + '\nHora: ' + fmtFechaHora(new Date()) + '\n' +
+    'Motivo: ' + a.motivo + '\n' +
+    'Manejo en la jornada: ' + fmtH(a.horasJornadaVista) + ' · Pausa actual: ' + fmtH(a.pausaActual) + '\n' +
+    'Descanso obligatorio: ' + REGLAS.descansoEfectivo + ' h · Faltan: ' + fmtH(a.esperaHoras) + ' · Puede evaluarse a partir de las ' + fmtHora(fin) + '\n' +
+    'Evaluación BLOQUEADA por el sistema.' + (g.origen === 'manual' ? ' (Horas declaradas sin GPS)' : '');
+}
 function pintarVeredictoGps() {
   const g = estado.gps; if (!g) return;
   clearInterval(temporizador);
@@ -992,7 +1001,9 @@ function pintarVeredictoGps() {
       '<div><div class="ojal" style="color:var(--danger-text)">Por el momento no puede realizar la prueba</div>' +
       '<h2>' + ICONO.xOctagono + 'Descanso obligatorio</h2></div><p>' + esc(a.motivo) + '</p>' +
       '<div class="cuenta"><div class="k">Podrá continuar la evaluación en</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
-      '<p class="texto-2">Apague la unidad, busque un parador seguro y descanse. Cabina de Seguridad ya tiene este registro. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
+      '<div class="aviso danger"><span style="display:inline-flex">' + ICONO.alerta + '</span><div><b>Alerta de resguardo para Cabina de Seguridad (Centinelas)</b>Descanso obligatorio de ' + REGLAS.descansoEfectivo + ' h: lleva ' + esc(fmtH(Math.min(a.pausaActual, REGLAS.descansoEfectivo))) + ' detenido, faltan ' + esc(fmtH(a.esperaHoras)) + '. La unidad debe resguardarse en parador o pensión autorizada hasta las ' + fmtHora(fin) + '.</div></div>' +
+      '<p class="texto-2">Apague la unidad, busque un parador seguro y descanse. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
+      '<a class="btn ok" id="btnAlertaCabina" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoAlertaResguardo(a, fin)) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Avisar resguardo a Cabina</a>' +
       '<button class="btn fantasma" id="btnReconsultar" type="button">' + ICONO.reloj + ' Volver a consultar</button>' +
       '</div></div>';
   } else {
