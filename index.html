@@ -852,7 +852,7 @@ function renderBarrera() {
   }
   html += '<div id="veredictoGps"></div>';
   html += '<button class="btn secundario" id="btnInstalar" type="button"' + (eventoInstalar ? '' : ' hidden') + '>' + ICONO.camion + ' Instalar Pre-Viaje en este teléfono</button>';
-  if (!g && /iPhone|iPad/.test(navigator.userAgent) && !window.navigator.standalone) html += '<div class="aviso info">' + ICONO.info + '<div><b>Instalar en iPhone</b>En Safari toque el botón Compartir (cuadro con flecha) y elija <b>Agregar a pantalla de inicio</b>. Pre-Viaje quedará como una app con su ícono.</div></div>';
+  if (!g && /iPhone|iPad/.test(navigator.userAgent) && !window.navigator.standalone) html += '<div class="aviso info">' + ICONO.info + '<div><b>Instalar en iPhone</b>En Safari toque el botón Compartir (cuadro con flecha) y elija <span style="font-weight:700">Agregar a pantalla de inicio</span>. Pre-Viaje quedará como una app con su ícono.</div></div>';
   html += renderHistorialCorto();
   html += '</section>';
   vista.innerHTML = html;
