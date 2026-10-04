@@ -877,7 +877,7 @@ const SECCIONES = [
       { id: 'animo', tipo: 'escala', texto: '¿Cómo está su ánimo hoy?', min: 'Muy bajo', max: 'Muy bien',
         riesgo: v => v <= 2 ? { p: 2, t: 'Ánimo bajo (' + v + ' de 5)' } : null },
       { id: 'estres', tipo: 'escala', texto: '¿Cuánto estrés o preocupación trae?', min: 'Nada', max: 'Mucho',
-        riesgo: v => v === 5 ? { p: 3, t: 'Estrés muy alto (5 de 5)' } : v === 4 ? { p: 2, t: 'Estrés alto (4 de 5)' } : null },
+        riesgo: v => v === 5 ? { critico: true, t: 'Estrés en el nivel máximo (5 de 5): no sale. Repita la evaluación en 2 h' } : v === 4 ? { p: 2, t: 'Estrés alto (4 de 5)' } : null },
       { id: 'concentracion', tipo: 'sino', texto: '¿Se siente capaz de mantener la atención en el camino durante todo el turno?',
         riesgo: v => v === NO ? { critico: true, t: 'No se siente capaz de mantener la atención' } : null },
       { id: 'evento', tipo: 'sino', texto: '¿Tuvo hoy una discusión fuerte, una mala noticia o un problema que lo distraiga?',
@@ -1221,18 +1221,29 @@ function pintarVeredictoGps() {
     '<div class="hos-leyenda"><span class="l-az"><i></i>En curso</span><span class="l-ok"><i></i>En regla</span><span class="l-warn"><i></i>Atención</span><span class="l-danger"><i></i>Fuera de norma</span></div>' +
     '</div>';
 
+  const bq = bloqueoActivo(g.unidad, estado.datos.nombre);
+  if (bq) {
+    const finB = new Date(bq.hasta), faltaB = Math.max(0, (finB - Date.now()) / 3600e3);
+    html += '<div class="estado-card bloqueo" role="alert"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo">' +
+      '<div><div class="ojal" style="color:var(--danger-text)">Dictamen NO APTO · folio ' + esc(bq.folio || '') + '</div><h2>' + ICONO.xOctagono + 'Todavía no puede repetir la prueba</h2></div>' +
+      '<p>' + esc(bq.motivo) + '. Se indicó esperar ' + bq.horas + ' h antes de volver a evaluarse.</p>' +
+      '<div class="cuenta"><div class="k">Espere ' + esc(fmtH(faltaB)) + ' para volver a hacer la evaluación</div><div class="reloj">' + fmtHora24(finB) + '<small style="font-size:22px;color:rgba(255,255,255,.8)"> h</small></div><div class="h">' + (finB.getDate() !== new Date().getDate() ? 'de mañana · ' : '') + 'Descanse en un lugar seguro. El coordinador no puede asignarle viaje sin un dictamen APTO.</div></div>' +
+      '<button class="btn fantasma" id="btnReconsultarBq" type="button">' + ICONO.reloj + ' Volver a consultar</button>' +
+      (DEMO[g.unidad] ? '<button class="btn fantasma btn-chico" id="btnBorrarBq" type="button">Modo demostración: quitar este bloqueo</button>' : '') +
+      '</div></div>';
+  }
   if (a.estado === 'bloqueado') {
     const fin = new Date(Date.now() + a.esperaHoras * 3600e3);
     html += '<div class="estado-card bloqueo" role="alert"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo">' +
       '<div><div class="ojal" style="color:var(--danger-text)">Por el momento no puede realizar la prueba</div>' +
       '<h2>' + ICONO.xOctagono + 'Descanso obligatorio</h2></div><p>' + esc(a.motivo) + '</p>' +
-      '<div class="cuenta"><div class="k">Podrá continuar la evaluación en</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
+      '<div class="cuenta"><div class="k">Espere ' + esc(fmtH(a.esperaHoras)) + ' para volver a hacer la evaluación</div><div class="reloj" id="reloj">' + esc(fmtH(a.esperaHoras)) + '</div><div class="h">a partir de las <b>' + fmtHora(fin) + '</b>' + (fin.getDate() !== new Date().getDate() ? ' de mañana' : '') + '</div></div>' +
       '<div class="aviso danger"><span style="display:inline-flex">' + ICONO.alerta + '</span><div><b>Alerta de resguardo para Cabina de Seguridad (Centinelas)</b>Descanso obligatorio de ' + REGLAS.descansoEfectivo + ' h: lleva ' + esc(fmtH(Math.min(a.pausaActual, REGLAS.descansoEfectivo))) + ' detenido, faltan ' + esc(fmtH(a.esperaHoras)) + '. La unidad debe resguardarse en parador o pensión autorizada hasta las ' + fmtHora(fin) + '.</div></div>' +
       '<p class="texto-2">Apague la unidad, busque un parador seguro y descanse. Si cree que es un error, repórtelo por radio o WhatsApp.</p>' +
       '<a class="btn ok" id="btnAlertaCabina" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoAlertaResguardo(a, fin)) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Avisar resguardo a Cabina</a>' +
       '<button class="btn fantasma" id="btnReconsultar" type="button">' + ICONO.reloj + ' Volver a consultar</button>' +
       '</div></div>';
-  } else {
+  } else if (!bq) {
     html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo">' +
       '<div><div class="ojal" style="color:var(--ok-text)">Horas en regla</div><h2>' + ICONO.checkCirculo + 'Puede continuar</h2></div>' +
       (a.advertencia ? '<div class="aviso warn">' + ICONO.alerta + '<div>' + esc(a.advertencia) + '</div></div>' : '') +
@@ -1250,9 +1261,13 @@ function pintarVeredictoGps() {
     if (ticks % 30 === 0) { pintarVeredictoGps(); }
   }, 1000);
 
+  const bRq = $('#btnReconsultarBq'); if (bRq) bRq.addEventListener('click', pintarVeredictoGps);
+  const bBq = $('#btnBorrarBq'); if (bBq) bBq.addEventListener('click', () => { guardarBloqueo(null, g.unidad); toast('Bloqueo de prueba eliminado.'); pintarVeredictoGps(); });
   if (a.estado === 'bloqueado') {
     if (!g.vibrado) { vibrar([40, 60, 40]); g.vibrado = true; if (nube.activa() && nube.sesion) nube.guardarAlerta(a); }
     $('#btnReconsultar').addEventListener('click', pintarVeredictoGps);
+  } else if (bq) {
+    // Bloqueado por dictamen reciente: no hay botón de continuar
   } else {
     $('#btnIniciar').addEventListener('click', () => { estado.datos.fecha = new Date().toISOString(); estado.paso = 0; estado.mostrarErrores = false; render(); });
   }
@@ -1683,6 +1698,19 @@ $('#btnSiguiente').addEventListener('click', async () => {
 $('#btnAtras').addEventListener('click', () => { estado.paso--; estado.mostrarErrores = false; render(); });
 
 /* ---------- Dictamen ---------- */
+/* ---------- Candado de reintento (NO APTO por descanso, cansancio o estrés) ---------- */
+function leerBloqueos() { try { return JSON.parse(localStorage.getItem('previaje.bloqueos') || '[]').filter(b => new Date(b.hasta) > new Date()); } catch (e) { return []; } }
+function guardarBloqueo(b, borrarEconomico) {
+  let lista = leerBloqueos();
+  const eco = norm(b ? b.economico : borrarEconomico);
+  lista = lista.filter(x => norm(x.economico) !== eco && !(b && norm(x.nombre) === norm(b.nombre)));
+  if (b) lista.unshift(b);
+  try { localStorage.setItem('previaje.bloqueos', JSON.stringify(lista.slice(0, 20))); } catch (e) {}
+}
+function bloqueoActivo(economico, nombre) {
+  return leerBloqueos().find(b => norm(b.economico) === norm(economico) || (nombre && norm(b.nombre) === norm(nombre))) || null;
+}
+
 function calcularResultado() {
   const factores = []; let puntos = 0, criticos = 0;
   for (const s of SECCIONES) {
@@ -1715,11 +1743,16 @@ function calcularResultado() {
   const folioMtto = mtto.length ? 'MTTO-' + f.getFullYear() + String(f.getMonth() + 1).padStart(2, '0') + String(f.getDate()).padStart(2, '0') + '-' + String(f.getHours()).padStart(2, '0') + String(f.getMinutes()).padStart(2, '0') + '-' + estado.datos.economico.replace(/[^A-Z0-9]/g, '') : null;
   let reintentoHoras = 0, reintentoMotivo = '';
   if (!apto) {
-    const sueno = estado.respuestas.sueno, cans = estado.respuestas.cansancio;
+    const sueno = estado.respuestas.sueno, cans = estado.respuestas.cansancio, estres = estado.respuestas.estres;
     if (sueno === '<5') { reintentoHoras = 3; reintentoMotivo = 'Durmió menos de 5 h'; }
     else if (sueno === '5-6') { reintentoHoras = 2; reintentoMotivo = 'Durmió entre 5 y 6 h'; }
     if (cans >= 4 && reintentoHoras < 2) { reintentoHoras = 2; reintentoMotivo = 'Cansancio alto'; }
+    if (estres === 5 && reintentoHoras < 2) { reintentoHoras = 2; reintentoMotivo = 'Estrés en el nivel máximo'; }
+    else if (estres === 5) reintentoMotivo += ' y estrés en el nivel máximo';
   }
+  // Candado de reintento: queda guardado en el teléfono para que no se repita la prueba antes de tiempo
+  if (!apto && reintentoHoras) guardarBloqueo({ economico: estado.datos.economico, nombre: estado.datos.nombre, motivo: reintentoMotivo, horas: reintentoHoras, hasta: new Date(f.getTime() + reintentoHoras * 3600e3).toISOString(), folio });
+  else if (apto) guardarBloqueo(null, estado.datos.economico);
   const reinstruccion = SECCIONES.find(x => x.id === 'reglas').preguntas.filter(q => estado.respuestas[q.id] === NO).map(q => q.texto.replace(/^¿Sabe que /, '').replace(/\?$/, ''));
   estado.resultado = { apto, factores, puntos, criticos, folio, pendienteValidacion: estado.gps.origen === 'manual', mtto, folioMtto, reintentoHoras, reintentoMotivo, reinstruccion };
   try { estado.resultado.canvas = generarImagenDictamen(); estado.resultado.imagen = estado.resultado.canvas.toDataURL('image/png'); } catch (e) { estado.resultado.imagen = null; }
@@ -1742,6 +1775,7 @@ function textoResumen() {
     'Conducción jornada: ' + fmtH(g.horasJornada) + ' · Disponible: ' + fmtH(g.restante) + '\n' +
     'Visión: ' + (estado.vision ? estado.vision.correctos + '/3' : '—') + ' · Reacción: ' + (estado.reaccion ? estado.reaccion.aTiempo + '/5 a tiempo, promedio ' + estado.reaccion.promedio + ' ms, ' + estado.reaccion.anticipados + ' anticipados' : '—') + '\n' +
     'Ubicación: ' + (estado.ubicacion ? estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) + ' (teléfono)' : estado.gps.ubicacion + ' (GPS unidad)') + '\nCompromiso aceptado: sí · Foto: ' + (estado.foto ? 'sí' : 'no') + '\n' +
+    (r.apto ? 'AUTORIZA AL COORDINADOR A ASIGNAR EL SIGUIENTE VIAJE\n' : '') +
     (r.reintentoHoras ? 'REPETIR EVALUACIÓN EN ' + r.reintentoHoras + ' h (' + r.reintentoMotivo + ')\n' : '') +
     (r.reinstruccion.length ? 'REINSTRUCCIÓN REQUERIDA:\n' + r.reinstruccion.map(x => '- ' + x).join('\n') + '\n' : '') +
     (r.mtto.length ? 'FOLIO MANTENIMIENTO ' + r.folioMtto + ':\n' + r.mtto.map(x => '- ' + x.t + (x.bloquea ? ' (no sale)' : ' (atender)')).join('\n') + '\n' : '') +
@@ -1769,7 +1803,7 @@ function generarImagenDictamen() {
   const logo = document.querySelector('.marca img');
   if (logo && logo.complete) { x.save(); x.beginPath(); x.arc(P + 50, 85, 50, 0, Math.PI * 2); x.clip(); x.drawImage(logo, P, 35, 100, 100); x.restore(); }
   x.fillStyle = '#FFFFFF'; x.font = fImpact(64); x.textBaseline = 'alphabetic'; x.fillText('PRE-VIAJE', P + 125, 92);
-  x.font = fBody(22, '600'); x.fillStyle = 'rgba(255,255,255,.8)'; x.fillText('AUTOEVALUACIÓN DEL OPERADOR · ILG · RUTA 57', P + 125, 128);
+  x.font = fBody(22, '600'); x.fillStyle = 'rgba(255,255,255,.8)'; x.fillText('AUTOEVALUACIÓN DEL OPERADOR · ILG · MÉXICO', P + 125, 128);
   x.textAlign = 'right'; x.font = fBody(24, '600'); x.fillStyle = '#FFFFFF'; x.fillText(fmtFechaHora(d.fecha), W - P, 92); x.textAlign = 'left';
   for (let i = 0; i < W; i += 44) { x.fillStyle = AMB; x.fillRect(i, 170, 28, 10); }
   y = 220;
@@ -1779,7 +1813,7 @@ function generarImagenDictamen() {
   x.textAlign = 'center'; x.fillStyle = 'rgba(255,255,255,.9)'; x.font = fBody(24, '600'); x.fillText('DICTAMEN PRE-VIAJE', W / 2, y + 62);
   x.font = fImpact(40); const sTxt = r.apto ? 'SIGA' : 'ALTO'; const sw = x.measureText(sTxt).width + 48; rrect(W / 2 - sw / 2, y + 84, sw, 56, 8, null, 'rgba(255,255,255,.9)', 4); x.fillStyle = '#FFFFFF'; x.fillText(sTxt, W / 2, y + 126);
   x.font = fImpact(170); x.fillText(r.apto ? 'APTO' : 'NO APTO', W / 2, y + 290);
-  x.font = fBody(32, '500'); x.fillText(r.apto ? 'Puede iniciar el viaje. Buen camino.' : 'No salga. Repórtese con Cabina de Seguridad.', W / 2, y + 345);
+  x.font = fBody(32, '500'); x.fillText(r.apto ? 'Autoriza al coordinador a asignar el siguiente viaje.' : 'No salga. Repórtese con Cabina de Seguridad.', W / 2, y + 345);
   x.font = fBody(22, '600'); x.fillStyle = 'rgba(255,255,255,.9)'; x.fillText('FOLIO ' + r.folio, W / 2, y + 390); x.textAlign = 'left';
   y += hL + 28;
   // Identidad
@@ -2151,6 +2185,7 @@ function renderResultado() {
   let html = '<section class="etapa pila-24">';
   html += '<div class="letrero ' + (r.apto ? 'apto' : 'noapto') + '" role="status"><div class="ojal">Dictamen pre-viaje</div><span class="senal">' + (r.apto ? 'Siga' : 'Alto') + '</span><h2>' + (r.apto ? ICONO.checkCirculo + 'Apto' : ICONO.xOctagono + 'No apto') + '</h2>' +
     '<p>' + (r.apto ? 'Puede iniciar el viaje. Buen camino, ' + esc(d.nombre.split(' ')[0]) + '.' : 'No salga. Repórtese con Cabina de Seguridad.') + '</p>' +
+    (r.apto ? '<div class="senal" style="font-size:15px;letter-spacing:.08em;margin-top:8px">Autoriza al coordinador a asignar el siguiente viaje</div>' : '') +
     '<div class="folio">Folio ' + esc(r.folio) + '</div></div>';
   if (r.pendienteValidacion) html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Pendiente de validación</b>Las horas de conducción se declararon sin GPS. Cabina debe validar antes de autorizar la salida.</div></div>';
   if (r.nube) html += '<div id="estadoNube">' + htmlEstadoNube() + '</div>';
@@ -2165,8 +2200,8 @@ function renderResultado() {
 
   if (!r.apto && r.reintentoHoras) {
     const hasta = new Date(new Date(d.fecha).getTime() + r.reintentoHoras * 3600e3);
-    html += '<div class="estado-card bloqueo"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--danger-text)">' + esc(r.reintentoMotivo) + '</div><h2>' + ICONO.reloj + 'Vuelva a hacer la evaluación en ' + r.reintentoHoras + ' h</h2></div>' +
-      '<div class="cuenta"><div class="k">Descanse y repita la prueba a partir de las</div><div class="reloj">' + fmtHora24(hasta) + '<small style="font-size:22px;color:rgba(255,255,255,.8)"> h</small></div><div class="h">' + (hasta.getDate() !== new Date(d.fecha).getDate() ? 'de mañana · ' : '') + 'Duerma o repose en un lugar seguro. No salga antes.</div></div></div></div>';
+    html += '<div class="estado-card bloqueo"><div class="franja-alto" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--danger-text)">' + esc(r.reintentoMotivo) + '</div><h2>' + ICONO.reloj + 'Espere ' + r.reintentoHoras + ' h y vuelva a hacer la evaluación</h2></div>' +
+      '<div class="cuenta"><div class="k">La app no permitirá otra prueba de esta unidad antes de las</div><div class="reloj">' + fmtHora24(hasta) + '<small style="font-size:22px;color:rgba(255,255,255,.8)"> h</small></div><div class="h">' + (hasta.getDate() !== new Date(d.fecha).getDate() ? 'de mañana · ' : '') + 'Duerma o repose en un lugar seguro. No salga antes.</div></div></div></div>';
   }
   if (r.mtto.length) {
     html += '<div class="tarjeta pila" style="gap:8px"><div class="tarjeta-titulo"><span class="ico">' + ICONO.llave + '</span><div>Folio de Mantenimiento <b>' + esc(r.folioMtto) + '</b><div class="ayuda">Se envía junto con el dictamen para su atención.</div></div></div>' +
