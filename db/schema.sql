@@ -135,6 +135,32 @@ create table if not exists public.paradas (
   actualizado_en timestamptz not null default now()
 );
 
+-- ---------------------------------------------------------------------
+-- 7) ZONAS DE RIESGO Y RESTRICCIONES DE HORARIO (de la consola del Centinela)
+-- ---------------------------------------------------------------------
+create table if not exists public.zonas_riesgo (
+  id          text primary key,              -- 57noche
+  nombre      text not null,
+  tipo        text not null check (tipo in ('total', 'circular', 'salida', 'resguardo', 'detenerse')),
+  desde       smallint not null default 0,   -- hora de inicio (0-24)
+  hasta       smallint not null default 24,  -- hora de fin (0-24); desde=0 y hasta=24 = todo el día
+  estados     jsonb not null default '[]'::jsonb,
+  regla       text not null,
+  activa      boolean not null default true,
+  actualizado_en timestamptz not null default now()
+);
+
+-- ---------------------------------------------------------------------
+-- 8) ESCALAMIENTO: niveles y teléfonos visibles para el operador
+-- ---------------------------------------------------------------------
+create table if not exists public.escalamiento (
+  nivel       smallint primary key,
+  rol         text not null,
+  tel         text not null,
+  cuando      text not null,
+  activo      boolean not null default true
+);
+
 -- =====================================================================
 -- ROW LEVEL SECURITY
 -- Regla general: lo que no tiene política está prohibido.
@@ -145,6 +171,8 @@ alter table public.evaluaciones      enable row level security;
 alter table public.folios_mtto       enable row level security;
 alter table public.alertas_resguardo enable row level security;
 alter table public.paradas           enable row level security;
+alter table public.zonas_riesgo      enable row level security;
+alter table public.escalamiento      enable row level security;
 
 -- ---------- OPERADORES ----------
 create policy "operador ve su ficha" on public.operadores
@@ -186,6 +214,16 @@ create policy "todos ven paradas activas" on public.paradas
   for select to authenticated using (activa or public.rol_actual() in ('cabina', 'admin'));
 create policy "cabina y admin administran paradas" on public.paradas
   for all to authenticated using (public.rol_actual() in ('cabina', 'admin')) with check (public.rol_actual() in ('cabina', 'admin'));
+
+-- ---------- ZONAS DE RIESGO Y ESCALAMIENTO ----------
+create policy "todos ven zonas activas" on public.zonas_riesgo
+  for select to authenticated using (activa or public.rol_actual() in ('cabina', 'admin'));
+create policy "cabina y admin administran zonas" on public.zonas_riesgo
+  for all to authenticated using (public.rol_actual() in ('cabina', 'admin')) with check (public.rol_actual() in ('cabina', 'admin'));
+create policy "todos ven escalamiento" on public.escalamiento
+  for select to authenticated using (activo or public.rol_actual() in ('cabina', 'admin'));
+create policy "admin administra escalamiento" on public.escalamiento
+  for all to authenticated using (public.rol_actual() = 'admin') with check (public.rol_actual() = 'admin');
 
 -- ---------- ALERTAS DE RESGUARDO ----------
 create policy "app del operador crea la alerta" on public.alertas_resguardo

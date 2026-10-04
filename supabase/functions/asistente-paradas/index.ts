@@ -24,10 +24,12 @@ function cors(origin: string): HeadersInit {
 const json = (body: unknown, status: number, headers: HeadersInit) => new Response(JSON.stringify(body), { status, headers: { ...headers, "Content-Type": "application/json" } });
 
 const SISTEMA = `Eres el asistente de paradas de Pre-Viaje, la app de seguridad de los operadores de tractocamión de ILG en México (corredor de la carretera federal 57).
-Tu única tarea es ayudar al operador a encontrar paradas AUTORIZADAS por la empresa para detenerse, cargar combustible, comer, bañarse o pernoctar.
+Tu tarea es ayudar al operador con: (1) paradas AUTORIZADAS para detenerse, cargar combustible, comer, bañarse o pernoctar; (2) restricciones y zonas de riesgo (prohibido circular, no iniciar viaje, resguardo obligatorio, prohibido detenerse) y si están activas a la hora actual; (3) lugares prohibidos; (4) reglas permanentes y reglas por cliente; (5) a quién llamar según el nivel de escalamiento.
 Reglas:
 - Responde en español de México, con trato de usted, breve y claro (máximo 6 líneas). El operador lee en el celular, a veces con prisa.
-- Solo puedes recomendar paradas que estén en el catálogo JSON que recibes. Nunca inventes lugares, teléfonos ni servicios. Si nada cumple lo que pide, dilo y ofrece la más cercana en la ruta.
+- Solo puedes usar la información del JSON que recibes (paradas, zonas, prohibidos, puntosClave, reglas, escalamiento, clientes). Nunca inventes lugares, teléfonos, horarios ni servicios. Si nada cumple lo que pide, dilo y ofrece la parada autorizada más cercana.
+- Las zonas tienen horario (desde/hasta en horas; 0 a 24 = todo el día; 'sabado' aplica solo sábados). Usa la hora actual que recibes para decir si una restricción está ACTIVA AHORA.
+- Si el operador pregunta por un lugar que aparece en prohibidos o cuyo punto clave dice que NO es parada, dilo de forma inequívoca.
 - Cuando menciones una parada, escribe su nombre, el tipo, el km y los servicios relevantes. Si el operador pide teléfono, inclúyelo.
 - Si hay posición del teléfono, usa la distancia aproximada (lat/lon) para decir cuál queda más cerca.
 - Recuerda siempre al final que solo esas paradas están autorizadas y que toda detención se avisa a Cabina de Seguridad (444 149 2690). No detenerse en carretera, acotamiento ni lugares desolados.
@@ -40,13 +42,14 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
   if (req.method !== "POST") return json({ error: "Método no permitido" }, 405, cors(origin));
 
-  let cuerpo: { pregunta?: string; historial?: { de: string; texto: string }[]; paradas?: Parada[]; posicion?: { lat: number; lon: number } | null; unidad?: string | null; ruta?: string | null };
+  let cuerpo: { pregunta?: string; historial?: { de: string; texto: string }[]; paradas?: Parada[]; zonas?: unknown[]; prohibidos?: unknown[]; puntosClave?: unknown[]; reglas?: unknown[]; escalamiento?: unknown[]; clientes?: unknown[]; posicion?: { lat: number; lon: number } | null; unidad?: string | null; ruta?: string | null; hora?: string };
   try { cuerpo = await req.json(); } catch { return json({ error: "JSON inválido" }, 400, cors(origin)); }
   const pregunta = (cuerpo.pregunta ?? "").toString().slice(0, 500).trim();
   const paradas = Array.isArray(cuerpo.paradas) ? cuerpo.paradas.slice(0, 200) : [];
   if (!pregunta || !paradas.length) return json({ error: "Falta la pregunta o el catálogo" }, 400, cors(origin));
 
-  const contexto = "CATÁLOGO DE PARADAS AUTORIZADAS (JSON):\n" + JSON.stringify(paradas) +
+  const contexto = "DATOS DE CABINA (JSON):\n" + JSON.stringify({ paradas, zonas: cuerpo.zonas ?? [], prohibidos: cuerpo.prohibidos ?? [], puntosClave: cuerpo.puntosClave ?? [], reglas: cuerpo.reglas ?? [], escalamiento: cuerpo.escalamiento ?? [], clientes: cuerpo.clientes ?? [] }) +
+    "\n\nHORA ACTUAL (ISO, hora local del operador): " + (cuerpo.hora ?? new Date().toISOString()) +
     "\n\nCONTEXTO DEL OPERADOR: unidad " + (cuerpo.unidad ?? "desconocida") + " · ruta " + (cuerpo.ruta ?? "no indicada") +
     (cuerpo.posicion ? " · posición del teléfono lat " + cuerpo.posicion.lat + ", lon " + cuerpo.posicion.lon : " · sin posición del teléfono");
 

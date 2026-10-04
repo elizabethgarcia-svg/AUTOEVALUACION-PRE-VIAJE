@@ -17,7 +17,7 @@ Encuesta de autoevaluación que realiza el operador antes de salir a ruta. Un so
 11. **Confirmación**: resumen, declaración de veracidad y firma con el dedo (o firma escrita).
 12. **Dictamen** con factores detectados, identificación (foto, ubicación, compromiso), folio, folio de Mantenimiento cuando aplica, envío por WhatsApp a Cabina de Seguridad (444 149 2690) como **imagen del dictamen** (generada en el teléfono: letrero, identidad con foto, horas de servicio, factores, folios y firma) o como texto, y copia del resumen. El envío de imagen usa el menú de compartir del teléfono; si el navegador no lo permite, la imagen se guarda y se abre el chat de Cabina para adjuntarla. Si el NO APTO se debe a horas de sueño o cansancio alto, indica en cuántas horas y a qué hora volver a hacer la evaluación (3 h si durmió menos de 5 h, 2 h si durmió entre 5 y 6 h o se declara con cansancio alto).
 
-12. **Paradas autorizadas** (tras el dictamen APTO y su envío): catálogo de pensiones, paradores y gasolineras autorizadas de la ruta con km, servicios, horario, teléfono y botón "Cómo llegar", más un **asistente** para preguntar por lugar, kilómetro o servicio ("pensión con regaderas en Saltillo", "¿dónde cargo diésel cerca del km 300?", "¿cuál es la parada más cercana?"). El asistente local funciona sin internet; opcionalmente se conecta un asistente con IA (Claude) en el servidor.
+12. **Paradas y restricciones** (tras el dictamen APTO y su envío): información tomada de la Consola del Centinela de Cabina: 105 paradas autorizadas en toda la república (tipo, estado, región, instrucciones de uso, distancia y "Cómo llegar"), 23 zonas con restricción de horario (prohibido circular, no iniciar viaje, resguardo obligatorio, prohibido detenerse) con indicador de cuáles están **activas ahora**, lugares prohibidos, reglas permanentes, reglas por cliente y los 4 niveles de escalamiento con botón de llamada. Un **asistente** responde preguntas de ruta ("pensión para pernoctar cerca de Saltillo", "¿puedo circular por la 57 de noche?", "¿a quién llamo si me detiene la autoridad?", "reglas de Bafar", "¿puedo parar en El Mixteco?"). Funciona sin internet; opcionalmente se conecta un asistente con IA (Claude) en el servidor.
 
 Cada sección se encabeza con una señal de carretera (preventiva amarilla, informativa azul, destino verde, restrictiva roja) y un poste kilométrico con el número de tramo.
 
@@ -69,9 +69,19 @@ texto, resumen de errores enfocable y alternativa de firma escrita.
 
 Con eso la app pide inicio de sesión al operador, guarda cada dictamen (horas GPS, pruebas, factores, respuestas, foto, firma e imagen del dictamen en el bucket privado `evaluaciones`), crea el folio de Mantenimiento y registra la alerta de resguardo en cuanto hay un bloqueo por fatiga. Sin señal, lo pendiente se guarda en el teléfono y se envía solo al recuperar conexión. Con los dos campos vacíos, la app trabaja solo en el teléfono como hasta ahora.
 
+## Datos de Cabina (consola del Centinela)
+
+Los datos de paradas, zonas, prohibidos, puntos clave, reglas, escalamiento, clientes y el índice de lugares se extraen del HTML de la consola y quedan embebidos en `index.html` (bloque `CABINA`) para que la app funcione sin señal. Para actualizar cuando Cabina cambie la consola:
+
+```bash
+node scripts/extraer-consola.js "ruta/Consola_del_Centinela.html"
+```
+
+El script regenera `datos/cabina.json`, los CSV de revisión en `datos/` y el bloque embebido. Si la app está conectada a Supabase, además lee la tabla `paradas` al iniciar sesión.
+
 ## Asistente de paradas con IA (opcional)
 
-El catálogo vive en la tabla `paradas` (se carga al iniciar sesión y queda guardado en el teléfono). Para que el asistente entienda preguntas libres con Claude:
+Para que el asistente entienda preguntas libres con Claude (recibe paradas, zonas, prohibidos, puntos clave, reglas, escalamiento y clientes como contexto, y la hora actual para saber qué restricciones están activas):
 
 ```bash
 supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
