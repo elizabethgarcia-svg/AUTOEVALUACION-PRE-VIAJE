@@ -1,6 +1,6 @@
 {
  "origen": "49bc623e-Consola_del_Centinela_Grupo_Loma.html",
- "extraido": "2026-10-04T05:22:26.687Z",
+ "extraido": "2026-10-04T21:58:02.520Z",
  "paradas": [
   {
    "id": "parador-el-torito-truck-stop",
@@ -478,7 +478,8 @@
     "nl",
     "r57"
    ],
-   "especial": ""
+   "especial": "",
+   "orden": 4
   },
   {
    "id": "el-26",
@@ -1540,6 +1541,60 @@
     "r57"
    ],
    "especial": ""
+  },
+  {
+   "id": "patio-aguascalientes",
+   "nombre": "Patio Aguascalientes",
+   "tipo": "patio",
+   "region": "Centro",
+   "estado": "Aguascalientes",
+   "lat": 21.9890486,
+   "lon": -102.247142,
+   "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+   "ojo": "",
+   "servicios": [
+    "pernocta",
+    "descanso"
+   ],
+   "zonas": [],
+   "especial": "",
+   "orden": 1
+  },
+  {
+   "id": "patio-queretaro",
+   "nombre": "Patio Querétaro · Grupo Loma / Transportes TROB",
+   "tipo": "patio",
+   "region": "Centro",
+   "estado": "Querétaro",
+   "lat": 20.5713078,
+   "lon": -100.2517831,
+   "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+   "ojo": "",
+   "servicios": [
+    "pernocta",
+    "descanso"
+   ],
+   "zonas": [],
+   "especial": "",
+   "orden": 2
+  },
+  {
+   "id": "patio-irapuato",
+   "nombre": "Patio Irapuato",
+   "tipo": "patio",
+   "region": "Centro",
+   "estado": "Guanajuato",
+   "lat": 20.7037171,
+   "lon": -101.3208756,
+   "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+   "ojo": "",
+   "servicios": [
+    "pernocta",
+    "descanso"
+   ],
+   "zonas": [],
+   "especial": "",
+   "orden": 3
   }
  ],
  "zonas": [
@@ -1550,7 +1605,17 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibición total de circulación"
+   "regla": "Prohibición total de circulación",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      21.356,
+      -101.93
+     ]
+    ],
+    "radioKm": 25
+   }
   },
   {
    "id": "arconorte",
@@ -1563,7 +1628,40 @@
     "Hidalgo",
     "Tlaxcala"
    ],
-   "regla": "Prohibido circular 19:00 – 07:00"
+   "regla": "Prohibido circular 19:00 – 07:00",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      19.8,
+      -99.88
+     ],
+     [
+      19.95,
+      -99.55
+     ],
+     [
+      20.05,
+      -99.34
+     ],
+     [
+      19.95,
+      -98.95
+     ],
+     [
+      19.75,
+      -98.6
+     ],
+     [
+      19.42,
+      -98.4
+     ],
+     [
+      19.28,
+      -98.43
+     ]
+    ]
+   }
   },
   {
    "id": "puebla",
@@ -1574,7 +1672,10 @@
    "estados": [
     "Puebla"
    ],
-   "regla": "Prohibido circular 19:00 – 07:00"
+   "regla": "Prohibido circular 19:00 – 07:00",
+   "mapa": {
+    "tipo": "estados"
+   }
   },
   {
    "id": "marques",
@@ -1583,7 +1684,18 @@
    "desde": 19,
    "hasta": 7,
    "estados": [],
-   "regla": "Prohibido circular 19:00 – 07:00"
+   "regla": "Prohibido circular 19:00 – 07:00",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      18.86,
+      -97.39
+     ]
+    ],
+    "radioKm": 20,
+    "aprox": true
+   }
   },
   {
    "id": "michoacan",
@@ -1594,7 +1706,10 @@
    "estados": [
     "Michoacán"
    ],
-   "regla": "Prohibido circular 19:00 – 07:00"
+   "regla": "Prohibido circular 19:00 – 07:00",
+   "mapa": {
+    "tipo": "estados"
+   }
   },
   {
    "id": "ecatepec",
@@ -1605,7 +1720,17 @@
    "estados": [
     "Ciudad de México"
    ],
-   "regla": "Prohibido circular a partir de las 18:00"
+   "regla": "Prohibido circular a partir de las 18:00",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      19.6,
+      -99.05
+     ]
+    ],
+    "radioKm": 10
+   }
   },
   {
    "id": "ecatepec_ing",
@@ -1614,7 +1739,17 @@
    "desde": 20,
    "hasta": 8,
    "estados": [],
-   "regla": "No ingresar unidades 20:00 – 08:00"
+   "regla": "No ingresar unidades 20:00 – 08:00",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      19.6,
+      -99.05
+     ]
+    ],
+    "radioKm": 10
+   }
   },
   {
    "id": "sabado",
@@ -1623,7 +1758,14 @@
    "desde": 13,
    "hasta": 24,
    "estados": [],
-   "regla": "Resguardo desde las 13:00 los sábados"
+   "regla": "Resguardo desde las 13:00 los sábados",
+   "mapa": {
+    "tipo": "estados",
+    "estados": [
+     "México",
+     "Ciudad de México"
+    ]
+   }
   },
   {
    "id": "57noche",
@@ -1632,7 +1774,32 @@
    "desde": 20,
    "hasta": 5,
    "estados": [],
-   "regla": "Prohibido circular 20:00 – 05:00"
+   "regla": "Prohibido circular 20:00 – 05:00",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      23.65,
+      -100.64
+     ],
+     [
+      23.3,
+      -100.72
+     ],
+     [
+      22.9,
+      -100.7
+     ],
+     [
+      22.55,
+      -100.8
+     ],
+     [
+      22.15,
+      -100.98
+     ]
+    ]
+   }
   },
   {
    "id": "arcosa",
@@ -1641,7 +1808,41 @@
    "desde": 20,
    "hasta": 5,
    "estados": [],
-   "regla": "Prohibido circular 20:00 – 05:00"
+   "regla": "Prohibido circular 20:00 – 05:00",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      19.6,
+      -99.2
+     ],
+     [
+      20,
+      -99.85
+     ],
+     [
+      20.59,
+      -100.39
+     ],
+     [
+      20.68,
+      -101.35
+     ],
+     [
+      21.12,
+      -101.68
+     ],
+     [
+      21.5,
+      -102
+     ],
+     [
+      21.88,
+      -102.29
+     ]
+    ],
+    "aprox": true
+   }
   },
   {
    "id": "lala",
@@ -1650,7 +1851,32 @@
    "desde": 22,
    "hasta": 5,
    "estados": [],
-   "regla": "Prohibido trasladar mercancía 22:00 – 05:00"
+   "regla": "Prohibido trasladar mercancía 22:00 – 05:00",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      19.04,
+      -98.2
+     ],
+     [
+      18.46,
+      -97.39
+     ],
+     [
+      17.81,
+      -97.78
+     ],
+     [
+      17.46,
+      -97.23
+     ],
+     [
+      17.06,
+      -96.72
+     ]
+    ]
+   }
   },
   {
    "id": "laredo",
@@ -1659,7 +1885,17 @@
    "desde": 19,
    "hasta": 24,
    "estados": [],
-   "regla": "No iniciar viaje después de las 19:00"
+   "regla": "No iniciar viaje después de las 19:00",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      27.48,
+      -99.51
+     ]
+    ],
+    "radioKm": 15
+   }
   },
   {
    "id": "veracruz",
@@ -1671,7 +1907,10 @@
     "Veracruz",
     "Tabasco"
    ],
-   "regla": "Permanecer en resguardo 00:00 – 06:00"
+   "regla": "Permanecer en resguardo 00:00 – 06:00",
+   "mapa": {
+    "tipo": "estados"
+   }
   },
   {
    "id": "nacional",
@@ -1680,7 +1919,10 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido estacionarse sobre carretera"
+   "regla": "Prohibido estacionarse sobre carretera",
+   "mapa": {
+    "tipo": "ninguno"
+   }
   },
   {
    "id": "slp",
@@ -1691,7 +1933,10 @@
    "estados": [
     "San Luis Potosí"
    ],
-   "regla": "Prohibido detenerse sobre carretera"
+   "regla": "Prohibido detenerse sobre carretera",
+   "mapa": {
+    "tipo": "estados"
+   }
   },
   {
    "id": "nl",
@@ -1702,7 +1947,10 @@
    "estados": [
     "Nuevo León"
    ],
-   "regla": "Prohibido detenerse sobre carretera"
+   "regla": "Prohibido detenerse sobre carretera",
+   "mapa": {
+    "tipo": "estados"
+   }
   },
   {
    "id": "mexqro",
@@ -1711,7 +1959,32 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido detenerse · única excepción Palmillas"
+   "regla": "Prohibido detenerse · única excepción Palmillas",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      19.6,
+      -99.2
+     ],
+     [
+      19.83,
+      -99.2
+     ],
+     [
+      20,
+      -99.85
+     ],
+     [
+      20.31,
+      -99.93
+     ],
+     [
+      20.59,
+      -100.39
+     ]
+    ]
+   }
   },
   {
    "id": "chona",
@@ -1720,7 +1993,24 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido detenerse"
+   "regla": "Prohibido detenerse",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      21.52,
+      -102.24
+     ],
+     [
+      21.36,
+      -101.93
+     ],
+     [
+      21.12,
+      -101.68
+     ]
+    ]
+   }
   },
   {
    "id": "km8393",
@@ -1729,7 +2019,18 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Ninguna parada, especialmente en restaurantes"
+   "regla": "Ninguna parada, especialmente en restaurantes",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      24.3,
+      -100.55
+     ]
+    ],
+    "radioKm": 10,
+    "aprox": true
+   }
   },
   {
    "id": "zacatecas",
@@ -1740,7 +2041,28 @@
    "estados": [
     "Zacatecas"
    ],
-   "regla": "Prohibido detenerse · zona muerta de GPS"
+   "regla": "Prohibido detenerse · zona muerta de GPS",
+   "mapa": {
+    "tipo": "linea",
+    "puntos": [
+     [
+      24.61,
+      -101.42
+     ],
+     [
+      24.2,
+      -101.75
+     ],
+     [
+      23.8,
+      -102.05
+     ],
+     [
+      23.29,
+      -102.34
+     ]
+    ]
+   }
   },
   {
    "id": "lagunero",
@@ -1749,7 +2071,17 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido detenerse"
+   "regla": "Prohibido detenerse",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      25.88,
+      -103.62
+     ]
+    ],
+    "radioKm": 15
+   }
   },
   {
    "id": "huehuetoca",
@@ -1758,7 +2090,17 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido detenerse"
+   "regla": "Prohibido detenerse",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      19.83,
+      -99.2
+     ]
+    ],
+    "radioKm": 10
+   }
   },
   {
    "id": "matehuala",
@@ -1767,7 +2109,17 @@
    "desde": 0,
    "hasta": 24,
    "estados": [],
-   "regla": "Prohibido detenerse dentro de la ciudad"
+   "regla": "Prohibido detenerse dentro de la ciudad",
+   "mapa": {
+    "tipo": "punto",
+    "puntos": [
+     [
+      23.65,
+      -100.64
+     ]
+    ],
+    "radioKm": 10
+   }
   }
  ],
  "prohibidos": [

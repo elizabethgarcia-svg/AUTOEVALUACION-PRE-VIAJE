@@ -45,6 +45,12 @@ const ROL_APP = { 'Comandante de Ruta': 'Centinela de Ruta', 'Comandante de Segu
 const escalamiento = ESCALA.map((e, i) => ({ nivel: i + 1, rol: ROL_APP[e.rol] || e.rol, tel: e.tel, cuando: e.cuando }));
 const clientes = CLIENTES.map(c => ({ nombre: c.n, alias: c.a, corredor: c.res, zonas: c.z, reglas: c.reglas }));
 const lugares = GAZ.map(g => ({ nombre: g.n, alias: g.a, lat: g.lat, lon: g.lon, zonas: g.z, estado: g.e, tipo: g.tipo }));
+// Extras que no vienen de la consola (patios propios, geometría de zonas para el mapa)
+let extras = { paradas: [], zonasMapa: {}, ordenPatios: {} };
+try { extras = Object.assign(extras, JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'datos', 'extras.json'), 'utf8'))); } catch (e) { console.warn('Sin datos/extras.json:', e.message); }
+for (const p of extras.paradas) { if (!paradas.some(x => x.id === p.id)) paradas.push(p); }
+for (const p of paradas) if (extras.ordenPatios[p.id]) p.orden = extras.ordenPatios[p.id];
+for (const z of zonas) if (extras.zonasMapa[z.id]) z.mapa = extras.zonasMapa[z.id];
 const cabina = { origen: path.basename(archivo), extraido: new Date().toISOString(), paradas, zonas, prohibidos, puntosClave, reglas, escalamiento, clientes, lugares };
 
 fs.writeFileSync('datos/cabina.json', JSON.stringify(cabina, null, 1));
