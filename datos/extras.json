@@ -1,0 +1,407 @@
+{
+  "_nota": "Datos que no vienen de la Consola del Centinela. Se combinan al correr scripts/extraer-consola.js. Las geometrías de zonas son aproximadas (puntos y corredores dibujados a mano sobre el mapa); corríjalas aquí si Cabina tiene coordenadas exactas. El bloque escalamiento sustituye al de la consola (teléfonos oficiales de Cabina). El bloque zonas corrige campos de una zona de la consola (p. ej. Michoacán).",
+  "paradas": [
+    {
+      "id": "patio-aguascalientes",
+      "nombre": "Patio Aguascalientes",
+      "tipo": "patio",
+      "region": "Centro",
+      "estado": "Aguascalientes",
+      "lat": 21.9890486,
+      "lon": -102.247142,
+      "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+      "ojo": "",
+      "servicios": [
+        "pernocta",
+        "descanso"
+      ],
+      "zonas": [],
+      "especial": "",
+      "orden": 1
+    },
+    {
+      "id": "patio-queretaro",
+      "nombre": "Patio Querétaro · Grupo Loma / Transportes TROB",
+      "tipo": "patio",
+      "region": "Centro",
+      "estado": "Querétaro",
+      "lat": 20.5713078,
+      "lon": -100.2517831,
+      "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+      "ojo": "",
+      "servicios": [
+        "pernocta",
+        "descanso"
+      ],
+      "zonas": [],
+      "especial": "",
+      "orden": 2
+    },
+    {
+      "id": "patio-irapuato",
+      "nombre": "Patio Irapuato",
+      "tipo": "patio",
+      "region": "Centro",
+      "estado": "Guanajuato",
+      "lat": 20.704721,
+      "lon": -101.32041,
+      "nota": "Patio propio. Descanso y pernocta. No requiere paro de motor.",
+      "ojo": "",
+      "servicios": [
+        "pernocta",
+        "descanso"
+      ],
+      "zonas": [],
+      "especial": "",
+      "orden": 3
+    }
+  ],
+  "ordenPatios": {
+    "patio-aguascalientes": 1,
+    "patio-queretaro": 2,
+    "patio-irapuato": 3,
+    "patio-monterrey": 4
+  },
+  "zonasMapa": {
+    "lagos": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          21.356,
+          -101.93
+        ]
+      ],
+      "radioKm": 25
+    },
+    "arconorte": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          19.8,
+          -99.88
+        ],
+        [
+          19.95,
+          -99.55
+        ],
+        [
+          20.05,
+          -99.34
+        ],
+        [
+          19.95,
+          -98.95
+        ],
+        [
+          19.75,
+          -98.6
+        ],
+        [
+          19.42,
+          -98.4
+        ],
+        [
+          19.28,
+          -98.43
+        ]
+      ]
+    },
+    "puebla": {
+      "tipo": "estados"
+    },
+    "marques": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          18.86,
+          -97.39
+        ]
+      ],
+      "radioKm": 20,
+      "aprox": true
+    },
+    "michoacan": {
+      "tipo": "estados"
+    },
+    "ecatepec": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          19.6,
+          -99.05
+        ]
+      ],
+      "radioKm": 10
+    },
+    "ecatepec_ing": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          19.6,
+          -99.05
+        ]
+      ],
+      "radioKm": 10
+    },
+    "sabado": {
+      "tipo": "estados",
+      "estados": [
+        "México",
+        "Ciudad de México"
+      ]
+    },
+    "57noche": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          23.65,
+          -100.64
+        ],
+        [
+          23.3,
+          -100.72
+        ],
+        [
+          22.9,
+          -100.7
+        ],
+        [
+          22.55,
+          -100.8
+        ],
+        [
+          22.15,
+          -100.98
+        ]
+      ]
+    },
+    "arcosa": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          19.6,
+          -99.2
+        ],
+        [
+          20.0,
+          -99.85
+        ],
+        [
+          20.59,
+          -100.39
+        ],
+        [
+          20.68,
+          -101.35
+        ],
+        [
+          21.12,
+          -101.68
+        ],
+        [
+          21.5,
+          -102.0
+        ],
+        [
+          21.88,
+          -102.29
+        ]
+      ],
+      "aprox": true
+    },
+    "lala": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          19.04,
+          -98.2
+        ],
+        [
+          18.46,
+          -97.39
+        ],
+        [
+          17.81,
+          -97.78
+        ],
+        [
+          17.46,
+          -97.23
+        ],
+        [
+          17.06,
+          -96.72
+        ]
+      ]
+    },
+    "laredo": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          27.48,
+          -99.51
+        ]
+      ],
+      "radioKm": 15
+    },
+    "veracruz": {
+      "tipo": "estados"
+    },
+    "nacional": {
+      "tipo": "ninguno"
+    },
+    "slp": {
+      "tipo": "estados"
+    },
+    "nl": {
+      "tipo": "estados"
+    },
+    "mexqro": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          19.6,
+          -99.2
+        ],
+        [
+          19.83,
+          -99.2
+        ],
+        [
+          20.0,
+          -99.85
+        ],
+        [
+          20.31,
+          -99.93
+        ],
+        [
+          20.59,
+          -100.39
+        ]
+      ]
+    },
+    "chona": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          21.52,
+          -102.24
+        ],
+        [
+          21.36,
+          -101.93
+        ],
+        [
+          21.12,
+          -101.68
+        ]
+      ]
+    },
+    "km8393": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          24.3,
+          -100.55
+        ]
+      ],
+      "radioKm": 10,
+      "aprox": true
+    },
+    "zacatecas": {
+      "tipo": "linea",
+      "puntos": [
+        [
+          24.61,
+          -101.42
+        ],
+        [
+          24.2,
+          -101.75
+        ],
+        [
+          23.8,
+          -102.05
+        ],
+        [
+          23.29,
+          -102.34
+        ]
+      ]
+    },
+    "lagunero": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          25.88,
+          -103.62
+        ]
+      ],
+      "radioKm": 15
+    },
+    "huehuetoca": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          19.83,
+          -99.2
+        ]
+      ],
+      "radioKm": 10
+    },
+    "matehuala": {
+      "tipo": "punto",
+      "puntos": [
+        [
+          23.65,
+          -100.64
+        ]
+      ],
+      "radioKm": 10
+    }
+  },
+  "escalamiento": [
+    {
+      "nivel": 1,
+      "rol": "Centinela de Ruta",
+      "tel": "449 274 1968",
+      "tel2": "449 193 4773",
+      "cuando": "Primer contacto ante cualquier desviación, detención no programada, falla mecánica o pérdida de comunicación."
+    },
+    {
+      "nivel": 2,
+      "rol": "Centinela de Seguridad",
+      "tel": "449 387 2375",
+      "cuando": "Riesgo, seguimiento, robo, siniestro o autoridad involucrada. Busca resguardo seguro y lleva la unidad en monitoreo activo. Cabina es quien llama al 911."
+    },
+    {
+      "nivel": 3,
+      "rol": "Comandante de Ruta",
+      "tel": "449 274 3107",
+      "cuando": "Si el Centinela de Ruta no responde o el evento requiere decisión operativa."
+    },
+    {
+      "nivel": 4,
+      "rol": "Comandante de Seguridad",
+      "tel": "449 210 5715",
+      "cuando": "Si el Centinela de Seguridad no responde o el evento no se resuelve en el nivel anterior."
+    },
+    {
+      "nivel": 5,
+      "rol": "Gerencia de Seguridad",
+      "tel": "444 149 2690",
+      "cuando": "Autoriza excepciones a restricciones. Último nivel de escalamiento."
+    }
+  ],
+  "zonas": {
+    "michoacan": {
+      "nombre": "Michoacán (ingreso o cruce del estado)",
+      "tipo": "total",
+      "desde": 0,
+      "hasta": 24,
+      "regla": "Prohibido ingresar o cruzar el estado. Única excepción: La Piedad, con cliente Bafar y autorización de Cabina.",
+      "excepcion": "La Piedad · cliente Bafar"
+    }
+  }
+}
