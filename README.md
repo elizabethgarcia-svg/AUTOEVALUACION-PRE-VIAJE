@@ -59,6 +59,15 @@ El diseño sigue el sistema documentado en `design-system/pre-viaje-operador/MAS
 identidad de carretera (azul marino del logo ILG, amarillo de línea central, escudo Ruta 57, señales SIGA/ALTO), tipografía Saira Extra Condensed + Barlow, targets de 48 px, estados con icono y
 texto, resumen de errores enfocable y alternativa de firma escrita.
 
+## Instalar como app en el teléfono (PWA)
+
+La página incluye `manifest.webmanifest`, íconos en `assets/icons/` y `sw.js` (funciona sin señal una vez abierta). Publicada por HTTPS (GitHub Pages):
+
+- **iPhone (Safari):** botón Compartir → **Agregar a pantalla de inicio**. La propia app muestra esta guía al abrirse en iPhone.
+- **Android (Chrome):** aparece el botón **Instalar Pre-Viaje en este teléfono** en la pantalla de inicio, o en el menú ⋮ → **Instalar app**.
+
+Queda con el ícono ILG, a pantalla completa y con la última versión descargada.
+
 ## Publicación
 
 Suba `index.html` a cualquier hosting estático (GitHub Pages, Netlify, S3). Debe servirse por HTTPS para que el teléfono pueda compartir su ubicación.

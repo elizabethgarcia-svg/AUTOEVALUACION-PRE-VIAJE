@@ -7,6 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pre-Viaje">
 <meta name="theme-color" content="#021C4F">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <title>Pre-Viaje Operador</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -737,6 +741,7 @@ const estado = {
   resultado: null
 };
 let temporizador = null;
+let eventoInstalar = null;
 const $ = s => document.querySelector(s);
 const vista = $('#vista');
 const vibrar = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
@@ -846,6 +851,8 @@ function renderBarrera() {
     html += '<div class="tarjeta operador-resumen"><div class="avatar" aria-hidden="true">' + esc(iniciales(d.nombre)) + '</div><div class="txt"><b>' + esc(d.nombre) + '</b><span>Unidad ' + esc(d.economico) + ' · ' + esc(g.ubicacion) + '</span></div><button class="btn fantasma btn-chico" id="btnCambiar" type="button">Cambiar</button></div>';
   }
   html += '<div id="veredictoGps"></div>';
+  html += '<button class="btn secundario" id="btnInstalar" type="button"' + (eventoInstalar ? '' : ' hidden') + '>' + ICONO.camion + ' Instalar Pre-Viaje en este teléfono</button>';
+  if (!g && /iPhone|iPad/.test(navigator.userAgent) && !window.navigator.standalone) html += '<div class="aviso info">' + ICONO.info + '<div><b>Instalar en iPhone</b>En Safari toque el botón Compartir (cuadro con flecha) y elija <b>Agregar a pantalla de inicio</b>. Pre-Viaje quedará como una app con su ícono.</div></div>';
   html += renderHistorialCorto();
   html += '</section>';
   vista.innerHTML = html;
@@ -1691,6 +1698,18 @@ function toast(msg) {
 }
 
 render();
+
+/* Instalación como app (PWA): registra el service worker solo cuando se sirve por HTTPS o localhost */
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
+}
+/* Aviso de instalación en Android (Chrome): guarda el evento y muestra el botón en la pantalla de inicio */
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); eventoInstalar = e; const b = document.getElementById('btnInstalar'); if (b) b.hidden = false; });
+document.addEventListener('click', async e => {
+  const b = e.target.closest('#btnInstalar'); if (!b || !eventoInstalar) return;
+  eventoInstalar.prompt(); const r = await eventoInstalar.userChoice; eventoInstalar = null; b.hidden = true;
+  if (r && r.outcome === 'accepted') toast('Pre-Viaje quedó instalada en su teléfono.');
+});
 </script>
 </body>
 </html>

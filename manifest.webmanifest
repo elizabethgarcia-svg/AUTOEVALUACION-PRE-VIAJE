@@ -1,0 +1,17 @@
+{
+  "name": "Pre-Viaje Operador ILG",
+  "short_name": "Pre-Viaje",
+  "description": "Autoevaluación pre-viaje para operadores de tractocamión: horas de servicio, estado del operador, unidad y dictamen.",
+  "lang": "es-MX",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#021C4F",
+  "theme_color": "#021C4F",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
