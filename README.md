@@ -103,3 +103,13 @@ Queda con el ícono ILG, a pantalla completa y con la última versión descargad
 ## Publicación
 
 Suba `index.html` a cualquier hosting estático (GitHub Pages, Netlify, S3). Debe servirse por HTTPS para que el teléfono pueda compartir su ubicación.
+
+## Publicar e instalar como app
+
+La app es una PWA (`manifest.webmanifest`, `sw.js`, iconos en `assets/icons/`): se instala en iPhone y Android desde el navegador, sin tiendas, y funciona sin internet una vez instalada. Para que el teléfono ofrezca "instalar" debe abrirse desde una dirección **https**.
+
+**Opción A · GitHub Pages (automática).** El flujo `.github/workflows/pages.yml` publica la rama `main` cada vez que cambia. Requisitos que se configuran una sola vez en GitHub, en *Settings → Pages*: (1) *Source* = **GitHub Actions**; (2) el repositorio debe ser público, o la cuenta tener un plan que permita Pages en repositorios privados. Luego se vuelve a correr el flujo (*Actions → Publicar en GitHub Pages → Run workflow*) y la app queda en `https://elizabethgarcia-svg.github.io/AUTOEVALUACION-PRE-VIAJE/`.
+
+**Opción B · Cualquier hosting estático.** Subir el contenido del repositorio (o el ZIP con `index.html`, `manifest.webmanifest`, `sw.js` y `assets/`) a Netlify, Cloudflare Pages, Vercel o el servidor web de la empresa. No necesita base de datos ni servidor de aplicaciones.
+
+**Instalar en el teléfono.** Android (Chrome): abrir la dirección → botón "Instalar Pre-Viaje" dentro de la app o menú ⋮ → *Instalar aplicación*. iPhone (Safari): abrir la dirección → botón *Compartir* → *Agregar a pantalla de inicio*.
