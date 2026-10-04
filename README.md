@@ -17,6 +17,8 @@ Encuesta de autoevaluación que realiza el operador antes de salir a ruta. Un so
 11. **Confirmación**: resumen, declaración de veracidad y firma con el dedo (o firma escrita).
 12. **Dictamen** con factores detectados, identificación (foto, ubicación, compromiso), folio, folio de Mantenimiento cuando aplica, envío por WhatsApp a Cabina de Seguridad (444 149 2690) como **imagen del dictamen** (generada en el teléfono: letrero, identidad con foto, horas de servicio, factores, folios y firma) o como texto, y copia del resumen. El envío de imagen usa el menú de compartir del teléfono; si el navegador no lo permite, la imagen se guarda y se abre el chat de Cabina para adjuntarla. Si el NO APTO se debe a horas de sueño o cansancio alto, indica en cuántas horas y a qué hora volver a hacer la evaluación (3 h si durmió menos de 5 h, 2 h si durmió entre 5 y 6 h o se declara con cansancio alto).
 
+12. **Paradas autorizadas** (tras el dictamen APTO y su envío): catálogo de pensiones, paradores y gasolineras autorizadas de la ruta con km, servicios, horario, teléfono y botón "Cómo llegar", más un **asistente** para preguntar por lugar, kilómetro o servicio ("pensión con regaderas en Saltillo", "¿dónde cargo diésel cerca del km 300?", "¿cuál es la parada más cercana?"). El asistente local funciona sin internet; opcionalmente se conecta un asistente con IA (Claude) en el servidor.
+
 Cada sección se encabeza con una señal de carretera (preventiva amarilla, informativa azul, destino verde, restrictiva roja) y un poste kilométrico con el número de tramo.
 
 ## Reglas de fatiga (bloquean la evaluación)
@@ -66,6 +68,18 @@ texto, resumen de errores enfocable y alternativa de firma escrita.
 3. Dé de alta a los operadores en Authentication → Users con `{"rol": "operador"}` en los metadatos, y un renglón en la tabla `operadores` con su nombre; a Cabina y Mantenimiento con su rol correspondiente.
 
 Con eso la app pide inicio de sesión al operador, guarda cada dictamen (horas GPS, pruebas, factores, respuestas, foto, firma e imagen del dictamen en el bucket privado `evaluaciones`), crea el folio de Mantenimiento y registra la alerta de resguardo en cuanto hay un bloqueo por fatiga. Sin señal, lo pendiente se guarda en el teléfono y se envía solo al recuperar conexión. Con los dos campos vacíos, la app trabaja solo en el teléfono como hasta ahora.
+
+## Asistente de paradas con IA (opcional)
+
+El catálogo vive en la tabla `paradas` (se carga al iniciar sesión y queda guardado en el teléfono). Para que el asistente entienda preguntas libres con Claude:
+
+```bash
+supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+supabase secrets set ALLOWED_ORIGINS=https://elizabethgarcia-svg.github.io
+supabase functions deploy asistente-paradas --no-verify-jwt
+```
+
+y en `index.html`: `const ASISTENTE = { endpoint: 'https://<ref>.supabase.co/functions/v1/asistente-paradas' }`. La función solo acepta el origen de la app, responde únicamente con paradas del catálogo y, si no hay señal o falla, la app vuelve al asistente local.
 
 ## Instalar como app en el teléfono (PWA)
 

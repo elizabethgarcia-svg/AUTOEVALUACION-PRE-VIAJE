@@ -407,6 +407,35 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
 .nota-mtto { margin-top: 10px; }
 .dictamen-img { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--border); }
+/* Paradas autorizadas y asistente */
+.filtros { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-filtro { min-height: 40px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card); color: var(--fg); font-weight: 600; font-size: 14px; }
+.chip-filtro[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.parada { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.parada.marcada { border: 2px solid var(--accent); }
+.parada-cab { display: flex; align-items: center; gap: 12px; }
+.parada-ico { width: 40px; height: 40px; border-radius: var(--radius); background: var(--brand); color: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
+.parada-ico svg { width: 22px; height: 22px; }
+.parada-txt { flex: 1; min-width: 0; line-height: 1.2; }
+.parada-txt b { display: block; font-size: 17px; }
+.parada-txt span { font-size: 14px; color: var(--fg-2); }
+.parada-serv { display: flex; flex-wrap: wrap; gap: 6px; }
+.parada-serv span { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border); color: var(--fg-2); }
+.parada-info { font-size: 14px; color: var(--fg-2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.parada-info svg { width: 16px; height: 16px; }
+.parada-acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+.parada-acciones .btn-chico { flex: 1 1 auto; justify-content: center; text-transform: none; font-family: var(--f-body); letter-spacing: 0; }
+.chat { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; padding: 4px 2px; }
+.chat:empty { display: none; }
+.burbuja { max-width: 88%; padding: 10px 14px; border-radius: 14px; font-size: 15px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.burbuja.yo { align-self: flex-end; background: var(--primary); color: var(--on-primary); border-bottom-right-radius: 4px; }
+.burbuja.bot { align-self: flex-start; background: var(--card-2); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+.burbuja.pensando { color: var(--fg-2); font-style: italic; }
+.sugerencias { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.chip-sug { flex: 0 0 auto; min-height: 36px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card-2); color: var(--fg); font-size: 14px; }
+.chat-form { display: flex; gap: 8px; }
+.chat-form input { flex: 1; min-width: 0; min-height: var(--tap); padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border-2); background: var(--card); color: var(--fg); }
+.chat-form .btn { min-width: var(--tap); padding: 0 14px; }
 /* Pruebas de visión y reacción */
 .rondas { display: flex; justify-content: center; gap: 8px; }
 .rondas span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: var(--card-2); color: var(--fg-2); border: 1px solid var(--border-2); }
@@ -600,6 +629,7 @@ const nube = {
     if (!r.ok) throw new Error(j.error_description || j.msg || 'Correo o contraseña incorrectos.');
     this.sesion = j; try { localStorage.setItem('previaje.sesion', JSON.stringify(j)); } catch (e) {}
     try { const f = await fetch(this.base() + '/rest/v1/operadores?id=eq.' + j.user.id + '&select=nombre', { headers: this.cabeceras() }); const ops = await f.json(); if (ops[0] && ops[0].nombre) estado.datos.nombre = ops[0].nombre; } catch (e) {}
+    try { const f = await fetch(this.base() + '/rest/v1/paradas?activa=eq.true&order=km.asc', { headers: this.cabeceras() }); const ps = await f.json(); if (Array.isArray(ps) && ps.length) { estado.paradas = ps; localStorage.setItem('previaje.paradas', JSON.stringify(ps)); } } catch (e) {}
     return j;
   },
   salir() { this.sesion = null; try { localStorage.removeItem('previaje.sesion'); } catch (e) {} },
@@ -815,6 +845,7 @@ const estado = {
   firma: false, firmaTexto: '', firmaImg: null, acepta: false,
   compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente',
   vision: null, reaccion: null,
+  chat: [], paradasMarcadas: [], filtroParadas: 'todas', paradas: null,
   mostrarErrores: false,
   resultado: null
 };
@@ -862,6 +893,9 @@ const ICONO = {
   llave: svg('<path d="M14 4a5 5 0 0 0-4.6 7l-6 6 3 3 6-6A5 5 0 0 0 20 8l-3 3-3-3 3-3a5 5 0 0 0-3-1z"/>'),
   bandera: svg('<path d="M5 22V3"/><path d="M5 4h12l-2 4 2 4H5"/>'),
   mano: svg('<path d="M8 12V5a1.5 1.5 0 0 1 3 0v6M11 11V3.5a1.5 1.5 0 0 1 3 0V11M14 11V5a1.5 1.5 0 0 1 3 0v8M17 13V9.5a1.5 1.5 0 0 1 3 0V15a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L3.4 14a1.6 1.6 0 0 1 2.7-1.7L8 14"/>'),
+  chat: svg('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/>'),
+  telefono: svg('<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>'),
+  parking: svg('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 17v-10h4a3 3 0 0 1 0 6H9"/>'),
   ojo: svg('<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
   rayo: svg('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'),
   camion: svg('<path d="M1 7h12v9H1z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
@@ -889,6 +923,7 @@ function render() {
   const pie = $('#pie'), prog = $('#progreso');
   if (estado.paso === -1) { pie.hidden = true; prog.hidden = true; renderBarrera(); }
   else if (estado.paso === SECCIONES.length) { pie.hidden = true; prog.hidden = true; renderResultado(); }
+  else if (estado.paso === 'paradas') { pie.hidden = true; prog.hidden = true; renderParadas(); }
   else { pie.hidden = false; prog.hidden = false; renderProgreso(); renderSeccion(); }
   window.scrollTo({ top: 0 });
 }
@@ -1731,6 +1766,136 @@ async function compartirImagenDictamen() {
   setTimeout(() => window.open('https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent('Dictamen Pre-Viaje ' + r.folio + ' · ' + estado.datos.nombre + ' · ' + estado.datos.economico + ' (imagen adjunta)'), '_blank'), 800);
 }
 
+/* =====================================================================
+   PARADAS AUTORIZADAS Y ASISTENTE
+   Catálogo de demostración sobre la Ruta 57. En producción el catálogo
+   vive en la tabla `paradas` (ver db/schema.sql) y se carga al iniciar
+   sesión; si no hay señal se usa esta copia.
+   ASISTENTE.endpoint: URL de la Edge Function `asistente-paradas` (IA en
+   el servidor). Vacío = asistente local en el teléfono, sin internet.
+   ===================================================================== */
+const ASISTENTE = { endpoint: '' }; // https://<ref>.supabase.co/functions/v1/asistente-paradas
+const PARADAS = [
+  { id: 'qro-patio', nombre: 'Patio ILG Querétaro', tipo: 'pensión', km: 0, localidad: 'Querétaro', estado: 'Qro.', lat: 20.6236, lon: -100.3860, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'diésel', 'taller'], horario: '24 h', tel: '442 000 0001', nota: 'Base de salida. Resguardo en patio.' },
+  { id: 'sjr-parador', nombre: 'Parador Los Arcos', tipo: 'parador', km: 48, localidad: 'San Juan del Río', estado: 'Qro.', lat: 20.3880, lon: -99.9960, servicios: ['vigilancia 24 h', 'comida', 'diésel', 'regaderas'], horario: '24 h', tel: '427 000 0002', nota: 'Pausa corta autorizada. Estacionamiento para 40 unidades.' },
+  { id: 'slp-pension', nombre: 'Pensión La Central SLP', tipo: 'pensión', km: 205, localidad: 'San Luis Potosí', estado: 'S.L.P.', lat: 22.1565, lon: -100.9855, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'dormitorio', 'báscula'], horario: '24 h', tel: '444 000 0003', nota: 'Pernocta autorizada. Reportar entrada a Cabina.' },
+  { id: 'slp-gas', nombre: 'Gasolinera Autorizada Km 212', tipo: 'gasolinera', km: 212, localidad: 'San Luis Potosí', estado: 'S.L.P.', lat: 22.2210, lon: -100.9410, servicios: ['diésel', 'baños', 'tienda'], horario: '24 h', tel: '444 000 0004', nota: 'Solo carga de combustible, no pernocta.' },
+  { id: 'huizache', nombre: 'Parador El Huizache', tipo: 'parador', km: 312, localidad: 'El Huizache', estado: 'S.L.P.', lat: 22.9060, lon: -100.4360, servicios: ['vigilancia 24 h', 'comida', 'diésel', 'regaderas', 'llantera'], horario: '24 h', tel: '488 000 0005', nota: 'Entronque con la 80. Pausa de 30 min autorizada.' },
+  { id: 'matehuala', nombre: 'Pensión Matehuala Norte', tipo: 'pensión', km: 390, localidad: 'Matehuala', estado: 'S.L.P.', lat: 23.6650, lon: -100.6300, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'dormitorio', 'taller'], horario: '24 h', tel: '488 000 0006', nota: 'Pernocta autorizada. Entrada por lateral norte.' },
+  { id: 'ventura', nombre: 'Parador La Ventura', tipo: 'parador', km: 500, localidad: 'La Ventura', estado: 'Coah.', lat: 24.5890, lon: -100.9140, servicios: ['comida', 'diésel', 'baños'], horario: '6:00 a 23:00', tel: '844 000 0007', nota: 'Solo pausa corta de día. No pernocta.' },
+  { id: 'saltillo', nombre: 'Pensión Saltillo Sur', tipo: 'pensión', km: 585, localidad: 'Saltillo', estado: 'Coah.', lat: 25.3800, lon: -100.9900, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'dormitorio', 'báscula', 'taller'], horario: '24 h', tel: '844 000 0008', nota: 'Pernocta autorizada. Resguardo con pluma.' },
+  { id: 'monclova', nombre: 'Parador Monclova', tipo: 'parador', km: 780, localidad: 'Monclova', estado: 'Coah.', lat: 26.9010, lon: -101.4210, servicios: ['vigilancia 24 h', 'comida', 'diésel', 'regaderas'], horario: '24 h', tel: '866 000 0009', nota: 'Pausa y pernocta de emergencia con autorización de Cabina.' },
+  { id: 'piedras', nombre: 'Patio ILG Piedras Negras', tipo: 'pensión', km: 1020, localidad: 'Piedras Negras', estado: 'Coah.', lat: 28.7000, lon: -100.5230, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'dormitorio', 'diésel', 'taller'], horario: '24 h', tel: '878 000 0010', nota: 'Patio de destino. Resguardo en patio.' },
+  { id: 'cdmx-patio', nombre: 'Patio ILG Cuautitlán', tipo: 'pensión', km: -165, localidad: 'Cuautitlán Izcalli', estado: 'Edo. Méx.', lat: 19.6460, lon: -99.2120, servicios: ['vigilancia 24 h', 'regaderas', 'comida', 'diésel', 'taller'], horario: '24 h', tel: '55 0000 0011', nota: 'Patio zona centro. Km negativos = antes de Querétaro.' }
+];
+const TIPO_ICONO = { 'pensión': 'cama', 'parador': 'reloj', 'gasolinera': 'gps' };
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const distanciaKm = (a, b) => { const R = 6371, dLat = (b.lat - a.lat) * Math.PI / 180, dLon = (b.lon - a.lon) * Math.PI / 180; const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * Math.PI / 180) * Math.cos(b.lat * Math.PI / 180) * Math.sin(dLon / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
+function catalogoParadas() { return (estado.paradas && estado.paradas.length) ? estado.paradas : PARADAS; }
+function posicionActual() { if (estado.ubicacion) return { lat: estado.ubicacion.lat, lon: estado.ubicacion.lon }; if (estado.posicion) return estado.posicion; return null; }
+
+/* ---- Asistente local (sin internet) ---- */
+const SERVICIOS_CLAVE = {
+  dormitorio: ['dormir', 'pernoct', 'descans', 'noche', 'cama', 'sueno', 'dormitorio'],
+  regaderas: ['regadera', 'ducha', 'banar', 'bano'],
+  comida: ['comer', 'comida', 'restaurante', 'desayun', 'cena', 'almuerzo', 'tacos'],
+  'diésel': ['diesel', 'combustible', 'gasolina', 'cargar', 'tanque'],
+  'vigilancia 24 h': ['vigilancia', 'seguro', 'segura', 'custodia', 'robo', 'resguard'],
+  'báscula': ['bascula', 'pesar', 'peso'],
+  taller: ['taller', 'mecanic', 'llanta', 'vulcan', 'ponchadura', 'llantera']
+};
+function responderLocal(pregunta) {
+  const q = norm(pregunta), lista = catalogoParadas();
+  if (!q.trim()) return { texto: 'Escriba una pregunta, por ejemplo: "¿Dónde puedo pernoctar cerca de Matehuala?"', ids: [] };
+  if (/^(hola|buenas|ayuda|que puedo preguntar|como funciona)/.test(q)) return { texto: 'Puedo buscar paradas autorizadas por lugar, por kilómetro o por servicio. Pruebe: "pensión con regaderas en Saltillo", "¿dónde cargo diésel cerca del km 300?" o "¿cuál es la parada más cercana?".', ids: [] };
+  const tipos = []; if (/pension|pernoct|dormir|noche/.test(q)) tipos.push('pensión'); if (/parador/.test(q)) tipos.push('parador'); if (/gasolin|diesel|combustible/.test(q)) tipos.push('gasolinera');
+  const servicios = Object.keys(SERVICIOS_CLAVE).filter(s => SERVICIOS_CLAVE[s].some(k => q.includes(k)));
+  const GENERICAS = ['pension', 'parador', 'gasolinera', 'patio', 'autorizada', 'central', 'norte', 'sur', 'arcos', 'nuevo'];
+  const lugares = lista.filter(p => q.includes(norm(p.localidad)) || norm(p.nombre).split(' ').some(w => w.length > 4 && !GENERICAS.includes(w) && q.includes(w)));
+  const mKm = q.match(/km\.?\s*(\d{1,4})/); const kmRef = mKm ? Number(mKm[1]) : null;
+  const cerca = /cerca|cercan|proxim|mas cerca|donde estoy|aqui|siguiente/.test(q);
+  const pideTel = /telefono|numero|llamar|contacto/.test(q);
+  const pos = posicionActual();
+  let cand = lista.filter(p => (!tipos.length || tipos.includes(p.tipo)) && servicios.every(s => p.servicios.some(x => norm(x).includes(norm(s)))));
+  const porKm = ref => cand.sort((a, b) => Math.abs(a.km - ref) - Math.abs(b.km - ref));
+  if (kmRef !== null) cand = porKm(kmRef);
+  else if (lugares.length) { const locs = new Set(lugares.map(p => p.localidad)); const enLugar = cand.filter(p => locs.has(p.localidad)); cand = enLugar.length ? enLugar.sort((a, b) => a.km - b.km) : porKm(lugares[0].km); }
+  else if (cerca && pos) cand = cand.map(p => ({ ...p, d: distanciaKm(pos, p) })).sort((a, b) => a.d - b.d);
+  else if (cerca && estado.gps) { const ref = lista.find(p => norm(estado.gps.ubicacion).includes(norm(p.localidad))); if (ref) cand = cand.sort((a, b) => Math.abs(a.km - ref.km) - Math.abs(b.km - ref.km)); }
+  else cand = cand.sort((a, b) => a.km - b.km);
+  const top = cand.slice(0, 3);
+  if (!top.length) {
+    const alt = lista.filter(p => !tipos.length || tipos.includes(p.tipo)).slice(0, 3);
+    return { texto: 'No encontré una parada autorizada con esas condiciones. ' + (servicios.length ? 'Ninguna ofrece ' + servicios.join(' y ') + ' en ese punto. ' : '') + 'Si necesita detenerse por una emergencia, avise a Cabina (444 149 2690) antes de parar. Estas son las más cercanas en la ruta:\n' + alt.map(lineaParada).join('\n'), ids: alt.map(p => p.id) };
+  }
+  const enElLugar = lugares.length && top.some(p => p.localidad === lugares[0].localidad);
+  const intro = kmRef !== null ? 'Cerca del km ' + kmRef + ' tiene autorizadas:' : lugares.length ? (enElLugar ? 'En ' + lugares[0].localidad + ' tiene autorizadas:' : 'En ' + lugares[0].localidad + ' no hay una parada con eso; las más cercanas en la ruta son:') : (cerca && pos) ? 'Las paradas autorizadas más cercanas a su posición son:' : cerca ? 'Las más cercanas a su posición actual son:' : 'Estas paradas autorizadas cumplen lo que busca:';
+  return { texto: intro + '\n' + top.map(p => lineaParada(p, pideTel)).join('\n') + '\nRecuerde: solo estas paradas están autorizadas y toda detención se avisa a Cabina.', ids: top.map(p => p.id) };
+}
+function lineaParada(p, tel) { return '• ' + p.nombre + ' (' + p.tipo + ', km ' + p.km + ', ' + p.localidad + ')' + (p.d !== undefined ? ' · a ' + Math.round(p.d) + ' km' : '') + ' · ' + p.servicios.slice(0, 3).join(', ') + (tel ? ' · tel. ' + p.tel : ''); }
+
+async function responderAsistente(pregunta) {
+  if (ASISTENTE.endpoint) {
+    try {
+      const r = await fetch(ASISTENTE.endpoint, { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, nube.sesion ? { Authorization: 'Bearer ' + nube.sesion.access_token } : {}), body: JSON.stringify({ pregunta, historial: estado.chat.slice(-6), paradas: catalogoParadas(), posicion: posicionActual(), unidad: estado.gps ? estado.gps.unidad : null, ruta: estado.datos.ruta }) });
+      if (r.ok) { const j = await r.json(); if (j.texto) return { texto: j.texto, ids: j.ids || [] }; }
+    } catch (e) {}
+  }
+  return responderLocal(pregunta);
+}
+
+/* ---- Pantalla ---- */
+function renderParadas() {
+  const pos = posicionActual(), filtro = estado.filtroParadas || 'todas', lista = catalogoParadas();
+  const marcadas = new Set(estado.paradasMarcadas || []);
+  let items = lista.filter(p => filtro === 'todas' || p.tipo === filtro);
+  if (marcadas.size) items = items.filter(p => marcadas.has(p.id));
+  items = items.map(p => ({ ...p, d: pos ? distanciaKm(pos, p) : null })).sort((a, b) => a.km - b.km);
+  let html = '<section class="etapa pila-24"><div class="seccion-cab">' + senalSVG('azul', 'parking') +
+    '<div class="seccion-txt"><div class="ojal">' + (estado.resultado && estado.resultado.apto ? 'Dictamen APTO · buen camino' : 'Consulta') + '</div><h1 class="titulo">Paradas autorizadas</h1></div></div>' +
+    '<p class="subtitulo">Solo puede detenerse en estos puntos. Cualquier otra parada, avise a Cabina antes.' + (estado.datos.ruta ? ' Ruta: ' + esc(estado.datos.ruta) + '.' : '') + '</p>';
+
+  html += '<div class="tarjeta pila" id="chatBox"><div class="tarjeta-titulo"><span class="ico">' + ICONO.chat + '</span><div>Asistente de paradas<div class="ayuda">Pregunte por lugar, kilómetro o servicio.' + (ASISTENTE.endpoint ? '' : ' Funciona sin internet.') + '</div></div></div>' +
+    '<div class="chat" id="chat" aria-live="polite">' + (estado.chat || []).map(m => '<div class="burbuja ' + m.de + '">' + esc(m.texto).replace(/\n/g, '<br>') + '</div>').join('') + '</div>' +
+    '<div class="sugerencias">' + ['¿Cuál es la parada más cercana?', 'Pensión con regaderas en Saltillo', '¿Dónde cargo diésel cerca del km 300?', 'Teléfono de Matehuala'].map(s => '<button type="button" class="chip-sug" data-sug="' + esc(s) + '">' + esc(s) + '</button>').join('') + '</div>' +
+    '<form class="chat-form" id="chatForm"><label class="sr" for="chatInput">Pregunta</label><input id="chatInput" placeholder="¿Dónde puedo parar cerca de…?" autocomplete="off"><button class="btn primario" id="btnPreguntar" type="submit" style="width:auto">' + ICONO.check + '<span class="sr">Preguntar</span></button></form>' +
+    '</div>';
+
+  html += '<div class="filtros">' + [['todas', 'Todas'], ['pensión', 'Pensiones'], ['parador', 'Paradores'], ['gasolinera', 'Gasolineras']].map(([v, l]) => '<button type="button" class="chip-filtro" aria-pressed="' + (filtro === v ? 'true' : 'false') + '" data-filtro="' + v + '">' + l + '</button>').join('') +
+    (marcadas.size ? '<button type="button" class="chip-filtro" id="btnTodasParadas">Ver todas</button>' : '') + '</div>';
+
+  html += '<div class="pila" id="listaParadas">' + (items.length ? items.map(p => '<div class="parada ' + (marcadas.has(p.id) ? 'marcada' : '') + '" id="pa-' + p.id + '">' +
+      '<div class="parada-cab"><span class="parada-ico">' + ICONO[TIPO_ICONO[p.tipo] || 'pin'] + '</span><div class="parada-txt"><b>' + esc(p.nombre) + '</b><span>' + esc(p.tipo.charAt(0).toUpperCase() + p.tipo.slice(1)) + ' · ' + esc(p.localidad) + ', ' + esc(p.estado) + '</span></div><span class="poste"><b>KM</b><i>' + p.km + '</i></span></div>' +
+      '<div class="parada-serv">' + p.servicios.map(s => '<span>' + esc(s) + '</span>').join('') + '</div>' +
+      '<div class="parada-info">' + ICONO.reloj + ' ' + esc(p.horario) + (p.d !== null ? ' · ' + ICONO.pin + ' a ' + Math.round(p.d) + ' km' : '') + '</div>' +
+      '<div class="ayuda">' + esc(p.nota) + '</div>' +
+      '<div class="parada-acciones"><a class="btn fantasma btn-chico" href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + ',' + p.lon + '&travelmode=driving" target="_blank" rel="noopener">' + ICONO.pin + ' Cómo llegar</a><a class="btn fantasma btn-chico" href="tel:' + esc(p.tel.replace(/\s/g, '')) + '">' + ICONO.telefono + ' ' + esc(p.tel) + '</a></div>' +
+    '</div>').join('') : '<div class="aviso info">' + ICONO.info + '<div>No hay paradas de ese tipo en el catálogo.</div></div>') + '</div>';
+
+  html += '<div class="acciones"><button class="btn fantasma" id="btnVolverDictamen" type="button">' + ICONO.check + ' Volver al dictamen</button><button class="btn secundario" id="btnNuevaDesdeParadas" type="button">Nueva evaluación</button></div>';
+  html += '</section>';
+  vista.innerHTML = html;
+
+  const enviar = async texto => {
+    texto = (texto || '').trim(); if (!texto) return;
+    estado.chat = estado.chat || []; estado.chat.push({ de: 'yo', texto });
+    const chat = $('#chat'); chat.insertAdjacentHTML('beforeend', '<div class="burbuja yo">' + esc(texto) + '</div><div class="burbuja bot pensando" id="pensando">Buscando…</div>'); chat.scrollTop = chat.scrollHeight;
+    $('#chatInput').value = '';
+    const r = await responderAsistente(texto);
+    estado.chat.push({ de: 'bot', texto: r.texto }); estado.paradasMarcadas = r.ids;
+    renderParadas();
+    const c2 = $('#chat'); c2.scrollTop = c2.scrollHeight;
+    if (r.ids.length) { const el = $('#pa-' + r.ids[0]); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  };
+  $('#chatForm').addEventListener('submit', e => { e.preventDefault(); enviar($('#chatInput').value); });
+  vista.querySelectorAll('.chip-sug').forEach(b => b.addEventListener('click', () => enviar(b.dataset.sug)));
+  vista.querySelectorAll('.chip-filtro[data-filtro]').forEach(b => b.addEventListener('click', () => { estado.filtroParadas = b.dataset.filtro; estado.paradasMarcadas = []; renderParadas(); }));
+  const bt = $('#btnTodasParadas'); if (bt) bt.addEventListener('click', () => { estado.paradasMarcadas = []; renderParadas(); });
+  $('#btnVolverDictamen').addEventListener('click', () => { estado.paso = SECCIONES.length; render(); });
+  $('#btnNuevaDesdeParadas').addEventListener('click', () => $('#btnNuevaDesdeParadas') && nuevaEvaluacion());
+  const chat = $('#chat'); if (chat) chat.scrollTop = chat.scrollHeight;
+}
+
 function htmlEstadoNube() {
   const e = estado.resultado.nube;
   if (e === 'ok') return '<div class="aviso ok">' + ICONO.checkCirculo + '<div><b>Guardado en el registro de Cabina</b>El dictamen, la foto y la imagen ya están en la base de datos.</div></div>';
@@ -1771,6 +1936,7 @@ function renderResultado() {
   if (!r.apto) html += '<div class="aviso info">' + ICONO.info + '<div><b>¿Qué sigue?</b>Cabina de Seguridad recibe este dictamen. Si el motivo es descanso o salud, se reprograma la salida. Si es la unidad, se levanta reporte a Mantenimiento. Esto no es una sanción: es la decisión correcta.</div></div>';
 
   if (r.imagen) html += '<div class="tarjeta pila" style="gap:8px"><div class="ojal">Imagen del dictamen</div><img class="dictamen-img" src="' + r.imagen + '" alt="Dictamen en imagen para enviar a Cabina"><div class="ayuda">Esta imagen es la que se envía a Cabina. También puede mantenerla presionada para guardarla.</div></div>';
+  if (r.apto) html += '<div class="estado-card permiso"><div class="franja-ok" aria-hidden="true"></div><div class="estado-cuerpo"><div><div class="ojal" style="color:var(--ok-text)">Siguiente paso</div><h2>' + ICONO.parking + 'Paradas autorizadas</h2></div><p class="texto-2">Envíe el dictamen a Cabina y consulte dónde puede detenerse en su ruta. El asistente le ayuda a buscar por lugar, kilómetro o servicio.</p><button class="btn primario" id="btnParadas" type="button">' + ICONO.parking + ' Ver paradas autorizadas</button></div></div>';
   html += '<div class="acciones">' +
     (r.imagen ? '<button class="btn ok" id="btnWaImg" type="button">' + ICONO.wa + ' Enviar imagen a Cabina por WhatsApp</button>' : '') +
     '<a class="btn ' + (r.imagen ? 'fantasma' : 'ok') + '" id="btnWa" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar en texto por WhatsApp</a><div class="ayuda" style="text-align:center">Se envía al 444 149 2690 (Cabina de Seguridad)</div>' +
@@ -1780,15 +1946,18 @@ function renderResultado() {
   html += '</section>';
   vista.innerHTML = html;
 
-  const bImg = $('#btnWaImg'); if (bImg) bImg.addEventListener('click', compartirImagenDictamen);
+  const bImg = $('#btnWaImg'); if (bImg) bImg.addEventListener('click', async () => { await compartirImagenDictamen(); if (r.apto) setTimeout(() => { if (estado.paso === SECCIONES.length) { estado.paso = 'paradas'; render(); toast('Dictamen enviado. Estas son sus paradas autorizadas.'); } }, 1500); });
+  $('#btnWa').addEventListener('click', () => { if (r.apto) setTimeout(() => { if (estado.paso === SECCIONES.length) { estado.paso = 'paradas'; render(); } }, 1500); });
   $('#btnCopiar').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(textoResumen()); $('#btnCopiarTxt').textContent = 'Resumen copiado'; toast('Resumen copiado.'); setTimeout(() => { const t = $('#btnCopiarTxt'); if (t) t.textContent = 'Copiar resumen'; }, 2500); }
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
-  $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', firmaImg: null, acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', vision: null, reaccion: null, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
-    render();
-  });
+  $('#btnNueva').addEventListener('click', nuevaEvaluacion);
+  const bPar = $('#btnParadas'); if (bPar) bPar.addEventListener('click', () => { estado.paso = 'paradas'; render(); });
+}
+function nuevaEvaluacion() {
+  Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', firmaImg: null, acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', vision: null, reaccion: null, chat: [], paradasMarcadas: [], filtroParadas: 'todas', mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
+  render();
 }
 
 function renderHistorialCorto() {
@@ -1804,6 +1973,7 @@ function toast(msg) {
   document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
 }
 
+try { const ps = JSON.parse(localStorage.getItem('previaje.paradas') || 'null'); if (Array.isArray(ps) && ps.length) estado.paradas = ps; } catch (e) {}
 if (nube.activa() && nube.cargarSesion()) nube.vaciarCola();
 render();
 

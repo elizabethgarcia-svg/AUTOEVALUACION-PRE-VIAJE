@@ -115,6 +115,26 @@ create table if not exists public.alertas_resguardo (
   creado_en      timestamptz not null default now()
 );
 
+-- ---------------------------------------------------------------------
+-- 6) PARADAS AUTORIZADAS: catálogo que consulta la app y el asistente
+-- ---------------------------------------------------------------------
+create table if not exists public.paradas (
+  id          text primary key,              -- slp-pension
+  nombre      text not null,
+  tipo        text not null check (tipo in ('pensión', 'parador', 'gasolinera')),
+  km          integer not null,              -- km sobre la Ruta 57 (0 = Querétaro; negativos hacia CDMX)
+  localidad   text not null,
+  estado      text not null,
+  lat         double precision not null,
+  lon         double precision not null,
+  servicios   jsonb not null default '[]'::jsonb,   -- ["vigilancia 24 h","regaderas"]
+  horario     text,
+  tel         text,
+  nota        text,
+  activa      boolean not null default true,
+  actualizado_en timestamptz not null default now()
+);
+
 -- =====================================================================
 -- ROW LEVEL SECURITY
 -- Regla general: lo que no tiene política está prohibido.
@@ -124,6 +144,7 @@ alter table public.unidades          enable row level security;
 alter table public.evaluaciones      enable row level security;
 alter table public.folios_mtto       enable row level security;
 alter table public.alertas_resguardo enable row level security;
+alter table public.paradas           enable row level security;
 
 -- ---------- OPERADORES ----------
 create policy "operador ve su ficha" on public.operadores
@@ -159,6 +180,12 @@ create policy "mtto atiende folios" on public.folios_mtto
   for update to authenticated
   using (public.rol_actual() in ('mantenimiento', 'admin'))
   with check (public.rol_actual() in ('mantenimiento', 'admin'));
+
+-- ---------- PARADAS ----------
+create policy "todos ven paradas activas" on public.paradas
+  for select to authenticated using (activa or public.rol_actual() in ('cabina', 'admin'));
+create policy "cabina y admin administran paradas" on public.paradas
+  for all to authenticated using (public.rol_actual() in ('cabina', 'admin')) with check (public.rol_actual() in ('cabina', 'admin'));
 
 -- ---------- ALERTAS DE RESGUARDO ----------
 create policy "app del operador crea la alerta" on public.alertas_resguardo
