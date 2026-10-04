@@ -1,5 +1,5 @@
 ﻿nivel,rol,tel,cuando
-"1","Comandante de Ruta","449 274 3107","Primer contacto ante cualquier desviación, detención no programada o pérdida de comunicación."
-"2","Comandante de Seguridad","449 210 5715","En paralelo cuando hay condición de riesgo, robo, siniestro o autoridad involucrada."
+"1","Centinela de Ruta","449 274 3107","Primer contacto ante cualquier desviación, detención no programada o pérdida de comunicación."
+"2","Centinela de Seguridad","449 210 5715","En paralelo cuando hay condición de riesgo, robo, siniestro o autoridad involucrada."
 "3","Gerente de Seguimiento","449 199 4231","Si el comandante no responde o el evento requiere decisión operativa."
 "4","Gerente de Seguridad","444 149 2690","Autoriza excepciones a restricciones. Se escala cuando el evento no se resuelve en el nivel anterior."

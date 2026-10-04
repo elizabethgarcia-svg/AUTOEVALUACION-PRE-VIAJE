@@ -40,7 +40,9 @@ const llaveLugar = n => String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '
 for (let i = prohibidos.length - 1; i > 0; i--) { const j = prohibidos.findIndex((x, k) => k < i && llaveLugar(x.nombre) === llaveLugar(prohibidos[i].nombre)); if (j >= 0) { const a = prohibidos[j], b = prohibidos[i]; if ((b.detalle || '').length > (a.detalle || '').length) a.detalle = b.detalle; if (b.lat && !a.lat) { a.lat = b.lat; a.lon = b.lon; } prohibidos.splice(i, 1); } }
 const puntosClave = PUNTOS.map(p => ({ nombre: p.n, alias: p.a, estado: p.e, lat: p.lat, lon: p.lon, zonas: p.z, uso: p.uso, ojo: p.ojo || '' }));
 const reglas = PERMANENTES.map(x => ({ titulo: x.t, detalle: x.d }));
-const escalamiento = ESCALA.map((e, i) => ({ nivel: i + 1, rol: e.rol, tel: e.tel, cuando: e.cuando }));
+// La consola los llama "Comandante"; la empresa y la app los llaman "Centinela" (Cabina de Seguridad = Centinelas)
+const ROL_APP = { 'Comandante de Ruta': 'Centinela de Ruta', 'Comandante de Seguridad': 'Centinela de Seguridad' };
+const escalamiento = ESCALA.map((e, i) => ({ nivel: i + 1, rol: ROL_APP[e.rol] || e.rol, tel: e.tel, cuando: e.cuando }));
 const clientes = CLIENTES.map(c => ({ nombre: c.n, alias: c.a, corredor: c.res, zonas: c.z, reglas: c.reglas }));
 const lugares = GAZ.map(g => ({ nombre: g.n, alias: g.a, lat: g.lat, lon: g.lon, zonas: g.z, estado: g.e, tipo: g.tipo }));
 const cabina = { origen: path.basename(archivo), extraido: new Date().toISOString(), paradas, zonas, prohibidos, puntosClave, reglas, escalamiento, clientes, lugares };

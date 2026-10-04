@@ -1,6 +1,6 @@
 {
  "origen": "49bc623e-Consola_del_Centinela_Grupo_Loma.html",
- "extraido": "2026-10-04T05:00:11.599Z",
+ "extraido": "2026-10-04T05:22:26.687Z",
  "paradas": [
   {
    "id": "parador-el-torito-truck-stop",
@@ -2198,13 +2198,13 @@
  "escalamiento": [
   {
    "nivel": 1,
-   "rol": "Comandante de Ruta",
+   "rol": "Centinela de Ruta",
    "tel": "449 274 3107",
    "cuando": "Primer contacto ante cualquier desviación, detención no programada o pérdida de comunicación."
   },
   {
    "nivel": 2,
-   "rol": "Comandante de Seguridad",
+   "rol": "Centinela de Seguridad",
    "tel": "449 210 5715",
    "cuando": "En paralelo cuando hay condición de riesgo, robo, siniestro o autoridad involucrada."
   },
