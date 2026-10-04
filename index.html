@@ -402,6 +402,7 @@ main { max-width: 560px; margin: 0 auto; padding: 24px 16px 136px; }
 .hos-leyenda i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .hos-leyenda .l-ok i { background: var(--ok-fill); } .hos-leyenda .l-warn i { background: var(--accent); } .hos-leyenda .l-danger i { background: var(--danger-fill); } .hos-leyenda .l-az i { background: var(--brand-bright); }
 .nota-mtto { margin-top: 10px; }
+.dictamen-img { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--border); }
 /* Pruebas de visión y reacción */
 .rondas { display: flex; justify-content: center; gap: 8px; }
 .rondas span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: var(--card-2); color: var(--fg-2); border: 1px solid var(--border-2); }
@@ -729,7 +730,7 @@ const estado = {
   posicion: null,                // geolocalización del teléfono (opcional)
   datos: { nombre: '', economico: '', fecha: '', ruta: '' },
   respuestas: {},
-  firma: false, firmaTexto: '', acepta: false,
+  firma: false, firmaTexto: '', firmaImg: null, acepta: false,
   compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente',
   vision: null, reaccion: null,
   mostrarErrores: false,
@@ -1246,6 +1247,7 @@ function enlazarIdentificacion() {
       const c = document.createElement('canvas'); c.width = Math.round(img.width * esc_); c.height = Math.round(img.height * esc_);
       c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
       estado.foto = c.toDataURL('image/jpeg', 0.72); URL.revokeObjectURL(url);
+      estado.fotoEl = new Image(); estado.fotoEl.src = estado.foto;
       $('#fotoMarco').innerHTML = '<img src="' + estado.foto + '" alt="Foto del operador">';
       $('#btnFoto').innerHTML = ICONO.camara + ' Repetir foto';
       $('#fotoEstado').innerHTML = ICONO.checkCirculo + ' Foto capturada'; $('#fotoBox').classList.remove('error'); $('#fotoErr').innerHTML = '';
@@ -1367,9 +1369,9 @@ function enlazarConfirmacion() {
     if (!dibujando) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); trazoPx += Math.abs(e.movementX || 1) + Math.abs(e.movementY || 0);
     if (!estado.firma && trazoPx > 40) { estado.firma = true; $('#firmaPista').hidden = true; firmaOk(); }
   });
-  const fin = () => { dibujando = false; };
+  const fin = () => { dibujando = false; if (estado.firma) { try { estado.firmaImg = c.toDataURL('image/png'); estado.firmaEl = new Image(); estado.firmaEl.src = estado.firmaImg; } catch (e) {} } };
   c.addEventListener('pointerup', fin); c.addEventListener('pointercancel', fin);
-  $('#firmaLimpiar').addEventListener('click', () => { ctx.clearRect(0, 0, c.width, c.height); estado.firma = false; trazoPx = 0; $('#firmaPista').hidden = false; actualizarPie(); });
+  $('#firmaLimpiar').addEventListener('click', () => { ctx.clearRect(0, 0, c.width, c.height); estado.firma = false; estado.firmaImg = null; trazoPx = 0; $('#firmaPista').hidden = false; actualizarPie(); });
   $('#firmaTexto').addEventListener('input', e => { estado.firmaTexto = e.target.value; if (estado.firmaTexto.trim().length >= 5) firmaOk(); else actualizarPie(); });
 }
 
@@ -1483,6 +1485,7 @@ function calcularResultado() {
   }
   const reinstruccion = SECCIONES.find(x => x.id === 'reglas').preguntas.filter(q => estado.respuestas[q.id] === NO).map(q => q.texto.replace(/^¿Sabe que /, '').replace(/\?$/, ''));
   estado.resultado = { apto, factores, puntos, criticos, folio, pendienteValidacion: estado.gps.origen === 'manual', mtto, folioMtto, reintentoHoras, reintentoMotivo, reinstruccion };
+  try { estado.resultado.canvas = generarImagenDictamen(); estado.resultado.imagen = estado.resultado.canvas.toDataURL('image/png'); } catch (e) { estado.resultado.imagen = null; }
   try {
     const h = JSON.parse(localStorage.getItem('previaje.historial') || '[]');
     h.unshift({ folio, fecha: estado.datos.fecha, nombre: estado.datos.nombre, economico: estado.datos.economico, ruta: estado.datos.ruta, apto, puntos, criticos });
@@ -1501,6 +1504,114 @@ function textoResumen() {
     (r.reinstruccion.length ? 'REINSTRUCCIÓN REQUERIDA:\n' + r.reinstruccion.map(x => '- ' + x).join('\n') + '\n' : '') +
     (r.mtto.length ? 'FOLIO MANTENIMIENTO ' + r.folioMtto + ':\n' + r.mtto.map(x => '- ' + x.t + (x.bloquea ? ' (no sale)' : ' (atender)')).join('\n') + '\n' : '') +
     (r.factores.length ? 'Factores:\n' + r.factores.map(x => '- [' + (x.sev === 'critico' ? 'CRÍTICO' : 'RIESGO') + '] ' + x.t).join('\n') : 'Sin factores de riesgo.');
+}
+
+/* =====================================================================
+   IMAGEN DEL DICTAMEN (para WhatsApp)
+   ===================================================================== */
+function generarImagenDictamen() {
+  const r = estado.resultado, d = estado.datos, g = estado.gps.analisis;
+  const W = 1080, P = 56, dpr = 1;
+  const c = document.createElement('canvas'); c.width = W; c.height = 4200;
+  const x = c.getContext('2d');
+  const NAVY = '#062661', NAVYD = '#021C4F', INK = '#0B1B3F', GRIS = '#4A5A78', LINEA = '#D9DFEA', AMB = '#FFC72C', OK = '#0A6B43', ROJO = '#B9131F', FONDO = '#EEF1F6', WARNBG = '#FFF3C7', WARNTX = '#8A5A00';
+  const fImpact = w => 'bold ' + w + 'px "Saira Extra Condensed", "Barlow Condensed", "Arial Narrow", sans-serif';
+  const fBody = (w, peso) => (peso || 'normal') + ' ' + w + 'px Barlow, "Segoe UI", Arial, sans-serif';
+  const wrap = (t, max) => { const out = []; for (const parrafo of String(t).split('\n')) { let linea = ''; for (const w of parrafo.split(' ')) { const prueba = linea ? linea + ' ' + w : w; if (x.measureText(prueba).width > max && linea) { out.push(linea); linea = w; } else linea = prueba; } out.push(linea); } return out; };
+  const rrect = (x0, y0, w, h, rad, fill, stroke, lw) => { x.beginPath(); x.roundRect(x0, y0, w, h, rad); if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 2; x.stroke(); } };
+  let y = 0;
+  x.fillStyle = FONDO; x.fillRect(0, 0, W, c.height);
+  // Cabecera
+  const grad = x.createLinearGradient(0, 0, 0, 170); grad.addColorStop(0, '#1E4DB7'); grad.addColorStop(1, NAVYD);
+  x.fillStyle = grad; x.fillRect(0, 0, W, 170);
+  const logo = document.querySelector('.marca img');
+  if (logo && logo.complete) { x.save(); x.beginPath(); x.arc(P + 50, 85, 50, 0, Math.PI * 2); x.clip(); x.drawImage(logo, P, 35, 100, 100); x.restore(); }
+  x.fillStyle = '#FFFFFF'; x.font = fImpact(64); x.textBaseline = 'alphabetic'; x.fillText('PRE-VIAJE', P + 125, 92);
+  x.font = fBody(22, '600'); x.fillStyle = 'rgba(255,255,255,.8)'; x.fillText('AUTOEVALUACIÓN DEL OPERADOR · ILG · RUTA 57', P + 125, 128);
+  x.textAlign = 'right'; x.font = fBody(24, '600'); x.fillStyle = '#FFFFFF'; x.fillText(fmtFechaHora(d.fecha), W - P, 92); x.textAlign = 'left';
+  for (let i = 0; i < W; i += 44) { x.fillStyle = AMB; x.fillRect(i, 170, 28, 10); }
+  y = 220;
+  // Letrero
+  const color = r.apto ? OK : ROJO, hL = 420;
+  rrect(P, y, W - 2 * P, hL, 20, color); rrect(P + 12, y + 12, W - 2 * P - 24, hL - 24, 12, null, 'rgba(255,255,255,.9)', 5);
+  x.textAlign = 'center'; x.fillStyle = 'rgba(255,255,255,.9)'; x.font = fBody(24, '600'); x.fillText('DICTAMEN PRE-VIAJE', W / 2, y + 62);
+  x.font = fImpact(40); const sTxt = r.apto ? 'SIGA' : 'ALTO'; const sw = x.measureText(sTxt).width + 48; rrect(W / 2 - sw / 2, y + 84, sw, 56, 8, null, 'rgba(255,255,255,.9)', 4); x.fillStyle = '#FFFFFF'; x.fillText(sTxt, W / 2, y + 126);
+  x.font = fImpact(170); x.fillText(r.apto ? 'APTO' : 'NO APTO', W / 2, y + 290);
+  x.font = fBody(32, '500'); x.fillText(r.apto ? 'Puede iniciar el viaje. Buen camino.' : 'No salga. Repórtese con Cabina de Seguridad.', W / 2, y + 345);
+  x.font = fBody(22, '600'); x.fillStyle = 'rgba(255,255,255,.9)'; x.fillText('FOLIO ' + r.folio, W / 2, y + 390); x.textAlign = 'left';
+  y += hL + 28;
+  // Identidad
+  const hI = 230; rrect(P, y, W - 2 * P, hI, 14, '#FFFFFF', LINEA, 2);
+  const fotoEl = estado.fotoEl || new Image(); const fotoOk = !!estado.foto && fotoEl.complete && fotoEl.naturalWidth > 0;
+  if (fotoOk) { x.save(); x.beginPath(); x.roundRect(P + 24, y + 25, 180, 180, 12); x.clip(); const s = Math.max(180 / fotoEl.naturalWidth, 180 / fotoEl.naturalHeight); x.drawImage(fotoEl, P + 24 + (180 - fotoEl.naturalWidth * s) / 2, y + 25 + (180 - fotoEl.naturalHeight * s) / 2, fotoEl.naturalWidth * s, fotoEl.naturalHeight * s); x.restore(); }
+  else { rrect(P + 24, y + 25, 180, 180, 12, '#F1F4F9'); x.fillStyle = GRIS; x.font = fBody(22, '600'); x.textAlign = 'center'; x.fillText('SIN FOTO', P + 114, y + 122); x.textAlign = 'left'; }
+  const xi = P + 232; x.fillStyle = INK; x.font = fBody(38, 'bold'); x.fillText(wrap(d.nombre, W - xi - P)[0], xi, y + 68);
+  x.fillStyle = GRIS; x.font = fBody(26, 'normal');
+  const lineasId = ['Unidad ' + d.economico + ' · ' + d.ruta, (estado.ubicacion ? 'Teléfono: ' + estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) : 'GPS unidad: ' + estado.gps.ubicacion), 'Compromiso aceptado · Foto ' + (estado.foto ? 'sí' : 'no') + (r.pendienteValidacion ? ' · Horas sin verificar por GPS' : '')];
+  let yi = y + 108; for (const l of lineasId) { x.fillText(wrap(l, W - xi - P)[0], xi, yi); yi += 36; }
+  y += hI + 28;
+  // Horas de servicio
+  rrect(P, y, W - 2 * P, 120, 14, '#FFFFFF', LINEA, 2);
+  x.fillStyle = GRIS; x.font = fBody(20, '600'); x.fillText('HORAS DE SERVICIO (GPS)', P + 24, y + 40);
+  const hos = [['Manejo', fmtHM(g.horasJornadaVista)], ['Pausa', fmtHM(g.pausaActual)], ['Restante', fmtHM(g.restanteJornada)], ['Desc. 8 h', g.descansoVigente ? 'SÍ' : 'NO'], ['Visión', estado.vision ? estado.vision.correctos + '/3' : '—'], ['Reacción', estado.reaccion ? estado.reaccion.aTiempo + '/5' : '—']];
+  const cw = (W - 2 * P - 48) / hos.length;
+  hos.forEach(([k, v], i) => { const cx = P + 24 + i * cw; x.fillStyle = INK; x.font = fImpact(38); x.fillText(v, cx, y + 90); x.fillStyle = GRIS; x.font = fBody(18, '600'); x.fillText(k.toUpperCase(), cx, y + 110); });
+  y += 120 + 28;
+  // Bloques de lista
+  const bloque = (titulo, items, colorT) => {
+    x.font = fBody(26, 'normal');
+    const lineas = items.map(it => ({ sev: it.sev, lineas: wrap(it.t, W - 2 * P - 48 - (it.sev ? 170 : 0)) }));
+    const h = 70 + lineas.reduce((n, l) => n + l.lineas.length * 34 + 18, 0);
+    rrect(P, y, W - 2 * P, h, 14, '#FFFFFF', LINEA, 2);
+    x.fillStyle = colorT || GRIS; x.font = fBody(22, '600'); x.fillText(titulo.toUpperCase(), P + 24, y + 42);
+    let yy = y + 78;
+    for (const l of lineas) {
+      let xx = P + 24;
+      if (l.sev) { const crit = l.sev === 'critico'; x.font = fBody(18, 'bold'); const lab = crit ? 'CRÍTICO' : l.sev === 'riesgo' ? 'RIESGO' : l.sev.toUpperCase(); const lw = x.measureText(lab).width + 24; rrect(xx, yy - 2, lw, 30, 6, crit ? ROJO : AMB); x.fillStyle = crit ? '#FFFFFF' : INK; x.fillText(lab, xx + 12, yy + 19); xx += 170; }
+      x.fillStyle = INK; x.font = fBody(26, 'normal');
+      for (const ln of l.lineas) { x.fillText(ln, xx, yy + 22); yy += 34; }
+      yy += 18;
+    }
+    y += h + 28;
+  };
+  if (r.factores.length) bloque('Factores detectados', r.factores.map(f => ({ sev: f.sev, t: f.t })));
+  else bloque('Sin factores de riesgo', [{ t: 'Descanso en regla, sin malestares, unidad revisada y documentos completos.' }], OK);
+  if (!r.apto && r.reintentoHoras) {
+    const hasta = new Date(new Date(d.fecha).getTime() + r.reintentoHoras * 3600e3);
+    rrect(P, y, W - 2 * P, 150, 14, ROJO); x.fillStyle = '#FFFFFF'; x.font = fBody(22, '600'); x.fillText(r.reintentoMotivo.toUpperCase(), P + 24, y + 42);
+    const tR = 'VUELVA A HACER LA EVALUACIÓN EN ' + r.reintentoHoras + ' H'; let fz = 54; x.font = fImpact(fz); while (x.measureText(tR).width > W - 2 * P - 48 && fz > 28) { fz -= 2; x.font = fImpact(fz); } x.fillText(tR, P + 24, y + 98);
+    x.font = fBody(26, '500'); x.fillText('A partir de las ' + fmtHora24(hasta) + ' h · Duerma o repose en un lugar seguro.', P + 24, y + 134);
+    y += 150 + 28;
+  }
+  if (r.mtto.length) bloque('Folio de Mantenimiento ' + r.folioMtto, r.mtto.map(m => ({ sev: m.bloquea ? 'critico' : 'atender', t: m.t })), WARNTX);
+  if (r.reinstruccion.length) bloque('Reinstrucción antes de salir (Cabina)', r.reinstruccion.map(t => ({ sev: 'regla', t: t.charAt(0).toUpperCase() + t.slice(1) })), WARNTX);
+  // Firma
+  const hF = 200; rrect(P, y, W - 2 * P, hF, 14, '#FFFFFF', LINEA, 2);
+  x.fillStyle = GRIS; x.font = fBody(22, '600'); x.fillText('FIRMA DEL OPERADOR', P + 24, y + 42);
+  const firmaEl = estado.firmaEl || new Image();
+  if (estado.firmaImg && firmaEl.complete && firmaEl.naturalWidth > 0) { const fw = 420, fh = fw * firmaEl.naturalHeight / firmaEl.naturalWidth; x.drawImage(firmaEl, P + 24, y + 55, fw, Math.min(fh, 120)); }
+  else { x.fillStyle = INK; x.font = 'italic 40px Georgia, serif'; x.fillText(estado.firmaTexto || d.nombre, P + 24, y + 125); }
+  x.strokeStyle = LINEA; x.lineWidth = 2; x.beginPath(); x.moveTo(P + 24, y + 160); x.lineTo(P + 480, y + 160); x.stroke();
+  x.fillStyle = GRIS; x.font = fBody(20, 'normal'); x.fillText(d.nombre + ' · ' + fmtFechaHora(d.fecha), P + 24, y + 186);
+  y += hF + 24;
+  x.fillStyle = GRIS; x.font = fBody(20, 'normal'); x.textAlign = 'center'; x.fillText('Generado por Pre-Viaje ILG · Enviar a Cabina de Seguridad · ' + fmtFechaHora(new Date()), W / 2, y + 20); x.textAlign = 'left';
+  y += 60;
+  // Recortar al alto final
+  const out = document.createElement('canvas'); out.width = W; out.height = y; out.getContext('2d').drawImage(c, 0, 0);
+  return out;
+}
+async function compartirImagenDictamen() {
+  const r = estado.resultado; if (!r.canvas) { toast('No se pudo generar la imagen. Use el envío en texto.'); return; }
+  const nombre = 'dictamen-' + r.folio + '.png';
+  const blob = await new Promise(res => r.canvas.toBlob(res, 'image/png'));
+  const file = new File([blob], nombre, { type: 'image/png' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: 'Dictamen Pre-Viaje ' + r.folio, text: 'Dictamen Pre-Viaje ' + r.folio + ' · ' + estado.datos.nombre + ' · ' + estado.datos.economico }); toast('Elija WhatsApp y el chat de Cabina (444 149 2690).'); return; }
+    catch (e) { if (e && e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a'); a.href = r.imagen; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+  toast('Imagen guardada en el teléfono. Adjúntela en el chat de Cabina.');
+  setTimeout(() => window.open('https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent('Dictamen Pre-Viaje ' + r.folio + ' · ' + estado.datos.nombre + ' · ' + estado.datos.economico + ' (imagen adjunta)'), '_blank'), 800);
 }
 
 function renderResultado() {
@@ -1534,20 +1645,23 @@ function renderResultado() {
   }
   if (!r.apto) html += '<div class="aviso info">' + ICONO.info + '<div><b>¿Qué sigue?</b>Cabina de Seguridad recibe este dictamen. Si el motivo es descanso o salud, se reprograma la salida. Si es la unidad, se levanta reporte a Mantenimiento. Esto no es una sanción: es la decisión correcta.</div></div>';
 
+  if (r.imagen) html += '<div class="tarjeta pila" style="gap:8px"><div class="ojal">Imagen del dictamen</div><img class="dictamen-img" src="' + r.imagen + '" alt="Dictamen en imagen para enviar a Cabina"><div class="ayuda">Esta imagen es la que se envía a Cabina. También puede mantenerla presionada para guardarla.</div></div>';
   html += '<div class="acciones">' +
-    '<a class="btn ok" id="btnWa" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar a Cabina por WhatsApp</a><div class="ayuda" style="text-align:center">Se envía al 444 149 2690 (Cabina de Seguridad)</div>' +
+    (r.imagen ? '<button class="btn ok" id="btnWaImg" type="button">' + ICONO.wa + ' Enviar imagen a Cabina por WhatsApp</button>' : '') +
+    '<a class="btn ' + (r.imagen ? 'fantasma' : 'ok') + '" id="btnWa" href="https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent(textoResumen()) + '" target="_blank" rel="noopener">' + ICONO.wa + ' Enviar en texto por WhatsApp</a><div class="ayuda" style="text-align:center">Se envía al 444 149 2690 (Cabina de Seguridad)</div>' +
     '<button class="btn fantasma" id="btnCopiar" type="button">' + ICONO.copiar + ' <span id="btnCopiarTxt">Copiar resumen</span></button>' +
     '<button class="btn secundario" id="btnNueva" type="button">Nueva evaluación</button></div>';
   html += renderHistorialCorto();
   html += '</section>';
   vista.innerHTML = html;
 
+  const bImg = $('#btnWaImg'); if (bImg) bImg.addEventListener('click', compartirImagenDictamen);
   $('#btnCopiar').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(textoResumen()); $('#btnCopiarTxt').textContent = 'Resumen copiado'; toast('Resumen copiado.'); setTimeout(() => { const t = $('#btnCopiarTxt'); if (t) t.textContent = 'Copiar resumen'; }, 2500); }
     catch (e) { toast('No se pudo copiar automáticamente. Use el botón de WhatsApp.'); }
   });
   $('#btnNueva').addEventListener('click', () => {
-    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', vision: null, reaccion: null, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
+    Object.assign(estado, { paso: -1, gps: null, respuestas: {}, firma: false, firmaTexto: '', firmaImg: null, acepta: false, compromiso: false, foto: null, ubicacion: null, ubicacionEstado: 'pendiente', vision: null, reaccion: null, mostrarErrores: false, resultado: null, datos: { nombre: estado.datos.nombre, economico: estado.datos.economico, fecha: '', ruta: '' } });
     render();
   });
 }
