@@ -1,6 +1,6 @@
 {
  "origen": "49bc623e-Consola_del_Centinela_Grupo_Loma.html",
- "extraido": "2026-10-04T04:25:28.413Z",
+ "extraido": "2026-10-04T05:00:11.599Z",
  "paradas": [
   {
    "id": "parador-el-torito-truck-stop",
@@ -1027,7 +1027,7 @@
   {
    "id": "cedis-neto-veracruz",
    "nombre": "Cedis Neto Veracruz",
-   "tipo": "patio",
+   "tipo": "cliente",
    "region": "Sur",
    "estado": "Veracruz",
    "lat": 19.1757326,

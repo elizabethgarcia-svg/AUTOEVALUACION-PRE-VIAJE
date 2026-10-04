@@ -20,14 +20,14 @@ const slug = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').repla
 const PARADAS = literal('PARADAS'), ZONAS = literal('ZONAS'), PUNTOS = literal('PUNTOS'), NOPARADA = literal('NOPARADA'), PROHIB = literal('PROHIB'),
       PERMANENTES = literal('PERMANENTES'), ESCALA = literal('ESCALA'), CLIENTES = literal('CLIENTES'), GAZ = literal('GAZ');
 
-const tipoDe = n => { const s = n.toLowerCase(); if (/patio|cedis/.test(s)) return 'patio'; if (/pensi|pension|pits|xstop|gran tracto/.test(s)) return 'pensión'; if (/gas|oxxo|hidrosina|pemex|estacion de servicio|estación de servicio|cargo/.test(s)) return 'gasolinera'; return 'parador'; };
+const tipoDe = n => { const s = n.toLowerCase(); if (/cedis/.test(s)) return 'cliente'; if (/patio/.test(s)) return 'patio'; if (/pensi|pension|pits|xstop|gran tracto/.test(s)) return 'pensión'; if (/gas|oxxo|hidrosina|pemex|estacion de servicio|estación de servicio|cargo/.test(s)) return 'gasolinera'; return 'parador'; };
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const serviciosDe = (texto) => { const t = norm(texto), out = []; if (/pernoct/.test(t) && !/no pernoct|no autoriza pernocta/.test(t)) out.push('pernocta'); if (/aliment|comida|restaurante/.test(t)) out.push('alimentos'); if (/bano|baño/.test(t)) out.push('baño'); if (/combustible|gas/.test(t)) out.push('combustible'); if (/descanso/.test(t)) out.push('descanso'); return out; };
 const puntoDe = p => PUNTOS.find(x => (x.lat === p.lat && x.lon === p.lon) || x.a.some(a => norm(p.nombre).includes(a)) || norm(x.n) === norm(p.nombre));
 
 const paradas = PARADAS.map(p => {
   const pt = puntoDe(p); const rojo = /A52714/.test(p.style);
-  return { id: slug(p.nombre), nombre: p.nombre.trim(), tipo: rojo ? 'patio' : tipoDe(p.nombre), region: p.region, estado: p.estado, lat: p.lat, lon: p.lon,
+  return { id: slug(p.nombre), nombre: p.nombre.trim(), tipo: rojo ? 'cliente' : tipoDe(p.nombre), region: p.region, estado: p.estado, lat: p.lat, lon: p.lon,
     nota: [p.nota, pt && pt.uso].filter(Boolean).join(' · '), ojo: pt ? pt.ojo || '' : '', servicios: serviciosDe((p.nota || '') + ' ' + (pt ? pt.uso : '')),
     zonas: pt ? pt.z : [], especial: /E65100/.test(p.style) ? 'con PM' : rojo ? 'cliente' : '' };
 });

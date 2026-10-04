@@ -121,7 +121,7 @@ create table if not exists public.alertas_resguardo (
 create table if not exists public.paradas (
   id          text primary key,              -- slp-pension
   nombre      text not null,
-  tipo        text not null check (tipo in ('pensión', 'parador', 'gasolinera')),
+  tipo        text not null check (tipo in ('pensión', 'parador', 'gasolinera', 'patio', 'cliente')),
   km          integer not null,              -- km sobre la Ruta 57 (0 = Querétaro; negativos hacia CDMX)
   localidad   text not null,
   estado      text not null,
