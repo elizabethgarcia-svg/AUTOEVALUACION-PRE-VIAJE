@@ -35,6 +35,9 @@ const zonas = ZONAS.map(z => ({ id: z.id, nombre: z.n, tipo: z.tipo, desde: z.d,
 const clave = n => (norm(n).match(/[a-z]{4,}/g) || []).filter(w => !['parador', 'restaurantes', 'carr'].includes(w))[0] || norm(n);
 const prohibidos = NOPARADA.map(x => ({ nombre: x.t, detalle: x.d }));
 PROHIB.forEach(p => { const n = prohibidos.find(x => clave(x.nombre) === clave(p.n)); if (n) { n.lat = p.lat; n.lon = p.lon; } else prohibidos.push({ nombre: p.n, detalle: '', lat: p.lat, lon: p.lon }); });
+// Mismo lugar escrito distinto en dos listas de la consola (p. ej. "Restaurantes km 83 – 93 de la 57" y "Restaurantes km 83–93 carr. 57")
+const llaveLugar = n => String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(de|la|el|los|las|del|carr|carretera|km|kilometro)\b/g, '').replace(/[^a-z0-9]/g, '');
+for (let i = prohibidos.length - 1; i > 0; i--) { const j = prohibidos.findIndex((x, k) => k < i && llaveLugar(x.nombre) === llaveLugar(prohibidos[i].nombre)); if (j >= 0) { const a = prohibidos[j], b = prohibidos[i]; if ((b.detalle || '').length > (a.detalle || '').length) a.detalle = b.detalle; if (b.lat && !a.lat) { a.lat = b.lat; a.lon = b.lon; } prohibidos.splice(i, 1); } }
 const puntosClave = PUNTOS.map(p => ({ nombre: p.n, alias: p.a, estado: p.e, lat: p.lat, lon: p.lon, zonas: p.z, uso: p.uso, ojo: p.ojo || '' }));
 const reglas = PERMANENTES.map(x => ({ titulo: x.t, detalle: x.d }));
 const escalamiento = ESCALA.map((e, i) => ({ nivel: i + 1, rol: e.rol, tel: e.tel, cuando: e.cuando }));

@@ -1,6 +1,6 @@
 {
  "origen": "49bc623e-Consola_del_Centinela_Grupo_Loma.html",
- "extraido": "2026-10-04T04:00:19.448Z",
+ "extraido": "2026-10-04T04:25:28.413Z",
  "paradas": [
   {
    "id": "parador-el-torito-truck-stop",
@@ -1797,17 +1797,13 @@
   },
   {
    "nombre": "Restaurantes km 83 – 93 de la 57",
-   "detalle": "El Galán, Hágale Parce, La Campanita, Jaki, Café Lupita, La Ruta del Café, Café Flaquita, Ornax California."
+   "detalle": "El Galán, Hágale Parce, La Campanita, Jaki, Café Lupita, La Ruta del Café, Café Flaquita, Ornax California.",
+   "lat": 22.8,
+   "lon": -100.9
   },
   {
    "nombre": "Parador Matehuala",
    "detalle": "Solo punto de espera. No autoriza pernocta bajo ninguna circunstancia."
-  },
-  {
-   "nombre": "Restaurantes km 83–93 carr. 57",
-   "detalle": "",
-   "lat": 22.8,
-   "lon": -100.9
   }
  ],
  "puntosClave": [
