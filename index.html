@@ -2155,10 +2155,12 @@ function mapaRestriccionesHTML(c, ahora, pos) {
     const on = zonaActiva(z, ahora); const pts = z.mapa.puntos.map(([la, lo]) => mapaProy(la, lo).map(n => n.toFixed(1)).join(',')).join(' ');
     capas += '<g class="z ' + (on ? 'activa' : '') + '" data-zona="' + z.id + '"><polyline class="z-linea halo ' + color(z) + '" stroke-width="14" points="' + pts + '"/><polyline class="z-linea nitido ' + color(z) + '" stroke-width="3.5" points="' + pts + '"><title>' + esc(z.nombre) + '</title></polyline></g>';
   }
+  const etiquetados = [];
   for (const z of zonas.filter(z => z.mapa.tipo === 'punto')) {
     const on = zonaActiva(z, ahora); const [x, y] = mapaProy(z.mapa.puntos[0][0], z.mapa.puntos[0][1]); const r = Math.max(5, (z.mapa.radioKm || 10) * kmU);
+    const repetida = etiquetados.some(([ex, ey]) => Math.hypot(ex - x, ey - y) < 6); if (!repetida) etiquetados.push([x, y]);
     capas += '<g class="z ' + (on ? 'activa' : '') + '" data-zona="' + z.id + '"><circle class="z-punto halo ' + color(z) + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (r * 2.2).toFixed(1) + '"/><circle class="z-punto nitido ' + color(z) + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) + '"><title>' + esc(z.nombre) + '</title></circle></g>';
-    etiquetas += '<text class="etq" data-px="' + x.toFixed(1) + '" data-r="' + r.toFixed(1) + '" x="' + (x + r + 2).toFixed(1) + '" y="' + (y + 2.5).toFixed(1) + '">' + esc(z.nombre.split(' ·')[0].split(' (')[0].slice(0, 22)) + '</text>';
+    if (!repetida) etiquetas += '<text class="etq" data-px="' + x.toFixed(1) + '" data-r="' + r.toFixed(1) + '" x="' + (x + r + 2).toFixed(1) + '" y="' + (y + 2.5).toFixed(1) + '">' + esc(z.nombre.split(' ·')[0].split(' (')[0].slice(0, 22)) + '</text>';
   }
   // Patios propios y lugares prohibidos
   let marcas = '';
