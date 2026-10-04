@@ -27,16 +27,41 @@ publicada; cualquier otro dominio queda rechazado.
 En **Authentication → Providers → Email**: dejar activo *Confirm email* y desactivar *Enable sign ups* para
 que solo Cabina/administración dé de alta cuentas (los operadores no se registran solos).
 
-## Si se exige bloqueo por origen de todos modos
+## CORS restringido al origen de la app (intermediario incluido)
 
-La única forma es poner un intermediario propio delante de Supabase (una Edge Function de Supabase o un
-Cloudflare Worker) que:
+Para que solo se acepten llamadas desde la app publicada, el repositorio incluye la Edge Function
+`supabase/functions/previaje-api/index.ts`. Hace tres cosas:
 
-- acepte únicamente `Origin: https://elizabethgarcia-svg.github.io` y responda los encabezados CORS solo para ese origen;
-- guarde la clave en el servidor y la app llame al intermediario en lugar de a Supabase.
+1. Rechaza con 403 cualquier solicitud cuyo `Origin` no esté en la lista permitida, incluido el preflight.
+2. Guarda la clave anon en el servidor: la app ya no necesita llevarla.
+3. Reenvía a `/rest`, `/auth` y `/storage` de Supabase con la sesión del operador.
 
-Es trabajo adicional de medio día y conviene solo si una auditoría lo pide expresamente, porque la protección
-real sigue siendo RLS. Si se decide, el intermediario se agrega sin cambiar las tablas ni las políticas.
+### Despliegue (una vez, desde una computadora con Supabase CLI)
+
+```bash
+npm install -g supabase
+supabase login
+supabase link --project-ref <ref-del-proyecto>
+supabase secrets set ALLOWED_ORIGINS=https://elizabethgarcia-svg.github.io
+supabase functions deploy previaje-api --no-verify-jwt
+```
+
+Para permitir también pruebas locales, separe los orígenes con coma:
+`ALLOWED_ORIGINS=https://elizabethgarcia-svg.github.io,http://localhost:8080`.
+
+### Configurar la app
+
+En `index.html`, deje `url` y `anonKey` vacíos y ponga solo el proxy:
+
+```js
+const SUPABASE = { url: '', anonKey: '', proxy: 'https://<ref-del-proyecto>.supabase.co/functions/v1/previaje-api' };
+```
+
+Con eso la app habla únicamente con el intermediario, y el intermediario únicamente con quien venga del
+origen de la app. RLS sigue aplicando por debajo; las dos capas se suman.
+
+Nota honesta: el encabezado `Origin` lo ponen los navegadores y no se puede falsificar desde una página
+web ajena, pero sí desde un programa fuera del navegador. Por eso RLS sigue siendo la protección de fondo.
 
 ## Lista de verificación antes de salir a producción
 

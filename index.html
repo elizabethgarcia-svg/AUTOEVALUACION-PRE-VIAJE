@@ -577,38 +577,42 @@ const WHATSAPP_CABINA = '524441492690'; // Cabina de Seguridad (+52 444 149 2690
 
 /* =====================================================================
    NUBE (Supabase) · opcional
-   Pegue aquí la URL del proyecto y la clave "anon public" (Settings → API).
-   Con ambos vacíos la app trabaja solo en el teléfono (como hoy).
+   Opción A (directo): URL del proyecto + clave "anon public" (Settings → API).
+   Opción B (CORS restringido): solo `proxy` con la URL de la Edge Function
+   previaje-api; la clave se queda en el servidor y únicamente se aceptan
+   llamadas desde el origen de esta app. Ver supabase/functions/previaje-api.
+   Con todo vacío la app trabaja solo en el teléfono (como hoy).
    Con ambos llenos: inicio de sesión del operador, guardado de cada
    dictamen (con foto, firma e imagen) y alerta de resguardo automática.
    Las tablas y políticas están en db/schema.sql.
    ===================================================================== */
-const SUPABASE = { url: '', anonKey: '' };
+const SUPABASE = { url: '', anonKey: '', proxy: '' }; // proxy: https://<ref>.supabase.co/functions/v1/previaje-api
 
 const nube = {
-  activa: () => !!(SUPABASE.url && SUPABASE.anonKey),
+  activa: () => !!SUPABASE.proxy || !!(SUPABASE.url && SUPABASE.anonKey),
+  base: () => (SUPABASE.proxy || SUPABASE.url).replace(/\/$/, ''),
   sesion: null,
-  cabeceras(extra) { return Object.assign({ apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + (this.sesion ? this.sesion.access_token : SUPABASE.anonKey), 'Content-Type': 'application/json' }, extra || {}); },
+  cabeceras(extra) { const h = { 'Content-Type': 'application/json' }; if (!SUPABASE.proxy) h.apikey = SUPABASE.anonKey; if (this.sesion) h.Authorization = 'Bearer ' + this.sesion.access_token; else if (!SUPABASE.proxy) h.Authorization = 'Bearer ' + SUPABASE.anonKey; return Object.assign(h, extra || {}); },
   cargarSesion() { try { const s = JSON.parse(localStorage.getItem('previaje.sesion') || 'null'); if (s && s.expires_at * 1000 > Date.now() + 60e3) this.sesion = s; } catch (e) {} return this.sesion; },
   async login(email, password) {
-    const r = await fetch(SUPABASE.url + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: SUPABASE.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+    const r = await fetch(this.base() + '/auth/v1/token?grant_type=password', { method: 'POST', headers: this.cabeceras(), body: JSON.stringify({ email, password }) });
     const j = await r.json();
     if (!r.ok) throw new Error(j.error_description || j.msg || 'Correo o contraseña incorrectos.');
     this.sesion = j; try { localStorage.setItem('previaje.sesion', JSON.stringify(j)); } catch (e) {}
-    try { const f = await fetch(SUPABASE.url + '/rest/v1/operadores?id=eq.' + j.user.id + '&select=nombre', { headers: this.cabeceras() }); const ops = await f.json(); if (ops[0] && ops[0].nombre) estado.datos.nombre = ops[0].nombre; } catch (e) {}
+    try { const f = await fetch(this.base() + '/rest/v1/operadores?id=eq.' + j.user.id + '&select=nombre', { headers: this.cabeceras() }); const ops = await f.json(); if (ops[0] && ops[0].nombre) estado.datos.nombre = ops[0].nombre; } catch (e) {}
     return j;
   },
   salir() { this.sesion = null; try { localStorage.removeItem('previaje.sesion'); } catch (e) {} },
   uid() { return this.sesion ? this.sesion.user.id : null; },
   async insertar(tabla, fila) {
-    const r = await fetch(SUPABASE.url + '/rest/v1/' + tabla, { method: 'POST', headers: this.cabeceras({ Prefer: 'return=representation' }), body: JSON.stringify(fila) });
+    const r = await fetch(this.base() + '/rest/v1/' + tabla, { method: 'POST', headers: this.cabeceras({ Prefer: 'return=representation' }), body: JSON.stringify(fila) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.message || ('Error ' + r.status + ' al guardar en ' + tabla));
     return Array.isArray(j) ? j[0] : j;
   },
   async subir(ruta, dataUrl, tipo) {
     const blob = await (await fetch(dataUrl)).blob();
-    const r = await fetch(SUPABASE.url + '/storage/v1/object/evaluaciones/' + ruta, { method: 'POST', headers: { apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + this.sesion.access_token, 'Content-Type': tipo, 'x-upsert': 'true' }, body: blob });
+    const r = await fetch(this.base() + '/storage/v1/object/evaluaciones/' + ruta, { method: 'POST', headers: this.cabeceras({ 'Content-Type': tipo, 'x-upsert': 'true' }), body: blob });
     if (!r.ok) throw new Error('No se pudo subir ' + ruta);
     return 'evaluaciones/' + ruta;
   },
