@@ -1,5 +1,5 @@
 /* Pre-Viaje · service worker: deja la app disponible sin señal en patio o parador */
-const CACHE = 'previaje-v1';
+const CACHE = 'previaje-v2';
 const ARCHIVOS = ['./', './index.html', './manifest.webmanifest', './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/icon-512-maskable.png', './assets/icons/icon-180.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
