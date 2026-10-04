@@ -59,6 +59,14 @@ El diseño sigue el sistema documentado en `design-system/pre-viaje-operador/MAS
 identidad de carretera (azul marino del logo ILG, amarillo de línea central, escudo Ruta 57, señales SIGA/ALTO), tipografía Saira Extra Condensed + Barlow, targets de 48 px, estados con icono y
 texto, resumen de errores enfocable y alternativa de firma escrita.
 
+## Conexión a la base de datos (Supabase, opcional)
+
+1. Cree el proyecto en Supabase y pegue `db/schema.sql` en el SQL Editor (crea tablas, RLS y políticas).
+2. En `index.html`, busque `const SUPABASE = { url: '', anonKey: '' }` y pegue la URL del proyecto y la clave *anon public* (Settings → API).
+3. Dé de alta a los operadores en Authentication → Users con `{"rol": "operador"}` en los metadatos, y un renglón en la tabla `operadores` con su nombre; a Cabina y Mantenimiento con su rol correspondiente.
+
+Con eso la app pide inicio de sesión al operador, guarda cada dictamen (horas GPS, pruebas, factores, respuestas, foto, firma e imagen del dictamen en el bucket privado `evaluaciones`), crea el folio de Mantenimiento y registra la alerta de resguardo en cuanto hay un bloqueo por fatiga. Sin señal, lo pendiente se guarda en el teléfono y se envía solo al recuperar conexión. Con los dos campos vacíos, la app trabaja solo en el teléfono como hasta ahora.
+
 ## Instalar como app en el teléfono (PWA)
 
 La página incluye `manifest.webmanifest`, íconos en `assets/icons/` y `sw.js` (funciona sin señal una vez abierta). Publicada por HTTPS (GitHub Pages):

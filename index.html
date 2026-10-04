@@ -576,6 +576,80 @@ const esperar = ms => new Promise(r => setTimeout(r, ms));
 const WHATSAPP_CABINA = '524441492690'; // Cabina de Seguridad (+52 444 149 2690)
 
 /* =====================================================================
+   NUBE (Supabase) · opcional
+   Pegue aquí la URL del proyecto y la clave "anon public" (Settings → API).
+   Con ambos vacíos la app trabaja solo en el teléfono (como hoy).
+   Con ambos llenos: inicio de sesión del operador, guardado de cada
+   dictamen (con foto, firma e imagen) y alerta de resguardo automática.
+   Las tablas y políticas están en db/schema.sql.
+   ===================================================================== */
+const SUPABASE = { url: '', anonKey: '' };
+
+const nube = {
+  activa: () => !!(SUPABASE.url && SUPABASE.anonKey),
+  sesion: null,
+  cabeceras(extra) { return Object.assign({ apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + (this.sesion ? this.sesion.access_token : SUPABASE.anonKey), 'Content-Type': 'application/json' }, extra || {}); },
+  cargarSesion() { try { const s = JSON.parse(localStorage.getItem('previaje.sesion') || 'null'); if (s && s.expires_at * 1000 > Date.now() + 60e3) this.sesion = s; } catch (e) {} return this.sesion; },
+  async login(email, password) {
+    const r = await fetch(SUPABASE.url + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: SUPABASE.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error_description || j.msg || 'Correo o contraseña incorrectos.');
+    this.sesion = j; try { localStorage.setItem('previaje.sesion', JSON.stringify(j)); } catch (e) {}
+    try { const f = await fetch(SUPABASE.url + '/rest/v1/operadores?id=eq.' + j.user.id + '&select=nombre', { headers: this.cabeceras() }); const ops = await f.json(); if (ops[0] && ops[0].nombre) estado.datos.nombre = ops[0].nombre; } catch (e) {}
+    return j;
+  },
+  salir() { this.sesion = null; try { localStorage.removeItem('previaje.sesion'); } catch (e) {} },
+  uid() { return this.sesion ? this.sesion.user.id : null; },
+  async insertar(tabla, fila) {
+    const r = await fetch(SUPABASE.url + '/rest/v1/' + tabla, { method: 'POST', headers: this.cabeceras({ Prefer: 'return=representation' }), body: JSON.stringify(fila) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.message || ('Error ' + r.status + ' al guardar en ' + tabla));
+    return Array.isArray(j) ? j[0] : j;
+  },
+  async subir(ruta, dataUrl, tipo) {
+    const blob = await (await fetch(dataUrl)).blob();
+    const r = await fetch(SUPABASE.url + '/storage/v1/object/evaluaciones/' + ruta, { method: 'POST', headers: { apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + this.sesion.access_token, 'Content-Type': tipo, 'x-upsert': 'true' }, body: blob });
+    if (!r.ok) throw new Error('No se pudo subir ' + ruta);
+    return 'evaluaciones/' + ruta;
+  },
+  /* Cola para cuando no hay señal: se reintenta al abrir la app o al enviar otra evaluación */
+  encolar(tipo, datos) { try { const q = JSON.parse(localStorage.getItem('previaje.cola') || '[]'); q.push({ tipo, datos, en: Date.now() }); localStorage.setItem('previaje.cola', JSON.stringify(q.slice(-30))); } catch (e) {} },
+  async vaciarCola() {
+    if (!this.activa() || !this.sesion) return 0;
+    let q = []; try { q = JSON.parse(localStorage.getItem('previaje.cola') || '[]'); } catch (e) {}
+    const pendientes = [];
+    for (const it of q) { try { await this.insertar(it.tipo, it.datos); } catch (e) { pendientes.push(it); } }
+    try { localStorage.setItem('previaje.cola', JSON.stringify(pendientes)); } catch (e) {}
+    return q.length - pendientes.length;
+  },
+  async guardarEvaluacion() {
+    const r = estado.resultado, d = estado.datos, g = estado.gps.analisis, uid = this.uid();
+    const base = uid + '/' + r.folio;
+    let foto_url = null, firma_url = null, imagen_url = null;
+    try { if (estado.foto) foto_url = await this.subir(base + '-foto.jpg', estado.foto, 'image/jpeg'); } catch (e) {}
+    try { if (estado.firmaImg) firma_url = await this.subir(base + '-firma.png', estado.firmaImg, 'image/png'); } catch (e) {}
+    try { if (r.imagen) imagen_url = await this.subir(base + '-dictamen.png', r.imagen, 'image/png'); } catch (e) {}
+    const fila = {
+      folio: r.folio, operador_id: uid, economico: d.economico, ruta: d.ruta, fecha: d.fecha,
+      horas_manejo: +g.horasJornadaVista.toFixed(2), pausa_actual: isFinite(g.pausaActual) ? +g.pausaActual.toFixed(2) : null, horas_restantes: +g.restanteJornada.toFixed(2), descanso_vigente: g.descansoVigente, horas_origen: estado.gps.origen,
+      vision_correctos: estado.vision ? estado.vision.correctos : null, reaccion_a_tiempo: estado.reaccion ? estado.reaccion.aTiempo : null, reaccion_promedio: estado.reaccion ? estado.reaccion.promedio : null, reaccion_anticipados: estado.reaccion ? estado.reaccion.anticipados : null,
+      apto: r.apto, puntos_riesgo: r.puntos, criticos: r.criticos, factores: r.factores, respuestas: estado.respuestas, reintento_horas: r.reintentoHoras || null, reinstruccion: r.reinstruccion,
+      foto_url, firma_url, imagen_dictamen_url: imagen_url,
+      ubicacion_lat: estado.ubicacion ? estado.ubicacion.lat : null, ubicacion_lon: estado.ubicacion ? estado.ubicacion.lon : null, ubicacion_fuente: estado.ubicacion ? 'telefono' : 'gps_unidad',
+      compromiso_aceptado: estado.compromiso
+    };
+    const ev = await this.insertar('evaluaciones', fila);
+    if (r.mtto.length) await this.insertar('folios_mtto', { folio: r.folioMtto, evaluacion_id: ev.id, operador_id: uid, economico: d.economico, detalle: r.mtto, bloquea_salida: r.mtto.some(m => m.bloquea) });
+    return ev;
+  },
+  async guardarAlerta(a) {
+    const g = estado.gps, uid = this.uid();
+    const fila = { operador_id: uid, economico: g.unidad, codigo: a.codigo, motivo: a.motivo, horas_manejo: +a.horasJornadaVista.toFixed(2), pausa_actual: isFinite(a.pausaActual) ? +a.pausaActual.toFixed(2) : null, faltan_horas: +a.esperaHoras.toFixed(2), desbloqueo_en: new Date(Date.now() + a.esperaHoras * 3600e3).toISOString(), posicion: g.ubicacion };
+    try { await this.insertar('alertas_resguardo', fila); } catch (e) { this.encolar('alertas_resguardo', fila); }
+  }
+};
+
+/* =====================================================================
    ANÁLISIS DE HORAS DE CONDUCCIÓN
    ===================================================================== */
 function analizarActividad(segmentos, ahora = new Date(), desde = null) {
@@ -834,7 +908,15 @@ function renderBarrera() {
     '<div class="inicio-hero' + (g ? ' compacta' : '') + '"><div class="ojal">Pre-Viaje · Ruta 57</div><h1>Tu familia te espera en casa.<br><em>Revisemos cómo estás antes de salir de viaje.</em></h1>' +
       '<div class="chips"><span class="chip">' + ICONO.gps + ' GPS</span><span class="chip">' + ICONO.reloj + ' Descanso</span><span class="chip">' + ICONO.checkCirculo + ' Estado</span><span class="chip">' + ICONO.camion + ' Unidad</span></div></div>';
 
-  if (!g) {
+  const requiereLogin = nube.activa() && !nube.cargarSesion();
+  if (!g && requiereLogin) {
+    html += '<div class="tarjeta pila" id="loginForm">' +
+      '<div class="tarjeta-titulo"><span class="ico">' + ICONO.usuario + '</span><div>Inicie sesión<div class="ayuda">Con la cuenta que le dio Cabina de Seguridad.</div></div></div>' +
+      '<div class="campo"><label for="lEmail">Correo <span class="req" aria-hidden="true">*</span></label><input id="lEmail" type="email" autocomplete="username" inputmode="email" placeholder="operador@empresa.com"></div>' +
+      '<div class="campo"><label for="lPass">Contraseña <span class="req" aria-hidden="true">*</span></label><input id="lPass" type="password" autocomplete="current-password"><div id="lErr"></div></div>' +
+      '<button class="btn primario" id="btnLogin" type="button"><span id="btnLoginIco" style="display:inline-flex">' + ICONO.check + '</span><span id="btnLoginTxt">Entrar</span></button>' +
+      '</div>';
+  } else if (!g) {
     html += '<div class="tarjeta pila" id="inicioForm">' +
       '<div class="tarjeta-titulo"><span class="ico">' + ICONO.usuario + '</span><div>¿Quién va a salir?<div class="ayuda">Con su nombre y unidad consultamos sus horas de servicio en el GPS.</div></div></div>' +
       '<div class="campo"><label for="iNombre">Nombre del operador <span class="req" aria-hidden="true">*</span></label><input id="iNombre" autocomplete="name" placeholder="Nombre y apellidos" value="' + esc(d.nombre) + '"><div id="iNombreErr"></div></div>' +
@@ -857,7 +939,15 @@ function renderBarrera() {
   html += '</section>';
   vista.innerHTML = html;
 
-  if (!g) {
+  if (!g && requiereLogin) {
+    const entrar = async () => {
+      const b = $('#btnLogin'); ocupado(b, 'btnLoginIco', 'btnLoginTxt', true, 'Entrando…', 'Entrar', ICONO.check);
+      try { await nube.login($('#lEmail').value.trim(), $('#lPass').value); nube.vaciarCola(); render(); }
+      catch (e) { $('#lErr').innerHTML = errorLinea('lErrTxt', e.message); ocupado(b, 'btnLoginIco', 'btnLoginTxt', false, '', 'Entrar', ICONO.check); }
+    };
+    $('#btnLogin').addEventListener('click', entrar);
+    $('#lPass').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+  } else if (!g) {
     $('#selDemo').addEventListener('change', e => { if (e.target.value) { $('#ecoGps').value = e.target.value; if (!$('#iNombre').value.trim()) $('#iNombre').value = 'Operador de prueba'; conectarGps(); } });
     $('#btnConectar').addEventListener('click', conectarGps);
     $('#ecoGps').addEventListener('keydown', e => { if (e.key === 'Enter') conectarGps(); });
@@ -1032,7 +1122,7 @@ function pintarVeredictoGps() {
   }, 1000);
 
   if (a.estado === 'bloqueado') {
-    if (!g.vibrado) { vibrar([40, 60, 40]); g.vibrado = true; }
+    if (!g.vibrado) { vibrar([40, 60, 40]); g.vibrado = true; if (nube.activa() && nube.sesion) nube.guardarAlerta(a); }
     $('#btnReconsultar').addEventListener('click', pintarVeredictoGps);
   } else {
     $('#btnIniciar').addEventListener('click', () => { estado.datos.fecha = new Date().toISOString(); estado.paso = 0; estado.mostrarErrores = false; render(); });
@@ -1504,6 +1594,11 @@ function calcularResultado() {
   const reinstruccion = SECCIONES.find(x => x.id === 'reglas').preguntas.filter(q => estado.respuestas[q.id] === NO).map(q => q.texto.replace(/^¿Sabe que /, '').replace(/\?$/, ''));
   estado.resultado = { apto, factores, puntos, criticos, folio, pendienteValidacion: estado.gps.origen === 'manual', mtto, folioMtto, reintentoHoras, reintentoMotivo, reinstruccion };
   try { estado.resultado.canvas = generarImagenDictamen(); estado.resultado.imagen = estado.resultado.canvas.toDataURL('image/png'); } catch (e) { estado.resultado.imagen = null; }
+  if (nube.activa() && nube.sesion) {
+    estado.resultado.nube = 'enviando';
+    nube.guardarEvaluacion().then(() => { estado.resultado.nube = 'ok'; pintarEstadoNube(); nube.vaciarCola(); })
+      .catch(() => { estado.resultado.nube = 'pendiente'; pintarEstadoNube(); const r2 = estado.resultado, d2 = estado.datos; nube.encolar('evaluaciones', { folio: r2.folio, operador_id: nube.uid(), economico: d2.economico, ruta: d2.ruta, fecha: d2.fecha, apto: r2.apto, puntos_riesgo: r2.puntos, criticos: r2.criticos, factores: r2.factores, respuestas: estado.respuestas, reinstruccion: r2.reinstruccion, compromiso_aceptado: estado.compromiso, horas_origen: estado.gps.origen }); });
+  }
   try {
     const h = JSON.parse(localStorage.getItem('previaje.historial') || '[]');
     h.unshift({ folio, fecha: estado.datos.fecha, nombre: estado.datos.nombre, economico: estado.datos.economico, ruta: estado.datos.ruta, apto, puntos, criticos });
@@ -1632,6 +1727,13 @@ async function compartirImagenDictamen() {
   setTimeout(() => window.open('https://wa.me/' + WHATSAPP_CABINA + '?text=' + encodeURIComponent('Dictamen Pre-Viaje ' + r.folio + ' · ' + estado.datos.nombre + ' · ' + estado.datos.economico + ' (imagen adjunta)'), '_blank'), 800);
 }
 
+function htmlEstadoNube() {
+  const e = estado.resultado.nube;
+  if (e === 'ok') return '<div class="aviso ok">' + ICONO.checkCirculo + '<div><b>Guardado en el registro de Cabina</b>El dictamen, la foto y la imagen ya están en la base de datos.</div></div>';
+  if (e === 'pendiente') return '<div class="aviso warn">' + ICONO.alerta + '<div><b>Sin señal: guardado pendiente</b>El dictamen quedó en el teléfono y se enviará solo al recuperar señal. Mientras tanto, envíelo por WhatsApp.</div></div>';
+  return '<div class="aviso info"><span class="spinner" aria-hidden="true" style="width:18px;height:18px;border-width:2px"></span><div><b>Guardando en el registro de Cabina…</b></div></div>';
+}
+function pintarEstadoNube() { const c = $('#estadoNube'); if (c) c.innerHTML = htmlEstadoNube(); }
 function renderResultado() {
   const r = estado.resultado, d = estado.datos;
   let html = '<section class="etapa pila-24">';
@@ -1639,6 +1741,7 @@ function renderResultado() {
     '<p>' + (r.apto ? 'Puede iniciar el viaje. Buen camino, ' + esc(d.nombre.split(' ')[0]) + '.' : 'No salga. Repórtese con Cabina de Seguridad.') + '</p>' +
     '<div class="folio">Folio ' + esc(r.folio) + '</div></div>';
   if (r.pendienteValidacion) html += '<div class="aviso warn">' + ICONO.alerta + '<div><b>Pendiente de validación</b>Las horas de conducción se declararon sin GPS. Cabina debe validar antes de autorizar la salida.</div></div>';
+  if (r.nube) html += '<div id="estadoNube">' + htmlEstadoNube() + '</div>';
   html += '<div class="tarjeta identidad">' + (estado.foto ? '<img class="foto-mini grande" src="' + estado.foto + '" alt="Foto del operador">' : '<div class="foto-mini grande vacia">' + ICONO.usuario + '</div>') + '<div class="identidad-txt"><b>' + esc(d.nombre) + '</b><span>Unidad ' + esc(d.economico) + ' · ' + esc(d.ruta) + '</span><span>' + esc(fmtFechaHora(d.fecha)) + '</span><span>' + (estado.ubicacion ? ICONO.pin + ' ' + estado.ubicacion.lat.toFixed(5) + ', ' + estado.ubicacion.lon.toFixed(5) : ICONO.gps + ' ' + esc(estado.gps.ubicacion)) + '</span><span>' + ICONO.checkCirculo + ' Compromiso aceptado</span></div></div>';
 
   html += '<div class="tarjeta"><div class="ojal">' + (r.factores.length ? 'Factores detectados' : 'Sin factores de riesgo') + '</div>';
@@ -1697,6 +1800,7 @@ function toast(msg) {
   document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
 }
 
+if (nube.activa() && nube.cargarSesion()) nube.vaciarCola();
 render();
 
 /* Instalación como app (PWA): registra el service worker solo cuando se sirve por HTTPS o localhost */
