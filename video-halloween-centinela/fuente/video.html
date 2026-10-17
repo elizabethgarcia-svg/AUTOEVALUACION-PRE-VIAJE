@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Centinela Halloween</title>
+<style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:Creep;src:url(fonts/creepster-latin-400-normal.woff2)}
+html,body{margin:0;width:720px;height:1280px;overflow:hidden;background:#000}
+#v{position:relative;width:720px;height:1280px;overflow:hidden;background:#07070B}
+.sc{position:absolute;left:0;top:0;width:720px;height:1280px;overflow:hidden;visibility:hidden;transform-origin:50% 50%}
+.sc>svg{position:absolute;left:0;top:0}
+.tx{position:absolute;left:0;width:720px;text-align:center;visibility:hidden;transform-origin:50% 50%}
+.A{font-family:Anton;letter-spacing:1px;line-height:1}
+.M7{font-family:M;font-weight:700}.M8{font-family:M;font-weight:800}.M9{font-family:M;font-weight:900}
+.C{font-family:Creep;letter-spacing:2px}
+.w{color:#fff}.o{color:#FF5A00}.y{color:#FFC400}
+.sh{text-shadow:0 5px 0 rgba(0,0,0,.45),0 0 26px rgba(0,0,0,.75)}
+.glo{text-shadow:0 0 18px rgba(255,90,0,.9),0 0 46px rgba(255,90,0,.55),0 6px 0 rgba(0,0,0,.5)}
+.chip{display:inline-block;padding:10px 26px;border-radius:999px}
+.panel{position:absolute;left:36px;top:56px;width:648px;height:196px;border-radius:26px;background:rgba(10,8,18,.78);border:3px solid #FF5A00;box-shadow:0 0 38px rgba(255,90,0,.45),inset 0 0 30px rgba(255,90,0,.12);visibility:hidden}
+.card{position:absolute;left:40px;width:640px;height:100px;border-radius:20px;background:rgba(17,20,27,.94);border-left:10px solid #FF5A00;box-shadow:0 10px 30px rgba(0,0,0,.5);visibility:hidden;display:flex;align-items:center;box-sizing:border-box;padding-left:24px;gap:22px}
+.card .t{font-family:M;font-weight:900;color:#fff;font-size:32px;line-height:1.05}
+.card .t small{display:block;font-weight:800;color:#FF8A3D;font-size:22px;letter-spacing:1px}
+</style>
+<script src="logo.js"></script><script src="datos.js"></script>
+</head><body>
+<svg width="0" height="0" style="position:absolute"><defs id="defs">
+  <linearGradient id="gTrailer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBFBFC"/><stop offset=".72" stop-color="#E2E5EA"/><stop offset="1" stop-color="#C3C8CF"/></linearGradient>
+  <linearGradient id="gCab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7424"/><stop offset=".55" stop-color="#FF5A00"/><stop offset="1" stop-color="#CF4300"/></linearGradient>
+  <linearGradient id="gChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F6F9"/><stop offset=".5" stop-color="#9EA5AF"/><stop offset="1" stop-color="#E4E7EB"/></linearGradient>
+  <radialGradient id="gRim"><stop offset="0" stop-color="#EEF0F3"/><stop offset="1" stop-color="#8A919B"/></radialGradient>
+  <linearGradient id="gBeam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF1C4" stop-opacity=".62"/><stop offset="1" stop-color="#FFF1C4" stop-opacity="0"/></linearGradient>
+  <radialGradient id="gGlowW"><stop offset="0" stop-color="#FFF6D8" stop-opacity=".95"/><stop offset=".35" stop-color="#FFE9A8" stop-opacity=".35"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowO"><stop offset="0" stop-color="#FF6A00" stop-opacity=".75"/><stop offset="1" stop-color="#FF5A00" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowY"><stop offset="0" stop-color="#FFD54A" stop-opacity=".9"/><stop offset="1" stop-color="#FFB300" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowP"><stop offset="0" stop-color="#8E3BFF" stop-opacity=".55"/><stop offset="1" stop-color="#5A1EA0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gLuna" cx=".42" cy=".4"><stop offset="0" stop-color="#FFFBEA"/><stop offset=".8" stop-color="#FBE9BE"/><stop offset="1" stop-color="#EBD39A"/></radialGradient>
+  <linearGradient id="gNoche" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04021A"/><stop offset=".42" stop-color="#150A3A"/><stop offset=".66" stop-color="#3B1553"/><stop offset=".74" stop-color="#6A2350"/></linearGradient>
+  <linearGradient id="gAmanecer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A0A3A"/><stop offset=".28" stop-color="#4E1868"/><stop offset=".5" stop-color="#B8327A"/><stop offset=".63" stop-color="#FF6A1A"/><stop offset=".72" stop-color="#FFC24D"/></linearGradient>
+  <radialGradient id="gSol"><stop offset="0" stop-color="#FFF4C2"/><stop offset=".5" stop-color="#FFD15C"/><stop offset="1" stop-color="#FFB02E"/></radialGradient>
+  <radialGradient id="gFondoMorado" cx=".5" cy=".45" r=".75"><stop offset="0" stop-color="#3D1468"/><stop offset=".6" stop-color="#1A0930"/><stop offset="1" stop-color="#08040F"/></radialGradient>
+  <radialGradient id="gMasa" cx=".45" cy=".4"><stop offset="0" stop-color="#F0B66B"/><stop offset=".75" stop-color="#D08A42"/><stop offset="1" stop-color="#A9632A"/></radialGradient>
+  <linearGradient id="gGlaseado" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset=".5" stop-color="#FF6A10"/><stop offset="1" stop-color="#E24E00"/></linearGradient>
+  <linearGradient id="gFantasma" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D6CEF2"/></linearGradient>
+  <linearGradient id="gVela" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F3E6C8"/><stop offset=".5" stop-color="#FFF8E8"/><stop offset="1" stop-color="#E4D3AE"/></linearGradient>
+  <radialGradient id="gPan" cx=".4" cy=".3"><stop offset="0" stop-color="#E7A157"/><stop offset="1" stop-color="#A65E22"/></radialGradient>
+  <mask id="mPicado" maskContentUnits="userSpaceOnUse"><g id="mPicadoG"></g></mask>
+  <mask id="mLogo" maskContentUnits="userSpaceOnUse"><path id="mLogoP" fill="#fff" d=""/></mask>
+</defs></svg>
+
+<div id="v">
+  <!-- 0 · RADIO / CARRETERA 57 DE NOCHE -->
+  <div class="sc" id="s0">
+    <svg id="g0" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="panel" id="radio">
+      <svg width="140" height="190" viewBox="0 0 140 190" style="position:absolute;left:14px;top:2px">
+        <path d="M70,150 C40,150 50,168 30,168 C10,168 20,186 0,186" stroke="#55575E" stroke-width="5" fill="none"/>
+        <rect x="38" y="30" width="64" height="122" rx="26" fill="#1D1F25" stroke="#3A3D45" stroke-width="3"/>
+        <g stroke="#3F434C" stroke-width="4" stroke-linecap="round"><path d="M54,56 H86 M54,68 H86 M54,80 H86 M54,92 H86"/></g>
+        <rect x="98" y="70" width="10" height="38" rx="4" fill="#FF5A00"/>
+        <circle id="led" cx="70" cy="122" r="8" fill="#FF2D2D"/>
+      </svg>
+      <div class="M9 w" style="position:absolute;left:150px;top:26px;font-size:40px;letter-spacing:1px">BASE CENTINELA</div>
+      <div class="M8" style="position:absolute;left:152px;top:78px;font-size:22px;color:#FFB27A;letter-spacing:2px">CANAL 10-28 · CARRETERA 57</div>
+      <div id="eq" style="position:absolute;left:152px;top:116px;width:380px;height:56px;display:flex;align-items:center;gap:6px"></div>
+      <div class="M9" id="txt" style="position:absolute;right:26px;top:126px;font-size:26px;color:#FF2D2D">● TX</div>
+    </div>
+    <div class="tx A w glo" id="h0a" style="top:290px;font-size:112px">¡ATENCIÓN,<br>ATENCIÓN!</div>
+    <div class="tx M8 w sh" id="h0b" style="top:300px;font-size:40px;letter-spacing:2px">LLAMANDO A TODOS LOS</div>
+    <div class="tx A o glo" id="h0c" style="top:350px;font-size:250px">10-28</div>
+    <div class="tx" id="h0d" style="top:640px"><span class="chip M9" style="background:#fff;color:#111;font-size:36px">¿ME COPIAN?</span></div>
+  </div>
+
+  <!-- 1 · LA DONA -->
+  <div class="sc" id="s1">
+    <svg id="g1" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx" id="h1a" style="top:96px"><div class="C o" style="font-size:96px;line-height:1;text-shadow:0 0 30px rgba(255,90,0,.6)">Halloween</div><div class="M8 w" style="font-size:28px;letter-spacing:6px;margin-top:6px">&amp; DÍA DE MUERTOS</div></div>
+    <div class="tx A w sh" id="h1b" style="top:96px;font-size:118px">UN DETALLE<br><span class="o">DULCE</span></div>
+    <div class="tx M9 w sh" id="h1c" style="top:996px;font-size:40px">UNA DONA PARA CADA UNO</div>
+    <div class="tx" id="h1d" style="top:990px"><span class="chip A" style="background:#FF5A00;color:#fff;font-size:62px;border-radius:18px;padding:8px 26px;box-shadow:0 10px 30px rgba(0,0,0,.5)">¡DISFRÚTENLA!</span><div class="M9 w sh" style="font-size:38px;margin-top:14px">SE LA GANARON</div></div>
+  </div>
+
+  <!-- 2 · DONA = CERO -->
+  <div class="sc" id="s2">
+    <svg id="g2" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx M9 w sh" id="h2a" style="top:120px;font-size:50px">PERO FÍJENSE BIEN…</div>
+    <div class="tx" id="h2b" style="top:196px"><span class="chip M9" style="background:#fff;color:#111;font-size:34px">UNA DONA = UN <span class="o">CERO</span></span></div>
+    <div class="tx A w sh" id="h2c" style="top:110px;font-size:96px;letter-spacing:4px">OCTUBRE</div>
+    <div class="tx A o glo" id="h2d" style="top:900px;font-size:156px">SINIESTROS</div>
+    <div class="tx" id="h2e" style="top:1090px"><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:34px;letter-spacing:2px">NUESTRA META DEL MES</span></div>
+  </div>
+
+  <!-- 3 · ALTAR -->
+  <div class="sc" id="s3">
+    <svg id="g3" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx" id="h3a" style="top:322px"><div class="M9 w sh" style="font-size:44px;letter-spacing:2px">VAMOS POR</div><div class="A o glo" style="font-size:132px">2 VICTORIAS</div></div>
+    <div class="card" id="c3a" style="top:330px"><svg width="64" height="64" viewBox="-32 -32 64 64" id="icoTrofeo"></svg><div class="t">GANAR EL ALTAR<small>CONCURSO GRUPO LOMA</small></div></div>
+    <div class="card" id="c3b" style="top:446px"><svg width="64" height="64" viewBox="-32 -32 64 64" id="icoEscudo"></svg><div class="t">CERO SINIESTROS<small>CERRAR OCTUBRE SIN UNO SOLO</small></div></div>
+  </div>
+
+  <!-- 4 · CABINA -->
+  <div class="sc" id="s4">
+    <svg id="g4" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="card" id="c4a" style="top:660px"><svg width="58" height="58" viewBox="-29 -29 58 58" class="chk"></svg><div class="t">ALERTA ATENDIDA<small>A TIEMPO</small></div></div>
+    <div class="card" id="c4b" style="top:776px"><svg width="58" height="58" viewBox="-29 -29 58 58" class="chk"></svg><div class="t">LLAMADA<small>AL OPERADOR</small></div></div>
+    <div class="card" id="c4c" style="top:892px"><svg width="58" height="58" viewBox="-29 -29 58 58" class="chk"></svg><div class="t">DESCANSO<small>RESPETADO</small></div></div>
+    <div class="tx" id="h4a" style="top:1030px;left:250px;width:440px;text-align:left"><div class="A o glo" style="font-size:84px">= UN 10-28</div><div class="M9 w sh" style="font-size:30px;line-height:1.15">QUE REGRESA A CASA<br>CON SU FAMILIA</div></div>
+  </div>
+
+  <!-- 5 · SUSTOS / SEGURIDAD VIAL -->
+  <div class="sc" id="s5">
+    <svg id="g5" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx M9 w sh" id="h5a" style="top:110px;font-size:44px;line-height:1.12">LOS ÚNICOS SUSTOS<br>PERMITIDOS…</div>
+    <div class="tx C o" id="h5b" style="top:240px;font-size:70px;white-space:nowrap;text-shadow:0 0 26px rgba(255,90,0,.7),0 6px 0 #000">¡son los de Halloween!</div>
+    <div class="tx" id="h5c" style="top:110px"><div class="M9 w sh" style="font-size:36px;letter-spacing:1px">TRABAJEMOS CON APEGO A LA</div><div class="A o glo" style="font-size:128px">SEGURIDAD VIAL</div></div>
+    <div class="tx M9 w" id="l5a" style="top:1000px;white-space:nowrap;left:15px;width:230px;font-size:22px"><span class="chip" style="background:rgba(0,0,0,.75);padding:8px 14px">PREVENCIÓN</span></div>
+    <div class="tx M9 w" id="l5b" style="top:1000px;white-space:nowrap;left:245px;width:230px;font-size:22px"><span class="chip" style="background:rgba(0,0,0,.75);padding:8px 14px">PROTOCOLO</span></div>
+    <div class="tx M9 w" id="l5c" style="top:1000px;white-space:nowrap;left:475px;width:230px;font-size:22px"><span class="chip" style="background:rgba(0,0,0,.75);padding:8px 14px">CERO EXCESOS</span></div>
+  </div>
+
+  <!-- 6 · LEMA + LOGO -->
+  <div class="sc" id="s6">
+    <svg id="g6" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx A" id="h6a" style="top:740px;font-size:100px"><span class="w">UN CENTINELA</span><br><span class="o">NUNCA DESCANSA</span></div>
+    <div class="tx M9 w sh" id="h6b" style="top:968px;font-size:42px">SIEMPRE VIGILA.</div>
+    <div class="tx M9 o sh" id="h6c" style="top:1024px;font-size:42px">SIEMPRE PROTEGE.</div>
+    <div class="tx M8 w" id="h6d" style="top:760px;font-size:60px">DESDE LA CABINA,</div>
+    <div class="tx M8 o" id="h6e" style="top:836px;font-size:60px">PROTEGEMOS</div>
+    <div class="tx M8 o" id="h6f" style="top:912px;font-size:60px">CADA KILÓMETRO.</div>
+  </div>
+
+  <!-- 7 · FINAL AL AMANECER -->
+  <div class="sc" id="s7">
+    <svg id="g7" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+    <div class="tx A sh" id="h7a" style="top:90px;font-size:124px"><span class="w">¡VAMOS, EQUIPO</span><br><span class="o glo" style="font-size:146px">CENTINELA!</span></div>
+    <div class="tx" id="h7b" style="top:84px"><div class="M9 w sh" style="font-size:46px;letter-spacing:3px">ESTE OCTUBRE</div><div class="A w glo" style="font-size:126px">¡TRIUNFAMOS!</div></div>
+    <div class="tx" id="h7c" style="top:340px"><span class="chip M9" style="background:#fff;color:#111;font-size:32px;margin-right:12px">🏆 ALTAR</span><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:32px">0 SINIESTROS</span></div>
+    <div class="sc" id="fin" style="background:rgba(8,8,12,.94)">
+      <svg id="g7b" width="720" height="1280" viewBox="0 0 720 1280"></svg>
+      <div class="tx A w" id="h7d" style="top:760px;font-size:100px;white-space:nowrap">CAMBIO Y FUERA</div>
+      <div class="tx M8 o" id="h7e" style="top:900px;font-size:34px;letter-spacing:3px">10-28 · EQUIPO CENTINELA</div>
+      <div class="tx M8" id="h7f" style="top:980px;font-size:30px;line-height:1.25"><span class="w">DESDE LA CABINA,</span><br><span class="o">PROTEGEMOS CADA KILÓMETRO.</span></div>
+      <div class="tx M7" id="h7g" style="top:1150px;font-size:24px;letter-spacing:5px;color:#9A9AA6">GRUPO LOMA · OCTUBRE 2026</div>
+    </div>
+  </div>
+
+  <!-- mosca de marca -->
+  <svg id="mosca" width="720" height="1280" viewBox="0 0 720 1280" style="position:absolute;left:0;top:0;pointer-events:none"></svg>
+  <div id="negro" style="position:absolute;inset:0;background:#000;opacity:0"></div>
+</div>
+<script src="video.js"></script>
+</body></html>
