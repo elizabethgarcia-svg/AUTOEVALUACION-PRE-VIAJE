@@ -12,7 +12,7 @@ LINEAS = [
     ("radio",   "¡Atención, atención! Aquí Base Centinela, llamando a todos los diez veintiocho. ¿Me copian?", 0.9),
     ("dona",    "Esta temporada de Jálouin y Día de Muertos, les dejé algo dulce: una dona para cada uno. ¡Disfrútenla, se la ganaron!", 0.6),
     ("cero",    "Pero fíjense bien: una dona tiene forma de cero. Y ese es nuestro número este mes: ¡cero siniestros!", 0.7),
-    ("altar",   "Este octubre vamos por dos victorias: ganar el concurso de altares de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!", 0.6),
+    ("altar",   "Este octubre vamos por dos victorias: ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!", 0.6),
     ("cabina",  "Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un diez veintiocho que regresa a casa con su familia.", 0.6),
     ("sustos",  "En la carretera, los únicos sustos permitidos son los de Jálouin. Trabajemos con apego a la seguridad vial: prevención, protocolo y cero excesos.", 0.7),
     ("lema",    "Porque un Centinela nunca descansa: siempre vigila, siempre protege. Desde la cabina, protegemos cada kilómetro.", 0.6),

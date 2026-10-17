@@ -1,6 +1,6 @@
 # Video Halloween · Equipo Centinela · Octubre 0 siniestros
 
-**Archivo:** `Centinela_Halloween_0_Siniestros.mp4` · vertical 720×1280 · 64.6 s · 12 MB (cabe en WhatsApp, límite 16 MB).
+**Archivo:** `Centinela_Halloween_0_Siniestros_v2.mp4` · vertical 720×1280 · 65.5 s · 12 MB (cabe en WhatsApp, límite 16 MB).
 
 **Concepto:** "Una dona tiene forma de cero." La dona que se entrega al equipo es el recordatorio de la meta del mes: **cero siniestros**. El mensaje abre como una llamada de radio de la Base Centinela a los 10-28 y cierra con "Cambio y fuera".
 
@@ -11,19 +11,22 @@
 | 0:00 | Radio en la Carretera 57 de noche, tráiler "Equipo Centinela", escudo MEX 57 | ¡Atención, atención! Aquí Base Centinela, llamando a todos los 10-28. ¿Me copian? |
 | 0:08 | Caja de donas: calaveritas y glaseadas, calabazas, telaraña | Esta temporada de Halloween y Día de Muertos les dejé algo dulce: una dona para cada uno. ¡Disfrútenla, se la ganaron! |
 | 0:16 | La dona se convierte en el "0" de OCTUBRE · 0 · SINIESTROS | Pero fíjense bien: una dona tiene forma de cero. Y ese es nuestro número este mes: ¡cero siniestros! |
-| 0:23 | Altar de muertos con papel picado y arco de cempasúchil | Este octubre vamos por dos victorias: ganar el concurso de altares de Grupo Loma, ¡y cerrar el mes sin un solo siniestro! |
-| 0:31 | Command Center: Ruta 57 Querétaro–SLP–Matehuala–Saltillo, checklist | Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un 10-28 que regresa a casa con su familia. |
-| 0:39 | Carretera de noche, fantasma "¡BOO!", señales Prevención · Protocolo · 100 km/h | En la carretera, los únicos sustos permitidos son los de Halloween. Trabajemos con apego a la seguridad vial: prevención, protocolo y cero excesos. |
-| 0:48 | Logo Centinela con ondas de radar | Porque un Centinela nunca descansa: siempre vigila, siempre protege. Desde la cabina, protegemos cada kilómetro. |
-| 0:56 | Amanecer en la 57, confeti de cempasúchil | ¡Vamos, equipo Centinela! ¡Este octubre, triunfamos! |
-| 1:00 | Cierre con logo | Cambio y fuera. |
+| 0:23 | Decoración de Día de Muertos: papel picado, arco de cempasúchil y altar | Este octubre vamos por dos victorias: ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro! |
+| 0:32 | Command Center: Ruta 57 Querétaro–SLP–Matehuala–Saltillo, checklist | Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un 10-28 que regresa a casa con su familia. |
+| 0:40 | Carretera de noche, fantasma "¡BOO!", señales Prevención · Protocolo · 100 km/h | En la carretera, los únicos sustos permitidos son los de Halloween. Trabajemos con apego a la seguridad vial: prevención, protocolo y cero excesos. |
+| 0:49 | Logo Centinela con ondas de radar | Porque un Centinela nunca descansa: siempre vigila, siempre protege. Desde la cabina, protegemos cada kilómetro. |
+| 0:57 | Amanecer en la 57, confeti de cempasúchil | ¡Vamos, equipo Centinela! ¡Este octubre, triunfamos! |
+| 1:01 | Cierre con logo | Cambio y fuera. |
 
 ## Texto para acompañar el video en WhatsApp
 
-> 🎃💀 ¡Equipo Centinela! Les dejé un detallito dulce en la cabina: una dona para cada uno. 🍩
-> Fíjense bien… una dona tiene forma de **0**, y ese es nuestro número este mes: **CERO SINIESTROS**.
-> Este octubre vamos por dos victorias: el concurso de altares de Grupo Loma 🏆 y cerrar el mes sin un solo siniestro 🛡️.
-> Desde la cabina, protegemos cada kilómetro. ¡Vamos, 10-28! 📻 Cambio y fuera.
+> 🎃 ¡Equipo Centinela!
+> Les dejé un detalle dulce en la cabina para recargar energía en esta temporada. 🍩
+> Este octubre vamos por dos metas: ganar el concurso de decoración de oficinas de Grupo Loma 🏆 y cerrar el mes con cero siniestros. 🛡️
+> Cada alerta atendida a tiempo cuenta. Vamos a elevar el nivel con prevención, protocolo y apego a la seguridad vial.
+> Desde la cabina, protegemos cada kilómetro. ¡Vamos con todo! 📻
+
+**v2:** el concurso es de decoración de oficinas (no de altares); se corrigió la voz, la tarjeta de la escena 4 y la insignia del final.
 
 ## Notas de producción
 

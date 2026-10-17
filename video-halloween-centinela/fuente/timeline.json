@@ -1,5 +1,5 @@
 {
- "total": 64.627,
+ "total": 65.558,
  "lineas": [
   {
    "escena": "radio",
@@ -78,8 +78,8 @@
   {
    "escena": "altar",
    "inicio": 23.675,
-   "fin": 30.429,
-   "texto": "Este octubre vamos por dos victorias: ganar el concurso de altares de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
+   "fin": 31.361,
+   "texto": "Este octubre vamos por dos victorias: ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
    "frases": [
     {
      "texto": "Este octubre vamos por dos victorias:",
@@ -87,99 +87,99 @@
      "fin": 25.817
     },
     {
-     "texto": "ganar el concurso de altares de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
+     "texto": "ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
      "inicio": 25.977,
-     "fin": 30.429
+     "fin": 31.361
     }
    ]
   },
   {
    "escena": "cabina",
-   "inicio": 31.029,
-   "fin": 38.987,
+   "inicio": 31.961,
+   "fin": 39.919,
    "texto": "Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un diez veintiocho que regresa a casa con su familia.",
    "frases": [
     {
      "texto": "Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un diez veintiocho que regresa a casa con su familia.",
-     "inicio": 31.029,
-     "fin": 38.987
+     "inicio": 31.961,
+     "fin": 39.919
     }
    ]
   },
   {
    "escena": "sustos",
-   "inicio": 39.587,
-   "fin": 48.25,
+   "inicio": 40.519,
+   "fin": 49.181,
    "texto": "En la carretera, los únicos sustos permitidos son los de Jálouin. Trabajemos con apego a la seguridad vial: prevención, protocolo y cero excesos.",
    "frases": [
     {
      "texto": "En la carretera, los únicos sustos permitidos son los de Jálouin.",
-     "inicio": 39.587,
-     "fin": 43.066
+     "inicio": 40.519,
+     "fin": 43.998
     },
     {
      "texto": "Trabajemos con apego a la seguridad vial:",
-     "inicio": 43.386,
-     "fin": 45.78
+     "inicio": 44.318,
+     "fin": 46.712
     },
     {
      "texto": "prevención, protocolo y cero excesos.",
-     "inicio": 45.94,
-     "fin": 48.25
+     "inicio": 46.872,
+     "fin": 49.181
     }
    ]
   },
   {
    "escena": "lema",
-   "inicio": 48.95,
-   "fin": 55.98,
+   "inicio": 49.881,
+   "fin": 56.911,
    "texto": "Porque un Centinela nunca descansa: siempre vigila, siempre protege. Desde la cabina, protegemos cada kilómetro.",
    "frases": [
     {
      "texto": "Porque un Centinela nunca descansa:",
-     "inicio": 48.95,
-     "fin": 51.164
+     "inicio": 49.881,
+     "fin": 52.095
     },
     {
      "texto": "siempre vigila, siempre protege.",
-     "inicio": 51.324,
-     "fin": 53.196
+     "inicio": 52.255,
+     "fin": 54.127
     },
     {
      "texto": "Desde la cabina, protegemos cada kilómetro.",
-     "inicio": 53.516,
-     "fin": 55.98
+     "inicio": 54.447,
+     "fin": 56.911
     }
    ]
   },
   {
    "escena": "final",
-   "inicio": 56.58,
-   "fin": 59.993,
+   "inicio": 57.511,
+   "fin": 60.925,
    "texto": "¡Vamos, equipo Centinela! ¡Este octubre, triunfamos!",
    "frases": [
     {
      "texto": "¡Vamos, equipo Centinela!",
-     "inicio": 56.58,
-     "fin": 58.146
+     "inicio": 57.511,
+     "fin": 59.078
     },
     {
      "texto": "¡Este octubre, triunfamos!",
-     "inicio": 58.466,
-     "fin": 59.993
+     "inicio": 59.398,
+     "fin": 60.925
     }
    ]
   },
   {
    "escena": "cambio",
-   "inicio": 60.443,
-   "fin": 61.427,
+   "inicio": 61.375,
+   "fin": 62.358,
    "texto": "Cambio y fuera.",
    "frases": [
     {
      "texto": "Cambio y fuera.",
-     "inicio": 60.443,
-     "fin": 61.427
+     "inicio": 61.375,
+     "fin": 62.358
     }
    ]
   }
