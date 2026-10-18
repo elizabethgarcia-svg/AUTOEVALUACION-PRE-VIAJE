@@ -134,10 +134,10 @@ def arpegio_guitarra(t, i):
 
 t, i = 0.0, 0
 while t < FIN - BAR * .5:
-    sec_camino = ini["camino"] - .5 <= t < ini["alertas"] - .5
+    sec_camino = ini["camino"] - .5 <= t < ini["alertas"] - .5 or t < ini["radio"] - .3 or ini["despedida"] - .5 <= t < ini["cambio"] - .3
     sec_msg = ini["mensaje"] - .5 <= t < ini["razon"] - 1
     sec_clim = t >= ini["razon"] - 1.5
-    calma = ini["alertas"] - .5 <= t < ini["mensaje"] - .5 or t < ini["espera"] - .5
+    calma = ini["alertas"] - .5 <= t < ini["mensaje"] - .5 or ini["radio"] - .3 <= t < ini["espera"] - .5
     arpegio_piano(t, i, 0.75 if calma else 1.0)
     if sec_camino: arpegio_guitarra(t, i)
     if sec_msg: melodia(t, i, cajita, 1.0, 12)
@@ -174,16 +174,19 @@ def al_decir(esc, frag):  # instante aproximado en que la voz dice "frag"
             if i >= 0: return f["inicio"] + (f["fin"] - f["inicio"]) * i / len(f["texto"])
     raise KeyError(frag)
 
-sfx.put(0, estatica(fin["radio"] + .6), 1.0)
-roger(1.6); roger(fin["radio"] + .1)
+sfx.put(ini["radio"] - .7, estatica(fin["radio"] - ini["radio"] + 1.3), 1.0)
+roger(ini["radio"] - .45); roger(fin["radio"] + .1)
+sfx.put(fin["bienvenida"] + .15, claxon(.4), 1.0); sfx.put(fin["bienvenida"] + .65, claxon(.8), 1.0)
+sfx.put(fin["bienvenida"] + .9, paso_troca(3.2), 1.6)
+sfx.put(fin["despedida"] + .1, claxon(.4), 1.0); sfx.put(fin["despedida"] + .6, claxon(.8), 1.0)
 sfx.put(fin["radio"] - .5, grillos(ini["camino"] - fin["radio"] + 1.5), 1.0)
 sfx.put(ini["camino"] + 1.5, paso_troca(4.0), 1.0)
+sfx.put(ini["rescate"] + .5, paso_troca(4.5), 1.3)
+sfx.put(ini["final"] - 1.5, grillos(TOTAL - ini["final"] + 1.5), 0.8)
 for frag in ("si un tráiler", "si el operador", "o si se distrae"):
     tb = al_decir("alertas", frag) + .2
     sfx.put(tb, beep(880), 1.0); sfx.put(tb + .18, beep(1320), 1.0)
 sfx.put(al_decir("cabina", "llamamos") + .55, timbre()[: int(.8 * SR)], 1.0)
-sfx.put(ini["razon"] - 1.0, pajaros(14), 1.0)
-sfx.put(ini["regreso"] - 1.05, claxon(.4), 1.0); sfx.put(ini["regreso"] - .55, claxon(.75), 1.0)
 sfx.put(ini["cambio"] - .4, estatica(fin["cambio"] - ini["cambio"] + 1.2), 1.0)
 roger(fin["cambio"] + .1)
 

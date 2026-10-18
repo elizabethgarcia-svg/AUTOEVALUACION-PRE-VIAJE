@@ -1,251 +1,364 @@
 {
- "total": 130.777,
+ "total": 191.546,
  "lineas": [
   {
+   "escena": "bienvenida",
+   "inicio": 1.6,
+   "fin": 16.697,
+   "texto": "¡Hola, hola, amiguitos! Yo soy el ocho setenta y siete. Bienvenidos al área de Blindaje Centinela, donde desde la cabina cuidamos cada kilómetro. ¡Súbanse conmigo, vamos a dar un recorrido para que conozcan lo que hacemos!",
+   "frases": [
+    {
+     "texto": "¡Hola, hola, amiguitos!",
+     "inicio": 1.6,
+     "fin": 3.049
+    },
+    {
+     "texto": "Yo soy el ocho setenta y siete.",
+     "inicio": 3.649,
+     "fin": 5.636
+    },
+    {
+     "texto": "Bienvenidos al área de Blindaje Centinela, donde desde la cabina cuidamos cada kilómetro.",
+     "inicio": 6.386,
+     "fin": 11.709
+    },
+    {
+     "texto": "¡Súbanse conmigo, vamos a dar un recorrido para que conozcan lo que hacemos!",
+     "inicio": 12.459,
+     "fin": 16.697
+    }
+   ],
+   "voz": "troca"
+  },
+  {
    "escena": "radio",
-   "inicio": 2.2,
-   "fin": 10.216,
+   "inicio": 20.597,
+   "fin": 28.613,
    "texto": "¡Atención, atención! Aquí Base Centinela, llamando a todas las familias de nuestros diez veintiocho. ¿Nos copian?",
    "frases": [
     {
      "texto": "¡Atención, atención!",
-     "inicio": 2.2,
-     "fin": 3.623
+     "inicio": 20.597,
+     "fin": 22.02
     },
     {
      "texto": "Aquí Base Centinela, llamando a todas las familias de nuestros diez veintiocho.",
-     "inicio": 4.223,
-     "fin": 8.68
+     "inicio": 22.62,
+     "fin": 27.077
     },
     {
      "texto": "¿Nos copian?",
-     "inicio": 9.43,
-     "fin": 10.216
+     "inicio": 27.827,
+     "fin": 28.613
     }
-   ]
+   ],
+   "voz": "radio"
   },
   {
    "escena": "espera",
-   "inicio": 11.816,
-   "fin": 20.663,
+   "inicio": 30.213,
+   "fin": 39.06,
    "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
    "frases": [
     {
      "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
-     "inicio": 11.816,
-     "fin": 20.663
+     "inicio": 30.213,
+     "fin": 39.06
     }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "camino",
-   "inicio": 22.163,
-   "fin": 33.122,
+   "inicio": 40.56,
+   "fin": 51.519,
    "texto": "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
    "frases": [
     {
      "texto": "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa.",
-     "inicio": 22.163,
-     "fin": 27.218
+     "inicio": 40.56,
+     "fin": 45.615
     },
     {
      "texto": "En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
-     "inicio": 27.968,
-     "fin": 33.122
+     "inicio": 46.365,
+     "fin": 51.519
     }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "equipo",
-   "inicio": 34.422,
-   "fin": 49.657,
+   "inicio": 52.819,
+   "fin": 68.054,
    "texto": "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.",
    "frases": [
     {
      "texto": "Somos los Centinelas:",
-     "inicio": 34.422,
-     "fin": 35.777
+     "inicio": 52.819,
+     "fin": 54.174
     },
     {
      "texto": "un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche.",
-     "inicio": 36.127,
-     "fin": 42.542
+     "inicio": 54.524,
+     "fin": 60.939
     },
     {
      "texto": "Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros:",
-     "inicio": 43.292,
-     "fin": 47.402
+     "inicio": 61.689,
+     "fin": 65.799
     },
     {
      "texto": "siempre atentos, siempre listos.",
-     "inicio": 47.752,
-     "fin": 49.657
+     "inicio": 66.149,
+     "fin": 68.054
     }
-   ]
+   ],
+   "voz": "narradora"
+  },
+  {
+   "escena": "previaje",
+   "inicio": 69.254,
+   "fin": 81.253,
+   "texto": "Antes de cada viaje, cada operador hace su autoevaluación desde su celular: si durmió bien, cómo se siente, y si su tráiler está listo. Solo cuando todo está en orden, sale a la carretera.",
+   "frases": [
+    {
+     "texto": "Antes de cada viaje, cada operador hace su autoevaluación desde su celular:",
+     "inicio": 69.254,
+     "fin": 73.841
+    },
+    {
+     "texto": "si durmió bien, cómo se siente, y si su tráiler está listo.",
+     "inicio": 74.191,
+     "fin": 77.672
+    },
+    {
+     "texto": "Solo cuando todo está en orden, sale a la carretera.",
+     "inicio": 78.422,
+     "fin": 81.253
+    }
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "alertas",
-   "inicio": 50.857,
-   "fin": 58.545,
+   "inicio": 82.453,
+   "fin": 90.141,
    "texto": "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.",
    "frases": [
     {
      "texto": "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.",
-     "inicio": 50.857,
-     "fin": 58.545
+     "inicio": 82.453,
+     "fin": 90.141
     }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "cabina",
-   "inicio": 59.545,
-   "fin": 68.555,
+   "inicio": 91.141,
+   "fin": 100.151,
    "texto": "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.",
    "frases": [
     {
      "texto": "Entonces llamamos:",
-     "inicio": 59.545,
-     "fin": 60.887
+     "inicio": 91.141,
+     "fin": 92.483
     },
     {
      "texto": "¿cómo vas, compañero?",
-     "inicio": 61.237,
-     "fin": 62.693
+     "inicio": 92.833,
+     "fin": 94.289
     },
     {
      "texto": "A veces, solo necesita descansar un poco.",
-     "inicio": 63.393,
-     "fin": 66.058
+     "inicio": 94.989,
+     "fin": 97.653
     },
     {
      "texto": "Y eso también es cuidarlo.",
-     "inicio": 66.808,
-     "fin": 68.555
+     "inicio": 98.403,
+     "fin": 100.151
     }
-   ]
+   ],
+   "voz": "narradora"
+  },
+  {
+   "escena": "rescate",
+   "inicio": 101.451,
+   "fin": 110.688,
+   "texto": "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera.",
+   "frases": [
+    {
+     "texto": "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar.",
+     "inicio": 101.451,
+     "fin": 106.565
+    },
+    {
+     "texto": "Porque en esta familia, nadie se queda solo en la carretera.",
+     "inicio": 107.315,
+     "fin": 110.688
+    }
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "mensaje",
-   "inicio": 69.855,
-   "fin": 87.087,
+   "inicio": 111.988,
+   "fin": 129.22,
    "texto": "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guardado.",
    "frases": [
     {
      "texto": "Pero el cuidado más importante empieza en casa.",
-     "inicio": 69.855,
-     "fin": 72.878
+     "inicio": 111.988,
+     "fin": 115.011
     },
     {
      "texto": "Por eso hoy te pedimos algo muy especial:",
-     "inicio": 73.628,
-     "fin": 76.222
+     "inicio": 115.761,
+     "fin": 118.355
     },
     {
      "texto": "cuando abraces a papá o a mamá, recuérdale tres cosas.",
-     "inicio": 76.572,
-     "fin": 80.044
+     "inicio": 118.705,
+     "fin": 122.177
     },
     {
      "texto": "Maneja con calma.",
-     "inicio": 80.794,
-     "fin": 82.102
+     "inicio": 122.927,
+     "fin": 124.235
     },
     {
      "texto": "Descansa cuando tengas sueño.",
-     "inicio": 82.852,
-     "fin": 84.793
+     "inicio": 124.985,
+     "fin": 126.926
     },
     {
      "texto": "Y el celular, guardado.",
-     "inicio": 85.543,
-     "fin": 87.087
+     "inicio": 127.676,
+     "fin": 129.22
     }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "mini",
-   "inicio": 88.287,
-   "fin": 95.172,
+   "inicio": 130.42,
+   "fin": 137.304,
    "texto": "Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa.",
    "frases": [
     {
      "texto": "Desde hoy, tú también eres un Mini Centinela.",
-     "inicio": 88.287,
-     "fin": 90.992
+     "inicio": 130.42,
+     "fin": 133.125
     },
     {
      "texto": "Tu misión es recordárselo cada vez que salga de casa.",
-     "inicio": 91.742,
-     "fin": 95.172
+     "inicio": 133.875,
+     "fin": 137.304
     }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "razon",
-   "inicio": 96.372,
-   "fin": 99.564,
+   "inicio": 138.504,
+   "fin": 141.697,
    "texto": "Y dile que tú eres su razón más grande para regresar.",
    "frases": [
     {
      "texto": "Y dile que tú eres su razón más grande para regresar.",
-     "inicio": 96.372,
-     "fin": 99.564
+     "inicio": 138.504,
+     "fin": 141.697
     }
-   ]
-  },
-  {
-   "escena": "regreso",
-   "inicio": 101.764,
-   "fin": 104.999,
-   "texto": "Porque no hay entrega más importante, que llegar a casa.",
-   "frases": [
-    {
-     "texto": "Porque no hay entrega más importante, que llegar a casa.",
-     "inicio": 101.764,
-     "fin": 104.999
-    }
-   ]
+   ],
+   "voz": "narradora"
   },
   {
    "escena": "cierre",
-   "inicio": 108.399,
-   "fin": 118.304,
+   "inicio": 143.297,
+   "fin": 153.202,
    "texto": "Recordamos a quienes se fueron, y cuidamos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
    "frases": [
     {
      "texto": "Recordamos a quienes se fueron, y cuidamos a quienes regresan.",
-     "inicio": 108.399,
-     "fin": 112.049
+     "inicio": 143.297,
+     "fin": 146.946
     },
     {
      "texto": "Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
-     "inicio": 112.799,
-     "fin": 118.304
+     "inicio": 147.696,
+     "fin": 153.202
     }
-   ]
+   ],
+   "voz": "narradora"
+  },
+  {
+   "escena": "despedida",
+   "inicio": 154.802,
+   "fin": 164.811,
+   "texto": "¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera!",
+   "frases": [
+    {
+     "texto": "¡Gracias por acompañarme, Mini Centinelas!",
+     "inicio": 154.802,
+     "fin": 157.314
+    },
+    {
+     "texto": "No olviden su misión:",
+     "inicio": 157.914,
+     "fin": 159.288
+    },
+    {
+     "texto": "con calma, con descanso, y el celular, guardado.",
+     "inicio": 159.638,
+     "fin": 162.444
+    },
+    {
+     "texto": "¡Nos vemos en la carretera!",
+     "inicio": 163.194,
+     "fin": 164.811
+    }
+   ],
+   "voz": "troca"
   },
   {
    "escena": "cambio",
-   "inicio": 119.704,
-   "fin": 126.277,
+   "inicio": 167.011,
+   "fin": 173.584,
    "texto": "Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera.",
    "frases": [
     {
      "texto": "Base Centinela a todas las familias:",
-     "inicio": 119.704,
-     "fin": 122.046
+     "inicio": 167.011,
+     "fin": 169.353
     },
     {
      "texto": "gracias por cuidarlos con nosotros.",
-     "inicio": 122.396,
-     "fin": 124.515
+     "inicio": 169.703,
+     "fin": 171.822
     },
     {
      "texto": "Cambio y fuera.",
-     "inicio": 125.265,
-     "fin": 126.277
+     "inicio": 172.572,
+     "fin": 173.584
     }
-   ]
+   ],
+   "voz": "radio"
+  },
+  {
+   "escena": "final",
+   "inicio": 175.584,
+   "fin": 182.546,
+   "texto": "Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
+   "frases": [
+    {
+     "texto": "Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
+     "inicio": 175.584,
+     "fin": 182.546
+    }
+   ],
+   "voz": "narradora"
   }
  ]
 }

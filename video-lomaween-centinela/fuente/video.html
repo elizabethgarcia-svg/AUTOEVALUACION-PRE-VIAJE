@@ -6,6 +6,8 @@
 @font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
 @font-face{font-family:M;font-weight:900;src:url(fonts/montserrat-latin-900-normal.woff2)}
 @font-face{font-family:Kid;src:url(fonts/gochi-hand-latin-400-normal.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:400;src:url(fonts/playfair-display-latin-400-italic.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:700;src:url(fonts/playfair-display-latin-700-italic.woff2)}
 @font-face{font-family:Hand;src:url(fonts/patrick-hand-latin-400-normal.woff2)}
 html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
 #v{position:relative;width:1920px;height:1080px;overflow:hidden;background:#07060E}
@@ -31,8 +33,19 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
 #sub{position:absolute;left:0;width:1920px;bottom:46px;text-align:center;pointer-events:none}
 #sub span{display:inline-block;max-width:1560px;padding:16px 38px;border-radius:22px;background:rgba(8,6,16,.74);color:#fff;font-family:M;font-weight:800;font-size:46px;line-height:1.22;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 #sub span.radio{border-left:10px solid #FF5A00;color:#FFE2CC}
+#sub span.troca{border-left:10px solid #2F6BFF;color:#DCE8FF}
+.real{position:absolute;object-fit:cover;display:block}
+.globo{position:absolute;max-width:590px;padding:28px 42px;border-radius:44px;background:#fff;color:#1A1A2E;font-family:M;font-weight:800;font-size:46px;line-height:1.15;visibility:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.globo:after{content:"";position:absolute;left:70px;bottom:-34px;border-width:36px 10px 0 40px;border-style:solid;border-color:#fff transparent transparent transparent;transform:skewX(28deg)}
+.cel{position:absolute;left:190px;top:150px;width:580px;height:780px;border-radius:64px;background:#0E1222;border:14px solid #20263A;box-shadow:0 30px 70px rgba(0,0,0,.6);overflow:hidden;visibility:hidden}
+.cel .bar{height:110px;background:#062661;color:#fff;font-family:M;font-weight:900;font-size:24px;letter-spacing:2px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;box-sizing:border-box}
+.cel .item{margin:22px 24px 0;padding:18px 22px;border-radius:24px;background:#18203A;color:#fff;font-family:M;font-weight:800;font-size:29px;display:flex;align-items:center;gap:16px;white-space:nowrap}
+.cel .item .ok{margin-left:auto;width:52px;height:52px;border-radius:50%;background:#2ED573;color:#06331C;font-size:34px;display:flex;align-items:center;justify-content:center;opacity:0}
+.cel .item small{display:block;font-size:22px;color:#9FB0D0;font-weight:700}
+.cel .sello{position:absolute;left:50%;bottom:44px;width:330px;margin-left:-165px;text-align:center;padding:18px 0;border-radius:26px;border:8px solid #2ED573;color:#2ED573;font-family:Anton;font-size:96px;letter-spacing:4px;transform:rotate(-8deg);visibility:hidden}
+.PF{font-family:PF;font-style:italic}
 </style>
-<script src="logo.js"></script><script src="datos.js"></script>
+<script src="logo.js"></script><script src="datos.js"></script><script src="clips.js"></script>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs id="defs">
   <linearGradient id="gTrailer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBFBFC"/><stop offset=".72" stop-color="#E2E5EA"/><stop offset="1" stop-color="#C3C8CF"/></linearGradient>
@@ -42,6 +55,11 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
   <linearGradient id="gBeam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF1C4" stop-opacity=".6"/><stop offset="1" stop-color="#FFF1C4" stop-opacity="0"/></linearGradient>
   <radialGradient id="gGlowW"><stop offset="0" stop-color="#FFF6D8" stop-opacity=".95"/><stop offset=".35" stop-color="#FFE9A8" stop-opacity=".35"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
   <radialGradient id="gGlowAz"><stop offset="0" stop-color="#6F9BFF" stop-opacity=".5"/><stop offset="1" stop-color="#3D5BD9" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gCabB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#EEF0F3"/><stop offset="1" stop-color="#C5CBD3"/></linearGradient>
+  <linearGradient id="gOcaso" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241A55"/><stop offset=".32" stop-color="#5E3A8E"/><stop offset=".55" stop-color="#C9628A"/><stop offset=".72" stop-color="#FF9A62"/><stop offset=".8" stop-color="#FFC27A"/></linearGradient>
+  <clipPath id="cpParabrisas"><polygon points="548,200 1012,196 1040,352 562,356"/></clipPath>
+  <clipPath id="cpCardL"><rect x="190" y="190" width="600" height="720" rx="40"/></clipPath>
+  <clipPath id="cpCardR"><rect x="1130" y="190" width="600" height="720" rx="40"/></clipPath>
   <radialGradient id="gGlowO"><stop offset="0" stop-color="#FF6A00" stop-opacity=".75"/><stop offset="1" stop-color="#FF5A00" stop-opacity="0"/></radialGradient>
   <radialGradient id="gGlowY"><stop offset="0" stop-color="#FFD54A" stop-opacity=".9"/><stop offset="1" stop-color="#FFB300" stop-opacity="0"/></radialGradient>
   <radialGradient id="gGlowCal"><stop offset="0" stop-color="#FFC66B" stop-opacity=".85"/><stop offset=".5" stop-color="#FF9A3C" stop-opacity=".25"/><stop offset="1" stop-color="#FF9A3C" stop-opacity="0"/></radialGradient>
@@ -84,25 +102,30 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
     <div class="tx c A sh" id="h2a" style="top:80px;font-size:104px"><span class="y">EL CAMINO</span> <span class="w">DE REGRESO A CASA</span></div>
     <div class="tx c" id="h2b" style="top:220px"><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:40px;letter-spacing:3px">KILÓMETRO A KILÓMETRO</span></div>
   </div>
-  <!-- 3 · el equipo -->
+  <!-- 3 · el equipo (con tomas reales de la cabina) -->
   <div class="sc" id="s3"><svg id="g3" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
-    <div class="tx c A w glo" id="h3a" style="top:300px;font-size:150px">SOMOS LOS <span class="o">CENTINELAS</span></div>
-    <div class="tx M9 w" id="l3a" style="left:200px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#FF5A00;font-size:28px">CENTINELAS DE RUTA</span></div>
-    <div class="tx M9 w" id="l3b" style="left:680px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#7B2FF7;font-size:28px">CENTINELAS DE SEGURIDAD</span></div>
-    <div class="tx M9 w" id="l3c" style="left:1160px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#E6007E;font-size:28px">RESCATES CARRETEROS</span></div>
-    <div class="tx c" id="h3b" style="top:640px"><span class="chip M9" style="background:#fff;color:#111;font-size:40px;letter-spacing:2px">SIEMPRE ATENTOS · SIEMPRE LISTOS</span></div>
+    <img class="real" id="img3" style="left:130px;top:170px;width:1100px;height:619px;border-radius:8px">
+    <div class="tx M9" id="live3" style="left:156px;top:194px"><span class="chip" style="background:rgba(0,0,0,.62);color:#fff;font-size:24px;padding:8px 20px"><span style="color:#FF3B3B">●</span> EN VIVO DESDE LA CABINA</span></div>
+    <div class="tx A" id="h3a" style="left:1290px;top:160px;width:620px;font-size:122px;line-height:1"><span class="w sh">SOMOS LOS</span><br><span class="o glo">CENTINELAS</span></div>
+    <div class="tx M9 w" id="l3a" style="left:1290px;top:445px"><span class="chip" style="background:#FF5A00;font-size:30px">CENTINELAS DE RUTA</span></div>
+    <div class="tx M9 w" id="l3b" style="left:1290px;top:535px"><span class="chip" style="background:#7B2FF7;font-size:30px">CENTINELAS DE SEGURIDAD</span></div>
+    <div class="tx M9 w" id="l3c" style="left:1290px;top:625px"><span class="chip" style="background:#E6007E;font-size:30px">RESCATES CARRETEROS</span></div>
+    <div class="tx M9" id="h3b" style="left:1290px;top:730px;width:600px;font-size:38px;line-height:1.2;color:#FFD27A">SIEMPRE ATENTOS,<br>SIEMPRE LISTOS.</div>
   </div>
   <!-- 4 · las alertas -->
   <div class="sc" id="s4"><svg id="g4" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <img class="real" id="img4" style="left:0;top:110px;width:1920px;height:970px;opacity:.3">
+    <div class="tx c A w sh" id="h4t" style="top:180px;font-size:96px">LAS PANTALLAS NOS AVISAN</div>
     <div class="alerta" id="a4a" style="left:120px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">EXCESO DE<br>VELOCIDAD</div></div>
     <div class="alerta" id="a4b" style="left:700px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">POSIBLE<br>SOMNOLENCIA</div></div>
     <div class="alerta" id="a4c" style="left:1280px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">USO DE<br>CELULAR</div></div>
   </div>
-  <!-- 5 · la llamada -->
+  <!-- 5 · la videollamada -->
   <div class="sc" id="s5"><svg id="g5" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
-    <div class="burbuja" id="b5a" style="left:210px;top:120px;background:#FF5A00;color:#fff">¿Cómo vas, compañero?</div>
-    <div class="burbuja" id="b5b" style="left:1110px;top:150px;background:#fff;color:#1A1A2E">Un poco cansado…</div>
-    <div class="burbuja" id="b5c" style="left:170px;top:270px;background:#FF5A00;color:#fff;font-size:38px">Te ubico una pensión<br>para descansar 🌙</div>
+    <div class="tx c M9" id="h5t" style="top:120px;font-size:28px;letter-spacing:4px;color:#C9D2E6">📞 EN LLAMADA · <span id="reloj5">00:00</span></div>
+    <div class="burbuja" id="b5a" style="left:520px;top:250px;background:#FF5A00;color:#fff">¿Cómo vas, compañero?</div>
+    <div class="burbuja" id="b5b" style="left:1000px;top:520px;background:#fff;color:#1A1A2E">Un poco cansado…</div>
+    <div class="burbuja" id="b5c" style="left:520px;top:250px;background:#FF5A00;color:#fff;font-size:40px">Te ubico una pensión<br>para descansar 🌙</div>
     <div class="tx c" id="h5a" style="top:430px"><span class="chip M9" style="background:#2ED573;color:#06331C;font-size:44px;letter-spacing:2px">✔ UNIDAD EN DESCANSO</span></div>
     <div class="tx c A w glo" id="h5b" style="top:540px;font-size:110px">ESO TAMBIÉN ES <span class="y">CUIDARLO</span></div>
   </div>
@@ -151,6 +174,48 @@ html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
     <div class="tx c A w glo" id="h11a" style="top:400px;font-size:96px">GRACIAS POR CUIDARLOS <span class="o">CON NOSOTROS</span></div>
     <div class="tx c A o glo" id="h11b" style="top:530px;font-size:150px">CAMBIO Y FUERA</div>
     <div class="tx c M8" id="h11c" style="top:730px;font-size:32px;letter-spacing:5px;color:#B8B8C8">EQUIPO BLINDAJE CENTINELA · GRUPO LOMA · LOMAWEEN 2026</div>
+  </div>
+
+  <!-- B · bienvenida del 877 -->
+  <div class="sc" id="sB"><svg id="gB" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx" id="insB" style="left:40px;top:36px"><span class="chip M9" style="background:rgba(6,38,97,.88);color:#fff;font-size:26px;letter-spacing:3px;padding:14px 26px">🛡️ ÁREA DE BLINDAJE <span style="color:#FF8A3D">CENTINELA</span></span></div>
+    <div class="globo" id="bB1" style="left:1250px;top:60px">¡Hola, hola,<br>amiguitos! 👋</div>
+    <div class="globo" id="bB2" style="left:1250px;top:60px">¡Bienvenidos al área de <span style="color:#FF5A00">Blindaje Centinela</span>!</div>
+    <div class="globo" id="bB3" style="left:1250px;top:60px">¡Súbanse conmigo, vamos de recorrido! 🚛</div>
+  </div>
+  <!-- R · arranque en carretera (toma real) -->
+  <div class="sc" id="sR"><img class="real" id="imgR" style="left:0;top:0;width:1920px;height:1080px">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)"></div>
+    <div class="tx" id="hR" style="left:70px;top:70px"><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:36px;letter-spacing:3px">🚛 EN CAMINO · CARRETERA 57</span></div>
+  </div>
+  <!-- P · autoevaluación pre-viaje -->
+  <div class="sc" id="sP"><svg id="gP" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="cel" id="celP"><div class="bar">AUTOEVALUACIÓN PRE-VIAJE</div>
+      <div class="item">😴<div>¿Dormiste bien?<small>Horas de sueño</small></div><span class="ok">✔</span></div>
+      <div class="item">🙂<div>¿Cómo te sientes?<small>Estado físico y ánimo</small></div><span class="ok">✔</span></div>
+      <div class="item">🚛<div>¿Tráiler listo?<small>Llantas, frenos, luces</small></div><span class="ok">✔</span></div>
+      <div class="sello" id="selloP">APTO ✔</div></div>
+    <div class="tx A" id="hPa" style="left:880px;top:200px;width:1000px;font-size:132px;line-height:1"><span class="w sh">ANTES DE</span><br><span class="y glo">CADA VIAJE</span></div>
+    <div class="tx" id="hPb" style="left:880px;top:500px"><span class="chip M9" style="background:#062661;color:#fff;font-size:36px;letter-spacing:2px">CADA OPERADOR SE AUTOEVALÚA</span></div>
+    <div class="tx A" id="hPc" style="left:880px;top:620px;width:1000px;font-size:92px;line-height:1.05"><span class="w sh">SOLO SI TODO ESTÁ BIEN…</span><br><span style="color:#2ED573" class="sh">¡SALE A CARRETERA!</span></div>
+  </div>
+  <!-- Q · rescates carreteros -->
+  <div class="sc" id="sQ"><svg id="gQ" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx" id="hQa" style="left:70px;top:70px"><span class="chip M9" style="background:#E6007E;color:#fff;font-size:40px;letter-spacing:3px">🛠️ RESCATES CARRETEROS</span></div>
+    <div class="tx c A w glo" id="hQb" style="top:200px;font-size:110px">NADIE SE QUEDA SOLO <span class="y">EN LA CARRETERA</span></div>
+  </div>
+  <!-- D · despedida del 877 -->
+  <div class="sc" id="sD"><svg id="gD" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="globo" id="bD1" style="left:1250px;top:60px">¡Gracias, Mini Centinelas! 💛</div>
+    <div class="globo" id="bD2" style="left:1250px;top:60px;font-size:40px">Con calma 🐢<br>Con descanso 😴<br>Celular guardado 📵</div>
+    <div class="globo" id="bD3" style="left:1250px;top:60px">¡Nos vemos en la carretera! 👋</div>
+  </div>
+  <!-- F · el abrazo final -->
+  <div class="sc" id="sF"><svg id="gF" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx c PF" id="hFa" style="top:70px;font-size:92px;color:#fff;text-shadow:0 4px 24px rgba(40,10,60,.7)">El viaje más importante</div>
+    <div class="tx c PF" id="hFb" style="top:180px;font-size:104px;font-weight:700;color:#FFD27A;text-shadow:0 0 30px rgba(255,170,80,.6),0 4px 20px rgba(40,10,60,.7)">es el regreso a casa</div>
+    <div class="tx c PF" id="hFc" style="top:330px;font-size:50px;color:#FFF3E6;text-shadow:0 3px 16px rgba(40,10,60,.8)">donde pueden sentir el calor de quienes más los necesitan ❤</div>
+    <div class="tx c M8" id="hFd" style="top:430px;font-size:26px;letter-spacing:6px;color:#FFE6D0;text-shadow:0 2px 10px rgba(0,0,0,.6)">EQUIPO BLINDAJE CENTINELA · GRUPO LOMA</div>
   </div>
 
   <div id="sub"><span id="subt" style="visibility:hidden"></span></div>

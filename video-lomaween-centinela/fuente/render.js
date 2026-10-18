@@ -14,7 +14,7 @@ const { spawn } = require('child_process');
     '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', salida], { stdio: ['pipe', 'inherit', 'inherit'] });
   const t0 = Date.now();
   for (let i = n0; i < n1; i++) {
-    await p.evaluate(t => window.render(t), i / 30);
+    await p.evaluate(async t => await window.renderAsync(t), i / 30);
     const img = await p.screenshot({ type: 'jpeg', quality: 94 });
     if (!ff.stdin.write(img)) await new Promise(r => ff.stdin.once('drain', r));
     if (i % 150 === 0) console.log(`cuadro ${i}/${n1}  ${((Date.now() - t0) / 1000).toFixed(0)} s`);
