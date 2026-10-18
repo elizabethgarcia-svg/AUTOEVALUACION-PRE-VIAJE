@@ -1,0 +1,251 @@
+{
+ "total": 130.777,
+ "lineas": [
+  {
+   "escena": "radio",
+   "inicio": 2.2,
+   "fin": 10.216,
+   "texto": "¡Atención, atención! Aquí Base Centinela, llamando a todas las familias de nuestros diez veintiocho. ¿Nos copian?",
+   "frases": [
+    {
+     "texto": "¡Atención, atención!",
+     "inicio": 2.2,
+     "fin": 3.623
+    },
+    {
+     "texto": "Aquí Base Centinela, llamando a todas las familias de nuestros diez veintiocho.",
+     "inicio": 4.223,
+     "fin": 8.68
+    },
+    {
+     "texto": "¿Nos copian?",
+     "inicio": 9.43,
+     "fin": 10.216
+    }
+   ]
+  },
+  {
+   "escena": "espera",
+   "inicio": 11.816,
+   "fin": 20.663,
+   "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
+   "frases": [
+    {
+     "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
+     "inicio": 11.816,
+     "fin": 20.663
+    }
+   ]
+  },
+  {
+   "escena": "camino",
+   "inicio": 22.163,
+   "fin": 33.122,
+   "texto": "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
+   "frases": [
+    {
+     "texto": "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa.",
+     "inicio": 22.163,
+     "fin": 27.218
+    },
+    {
+     "texto": "En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
+     "inicio": 27.968,
+     "fin": 33.122
+    }
+   ]
+  },
+  {
+   "escena": "equipo",
+   "inicio": 34.422,
+   "fin": 49.657,
+   "texto": "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.",
+   "frases": [
+    {
+     "texto": "Somos los Centinelas:",
+     "inicio": 34.422,
+     "fin": 35.777
+    },
+    {
+     "texto": "un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche.",
+     "inicio": 36.127,
+     "fin": 42.542
+    },
+    {
+     "texto": "Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros:",
+     "inicio": 43.292,
+     "fin": 47.402
+    },
+    {
+     "texto": "siempre atentos, siempre listos.",
+     "inicio": 47.752,
+     "fin": 49.657
+    }
+   ]
+  },
+  {
+   "escena": "alertas",
+   "inicio": 50.857,
+   "fin": 58.545,
+   "texto": "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.",
+   "frases": [
+    {
+     "texto": "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.",
+     "inicio": 50.857,
+     "fin": 58.545
+    }
+   ]
+  },
+  {
+   "escena": "cabina",
+   "inicio": 59.545,
+   "fin": 68.555,
+   "texto": "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.",
+   "frases": [
+    {
+     "texto": "Entonces llamamos:",
+     "inicio": 59.545,
+     "fin": 60.887
+    },
+    {
+     "texto": "¿cómo vas, compañero?",
+     "inicio": 61.237,
+     "fin": 62.693
+    },
+    {
+     "texto": "A veces, solo necesita descansar un poco.",
+     "inicio": 63.393,
+     "fin": 66.058
+    },
+    {
+     "texto": "Y eso también es cuidarlo.",
+     "inicio": 66.808,
+     "fin": 68.555
+    }
+   ]
+  },
+  {
+   "escena": "mensaje",
+   "inicio": 69.855,
+   "fin": 87.087,
+   "texto": "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guardado.",
+   "frases": [
+    {
+     "texto": "Pero el cuidado más importante empieza en casa.",
+     "inicio": 69.855,
+     "fin": 72.878
+    },
+    {
+     "texto": "Por eso hoy te pedimos algo muy especial:",
+     "inicio": 73.628,
+     "fin": 76.222
+    },
+    {
+     "texto": "cuando abraces a papá o a mamá, recuérdale tres cosas.",
+     "inicio": 76.572,
+     "fin": 80.044
+    },
+    {
+     "texto": "Maneja con calma.",
+     "inicio": 80.794,
+     "fin": 82.102
+    },
+    {
+     "texto": "Descansa cuando tengas sueño.",
+     "inicio": 82.852,
+     "fin": 84.793
+    },
+    {
+     "texto": "Y el celular, guardado.",
+     "inicio": 85.543,
+     "fin": 87.087
+    }
+   ]
+  },
+  {
+   "escena": "mini",
+   "inicio": 88.287,
+   "fin": 95.172,
+   "texto": "Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa.",
+   "frases": [
+    {
+     "texto": "Desde hoy, tú también eres un Mini Centinela.",
+     "inicio": 88.287,
+     "fin": 90.992
+    },
+    {
+     "texto": "Tu misión es recordárselo cada vez que salga de casa.",
+     "inicio": 91.742,
+     "fin": 95.172
+    }
+   ]
+  },
+  {
+   "escena": "razon",
+   "inicio": 96.372,
+   "fin": 99.564,
+   "texto": "Y dile que tú eres su razón más grande para regresar.",
+   "frases": [
+    {
+     "texto": "Y dile que tú eres su razón más grande para regresar.",
+     "inicio": 96.372,
+     "fin": 99.564
+    }
+   ]
+  },
+  {
+   "escena": "regreso",
+   "inicio": 101.764,
+   "fin": 104.999,
+   "texto": "Porque no hay entrega más importante, que llegar a casa.",
+   "frases": [
+    {
+     "texto": "Porque no hay entrega más importante, que llegar a casa.",
+     "inicio": 101.764,
+     "fin": 104.999
+    }
+   ]
+  },
+  {
+   "escena": "cierre",
+   "inicio": 108.399,
+   "fin": 118.304,
+   "texto": "Recordamos a quienes se fueron, y cuidamos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
+   "frases": [
+    {
+     "texto": "Recordamos a quienes se fueron, y cuidamos a quienes regresan.",
+     "inicio": 108.399,
+     "fin": 112.049
+    },
+    {
+     "texto": "Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
+     "inicio": 112.799,
+     "fin": 118.304
+    }
+   ]
+  },
+  {
+   "escena": "cambio",
+   "inicio": 119.704,
+   "fin": 126.277,
+   "texto": "Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera.",
+   "frases": [
+    {
+     "texto": "Base Centinela a todas las familias:",
+     "inicio": 119.704,
+     "fin": 122.046
+    },
+    {
+     "texto": "gracias por cuidarlos con nosotros.",
+     "inicio": 122.396,
+     "fin": 124.515
+    },
+    {
+     "texto": "Cambio y fuera.",
+     "inicio": 125.265,
+     "fin": 126.277
+    }
+   ]
+  }
+ ]
+}

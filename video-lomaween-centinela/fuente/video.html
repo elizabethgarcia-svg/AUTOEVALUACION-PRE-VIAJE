@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>La entrega más importante</title>
+<style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:Kid;src:url(fonts/gochi-hand-latin-400-normal.woff2)}
+@font-face{font-family:Hand;src:url(fonts/patrick-hand-latin-400-normal.woff2)}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#000}
+#v{position:relative;width:1920px;height:1080px;overflow:hidden;background:#07060E}
+.sc{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;display:none;transform-origin:50% 50%}
+.sc>svg{position:absolute;left:0;top:0}
+.tx{position:absolute;visibility:hidden;transform-origin:50% 50%}
+.c{left:0;width:1920px;text-align:center}
+.A{font-family:Anton;letter-spacing:1px;line-height:1}
+.M8{font-family:M;font-weight:800}.M9{font-family:M;font-weight:900}
+.K{font-family:Kid}.H{font-family:Hand}
+.w{color:#fff}.o{color:#FF5A00}.y{color:#FFB300}
+.sh{text-shadow:0 5px 0 rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.7)}
+.glo{text-shadow:0 0 22px rgba(255,90,0,.85),0 0 60px rgba(255,90,0,.5),0 6px 0 rgba(0,0,0,.5)}
+.chip{display:inline-block;padding:12px 30px;border-radius:999px}
+.panel{position:absolute;border-radius:30px;background:rgba(10,8,18,.8);border:3px solid #FF5A00;box-shadow:0 0 44px rgba(255,90,0,.45),inset 0 0 30px rgba(255,90,0,.12);visibility:hidden}
+.alerta{position:absolute;width:520px;height:330px;border-radius:28px;background:#121624;border:3px solid #2A3146;box-shadow:0 20px 50px rgba(0,0,0,.55);visibility:hidden;overflow:hidden}
+.alerta .tag{position:absolute;left:26px;top:22px;font-family:M;font-weight:900;font-size:24px;letter-spacing:3px;color:#fff;background:#E5392F;border-radius:10px;padding:6px 14px}
+.alerta .nom{position:absolute;left:0;right:0;bottom:30px;text-align:center;font-family:M;font-weight:900;font-size:36px;color:#fff;line-height:1.1}
+.nota{position:absolute;width:520px;padding:34px 30px 30px;box-sizing:border-box;background:#FFF8D6;box-shadow:0 14px 30px rgba(0,0,0,.45);font-family:Kid;font-size:58px;line-height:1.05;color:#2B2B6B;text-align:center;visibility:hidden}
+.nota .pin{position:absolute;left:50%;top:-14px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff8a80,#d50000);box-shadow:0 3px 6px rgba(0,0,0,.5)}
+.nota .ico{font-size:76px;display:block;margin-top:8px}
+.burbuja{position:absolute;max-width:640px;padding:26px 36px;border-radius:36px;font-family:M;font-weight:800;font-size:44px;line-height:1.15;visibility:hidden;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+#sub{position:absolute;left:0;width:1920px;bottom:46px;text-align:center;pointer-events:none}
+#sub span{display:inline-block;max-width:1560px;padding:16px 38px;border-radius:22px;background:rgba(8,6,16,.74);color:#fff;font-family:M;font-weight:800;font-size:46px;line-height:1.22;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#sub span.radio{border-left:10px solid #FF5A00;color:#FFE2CC}
+</style>
+<script src="logo.js"></script><script src="datos.js"></script>
+</head><body>
+<svg width="0" height="0" style="position:absolute"><defs id="defs">
+  <linearGradient id="gTrailer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBFBFC"/><stop offset=".72" stop-color="#E2E5EA"/><stop offset="1" stop-color="#C3C8CF"/></linearGradient>
+  <linearGradient id="gCab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7424"/><stop offset=".55" stop-color="#FF5A00"/><stop offset="1" stop-color="#CF4300"/></linearGradient>
+  <linearGradient id="gChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F6F9"/><stop offset=".5" stop-color="#9EA5AF"/><stop offset="1" stop-color="#E4E7EB"/></linearGradient>
+  <radialGradient id="gRim"><stop offset="0" stop-color="#EEF0F3"/><stop offset="1" stop-color="#8A919B"/></radialGradient>
+  <linearGradient id="gBeam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF1C4" stop-opacity=".6"/><stop offset="1" stop-color="#FFF1C4" stop-opacity="0"/></linearGradient>
+  <radialGradient id="gGlowW"><stop offset="0" stop-color="#FFF6D8" stop-opacity=".95"/><stop offset=".35" stop-color="#FFE9A8" stop-opacity=".35"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowAz"><stop offset="0" stop-color="#6F9BFF" stop-opacity=".5"/><stop offset="1" stop-color="#3D5BD9" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowO"><stop offset="0" stop-color="#FF6A00" stop-opacity=".75"/><stop offset="1" stop-color="#FF5A00" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowY"><stop offset="0" stop-color="#FFD54A" stop-opacity=".9"/><stop offset="1" stop-color="#FFB300" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gGlowCal"><stop offset="0" stop-color="#FFC66B" stop-opacity=".85"/><stop offset=".5" stop-color="#FF9A3C" stop-opacity=".25"/><stop offset="1" stop-color="#FF9A3C" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gLuna" cx=".42" cy=".4"><stop offset="0" stop-color="#FFFBEA"/><stop offset=".8" stop-color="#FBE9BE"/><stop offset="1" stop-color="#EBD39A"/></radialGradient>
+  <linearGradient id="gNoche" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04031A"/><stop offset=".45" stop-color="#140B38"/><stop offset=".72" stop-color="#3A1653"/><stop offset=".85" stop-color="#5E2150"/></linearGradient>
+  <linearGradient id="gAmanecer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22114A"/><stop offset=".3" stop-color="#5A1E6E"/><stop offset=".55" stop-color="#C2417A"/><stop offset=".72" stop-color="#FF7A2A"/><stop offset=".82" stop-color="#FFC45A"/></linearGradient>
+  <radialGradient id="gSol"><stop offset="0" stop-color="#FFF4C2"/><stop offset=".55" stop-color="#FFD15C"/><stop offset="1" stop-color="#FFB02E"/></radialGradient>
+  <radialGradient id="gCuarto" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#3A1E4E"/><stop offset=".6" stop-color="#1A0F28"/><stop offset="1" stop-color="#0A0712"/></radialGradient>
+  <radialGradient id="gCorcho" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="#C08850"/><stop offset=".7" stop-color="#9C6A3A"/><stop offset="1" stop-color="#6E4524"/></radialGradient>
+  <linearGradient id="gVela" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F3E6C8"/><stop offset=".5" stop-color="#FFF8E8"/><stop offset="1" stop-color="#E4D3AE"/></linearGradient>
+  <linearGradient id="gPantalla" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1A30"/><stop offset="1" stop-color="#091224"/></linearGradient>
+  <mask id="mPicado" maskContentUnits="userSpaceOnUse"><g id="mPicadoG"></g></mask>
+  <mask id="mLogo" maskContentUnits="userSpaceOnUse"><path id="mLogoP" fill="#fff" d=""/></mask>
+</defs></svg>
+
+<div id="v">
+  <!-- 0 · radio -->
+  <div class="sc" id="s0"><svg id="g0" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="panel" id="radio0" style="left:70px;top:60px;width:800px;height:220px">
+      <svg width="150" height="210" viewBox="0 0 140 190" style="position:absolute;left:18px;top:6px">
+        <path d="M70,150 C40,150 50,168 30,168 C10,168 20,186 0,186" stroke="#55575E" stroke-width="5" fill="none"/>
+        <rect x="38" y="30" width="64" height="122" rx="26" fill="#1D1F25" stroke="#3A3D45" stroke-width="3"/>
+        <g stroke="#3F434C" stroke-width="4" stroke-linecap="round"><path d="M54,56 H86 M54,68 H86 M54,80 H86 M54,92 H86"/></g>
+        <rect x="98" y="70" width="10" height="38" rx="4" fill="#FF5A00"/><circle class="led" cx="70" cy="122" r="8" fill="#FF2D2D"/>
+      </svg>
+      <div class="M9 w" style="position:absolute;left:180px;top:30px;font-size:46px">BASE CENTINELA</div>
+      <div class="M8" style="position:absolute;left:182px;top:90px;font-size:24px;color:#FFB27A;letter-spacing:2px">CANAL FAMILIAS · CARRETERA 57</div>
+      <div class="eq" style="position:absolute;left:182px;top:132px;width:480px;height:62px;display:flex;align-items:center;gap:7px"></div>
+      <div class="M9 txl" style="position:absolute;right:30px;top:146px;font-size:28px;color:#FF2D2D">● TX</div>
+    </div>
+    <div class="tx A w glo" id="h0a" style="left:900px;top:70px;width:960px;text-align:center;font-size:132px">¡ATENCIÓN,<br>ATENCIÓN!</div>
+    <div class="tx" id="h0b" style="left:900px;top:80px;width:960px;text-align:center"><div class="M8 w sh" style="font-size:40px;letter-spacing:2px">LLAMANDO A TODAS LAS FAMILIAS</div><div class="M8 w sh" style="font-size:40px;letter-spacing:2px;margin-top:8px">DE NUESTROS</div><div class="A o glo" style="font-size:220px;margin-top:6px">10-28</div></div>
+  </div>
+  <!-- 1 · la espera -->
+  <div class="sc" id="s1"><svg id="g1" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx A w sh" id="h1a" style="left:100px;top:110px;width:600px;font-size:96px;line-height:1.05">CADA NOCHE,<br><span class="y">ALGUIEN</span><br>ESPERA…</div>
+  </div>
+  <!-- 2 · el camino -->
+  <div class="sc" id="s2"><svg id="g2" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx c A sh" id="h2a" style="top:80px;font-size:104px"><span class="y">EL CAMINO</span> <span class="w">DE REGRESO A CASA</span></div>
+    <div class="tx c" id="h2b" style="top:220px"><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:40px;letter-spacing:3px">KILÓMETRO A KILÓMETRO</span></div>
+  </div>
+  <!-- 3 · el equipo -->
+  <div class="sc" id="s3"><svg id="g3" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx c A w glo" id="h3a" style="top:300px;font-size:150px">SOMOS LOS <span class="o">CENTINELAS</span></div>
+    <div class="tx M9 w" id="l3a" style="left:200px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#FF5A00;font-size:28px">CENTINELAS DE RUTA</span></div>
+    <div class="tx M9 w" id="l3b" style="left:680px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#7B2FF7;font-size:28px">CENTINELAS DE SEGURIDAD</span></div>
+    <div class="tx M9 w" id="l3c" style="left:1160px;top:520px;width:560px;text-align:center"><span class="chip" style="background:#E6007E;font-size:28px">RESCATES CARRETEROS</span></div>
+    <div class="tx c" id="h3b" style="top:640px"><span class="chip M9" style="background:#fff;color:#111;font-size:40px;letter-spacing:2px">SIEMPRE ATENTOS · SIEMPRE LISTOS</span></div>
+  </div>
+  <!-- 4 · las alertas -->
+  <div class="sc" id="s4"><svg id="g4" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="alerta" id="a4a" style="left:120px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">EXCESO DE<br>VELOCIDAD</div></div>
+    <div class="alerta" id="a4b" style="left:700px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">POSIBLE<br>SOMNOLENCIA</div></div>
+    <div class="alerta" id="a4c" style="left:1280px;top:330px"><div class="tag">ALERTA</div><svg width="520" height="330" viewBox="0 0 520 330" class="ico"></svg><div class="nom">USO DE<br>CELULAR</div></div>
+  </div>
+  <!-- 5 · la llamada -->
+  <div class="sc" id="s5"><svg id="g5" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="burbuja" id="b5a" style="left:210px;top:120px;background:#FF5A00;color:#fff">¿Cómo vas, compañero?</div>
+    <div class="burbuja" id="b5b" style="left:1110px;top:150px;background:#fff;color:#1A1A2E">Un poco cansado…</div>
+    <div class="burbuja" id="b5c" style="left:170px;top:270px;background:#FF5A00;color:#fff;font-size:38px">Te ubico una pensión<br>para descansar 🌙</div>
+    <div class="tx c" id="h5a" style="top:430px"><span class="chip M9" style="background:#2ED573;color:#06331C;font-size:44px;letter-spacing:2px">✔ UNIDAD EN DESCANSO</span></div>
+    <div class="tx c A w glo" id="h5b" style="top:540px;font-size:110px">ESO TAMBIÉN ES <span class="y">CUIDARLO</span></div>
+  </div>
+  <!-- 6 · el mensaje -->
+  <div class="sc" id="s6"><svg id="g6" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx c A w sh" id="h6a" style="top:70px;font-size:96px">EL CUIDADO EMPIEZA <span class="y">EN CASA</span></div>
+    <div class="tx c" id="h6b" style="top:70px"><span class="chip M9" style="background:#FF5A00;color:#fff;font-size:44px;letter-spacing:1px">3 COSAS PARA RECORDARLE A PAPÁ Y MAMÁ</span></div>
+    <div class="nota" id="n6a" style="left:170px;top:280px;transform:rotate(-4deg)"><div class="pin"></div>Maneja con calma<span class="ico">🐢</span></div>
+    <div class="nota" id="n6b" style="left:700px;top:300px;background:#E3F2FD"><div class="pin"></div>Descansa cuando tengas sueño<span class="ico">😴</span></div>
+    <div class="nota" id="n6c" style="left:1230px;top:280px;background:#FCE4EC"><div class="pin"></div>El celular, guardado<span class="ico">📵</span></div>
+  </div>
+  <!-- 7 · mini centinela -->
+  <div class="sc" id="s7"><svg id="g7" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx" id="h7a" style="left:1000px;top:250px;width:820px;text-align:left"><div class="M9 w sh" style="font-size:46px;letter-spacing:2px">DESDE HOY, TÚ ERES UN</div><div class="A o glo" style="font-size:150px;line-height:1">MINI<br>CENTINELA</div></div>
+    <div class="tx" id="h7b" style="left:1000px;top:640px;width:820px;text-align:left"><div class="M9 y sh" style="font-size:40px;letter-spacing:3px">TU MISIÓN:</div><div class="H w sh" style="font-size:58px;line-height:1.1">Recordárselo cada vez<br>que salga de casa 🐢 😴 📵</div></div>
+  </div>
+  <!-- 8 · la razón -->
+  <div class="sc" id="s8"><svg id="g8" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx K" id="h8a" style="left:1050px;top:300px;width:780px;text-align:center;font-size:96px;line-height:1.05;color:#2B2B6B">Tú eres su razón<br>más grande para<br><span style="color:#E53935">regresar ❤</span></div>
+  </div>
+  <!-- 9 · el regreso -->
+  <div class="sc" id="s9"><svg id="g9" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx c A w sh" id="h9a" style="top:70px;font-size:100px">LA ENTREGA MÁS IMPORTANTE</div>
+    <div class="tx c A y glo" id="h9b" style="top:180px;font-size:132px">ES LLEGAR A CASA</div>
+  </div>
+  <!-- 10 · cierre -->
+  <div class="sc" id="s10"><svg id="g10" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="tx M8 w sh" id="h10a" style="left:960px;top:290px;width:920px;font-size:46px;white-space:nowrap">Recordamos a quienes se fueron.</div>
+    <div class="tx M8 y sh" id="h10b" style="left:960px;top:362px;width:920px;font-size:46px;white-space:nowrap">Cuidamos a quienes regresan.</div>
+    <div class="tx A w" id="h10c" style="left:960px;top:480px;width:940px;font-size:74px;line-height:1.08;white-space:nowrap">DESDE LA CABINA,<br><span class="o">PROTEGEMOS CADA KILÓMETRO</span></div>
+  </div>
+  <!-- 11 · cambio y fuera -->
+  <div class="sc" id="s11"><svg id="g11" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+    <div class="panel" id="radio11" style="left:560px;top:120px;width:800px;height:220px">
+      <svg width="150" height="210" viewBox="0 0 140 190" style="position:absolute;left:18px;top:6px">
+        <path d="M70,150 C40,150 50,168 30,168 C10,168 20,186 0,186" stroke="#55575E" stroke-width="5" fill="none"/>
+        <rect x="38" y="30" width="64" height="122" rx="26" fill="#1D1F25" stroke="#3A3D45" stroke-width="3"/>
+        <g stroke="#3F434C" stroke-width="4" stroke-linecap="round"><path d="M54,56 H86 M54,68 H86 M54,80 H86 M54,92 H86"/></g>
+        <rect x="98" y="70" width="10" height="38" rx="4" fill="#FF5A00"/><circle class="led" cx="70" cy="122" r="8" fill="#FF2D2D"/>
+      </svg>
+      <div class="M9 w" style="position:absolute;left:180px;top:30px;font-size:46px">BASE CENTINELA</div>
+      <div class="M8" style="position:absolute;left:182px;top:90px;font-size:24px;color:#FFB27A;letter-spacing:2px">A TODAS LAS FAMILIAS</div>
+      <div class="eq" style="position:absolute;left:182px;top:132px;width:480px;height:62px;display:flex;align-items:center;gap:7px"></div>
+      <div class="M9 txl" style="position:absolute;right:30px;top:146px;font-size:28px;color:#FF2D2D">● TX</div>
+    </div>
+    <div class="tx c A w glo" id="h11a" style="top:400px;font-size:96px">GRACIAS POR CUIDARLOS <span class="o">CON NOSOTROS</span></div>
+    <div class="tx c A o glo" id="h11b" style="top:530px;font-size:150px">CAMBIO Y FUERA</div>
+    <div class="tx c M8" id="h11c" style="top:730px;font-size:32px;letter-spacing:5px;color:#B8B8C8">EQUIPO BLINDAJE CENTINELA · GRUPO LOMA · LOMAWEEN 2026</div>
+  </div>
+
+  <div id="sub"><span id="subt" style="visibility:hidden"></span></div>
+  <div id="negro" style="position:absolute;inset:0;background:#000;opacity:0"></div>
+</div>
+<script src="video.js"></script>
+</body></html>
