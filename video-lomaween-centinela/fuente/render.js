@@ -7,7 +7,7 @@ const { spawn } = require('child_process');
   const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
   p.on('pageerror', e => { console.log('ERROR:', e.message); process.exit(1); });
   await p.goto('file://' + dir + '/video.html');
-  await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
+  await p.evaluate(() => document.fonts.ready); await p.evaluate(() => Promise.all([...document.querySelectorAll('image')].map(i => new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = i.getAttribute('href'); })))); await p.waitForTimeout(500);
   const total = await p.evaluate(() => window.TOTAL);
   const n0 = Math.round(+desde * 30), n1 = hasta ? Math.round(+hasta * 30) : Math.floor(total * 30);
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', '30', '-c:v', 'mjpeg', '-i', '-',

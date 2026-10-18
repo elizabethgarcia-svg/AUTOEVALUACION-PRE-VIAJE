@@ -159,6 +159,26 @@ function velas(svg, pts) { return pts.map(([x, y, s]) => { const v = svgIn(svg, 
 function parpadeo(t) {
   document.querySelectorAll('#vela .llama').forEach(e => e.setAttribute('transform', `translate(0,-66) scale(${(1 + .07 * Math.sin(t * 17) + .04 * Math.sin(t * 31)).toFixed(3)},${(1 + .1 * Math.sin(t * 13)).toFixed(3)}) translate(0,66)`));
 }
+// ---------- tractor 877 y camioneta de asistencia (imágenes del equipo, con llantas que giran) ----------
+const TROCA = { w: 1260, h: 354, r: 44, llantas: [100, 192, 755, 843, 1063].map((x, i) => [x, 296, `img/llanta5_${i}.png`]), faro: [1147, 250], ojos: [[1092, 152, 13], [1123, 152, 11]] };
+const VAN = { w: 1499, h: 754, r: 128, llantas: [[336, 624, 'img/llanta6_0.png'], [1216, 624, 'img/llanta6_1.png']], faro: [178, 398] };
+function vehiculo(parent, V, src) {
+  const g = el('g', {}, parent);
+  el('ellipse', { cx: V.w / 2, cy: V.llantas[0][1] + V.r - 4, rx: V.w * .53, ry: V.r * .32, fill: '#000', opacity: .5 }, g);
+  el('image', { href: src, width: V.w, height: V.h }, g);
+  const ruedas = V.llantas.map(([x, y, f]) => el('image', { href: f, x: x - V.r, y: y - V.r, width: 2 * V.r, height: 2 * V.r }, g));
+  return { g, ruedas, V };
+}
+function girar(v, ang) { v.ruedas.forEach((r, i) => { const [x, y] = v.V.llantas[i]; r.setAttribute('transform', `rotate(${ang.toFixed(1)} ${x} ${y})`); }); }
+function troca877(parent) {
+  const v = vehiculo(parent, TROCA, 'img/troca877.png');
+  v.parpados = svgIn(v.g, TROCA.ojos.map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r + 4}" ry="${r + 6}" fill="#F7F7F8"/><path d="M${x - r - 1},${y - 2} Q${x},${y + 9} ${x + r + 1},${y - 2}" stroke="#1E2E42" stroke-width="3.6" fill="none" stroke-linecap="round"/>`).join(''));
+  v.parpados.style.visibility = 'hidden';
+  return v;
+}
+const PARP877 = [1.3, 4.6, 4.85, 8.2, 11.9, 15.1];
+function parpadea(v, t, siempre) { v.parpados.style.visibility = siempre || PARP877.some(b => { const u = t % 17 - b; return u > 0 && u < .16; }) ? 'visible' : 'hidden'; }
+
 // carretera vista de lado con paralaje
 function carretera(svg, p) {
   const g = {};
@@ -188,7 +208,7 @@ function carretera(svg, p) {
   g.rayas.innerHTML = r;
   el('rect', { x: 0, y: 954, width: 1920, height: 126, fill: p.tierra }, svg);
   g.haz = el('polygon', { points: '0,0 600,-80 600,110', fill: 'url(#gBeam)' }, svg);
-  g.troca = svgIn(svg, '<use href="#trailer"/>');
+  g.troca = troca877(svg);
   g.faro = el('circle', { cx: 0, cy: 0, r: 50, fill: 'url(#gGlowW)' }, svg);
   return g;
 }
@@ -200,8 +220,8 @@ function moverCarretera(g, t, x0, y0, s, vel = 1) {
   setT(g.postes, -((t * 520 * vel) % 480), 0);
   setT(g.rayas, -((t * 760 * vel) % 160), 0);
   const bote = Math.sin(t * 9) * 1.3 + Math.sin(t * 23) * .5;
-  setT(g.troca, x0, y0 + bote, s);
-  const fx = x0 + 629 * s, fy = y0 + 158 * s + bote;
+  setT(g.troca.g, x0, y0 + bote, s); girar(g.troca, t * 300 * vel); parpadea(g.troca, t);
+  const fx = x0 + TROCA.faro[0] * s, fy = y0 + TROCA.faro[1] * s + bote;
   setT(g.faro, fx, fy); setT(g.haz, fx, fy);
 }
 function radioPanel(panel, t, activo) {
@@ -247,7 +267,7 @@ const est0 = estrellas(g0, 160, 720);
 luna(g0, 1640, 230, 80);
 const ca0 = carretera(g0, { lejos: '#2B1650', cerca: '#170C2C', yuca: '#0A0614', asfalto: '#18171E', tierra: '#0D0A12' });
 function R0(t) {
-  est0(t); moverCarretera(ca0, t, 560, 548, 1.25);
+  est0(t); moverCarretera(ca0, t, 412, 564, .87);
   const enc = pr(t, L0('radio') + .2, .6); css($('radio0'), enc, 0, (1 - eOut(enc)) * -40, lerp(.92, 1, eOut(enc)));
   radioPanel($('radio0'), t, t > LN.radio.inicio - .1 && t < LN.radio.fin + .1);
   const tLl = tw('radio', 'llamando');
@@ -285,7 +305,7 @@ const est2 = estrellas(g2, 120, 700);
 luna(g2, 300, 200, 60);
 const ca2 = carretera(g2, { lejos: '#2E1652', cerca: '#1A0D30', yuca: '#0B0716', asfalto: '#19181F', tierra: '#0F0B14', petalos: true });
 function R2(t) {
-  est2(t); moverCarretera(ca2, t, 700, 560, 1.12, .9);
+  est2(t); moverCarretera(ca2, t, 560, 573, .8, .9);
   const t0 = L0('camino');
   rv($('h2a'), t, t0 + .4, { d: .8 });
   rv($('h2b'), t, tw('camino', 'kilómetro a kilómetro'), { tipo: 'back', s0: .5, dy: 0 });
@@ -597,60 +617,72 @@ function RR(t) {
   rv($('hR'), t, L0('carretera') + .3, { dx: -60, dy: 0 });
 }
 
-// ---------- ESCENA P: autoevaluación pre-viaje ----------
+// ---------- ESCENA P: la importancia del descanso (el 877 duerme en la zona de descanso) ----------
 const gP = $('gP');
-el('rect', { width: 1920, height: 1080, fill: 'url(#gCuarto)' }, gP);
-el('ellipse', { cx: 480, cy: 520, rx: 520, ry: 520, fill: 'url(#gGlowAz)', opacity: .55 }, gP);
-const estP = estrellas(gP, 70, 1080);
-const picP = picado(gP, 6, 30, 1890, .8, 5);
+el('rect', { width: 1920, height: 1080, fill: 'url(#gNoche)' }, gP);
+const estP = estrellas(gP, 150, 760);
+luna(gP, 780, 190, 70);
+el('path', { d: cordillera(720, [[110, 2, .6], [40, 5, 1.9]], 1920), fill: '#2B1650' }, gP);
+el('path', { d: cordillera(800, [[60, 3, 1.2], [25, 7, .4]], 1920), fill: '#170C2C' }, gP);
+el('g', { fill: '#0A0614', stroke: '#0A0614', 'stroke-linecap': 'round' }, gP).innerHTML = [[640, 120], [980, 140], [1240, 100], [1520, 150], [1780, 120]].map(([x, h]) => yuca(x, 842, h, h / 130)).join('');
+el('rect', { x: 0, y: 838, width: 1920, height: 242, fill: '#16151C' }, gP);
+el('rect', { x: 0, y: 838, width: 1920, height: 4, fill: '#fff', opacity: .25 }, gP);
+svgIn(gP, [...Array(9)].map((_, i) => `<path d="M${-40 + i * 250},1080 L${60 + i * 250},880" stroke="#E8E8EE" stroke-width="7" opacity=".5"/>`).join(''));
+// letrero de zona de descanso
+svgIn(gP, `<g transform="translate(110,250)"><rect x="70" y="150" width="14" height="440" fill="#9AA0A8"/><rect x="386" y="150" width="14" height="440" fill="#9AA0A8"/>
+  <rect x="0" y="0" width="476" height="190" rx="18" fill="#0B4FA8" stroke="#fff" stroke-width="6"/>
+  <rect x="26" y="26" width="110" height="138" rx="14" fill="#fff"/><text x="81" y="140" text-anchor="middle" font-family="Anton" font-size="128" fill="#0B4FA8">P</text>
+  <text x="160" y="88" font-family="M" font-weight="900" font-size="46" fill="#fff">ZONA DE</text><text x="160" y="146" font-family="M" font-weight="900" font-size="46" fill="#fff">DESCANSO</text></g>`);
+el('ellipse', { cx: 348, cy: 345, rx: 360, ry: 190, fill: 'url(#gGlowW)', opacity: .25 }, gP);
+const trocaP = troca877(gP);
+const zzP = [0, 1, 2].map(() => { const z = el('text', { 'font-family': 'Kid', 'font-size': 80, fill: '#DCE8FF', 'text-anchor': 'middle', stroke: '#1A1240', 'stroke-width': 3, 'paint-order': 'stroke' }, gP); z.textContent = 'Z'; return z; });
 function RP(t) {
-  const t0 = L0('previaje'); estP(t); picP(t);
-  rv($('celP'), t, t0 + .2, { dy: 120, d: .8 });
-  const ts = [tw('previaje', 'si durmió bien'), tw('previaje', 'cómo se siente'), tw('previaje', 'y si su tráiler')];
-  [...$('celP').querySelectorAll('.item')].forEach((it, i) => {
-    const k = pr(t, ts[i], .35);
-    it.querySelector('.ok').style.opacity = k;
-    it.querySelector('.ok').style.transform = `scale(${Math.max(.01, eBack(k))})`;
-    it.style.background = k > 0 && k < 1 ? '#22325A' : '#18203A';
+  const t0 = L0('descanso'); estP(t);
+  const resp = Math.sin(t * 2.2);
+  trocaP.g.setAttribute('transform', `translate(60,${(864 - 340 * .72 - resp * 1.5).toFixed(1)}) scale(.72,${(.72 * (1 + .006 * resp)).toFixed(4)})`);
+  parpadea(trocaP, t, true);
+  zzP.forEach((z, i) => {
+    const u = ((t - t0) * .42 + i / 3) % 1;
+    z.setAttribute('x', (850 + u * 120 + Math.sin(u * 7 + i) * 16).toFixed(1));
+    z.setAttribute('y', (640 - u * 300).toFixed(1));
+    z.setAttribute('font-size', (40 + u * 70).toFixed(0));
+    op(z, t < t0 ? 0 : Math.sin(u * Math.PI) * .95);
   });
-  const tS = tw('previaje', 'Solo cuando');
-  rv($('selloP'), t, tS, { tipo: 'back', s0: 2.4, dy: 0, d: .5, r: -8 });
-  rv($('hPa'), t, t0 + .4, { dy: 40 });
-  rv($('hPb'), t, tw('previaje', 'hace su autoevaluación'), { tipo: 'back', s0: .6, dy: 0 });
-  rv($('hPc'), t, tS + .2, { dy: 40 });
+  rv($('hPa'), t, t0 + .3, { dy: 40 });
+  rv($('hP1'), t, tw('descanso', 'Dormir'), { dx: 80, dy: 0 });
+  rv($('hP2'), t, tw('descanso', 'hacer pausas'), { dx: 80, dy: 0 });
+  rv($('hP3'), t, tw('descanso', 'y si le da sueño'), { dx: 80, dy: 0 });
+  rv($('hPc'), t, tw('descanso', 'Porque un operador'), { tipo: 'back', s0: .6, dy: 0 });
 }
 
-// ---------- ESCENA Q: rescates carreteros ----------
-svgIn(defs, `<g id="pickup"><ellipse cx="185" cy="252" rx="200" ry="10" fill="#000" opacity=".5"/>
-  <path d="M0,200 L0,128 Q0,118 10,118 L172,118 L172,200 Z" fill="#F4F5F7"/>
-  <path d="M172,200 L172,72 Q174,58 192,58 L268,58 L306,112 L346,120 Q362,124 362,142 L362,200 Z" fill="#F4F5F7"/>
-  <path d="M186,70 L262,70 L292,110 L186,110 Z" fill="#141B28"/><path d="M196,74 L216,74 L200,104 L192,104 Z" fill="#fff" opacity=".15"/>
-  <rect x="0" y="150" width="362" height="16" fill="#FF5A00"/><text x="270" y="190" text-anchor="middle" font-family="Anton" font-size="24" fill="#E6007E" letter-spacing="1">RESCATE</text>
-  <rect x="196" y="46" width="76" height="12" rx="4" fill="#2A2A30"/><rect class="b1" x="198" y="38" width="34" height="12" rx="5" fill="#FF8A00"/><rect class="b2" x="236" y="38" width="34" height="12" rx="5" fill="#FFD200"/>
-  <rect x="350" y="150" width="14" height="18" rx="3" fill="#FFF3C9"/><rect x="0" y="134" width="8" height="18" fill="#E53935"/>
-  <rect x="352" y="186" width="22" height="16" rx="4" fill="url(#gChrome)"/>
-  ${rueda(72)}${rueda(296)}</g>`);
+// ---------- ESCENA Q: rescates carreteros (llega la Unidad de Asistencia Móvil) ----------
 const gQ = $('gQ');
 el('rect', { width: 1920, height: 1080, fill: 'url(#gNoche)' }, gQ);
 const estQ = estrellas(gQ, 120, 700);
-luna(gQ, 1700, 170, 60);
+luna(gQ, 1660, 450, 54);
 const caQ = carretera(gQ, { lejos: '#2B1650', cerca: '#170C2C', yuca: '#0A0614', asfalto: '#18171E', tierra: '#0D0A12' });
-[caQ.troca, caQ.haz, caQ.faro].forEach(e => op(e, 0));
-const parado = svgIn(gQ, '<use href="#trailer"/>'); setT(parado, 1060, 548, 1.25);
-const interm = [[1067, 772], [1847, 778], [1600, 778]].map(([x, y]) => svgIn(gQ, `<circle cx="${x}" cy="${y}" r="46" fill="url(#gGlowY)"/><circle cx="${x}" cy="${y}" r="9" fill="#FFB300"/>`));
-const pick = svgIn(gQ, '<use href="#pickup"/>');
-const torreta = svgIn(gQ, '<circle r="70" fill="url(#gGlowO)"/>');
+[caQ.troca.g, caQ.haz, caQ.faro].forEach(e => op(e, 0));
+const parado = troca877(gQ); setT(parado.g, 70, 862 - 340 * .74, .74);
+const interm = [[14, 236], [1130, 252], [960, 246]].map(([x, y]) => svgIn(gQ, `<circle cx="${70 + x * .74}" cy="${862 - 340 * .74 + y * .74}" r="44" fill="url(#gGlowY)"/><circle cx="${70 + x * .74}" cy="${862 - 340 * .74 + y * .74}" r="8" fill="#FFB300"/>`));
+const hazVan = el('polygon', { points: '0,0 560,-70 560,90', fill: 'url(#gBeam)', opacity: .8 }, gQ);
+const van = vehiculo(gQ, VAN, 'img/van.png');
+const barra = svgIn(van.g, `<rect x="880" y="-6" width="250" height="26" rx="10" fill="#2A2A30"/><rect class="b1" x="886" y="-22" width="116" height="26" rx="12" fill="#FF8A00"/><rect class="b2" x="1008" y="-22" width="116" height="26" rx="12" fill="#FFD200"/>`);
+const torreta = svgIn(gQ, '<circle r="120" fill="url(#gGlowO)"/>');
+const faroVan = el('circle', { r: 46, fill: 'url(#gGlowW)' }, gQ);
 function RQ(t) {
   const t0 = L0('rescate'); estQ(t);
-  moverCarretera(caQ, t, 0, 0, 1, .04);
+  moverCarretera(caQ, t, 0, 0, 1, 0);
   interm.forEach(g => op(g, Math.sin(t * 9) > 0 ? 1 : .15));
-  const k = eOut(pr(t, t0 + .2, 3.2)), x = lerp(-600, 560, k);
-  setT(pick, x, 548 + 250 * 1.25 - 250 * 1.25, 1.25);
-  op(torreta, .5 + .5 * Math.abs(Math.sin(t * 12))); setT(torreta, x + 234 * 1.25, 548 + 44 * 1.25);
+  const S = .4, X0 = 1980, X1 = 1060, k = eOut(pr(t, t0 + .2, 3.4)), x = lerp(X0, X1, k), y = 935 - 752 * S;
+  const bote = k < 1 ? Math.sin(t * 15) * 1.6 * (1 - k) : 0;
+  setT(van.g, x, y + bote, S);
+  girar(van, (x - X0) / (VAN.r * S) * 57.3 * .5);
   const on = Math.sin(t * 14) > 0;
-  pick.querySelector('use') && null;
-  document.querySelectorAll('#pickup .b1').forEach(e => e.setAttribute('fill', on ? '#FF8A00' : '#5A3000'));
-  document.querySelectorAll('#pickup .b2').forEach(e => e.setAttribute('fill', on ? '#5A4A00' : '#FFD200'));
+  barra.querySelector('.b1').setAttribute('fill', on ? '#FF8A00' : '#5A3000');
+  barra.querySelector('.b2').setAttribute('fill', on ? '#5A4A00' : '#FFD200');
+  op(torreta, .55 + .45 * Math.abs(Math.sin(t * 12))); setT(torreta, x + 1005 * S, y - 4 * S + bote);
+  const fx = x + VAN.faro[0] * S, fy = y + VAN.faro[1] * S + bote;
+  setT(faroVan, fx, fy); setT(hazVan, fx, fy, -1, 0, 1);
   rv($('hQa'), t, tw('rescate', 'Rescates Carreteros'), { dx: -60, dy: 0 });
   rv($('hQb'), t, tw('rescate', 'nadie se queda'), { tipo: 'back', s0: .6, dy: 0 });
 }
@@ -711,17 +743,45 @@ const casaF = casa(gF, 1430, 440, true);
 casaF.g.querySelector('.ninoV').style.display = 'none';
 casaF.g.querySelector('.puertaLuz').setAttribute('opacity', '.95');
 const mamaF = svgIn(casaF.g, '<g transform="translate(175,440) scale(.72)"><use href="#adulto" fill="#3A2240"/><path d="M-26,-272 Q-40,-230 -30,-200 L-20,-230 Z M26,-272 Q40,-230 30,-200 L20,-230 Z" fill="#3A2240"/></g>');
-const trocaF = svgIn(gF, '<use href="#trailer"/>'); setT(trocaF, -180, 615, 1.15);
-el('polygon', { points: '545,800 1000,740 1000,880', fill: 'url(#gBeam)', opacity: .5 }, gF);
-el('circle', { cx: 545, cy: 798, r: 46, fill: 'url(#gGlowW)' }, gF);
+const trocaF = troca877(gF); setT(trocaF.g, -560, 900 - 340 * .9, .9);
+el('polygon', { points: '472,819 940,760 940,900', fill: 'url(#gBeam)', opacity: .5 }, gF);
+el('circle', { cx: 472, cy: 819, r: 46, fill: 'url(#gGlowW)' }, gF);
 const halo = el('ellipse', { cx: 980, cy: 760, rx: 300, ry: 220, fill: 'url(#gGlowY)', opacity: 0 }, gF);
 const papa = svgIn(gF, '<use href="#papaCuerpo"/>'); setT(papa, 900, 945, 1);
 const nino = svgIn(gF, '<use href="#ninoCorre"/>'), nina = svgIn(gF, '<use href="#ninaCorre"/>');
 const brazosP = svgIn(gF, `<g transform="translate(-64,-310)">${brazoPapa('I')}</g><g transform="translate(64,-310)">${brazoPapa('D')}</g>`); setT(brazosP, 900, 945, 1);
 const corF = [...Array(7)].map(() => svgIn(gF, '<path d="M0,-10 c0,-14 20,-18 22,-4 c2,-14 22,-10 22,4 c0,14 -22,28 -22,28 c0,0 -22,-14 -22,-28 Z" fill="#FF2D55"/>'));
 function pose(g, sel, ang) { g.querySelectorAll(sel).forEach(e => e.setAttribute('transform', `rotate(${ang.toFixed(1)})`)); }
+// con la ilustración estilo Pixar (img/pixar.jpg, definida en pixar.js) la escena usa la imagen completa
+const FOTO_F = typeof PIXAR !== 'undefined';
+const gF2 = $('gF2');
+const petalosF = [...Array(34)].map(() => [svgIn(gF2, `<ellipse rx="${(7 + rnd() * 6).toFixed(1)}" ry="${(4 + rnd() * 3).toFixed(1)}" fill="${rnd() > .5 ? '#FF9800' : '#FFB300'}"/>`), rnd() * 1920, rnd(), .5 + rnd(), rnd() * 6]);
+const corF2 = [...Array(9)].map(() => svgIn(gF2, '<path d="M0,-10 c0,-14 20,-18 22,-4 c2,-14 22,-10 22,4 c0,14 -22,28 -22,28 c0,0 -22,-14 -22,-28 Z" fill="#FF2D55"/>'));
+if (FOTO_F) {
+  $('gF').style.display = 'none'; $('imgF').style.display = 'block'; $('veloF').style.display = 'block';
+  // en la ilustración las caras quedan al centro: frase arriba (cielo) y remate abajo
+  Object.assign($('hFa').style, { top: '34px', fontSize: '84px' }); Object.assign($('hFb').style, { top: '124px', fontSize: '98px' });
+  Object.assign($('hFc').style, { top: '922px', fontSize: '46px' }); Object.assign($('hFd').style, { top: '996px', fontSize: '24px' });
+} else $('gF2').style.display = 'none';
+function RFfoto(t) {
+  const t0 = L0('final'), u = pr(t, t0 - .6, TL.total - t0 + .6);
+  setImg($('imgF'), PIXAR);
+  $('imgF').style.transform = `scale(${lerp(1.0, 1.06, eIO(u)).toFixed(4)}) translate(${lerp(0, -1.2, eIO(u)).toFixed(3)}%,${lerp(0, 1.4, eIO(u)).toFixed(3)}%)`;
+  petalosF.forEach(([p, x, f, v, ph]) => {
+    const y = ((t - t0) * 60 * v + f * 1180) % 1180 - 60;
+    setT(p, x + Math.sin(t * .9 + ph) * 50, y, 1, (t * 70 * v + ph * 60) % 360);
+    op(p, .75);
+  });
+  corF2.forEach((c, i) => { const k = pr(t, t0 + 2.6 + i * .6, 3.0); op(c, k > 0 && k < 1 ? Math.sin(k * Math.PI) * .85 : 0); setT(c, (i % 2 ? 1235 : 655) + Math.sin(i * 2.3 + t * 1.3) * 34, 610 - k * 300, .6 + (i % 3) * .15); });
+  rv($('hFa'), t, tw('final', 'el viaje más importante'), { d: 1.0, dy: 30 });
+  rv($('hFb'), t, tw('final', 'es el regreso'), { d: 1.0, dy: 30 });
+  rv($('hFc'), t, tw('final', 'donde pueden'), { d: 1.0, dy: 20 });
+  rv($('hFd'), t, LN.final.fin + 1.0, { d: 1.0, dy: 10 });
+  op($('negro'), pr(t, TL.total - 1.4, 1.4));
+}
 function RF(t) {
-  const t0 = L0('final'); estF(t); parpadeo(t);
+  if (FOTO_F) return RFfoto(t);
+  const t0 = L0('final'); estF(t); parpadeo(t); parpadea(trocaF, t);
   const tLlega = t0 + 3.6, kAb = pr(t, tLlega - .2, .8);
   [['nino', nino, 1640, 975, 0], ['nina', nina, 1720, 1045, .35]].forEach(([n, g, x0, x1, dl]) => {
     const k = pr(t, t0 + .6 + dl, tLlega - (t0 + .6 + dl)), corre = k > 0 && k < 1;
@@ -752,7 +812,7 @@ const SUBS = [];
 TL.lineas.forEach(l => l.frases.forEach(f => {
   const partes = (f.texto.match(/[^,;]+[,;]?/g) || [f.texto]).map(s => s.trim()).filter(Boolean);
   const trozos = []; let cur = '';
-  partes.forEach(p => { if (cur && (cur + ' ' + p).length > 58) { trozos.push(cur); cur = p; } else cur = cur ? cur + ' ' + p : p; });
+  partes.forEach(p => { if (cur && (cur + ' ' + p).length > 52) { trozos.push(cur); cur = p; } else cur = cur ? cur + ' ' + p : p; });
   if (cur) trozos.push(cur);
   let acc = 0; const L = f.texto.length;
   trozos.forEach((c, k) => {
@@ -771,7 +831,7 @@ function subtitulos(t) {
 }
 
 // ---------- control de escenas ----------
-const ESC = ['bienvenida', 'carretera', 'radio', 'espera', 'camino', 'equipo', 'previaje', 'alertas', 'cabina', 'rescate', 'mensaje', 'mini', 'razon', 'cierre', 'despedida', 'cambio', 'final'];
+const ESC = ['bienvenida', 'carretera', 'radio', 'espera', 'camino', 'equipo', 'descanso', 'alertas', 'cabina', 'rescate', 'mensaje', 'mini', 'razon', 'cierre', 'despedida', 'cambio', 'final'];
 const IDS = ['sB', 'sR', 's0', 's1', 's2', 's3', 'sP', 's4', 's5', 'sQ', 's6', 's7', 's8', 's10', 'sD', 's11', 'sF'];
 const R = [RB, RR, R0, R1, R2, R3, RP, R4, R5, RQ, R6, R7, R8, R10, RD, R11, RF];
 const LIM = ESC.map((e, i) => i === 0 ? 0 : e === 'carretera' ? LN.bienvenida.fin + .55 : LN[e].inicio - .4); LIM.push(TL.total + 1);
@@ -788,7 +848,7 @@ window.render = function (t) {
     R[i](t);
   });
   const rot = (t * 520) % 360;
-  document.querySelectorAll('#trailer .rim, #pickup .rim').forEach(e => e.setAttribute('transform', `rotate(${rot})`));
+  document.querySelectorAll('#trailer .rim').forEach(e => e.setAttribute('transform', `rotate(${rot})`));
   subtitulos(t);
 };
 window.renderAsync = async function (t) { window.render(t); const p = PEND.splice(0); await Promise.all(p); };

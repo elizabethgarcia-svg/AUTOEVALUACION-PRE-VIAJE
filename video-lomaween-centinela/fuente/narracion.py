@@ -16,7 +16,7 @@ LINEAS = [
     ("espera",  "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.", 1.5, None),
     ("camino",  "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.", 1.3, None),
     ("equipo",  "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.", 1.2, None),
-    ("previaje", "Antes de cada viaje, cada operador hace su autoevaluación desde su celular: si durmió bien, cómo se siente, y si su tráiler está listo. Solo cuando todo está en orden, sale a la carretera.", 1.2, None),
+    ("descanso", "Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro.", 1.2, None),
     ("alertas", "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.", 1.0, None),
     ("cabina",  "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.", 1.3, None),
     ("rescate", "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera.", 1.3, None),
