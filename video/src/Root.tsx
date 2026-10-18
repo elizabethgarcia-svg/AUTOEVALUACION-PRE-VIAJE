@@ -1,5 +1,10 @@
 import { Composition, Folder } from "remotion";
 import { HelloWorld } from "./HelloWorld";
+import {
+  duracionMuestra,
+  esquemaMuestra,
+  MuestraHerramientas,
+} from "./HalloweenKit/MuestraHerramientas";
 import { Logo } from "./HelloWorld/Logo";
 import { Title } from "./HelloWorld/Title";
 
@@ -8,6 +13,19 @@ import { Title } from "./HelloWorld/Title";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Folder name="Halloween-Centinela">
+        <Composition
+          // npx remotion render Muestra-Herramientas
+          id="Muestra-Herramientas"
+          component={MuestraHerramientas}
+          schema={esquemaMuestra}
+          durationInFrames={duracionMuestra(30)}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{ subtitulos: true }}
+        />
+      </Folder>
       <Folder name="Elements">
         <Composition
           id="Logo"

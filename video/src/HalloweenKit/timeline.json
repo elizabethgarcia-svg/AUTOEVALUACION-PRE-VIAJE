@@ -1,0 +1,187 @@
+{
+ "total": 65.558,
+ "lineas": [
+  {
+   "escena": "radio",
+   "inicio": 1.6,
+   "fin": 7.699,
+   "texto": "¡Atención, atención! Aquí Base Centinela, llamando a todos los diez veintiocho. ¿Me copian?",
+   "frases": [
+    {
+     "texto": "¡Atención, atención!",
+     "inicio": 1.6,
+     "fin": 2.993
+    },
+    {
+     "texto": "Aquí Base Centinela, llamando a todos los diez veintiocho.",
+     "inicio": 3.313,
+     "fin": 6.627
+    },
+    {
+     "texto": "¿Me copian?",
+     "inicio": 6.947,
+     "fin": 7.699
+    }
+   ]
+  },
+  {
+   "escena": "dona",
+   "inicio": 8.599,
+   "fin": 15.745,
+   "texto": "Esta temporada de Jálouin y Día de Muertos, les dejé algo dulce: una dona para cada uno. ¡Disfrútenla, se la ganaron!",
+   "frases": [
+    {
+     "texto": "Esta temporada de Jálouin y Día de Muertos, les dejé algo dulce:",
+     "inicio": 8.599,
+     "fin": 12.133
+    },
+    {
+     "texto": "una dona para cada uno.",
+     "inicio": 12.293,
+     "fin": 13.856
+    },
+    {
+     "texto": "¡Disfrútenla, se la ganaron!",
+     "inicio": 14.176,
+     "fin": 15.745
+    }
+   ]
+  },
+  {
+   "escena": "cero",
+   "inicio": 16.345,
+   "fin": 22.975,
+   "texto": "Pero fíjense bien: una dona tiene forma de cero. Y ese es nuestro número este mes: ¡cero siniestros!",
+   "frases": [
+    {
+     "texto": "Pero fíjense bien:",
+     "inicio": 16.345,
+     "fin": 17.521
+    },
+    {
+     "texto": "una dona tiene forma de cero.",
+     "inicio": 17.681,
+     "fin": 19.493
+    },
+    {
+     "texto": "Y ese es nuestro número este mes:",
+     "inicio": 19.813,
+     "fin": 21.776
+    },
+    {
+     "texto": "¡cero siniestros!",
+     "inicio": 21.936,
+     "fin": 22.975
+    }
+   ]
+  },
+  {
+   "escena": "altar",
+   "inicio": 23.675,
+   "fin": 31.361,
+   "texto": "Este octubre vamos por dos victorias: ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
+   "frases": [
+    {
+     "texto": "Este octubre vamos por dos victorias:",
+     "inicio": 23.675,
+     "fin": 25.817
+    },
+    {
+     "texto": "ganar el concurso de decoración de oficinas de Grupo Loma, ¡y cerrar el mes sin un solo siniestro!",
+     "inicio": 25.977,
+     "fin": 31.361
+    }
+   ]
+  },
+  {
+   "escena": "cabina",
+   "inicio": 31.961,
+   "fin": 39.919,
+   "texto": "Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un diez veintiocho que regresa a casa con su familia.",
+   "frases": [
+    {
+     "texto": "Cada alerta atendida a tiempo, cada llamada al operador, cada descanso respetado, es un diez veintiocho que regresa a casa con su familia.",
+     "inicio": 31.961,
+     "fin": 39.919
+    }
+   ]
+  },
+  {
+   "escena": "sustos",
+   "inicio": 40.519,
+   "fin": 49.181,
+   "texto": "En la carretera, los únicos sustos permitidos son los de Jálouin. Trabajemos con apego a la seguridad vial: prevención, protocolo y cero excesos.",
+   "frases": [
+    {
+     "texto": "En la carretera, los únicos sustos permitidos son los de Jálouin.",
+     "inicio": 40.519,
+     "fin": 43.998
+    },
+    {
+     "texto": "Trabajemos con apego a la seguridad vial:",
+     "inicio": 44.318,
+     "fin": 46.712
+    },
+    {
+     "texto": "prevención, protocolo y cero excesos.",
+     "inicio": 46.872,
+     "fin": 49.181
+    }
+   ]
+  },
+  {
+   "escena": "lema",
+   "inicio": 49.881,
+   "fin": 56.911,
+   "texto": "Porque un Centinela nunca descansa: siempre vigila, siempre protege. Desde la cabina, protegemos cada kilómetro.",
+   "frases": [
+    {
+     "texto": "Porque un Centinela nunca descansa:",
+     "inicio": 49.881,
+     "fin": 52.095
+    },
+    {
+     "texto": "siempre vigila, siempre protege.",
+     "inicio": 52.255,
+     "fin": 54.127
+    },
+    {
+     "texto": "Desde la cabina, protegemos cada kilómetro.",
+     "inicio": 54.447,
+     "fin": 56.911
+    }
+   ]
+  },
+  {
+   "escena": "final",
+   "inicio": 57.511,
+   "fin": 60.925,
+   "texto": "¡Vamos, equipo Centinela! ¡Este octubre, triunfamos!",
+   "frases": [
+    {
+     "texto": "¡Vamos, equipo Centinela!",
+     "inicio": 57.511,
+     "fin": 59.078
+    },
+    {
+     "texto": "¡Este octubre, triunfamos!",
+     "inicio": 59.398,
+     "fin": 60.925
+    }
+   ]
+  },
+  {
+   "escena": "cambio",
+   "inicio": 61.375,
+   "fin": 62.358,
+   "texto": "Cambio y fuera.",
+   "frases": [
+    {
+     "texto": "Cambio y fuera.",
+     "inicio": 61.375,
+     "fin": 62.358
+    }
+   ]
+  }
+ ]
+}
