@@ -535,7 +535,7 @@ function R10(t) {
   setT(logo10, 520, 470, 1.25 * (1 + .015 * Math.sin(t * 2.5)));
   ondas10.forEach((o, i) => { const k = ((t - t0 - 1.4) * .7 + i / 3) % 1; if (t - t0 < 1.4) { op(o, 0); return; } o.setAttribute('d', arco(520 + 45, 470 - 50, 100 + k * 330, -95, 5)); op(o, (1 - k) * .85); });
   rv($('h10a'), t, LN.cierre.inicio - .1, { dx: 60, dy: 0 });
-  rv($('h10b'), t, tw('cierre', 'y cuidamos'), { dx: 60, dy: 0 });
+  rv($('h10b'), t, tw('cierre', 'y cuidemos'), { dx: 60, dy: 0 });
   rv($('h10c'), t, tw('cierre', 'Desde la cabina'), { dy: 40, d: .7 });
 }
 
