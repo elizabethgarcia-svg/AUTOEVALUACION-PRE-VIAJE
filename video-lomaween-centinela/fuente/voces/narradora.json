@@ -255,58 +255,68 @@
  },
  "10": {
   "archivo": "frase_10.wav",
-  "dur": 22.08,
-  "picos_reparados": 69,
+  "dur": 26.7,
+  "picos_reparados": 48,
   "frases": [
    {
-    "texto": "Pero el cuidado más importante",
+    "texto": "Pero el cuidado más importante empieza",
     "inicio": 0.06,
-    "fin": 2.37
+    "fin": 3.04
    },
    {
-    "texto": "empieza en casa.",
-    "inicio": 2.87,
-    "fin": 3.79
+    "texto": "en casa.",
+    "inicio": 3.89,
+    "fin": 4.82
    },
    {
     "texto": "Por eso hoy",
-    "inicio": 4.68,
-    "fin": 5.44
+    "inicio": 5.98,
+    "fin": 6.66
    },
    {
-    "texto": "te pedimos algo",
-    "inicio": 6.14,
-    "fin": 7.16
+    "texto": "te pedimos",
+    "inicio": 7.62,
+    "fin": 8.38
    },
    {
-    "texto": "muy especial:",
-    "inicio": 8.02,
-    "fin": 9.15
+    "texto": "algo muy especial:",
+    "inicio": 8.75,
+    "fin": 10.4
    },
    {
-    "texto": "cuando abraces a papá o a mamá,",
-    "inicio": 10.06,
-    "fin": 11.21
+    "texto": "cuando abraces a papá",
+    "inicio": 11.56,
+    "fin": 13.38
+   },
+   {
+    "texto": "o a mamá,",
+    "inicio": 13.78,
+    "fin": 14.32
    },
    {
     "texto": "recuérdale tres cosas.",
-    "inicio": 13.26,
-    "fin": 14.99
+    "inicio": 16.5,
+    "fin": 17.51
    },
    {
     "texto": "Maneja con calma.",
-    "inicio": 15.83,
-    "fin": 16.83
+    "inicio": 18.67,
+    "fin": 19.96
    },
    {
     "texto": "Descansa cuando tengas sueño.",
-    "inicio": 17.98,
-    "fin": 19.92
+    "inicio": 20.92,
+    "fin": 23.35
    },
    {
-    "texto": "Y el celular, guardado.",
-    "inicio": 20.63,
-    "fin": 21.98
+    "texto": "Y el celular,",
+    "inicio": 24.31,
+    "fin": 25.06
+   },
+   {
+    "texto": "guárdalo.",
+    "inicio": 25.95,
+    "fin": 26.6
    }
   ]
  },
@@ -339,82 +349,107 @@
  },
  "12": {
   "archivo": "frase_12.wav",
-  "dur": 5.6,
+  "dur": 6.07,
   "picos_reparados": 0,
   "frases": [
    {
     "texto": "Y dile",
     "inicio": 0.06,
-    "fin": 0.74
+    "fin": 0.71
    },
    {
-    "texto": "que tú eres su razón más grande",
-    "inicio": 1.46,
-    "fin": 4.2
+    "texto": "que tú eres",
+    "inicio": 1.5,
+    "fin": 2.5
+   },
+   {
+    "texto": "su razón más grande",
+    "inicio": 2.86,
+    "fin": 4.75
    },
    {
     "texto": "para regresar.",
-    "inicio": 4.75,
-    "fin": 5.5
+    "inicio": 5.09,
+    "fin": 5.97
    }
   ]
  },
  "13": {
   "archivo": "frase_13.wav",
-  "dur": 11.29,
-  "picos_reparados": 0,
+  "dur": 15.07,
+  "picos_reparados": 44,
   "frases": [
    {
-    "texto": "Recordemos a quienes se fueron,",
+    "texto": "Recordemos a quienes",
     "inicio": 0.06,
-    "fin": 1.99
+    "fin": 1.04
    },
    {
-    "texto": "y cuidemos a quienes regresan.",
-    "inicio": 2.5,
-    "fin": 4.3
+    "texto": "se fueron,",
+    "inicio": 1.46,
+    "fin": 2.47
    },
    {
-    "texto": "Desde la cabina, protegemos cada kilómetro,",
-    "inicio": 4.97,
-    "fin": 7.4
+    "texto": "y cuidemos a quienes",
+    "inicio": 3.43,
+    "fin": 4.36
+   },
+   {
+    "texto": "regresan.",
+    "inicio": 4.78,
+    "fin": 5.82
+   },
+   {
+    "texto": "Desde la cabina,",
+    "inicio": 6.66,
+    "fin": 7.54
+   },
+   {
+    "texto": "protegemos cada kilómetro,",
+    "inicio": 9.1,
+    "fin": 10.24
    },
    {
     "texto": "para que cada noche,",
-    "inicio": 8.17,
-    "fin": 9.24
+    "inicio": 11.18,
+    "fin": 12.2
    },
    {
     "texto": "la familia esté completa.",
-    "inicio": 9.72,
-    "fin": 11.19
+    "inicio": 12.79,
+    "fin": 14.97
    }
   ]
  },
  "16": {
   "archivo": "frase_16.wav",
-  "dur": 9.77,
-  "picos_reparados": 30,
+  "dur": 12.65,
+  "picos_reparados": 61,
   "frases": [
    {
     "texto": "Porque el viaje más importante",
     "inicio": 0.06,
-    "fin": 2.01
+    "fin": 2.56
    },
    {
     "texto": "es el regreso a casa,",
-    "inicio": 3.0,
-    "fin": 4.23
+    "inicio": 3.65,
+    "fin": 5.0
    },
    {
-    "texto": "donde pueden sentir el calor",
-    "inicio": 5.48,
-    "fin": 7.06
+    "texto": "donde pueden sentir el calor de quienes",
+    "inicio": 6.43,
+    "fin": 8.64
    },
    {
-    "texto": "de quienes más los necesitan.",
-    "inicio": 7.46,
-    "fin": 9.67
+    "texto": "más",
+    "inicio": 9.6,
+    "fin": 10.66
+   },
+   {
+    "texto": "los necesitan.",
+    "inicio": 11.28,
+    "fin": 12.55
    }
   ]
  }

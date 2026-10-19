@@ -4,8 +4,8 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 | Archivo | Uso | Formato |
 |---|---|---|
-| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:53 · 84 MB |
-| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:53 · 15 MB |
+| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 4:04 · 84 MB |
+| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 4:04 · 15 MB |
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
 
@@ -23,13 +23,13 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 | 1:39 | Command Center con 3 alertas, tomas reales de fondo | Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular. |
 | 1:51 | Videollamada: Centinela de Seguridad ↔ operador de la unidad 877 | Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo. |
 | 2:03 | La Unidad de Asistencia Móvil (propuesta de camioneta del equipo) llega con torreta al 877 detenido con intermitentes | Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera. |
-| 2:18 | Pizarrón con las 3 notas | Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guardado. |
-| 2:41 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
-| 2:53 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
-| 3:00 | Logo Centinela con veladoras LED | Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa. |
-| 3:13 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
-| 3:25 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
-| 3:33 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
+| 2:18 | Pizarrón con las 3 notas | Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo. |
+| 2:46 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
+| 2:58 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
+| 3:05 | Logo Centinela con veladoras LED | Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa. |
+| 3:22 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
+| 3:34 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
+| 3:43 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
 
 ## Notas de producción
 
@@ -37,7 +37,7 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 - **Tomas reales:** salen de la grabación del video "Proyecto Centinela", recortadas para quitar el bisel del monitor y la barra de Windows (`fuente/extraer_tomas.py`).
 - **Descanso en lugar de autoevaluación:** la escena de la Autoevaluación Pre-Viaje se cambió por la importancia de descansar, porque la autoevaluación todavía no se usa.
 - **Ilustración final:** estilo Pixar, generada con IA en Canva a partir de la idea que compartió el equipo (niños corriendo a abrazar a su papá). No usa la imagen de referencia, que es de otro creador y trae su marca de agua. En el video tiene un acercamiento lento, pétalos de cempasúchil y corazones.
-- **Voces:** la Narradora es una voz real del equipo de la cabina, grabada en notas de voz de WhatsApp. Se eligió la mejor toma de cada frase, se quitó el "Frase N" del inicio, se repararon los picos saturados y se emparejó el volumen (`fuente/voces_preparar.py`; las frases ya procesadas están en `fuente/voces/`). El 877 (`em_santa`) y Base Centinela (`em_alex`, con filtro de radio) siguen con voz sintetizada en español latino (Kokoro TTS).
+- **Voces:** la Narradora es una voz real del equipo de la cabina, grabada en notas de voz de WhatsApp. Se eligió la mejor toma de cada frase (en las frases 10 y 16 se unieron dos tomas en una pausa), se quitó el "Frase N" del inicio, se repararon los picos saturados y se emparejó el volumen (`fuente/voces_preparar.py`; las frases ya procesadas están en `fuente/voces/`). El 877 (`em_santa`) y Base Centinela (`em_alex`, con filtro de radio) siguen con voz sintetizada en español latino (Kokoro TTS).
 - **Música y efectos:** composición original generada por código, libre de derechos. Piano, guitarra, caja de música y cuerdas; radio, grillos, alertas, timbre de llamada y claxon.
 - **Tipografías:** Anton, Montserrat, Gochi Hand, Patrick Hand y Playfair Display (SIL Open Font License).
 

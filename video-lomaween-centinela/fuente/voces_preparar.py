@@ -8,11 +8,13 @@ from scipy.signal import butter, sosfiltfilt, resample_poly
 import sys
 UP, M, SAL = sys.argv[1], sys.argv[2], sys.argv[3]
 SR0, SR = 48000, 24000
-# frase -> (nota de voz, inicio, fin de la toma en s, pausa interna máxima)
-TOMAS = {3: ('11.45.40_PM', 4.44, 16.72, 1.0), 4: ('11.38.25_PM', 2.78, 15.46, 1.0), 5: ('11.47.21_PM', 4.18, 24.30, 1.0),
-         6: ('11.48.58_PM', 5.00, 24.18, 1.0), 7: ('11.40.12_PM', 3.06, 13.66, 1.0), 8: ('11.40.33_PM', 4.46, 15.96, 1.0),
-         9: ('11.41.24_PM', 3.96, 16.66, 1.0), 10: ('11.42.02_PM', 4.10, 26.04, 1.0), 11: ('11.43.04_PM', 12.40, 22.74, 1.0),
-         12: ('11.43.27_PM', 4.88, 10.32, 1.3), 13: ('11.50.22_PM', 4.46, 15.58, 1.0), 16: ('11.51.41_PM', 6.18, 15.78, 1.3)}
+# frase -> ([(nota de voz, inicio, fin de la toma en s), ...], pausa interna máxima). Varias piezas = tomas unidas en una pausa.
+TOMAS = {3: ([('11.45.40_PM', 4.44, 16.72)], 1.0), 4: ([('11.38.25_PM', 2.78, 15.46)], 1.0), 5: ([('11.47.21_PM', 4.18, 24.30)], 1.0),
+         6: ([('11.48.58_PM', 5.00, 24.18)], 1.0), 7: ([('11.40.12_PM', 3.06, 13.66)], 1.0), 8: ([('11.40.33_PM', 4.46, 15.96)], 1.0),
+         9: ([('11.41.24_PM', 3.96, 16.66)], 1.0),
+         10: ([('8.00.00_AM', 7.44, 28.06), ('8.01.01_AM', 25.08, 27.50), ('8.00.00_AM', 31.86, 34.14)], 1.0),  # "tengas sueño" de la 2.ª toma
+         11: ([('11.43.04_PM', 12.40, 22.74)], 1.0), 12: ([('7.57.12_AM', 6.48, 12.38)], 1.3), 13: ([('7.58.35_AM', 4.28, 19.20)], 1.0),
+         16: ([('7.56.04_AM', 6.50, 15.06), ('7.55.31_AM', 15.60, 18.52)], 1.3)}  # final "los necesitan" de la 2.ª toma
 GUION = {3: "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
   4: "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
   5: "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.",
@@ -20,7 +22,7 @@ GUION = {3: "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alg
   7: "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular.",
   8: "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.",
   9: "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera.",
-  10: "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guardado.",
+  10: "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo.",
   11: "Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa.",
   12: "Y dile que tú eres su razón más grande para regresar.",
   13: "Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
@@ -75,25 +77,29 @@ def norm(w):  # minúsculas, sin acentos y con equivalencias de sonido (seseo, b
 
 hp = butter(2, 75, 'highpass', fs=SR0, output='sos'); lp = butter(6, 11000, 'lowpass', fs=SR0, output='sos')
 salida = {}
-for n, (hora, a, b, pmax) in TOMAS.items():
-    f = glob.glob(f'{UP}/*{hora}.ogg')[0]
-    x = decodificar(f)
-    x = x[int((a - .2) * SR0): int((b + .3) * SR0)]
-    x, npicos = reparar_picos(x)
-    x = sosfiltfilt(lp, sosfiltfilt(hp, x))
-    segs = tramos(x, SR0)
-    # quitar ruidos antes/después de la frase y acotar pausas internas
-    piezas, t, nuevos = [], 0.0, []
-    for i, (s0, s1) in enumerate(segs):
-        s0p, s1p = max(0, s0 - .06), min(len(x) / SR0, s1 + .10)
-        if i > 0:
-            gap = s0p - prev_fin
-            p = min(gap, pmax) if gap > 0 else 0
-            piezas.append(np.zeros(int(p * SR0))); t += p
-        seg = x[int(s0p * SR0): int(s1p * SR0)].copy()
-        fade = int(.008 * SR0); seg[:fade] *= np.linspace(0, 1, fade); seg[-fade:] *= np.linspace(1, 0, fade)
-        nuevos.append([t + (s0 - s0p), t + (s0 - s0p) + (s1 - s0)])
-        piezas.append(seg); t += len(seg) / SR0; prev_fin = s1p
+def voz_rms(x):
+    hop = int(.02 * SR0); fr = np.array([np.sqrt(np.mean(x[i*hop:(i+1)*hop]**2)) for i in range(len(x)//hop)])
+    return np.sqrt(np.mean(fr[fr > np.max(fr) * .1] ** 2))
+for n, (lista, pmax) in TOMAS.items():
+    piezas, t, nuevos, npicos = [], 0.0, [], 0
+    for j, (hora, a, b) in enumerate(lista):
+        x = decodificar(glob.glob(f'{UP}/*{hora}.ogg')[0])
+        x = x[int((a - .2) * SR0): int((b + .3) * SR0)]
+        x, k = reparar_picos(x); npicos += k
+        x = sosfiltfilt(lp, sosfiltfilt(hp, x))
+        x = x * (0.1 / voz_rms(x))  # piezas de tomas distintas al mismo nivel antes de unirlas
+        segs = tramos(x, SR0)
+        # quitar ruidos antes/después de la frase y acotar pausas internas
+        for i, (s0, s1) in enumerate(segs):
+            s0p, s1p = max(0, s0 - .06), min(len(x) / SR0, s1 + .10)
+            if i > 0 or j > 0:
+                p = min(s0p - prev_fin, pmax) if i > 0 else min(.8, pmax)
+                p = max(p, 0)
+                piezas.append(np.zeros(int(p * SR0))); t += p
+            seg = x[int(s0p * SR0): int(s1p * SR0)].copy()
+            fade = int(.008 * SR0); seg[:fade] *= np.linspace(0, 1, fade); seg[-fade:] *= np.linspace(1, 0, fade)
+            nuevos.append([t + (s0 - s0p), t + (s0 - s0p) + (s1 - s0)])
+            piezas.append(seg); t += len(seg) / SR0; prev_fin = s1p
     y = np.concatenate(piezas)
     y = comprimir(y, SR0)
     y = resample_poly(y, SR, SR0)
