@@ -1,5 +1,5 @@
 # Voz del video "La entrega más importante" (Kokoro TTS, español latino) + línea de tiempo por frase.
-import json, re, sys, numpy as np, soundfile as sf
+import json, os, re, sys, numpy as np, soundfile as sf
 from kokoro_onnx import Kokoro
 
 V, OUT = sys.argv[1], sys.argv[2]
@@ -17,17 +17,21 @@ LINEAS = [
     ("camino",  "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.", 1.3, None),
     ("equipo",  "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.", 1.2, None),
     ("descanso", "Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro.", 1.2, None),
-    ("alertas", "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, si el operador tiene sueño, o si se distrae con el celular.", 1.0, None),
+    ("alertas", "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular.", 1.0, None),
     ("cabina",  "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.", 1.3, None),
     ("rescate", "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera.", 1.3, None),
     ("mensaje", "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guardado.", 1.2, None),
     ("mini",    "Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa.", 1.2, None),
     ("razon",   "Y dile que tú eres su razón más grande para regresar.", 1.6, None),
-    ("cierre",  "Recordamos a quienes se fueron, y cuidamos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.", 1.6, None),
+    ("cierre",  "Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.", 1.6, None),
     ("despedida", "¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera!", 2.2, TROCA),
     ("cambio",  "Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera.", 2.0, RADIO),
     ("final",   "Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.", 0.0, None),
 ]
+
+# Grabaciones reales de la Narradora (voces/frase_NN.wav, preparadas con voces_preparar.py): reemplazan a la voz sintética
+GRAB = json.load(open(OUT + "/voces/narradora.json")) if os.path.exists(OUT + "/voces/narradora.json") else {}
+FRASE = {"espera": 3, "camino": 4, "equipo": 5, "descanso": 6, "alertas": 7, "cabina": 8, "rescate": 9, "mensaje": 10, "mini": 11, "razon": 12, "cierre": 13, "final": 16}
 
 def efecto_radio(x):
     X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR)
@@ -40,6 +44,14 @@ INICIO, COLA = 1.6, 9.0
 k = Kokoro(V + "/kokoro-v1.0.onnx", V + "/voices-v1.0.bin")
 partes, tl, t = [np.zeros(int(INICIO * SR))], [], INICIO
 for escena, texto, pausa, voz_l in LINEAS:
+    g = GRAB.get(str(FRASE.get(escena))) if voz_l is None else None
+    if g:
+        s, sr = sf.read(OUT + "/voces/" + g["archivo"], dtype="float32"); assert sr == SR
+        segs = [{"texto": f["texto"], "inicio": round(t + f["inicio"], 3), "fin": round(t + f["fin"], 3)} for f in g["frases"]]
+        partes.append(s); ini = t; t += len(s) / SR
+        tl.append({"escena": escena, "inicio": round(ini, 3), "fin": round(t, 3), "texto": texto, "frases": segs, "voz": "narradora", "grabada": True})
+        partes.append(np.zeros(int(pausa * SR))); t += pausa
+        continue
     frases = [f.strip() for f in re.findall(r"[^.!?:]+[.!?:]+", texto)]
     ini, segs = t, []
     for j, frase in enumerate(frases):

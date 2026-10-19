@@ -172,6 +172,12 @@ def al_decir(esc, frag):  # instante aproximado en que la voz dice "frag"
         for f in l["frases"]:
             i = f["texto"].find(frag)
             if i >= 0: return f["inicio"] + (f["fin"] - f["inicio"]) * i / len(f["texto"])
+        todo, marcas = "", []  # la frase puede quedar repartida entre dos tramos de una grabación
+        for f in l["frases"]: marcas.append((len(todo), f)); todo += f["texto"] + " "
+        i = todo.find(frag)
+        if i >= 0:
+            c0, f = [m for m in marcas if m[0] <= i][-1]
+            return f["inicio"] + (f["fin"] - f["inicio"]) * min(1, (i - c0) / len(f["texto"]))
     raise KeyError(frag)
 
 sfx.put(ini["radio"] - .7, estatica(fin["radio"] - ini["radio"] + 1.3), 1.0)

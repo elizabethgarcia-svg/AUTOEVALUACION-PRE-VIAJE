@@ -12,11 +12,18 @@ let semilla = 21;
 const rnd = () => (semilla = (semilla * 16807) % 2147483647) / 2147483647;
 const LN = {}; TL.lineas.forEach(l => LN[l.escena] = l);
 function tw(esc, frag) {
-  for (const f of LN[esc].frases) {
+  const fs = LN[esc].frases;
+  for (const f of fs) {
     const i = f.texto.indexOf(frag);
     if (i >= 0) return f.inicio + (f.fin - f.inicio) * (i / f.texto.length) - 0.1;
   }
-  throw new Error(esc + ':' + frag);
+  // en las grabaciones una frase puede quedar repartida entre dos tramos de voz: buscar en el texto completo
+  let todo = ''; const marcas = [];
+  fs.forEach(f => { marcas.push([todo.length, f]); todo += f.texto + ' '; });
+  const i = todo.indexOf(frag);
+  if (i < 0) throw new Error(esc + ':' + frag);
+  const [c0, f] = marcas.filter(m => m[0] <= i).pop();
+  return f.inicio + (f.fin - f.inicio) * Math.min(1, (i - c0) / f.texto.length) - 0.1;
 }
 const envAt = t => TL.env[cl(Math.round(t * FPS), 0, TL.env.length - 1)] || 0;
 const NS = 'http://www.w3.org/2000/svg';
@@ -528,7 +535,7 @@ function R10(t) {
   setT(logo10, 520, 470, 1.25 * (1 + .015 * Math.sin(t * 2.5)));
   ondas10.forEach((o, i) => { const k = ((t - t0 - 1.4) * .7 + i / 3) % 1; if (t - t0 < 1.4) { op(o, 0); return; } o.setAttribute('d', arco(520 + 45, 470 - 50, 100 + k * 330, -95, 5)); op(o, (1 - k) * .85); });
   rv($('h10a'), t, LN.cierre.inicio - .1, { dx: 60, dy: 0 });
-  rv($('h10b'), t, tw('cierre', 'y cuidamos'), { dx: 60, dy: 0 });
+  rv($('h10b'), t, tw('cierre', 'y cuidemos'), { dx: 60, dy: 0 });
   rv($('h10c'), t, tw('cierre', 'Desde la cabina'), { dy: 40, d: .7 });
 }
 
@@ -551,6 +558,8 @@ function R11(t) {
 
 // ---------- tomas reales: reproductor cuadro por cuadro ----------
 function clipFrame(lista, u) {
+  const total = lista.reduce((a, [, n]) => a + n / 30, 0);
+  u = Math.max(0, u) % total;  // si la escena dura más que las tomas, vuelve a empezar
   let acc = 0;
   for (let i = 0; i < lista.length; i++) {
     const [id, n] = lista[i], d = n / 30;
