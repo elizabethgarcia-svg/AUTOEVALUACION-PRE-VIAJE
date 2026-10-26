@@ -1,0 +1,737 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Anton;src:url(../../build2/fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(../../build2/fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(../../build2/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(../../build2/fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:400;src:url(../../build2/fonts/playfair-display-latin-400-italic.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:700;src:url(../../build2/fonts/playfair-display-latin-700-italic.woff2)}
+@font-face{font-family:Cr;src:url(../../build2/fonts/creepster-latin-400-normal.woff2)}
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
+#v{position:relative;width:1280px;height:720px;overflow:hidden;background:#06050C;font-family:M;font-weight:800;color:#fff}
+.sc{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;visibility:hidden}
+.ab{position:absolute}
+.full{position:absolute;left:0;top:0;width:1280px;height:720px}
+.A{font-family:Anton;letter-spacing:1px;line-height:1}
+.PF{font-family:PF;font-style:italic}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-weight:400}
+.o{color:#FF5A00}.y{color:#FFB300}.g{color:#9FB0D0}
+.glo{text-shadow:0 0 18px rgba(255,90,0,.9),0 0 50px rgba(255,90,0,.55),0 5px 0 rgba(0,0,0,.5)}
+.sh{text-shadow:0 3px 0 rgba(0,0,0,.45),0 0 24px rgba(0,0,0,.75)}
+.hud{font-family:M;font-weight:800;font-size:13px;letter-spacing:3px;color:#FFD2B8;text-shadow:0 0 10px rgba(255,90,0,.6)}
+.chip{display:inline-block;padding:6px 14px;border-radius:999px;font-family:M;font-weight:900;font-size:13px;letter-spacing:3px}
+.ph{border:2px dashed rgba(255,255,255,.75);border-radius:16px;background:rgba(10,8,20,.55);padding:12px 18px;font-family:M;font-weight:800;font-size:15px;letter-spacing:1px;color:#fff}
+.ph b{color:#FFB300}
+#sub{position:absolute;left:0;width:1280px;bottom:66px;text-align:center;visibility:hidden}
+#sub span{display:inline-block;max-width:1100px;padding:6px 18px 7px;border-radius:10px;background:rgba(6,5,12,.62);font-family:M;font-weight:700;font-size:21px;line-height:1.25;color:#FFE2CC;text-shadow:0 2px 5px rgba(0,0,0,.6)}
+#sub span i{font-style:normal;color:#FF8A3D;font-weight:900;letter-spacing:2px;font-size:15px;margin-right:8px}
+.bar{position:absolute;left:0;width:1280px;height:56px;background:#000}
+#marca{position:absolute;right:18px;top:14px;font-family:M;font-weight:900;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.75);background:rgba(229,57,47,.85);padding:4px 10px;border-radius:6px}
+.foto{position:absolute;object-fit:cover}
+.marco{position:absolute;overflow:hidden;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.65)}
+.esq{position:absolute;width:26px;height:26px;border-color:#fff;border-style:solid;opacity:.9}
+.radio{position:absolute;left:46px;top:150px;width:520px;border-radius:24px;background:rgba(8,12,26,.88);border:2px solid rgba(255,90,0,.7);box-shadow:0 0 40px rgba(255,90,0,.35),0 20px 50px rgba(0,0,0,.6);overflow:hidden}
+.radio .top{display:flex;align-items:center;gap:10px;padding:14px 20px;background:rgba(255,90,0,.14);font-size:13px;letter-spacing:3px;font-weight:900;color:#FFD2B8}
+.radio .dot{width:10px;height:10px;border-radius:50%;background:#FF3B30;box-shadow:0 0 10px #FF3B30}
+.radio .wave{height:70px;margin:14px 20px 4px;display:flex;align-items:center;gap:4px}
+.radio .wave i{display:block;width:7px;border-radius:4px;background:linear-gradient(#FFB300,#FF5A00)}
+.radio .q{padding:6px 22px 22px;font-family:PF;font-style:italic;font-weight:700;font-size:29px;line-height:1.22;min-height:76px}
+.pc{position:absolute;left:615px;top:165px;width:640px}
+.pc .k{font-family:M;font-weight:900;font-size:16px;letter-spacing:7px;color:#FF8A3D}
+.pc .n{font-family:Anton;font-size:66px;line-height:1;margin-top:8px;white-space:nowrap}
+.pc .d{font-family:M;font-weight:700;font-size:21px;line-height:1.35;color:#DCE4F5;margin-top:14px;max-width:560px}
+.exp{position:absolute;left:330px;top:120px;width:620px;height:430px;background:#EAD9AE;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.7);color:#2B2218;padding:34px 40px;box-sizing:border-box}
+.exp:before{content:"";position:absolute;left:30px;top:-26px;width:190px;height:30px;background:#E2CD98;border-radius:10px 10px 0 0}
+.exp .t{font-family:M;font-weight:900;font-size:24px;letter-spacing:6px;border-bottom:3px solid #2B2218;padding-bottom:10px;margin-bottom:16px}
+.exp .l{font-family:"DejaVu Sans Mono",monospace;font-size:17px;line-height:1.5;margin-bottom:8px;white-space:pre-wrap}
+.exp .l b{font-family:M;font-weight:900;letter-spacing:2px;font-size:14px}
+.sello{position:absolute;font-family:Anton;letter-spacing:4px;border:7px solid currentColor;border-radius:14px;padding:4px 22px;line-height:1.05}
+.card .alias{font-family:Anton;font-size:76px;line-height:1}
+.card .rol{font-family:M;font-weight:700;font-size:18px;color:#C9D3EA;margin-top:8px}
+.card .q{font-family:PF;font-style:italic;font-weight:700;font-size:28px;line-height:1.25;margin-top:20px;max-width:600px}
+.pieza .n{font-family:Anton;font-size:64px;line-height:1}
+.chk{display:flex;align-items:center;gap:16px;font-family:M;font-weight:800;font-size:24px;margin:16px 0}
+.chk .bx{width:38px;height:38px;border-radius:10px;border:3px solid #2ED573;display:flex;align-items:center;justify-content:center;font-size:28px;color:#06331C;flex:none}
+</style>
+<script src="logo.js"></script>
+</head><body>
+<div id="v">
+
+<!-- A · globo -->
+<div class="sc" id="sA">
+  <img id="gl" class="full" src="globo/g_0000.jpg">
+  <div class="ab hud" style="left:40px;top:72px"><span id="aDot" style="color:#FF3B30">●</span> BASE CENTINELA · RASTREO SATELITAL</div>
+  <div class="ab hud" style="right:40px;top:72px;text-align:right">CANAL 19 · FRECUENCIA CENTINELA</div>
+  <div class="ab hud mono" id="aDat" style="left:40px;top:600px;font-size:14px;letter-spacing:1px;line-height:1.5"></div>
+  <svg class="ab" id="aRet" width="1280" height="720" style="left:0;top:0"></svg>
+  <div class="ab" id="aObj" style="left:740px;top:300px;width:420px">
+    <div class="hud" style="color:#FF8A3D">◎ OBJETIVO</div>
+    <div class="A glo" style="font-size:40px;margin-top:6px">TROB · PATIO LORETITO</div>
+    <div class="hud" style="margin-top:6px;letter-spacing:2px">AGUASCALIENTES, MÉXICO · 21.99° N · 102.25° O</div>
+  </div>
+  <div class="ab" id="aMapa" style="left:960px;top:420px;width:280px;height:200px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,138,61,.8);background:#1d1f24;box-shadow:0 0 30px rgba(255,90,0,.35)">
+    <img id="aMapaI" src="img/mapa.jpg" style="position:absolute;left:0;top:0;width:973px;height:769px;transform-origin:0 0;filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(1.2) saturate(.9)">
+    <div class="ab" id="aPin" style="width:16px;height:16px;border-radius:50%;background:#FF5A00;box-shadow:0 0 14px #FF5A00"></div>
+    <div class="ab" id="aPinR" style="width:16px;height:16px;border-radius:50%;border:2px solid #FF8A3D"></div>
+    <div class="ab hud" style="left:10px;top:8px;font-size:10px;letter-spacing:2px">RASTREO GPS</div>
+    <div class="ab" style="right:8px;bottom:5px;font-size:9px;font-weight:700;color:rgba(255,255,255,.7)">Datos del mapa ©Google</div>
+  </div>
+</div>
+
+<!-- B1 · vista aérea del patio -->
+<div class="sc" id="sB1">
+  <div class="ab" id="aer" style="left:0;top:0;width:1404px;height:1061px;transform-origin:0 0"><img src="img/aereo.jpg" style="width:1404px;height:1061px;display:block"></div>
+  <div class="full" style="background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 45%,rgba(10,4,30,.55) 100%)"></div>
+  <div class="ab" id="bPill" style="border-radius:14px;background:rgba(8,10,22,.62);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;box-sizing:border-box">
+    <div class="A glo" id="bPillT" style="font-size:50px;white-space:nowrap">◎ TROB · PATIO LORETITO</div>
+  </div>
+  <svg class="ab" id="bRet" width="1280" height="720" style="left:0;top:0"></svg>
+  <div class="ab" id="bObj" style="padding:8px 14px;border-radius:10px;background:rgba(8,10,22,.7);white-space:nowrap">
+    <div class="hud" style="color:#7CFFB2">● OBJETIVO ADQUIRIDO</div>
+    <div class="hud" style="margin-top:4px;letter-spacing:1.5px;line-height:1.6;color:#fff">CARRETERA A LORETITO KM 1.1<br>SAN FRANCISCO DE LOS ROMO, AGS. · 19,568 M²</div>
+  </div>
+  <div class="ab" style="right:12px;bottom:62px;font-size:10px;font-weight:700;color:rgba(255,255,255,.8);text-shadow:0 1px 3px #000">Imágenes ©Google</div>
+  <div class="full" id="bNube" style="background:#fff"></div>
+</div>
+
+<!-- B2 · entrada de noche -->
+<div class="sc" id="sB2">
+  <img id="noc" class="ab" src="img/noche_entrada.jpg" style="width:1599px;height:899px;transform-origin:0 0">
+  <div class="full" style="background:linear-gradient(180deg,rgba(60,20,110,.45),rgba(20,8,40,.1) 50%,rgba(255,90,0,.12));mix-blend-mode:screen"></div>
+  <div class="full" id="niebla" style="background:linear-gradient(0deg,rgba(200,190,255,.28),rgba(200,190,255,0) 45%)"></div>
+  <div class="ab" style="left:60px;top:560px">
+    <div class="hud" style="color:#FF8A3D">📍 PATIO LORETITO · CABINA DE MONITOREO</div>
+    <div class="A sh" id="bHora" style="font-size:54px;margin-top:4px">23:57 h</div>
+  </div>
+</div>
+
+<!-- C1 · entramos a la cabina -->
+<div class="sc" id="sC1">
+  <img id="cab" class="ab" src="../material/armado_14.jpg" style="width:900px;height:1600px;transform-origin:0 0;filter:brightness(.8) contrast(1.1) saturate(1.15)">
+  <div class="full" style="background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 30%,rgba(8,2,20,.75) 100%)"></div>
+  <div class="ab" id="cPres" style="left:0;width:1280px;top:290px;text-align:center">
+    <div style="font-family:M;font-weight:900;font-size:20px;letter-spacing:12px" class="sh">ÁREA DE BLINDAJE CENTINELA</div>
+    <div class="PF sh" style="font-size:58px;margin-top:6px;color:#FFB300">presenta</div>
+  </div>
+</div>
+
+<!-- C2/C3 · calavera, farolitos y título -->
+<div class="sc" id="sC2">
+  <div class="full" id="foco" style="background:radial-gradient(ellipse 380px 420px at 640px 330px,rgba(255,220,180,.22),rgba(255,160,90,.06) 55%,rgba(0,0,0,0) 75%)"></div>
+  <svg class="ab" id="faro" width="1280" height="200" style="left:0;top:40px"></svg>
+  <svg class="ab" id="cal" width="400" height="460" viewBox="-200 -230 400 460" style="left:440px;top:100px;transform-origin:50% 50%;overflow:visible"></svg>
+  <div class="ab" id="tit" style="left:0;width:1280px;top:470px;text-align:center">
+    <div class="A glo" id="titA" style="font-size:104px;letter-spacing:3px">LA 57 DE LAS ÁNIMAS</div>
+    <div id="titB" style="margin-top:12px;font-family:M;font-weight:900;font-size:22px;letter-spacing:10px;color:#FFB300">MISIÓN LOMAWEEN · ÁREA DE BLINDAJE CENTINELA</div>
+  </div>
+</div>
+
+<!-- D/E/F/G/H · mapa de la bitácora -->
+<div class="sc" id="sMap">
+  <svg id="mapa" class="full" width="1280" height="720">
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#173462" stroke-width="1"/></pattern>
+      <radialGradient id="gPC"><stop offset="0" stop-color="#FF8A3D" stop-opacity=".55"/><stop offset="1" stop-color="#FF5A00" stop-opacity="0"/></radialGradient>
+      <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <rect width="1280" height="720" fill="#061127"/>
+    <g id="cam">
+      <rect x="-1400" y="-1000" width="4000" height="2800" fill="url(#grid)"/>
+      <g id="relieve" fill="none" stroke="#12305A" stroke-width="2"></g>
+      <path id="rutaBase" fill="none" stroke="#24406E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="rutaDash" fill="none" stroke="#3B5D96" stroke-width="2" stroke-dasharray="10 12"/>
+      <path id="rutaHecha" fill="none" stroke="#FF5A00" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#fGlow)"/>
+      <g id="pcs"></g>
+      <g id="troca"></g>
+    </g>
+  </svg>
+  <div class="full" style="background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.6) 100%)"></div>
+  <div class="ab hud" id="mHud" style="left:40px;top:28px">● BITÁCORA DE VIAJE · UNIDAD BLINDAJE CENTINELA</div>
+  <div class="exp" id="exp">
+    <div class="t">BITÁCORA DE VIAJE</div>
+    <div class="l" id="e1"></div><div class="l" id="e2"></div><div class="l" id="e3"></div><div class="l" id="e4"></div>
+    <div class="sello" id="eSello" style="left:330px;top:250px;color:#D7263D;font-size:60px">APROBADO</div>
+  </div>
+  <div class="ab" id="e104" style="left:880px;top:90px;width:300px;text-align:center"><div class="A glo" style="font-size:110px;color:#FFB300">¡10-4!</div></div>
+  <div class="radio" id="radio"><div class="top"><span class="dot"></span>📻 CANAL 19 · BASE CENTINELA</div><div class="wave" id="wave"></div><div class="q" id="rq"></div></div>
+  <div class="pc" id="pc"><div class="k" id="pcK"></div><div class="n glo" id="pcN"></div><div class="d" id="pcD"></div></div>
+  <div class="ab" id="lleg" style="left:0;width:1280px;top:62px;text-align:center">
+    <div class="hud" style="color:#7CFFB2;font-size:16px">● UNIDAD BLINDAJE CENTINELA</div>
+    <div class="A glo" style="font-size:96px;margin-top:6px">LLEGÓ A DESTINO</div>
+  </div>
+</div>
+
+<!-- tarjeta de Centinela (presentación tipo película de atracos) -->
+<div class="sc card" id="sCard">
+  <img id="kBg" class="foto full" style="filter:blur(22px) brightness(.32) saturate(1.2);transform:scale(1.15)">
+  <div class="full" style="background:linear-gradient(90deg,rgba(40,10,70,.35),rgba(6,5,12,.2))"></div>
+  <div class="marco" id="kMarco" style="left:120px;top:110px;width:360px;height:480px;border:6px solid #fff">
+    <img id="kFoto" class="foto" style="left:0;top:0;width:100%;height:100%">
+    <div class="ab hud" style="left:14px;top:12px;color:#fff"><span id="kRec" style="color:#FF3B30">●</span> REC</div>
+  </div>
+  <div class="ab" style="left:560px;top:120px;width:660px">
+    <span class="chip" id="kNum" style="background:#FF5A00;color:#fff"></span>
+    <div class="alias glo" id="kAlias" style="margin-top:16px"></div>
+    <div class="rol" id="kRol"></div>
+    <div class="q" id="kQ"></div>
+    <div class="ph" id="kPh" style="margin-top:24px;display:inline-block">▶ <b>AQUÍ ENTRA SU VIDEO</b> · su frase de presentación + pose congelada (3 s)</div>
+  </div>
+  <div class="full" id="kFreeze" style="background:#fff"></div>
+</div>
+
+<!-- montaje del armado -->
+<div class="sc" id="sMont">
+  <div class="full" style="background:#0B0716"></div>
+  <div id="tiles"></div>
+  <svg class="ab" id="engr" width="1280" height="720" style="left:0;top:0"></svg>
+  <div class="ab" id="mTxt" style="left:0;width:1280px;top:268px;text-align:center">
+    <div class="A glo" id="mT1" style="font-size:76px"></div>
+    <div class="PF sh" id="mT2" style="font-size:26px;margin-top:10px;color:#FFE2CC"></div>
+  </div>
+  <div class="ab" id="mEq" style="left:0;width:1280px;top:600px;text-align:center">
+    <span class="chip" style="background:#7B2FF7">CENTINELAS DE RUTA</span>&nbsp;
+    <span class="chip" style="background:#E6007E">CENTINELAS DE SEGURIDAD</span>&nbsp;
+    <span class="chip" style="background:#FF6A00">RESCATES CARRETEROS</span>
+  </div>
+</div>
+
+<!-- pieza del recorrido -->
+<div class="sc pieza" id="sPieza">
+  <img id="pFoto" class="ab" style="transform-origin:0 0">
+  <div class="full" style="background:linear-gradient(0deg,rgba(6,4,14,.92) 0%,rgba(6,4,14,.35) 45%,rgba(6,4,14,0) 70%),linear-gradient(180deg,rgba(6,4,14,.6),rgba(6,4,14,0) 22%)"></div>
+  <div class="ab" style="left:56px;top:40px"><span class="chip" id="pNum" style="background:rgba(255,90,0,.9);color:#fff"></span></div>
+  <div class="ab" style="left:56px;top:430px;width:760px">
+    <div class="n glo" id="pNom"></div>
+    <div class="hud" id="pQuien" style="margin-top:10px;font-size:15px;color:#FFB300"></div>
+    <div class="PF sh" id="pQ" style="font-size:25px;line-height:1.28;margin-top:10px;font-weight:700"></div>
+  </div>
+  <div class="ph ab" id="pPh" style="right:50px;bottom:72px;width:300px;text-align:center">▶ <b>AQUÍ ENTRA SU VIDEO</b><br>explicando la pieza (5–6 s)</div>
+</div>
+
+<!-- la tele con el 877 -->
+<div class="sc" id="sTV">
+  <div class="full" style="background:radial-gradient(ellipse at 50% 40%,#2A1546,#0A0712 70%)"></div>
+  <div class="ab" id="tvMarco" style="left:300px;top:70px;width:680px;height:400px;border-radius:22px;background:#111;padding:14px;box-sizing:border-box;box-shadow:0 0 0 4px #2A2A33,0 0 70px rgba(111,155,255,.35),0 30px 60px rgba(0,0,0,.7)">
+    <img id="tv" src="f877/f_001.jpg" style="width:652px;height:372px;border-radius:10px;display:block;object-fit:cover">
+  </div>
+  <div class="ab" style="left:0;width:1280px;top:498px;text-align:center">
+    <span class="chip" style="background:rgba(255,90,0,.9)">RECORRIDO · PIEZA 5 DE 7</span>
+    <div class="A glo" style="font-size:58px;margin-top:10px">LA TELE CON EL 877</div>
+    <div class="hud" style="color:#FFB300;font-size:15px;margin-top:6px">LO EXPLICA: LA VOZ · ▶ AQUÍ ENTRA SU VIDEO + FRAGMENTO DEL 877 (≈10 s)</div>
+  </div>
+</div>
+
+<!-- ondas operador / familia / sociedad -->
+<div class="sc" id="sOnda">
+  <div class="full" style="background:radial-gradient(ellipse at 50% 46%,#22123A,#07050D 72%)"></div>
+  <svg class="ab" id="onda" width="1280" height="720" style="left:0;top:0"></svg>
+  <div class="ab" id="oQ" style="left:0;width:1280px;top:600px;text-align:center"><div class="PF sh" style="font-size:27px;font-weight:700">«Cuidarse es cuidar a su familia… y a todos en la carretera.»</div><div class="hud" style="margin-top:6px;color:#FFB300">EL DE LA LLAMADA · ▶ AQUÍ ENTRA SU VIDEO</div></div>
+</div>
+
+<!-- antes y después -->
+<div class="sc" id="sAD">
+  <img id="adA" class="foto full" src="../material/armado_09.jpg" style="object-position:50% 40%;filter:saturate(.55) brightness(.9)">
+  <img id="adD" class="foto full" src="../material/armado_14.jpg" style="object-position:50% 22%">
+  <div class="ab" id="adL" style="top:0;width:6px;height:720px;background:#FFF3D6;box-shadow:0 0 30px 10px rgba(255,200,120,.8)"></div>
+  <div class="ab A sh" id="adT1" style="left:60px;top:80px;font-size:48px">ANTES · 19 OCT</div>
+  <div class="ab A glo" id="adT2" style="right:60px;top:80px;font-size:48px">DESPUÉS · 30 OCT</div>
+</div>
+
+<!-- lista palomeada -->
+<div class="sc" id="sChk">
+  <div class="full" style="background:radial-gradient(ellipse at 50% 40%,#12203F,#060A16 75%)"></div>
+  <div class="ab" style="left:120px;top:150px;width:560px">
+    <div class="hud" style="color:#FF8A3D;font-size:15px">PUNTO DE CONTROL 3 · RESULTADOS</div>
+    <div class="chk" id="ck1"><div class="bx"></div>Dentro del área asignada</div>
+    <div class="chk" id="ck2"><div class="bx"></div>Nada clavado, pegado ni pintado</div>
+    <div class="chk" id="ck3"><div class="bx"></div>Dulces listos para los Mini Centinelas</div>
+    <div class="chk" id="ck4"><div class="bx"></div>Meta de siempre: no tener siniestros</div>
+  </div>
+  <div class="ab" style="left:760px;top:170px;width:400px;text-align:center">
+    <div class="hud">JUEVES 29 DE OCTUBRE · UN DÍA ANTES</div>
+    <div class="A" id="reloj" style="font-size:120px;color:#fff;margin-top:6px">11:58</div>
+    <div class="sello" id="listo" style="left:90px;top:200px;color:#2ED573;font-size:70px">LISTO</div>
+  </div>
+  <div class="ab" style="left:120px;top:520px;width:1040px">
+    <div class="PF sh" style="font-size:24px;font-weight:700">«Quedó lista un día antes, sin un solo clavo ni un pedazo de cinta.»</div>
+    <div class="hud" style="margin-top:6px;color:#FFB300">EL TURNO DE LA NOCHE · ▶ AQUÍ ENTRA SU VIDEO</div>
+  </div>
+</div>
+
+<!-- cierre con el equipo -->
+<div class="sc" id="sFin">
+  <img id="fFoto" class="ab" src="../material/armado_03.jpg" style="width:1600px;height:1200px;transform-origin:0 0">
+  <div class="full" style="background:linear-gradient(0deg,rgba(6,4,14,.95),rgba(6,4,14,.1) 40%,rgba(6,4,14,0) 70%,rgba(6,4,14,.45))"></div>
+  <div class="ab" id="fQ" style="left:0;width:1280px;top:600px;text-align:center"><div class="PF sh" style="font-size:32px;font-weight:700;color:#FFE2CC">«Recordemos a quienes se fueron, y cuidemos a quienes regresan.»</div></div>
+  <div class="ab" id="fS" style="left:0;width:1280px;top:560px;text-align:center"><div class="A glo" style="font-size:62px">¡DESDE LA CABINA, PROTEGEMOS CADA KILÓMETRO!</div><div class="hud" style="margin-top:8px;color:#FFB300">TODO EL EQUIPO · ▶ AQUÍ ENTRA EL VIDEO DE TODOS JUNTOS</div></div>
+  <svg class="ab" id="fLogo" width="130" height="130" viewBox="-200 -200 400 400" style="left:575px;top:28px;overflow:visible"></svg>
+</div>
+
+<!-- tarjeta final -->
+<div class="sc" id="sEnd">
+  <div class="full" style="background:radial-gradient(ellipse at 50% 45%,#1E1033,#050409 70%)"></div>
+  <div class="ab" style="left:0;width:1280px;top:210px;text-align:center">
+    <span class="chip" style="background:#E5392F">MUESTRA</span>
+    <div class="A glo" style="font-size:72px;margin-top:18px">ASÍ ENTRAN EN ACCIÓN LOS CENTINELAS</div>
+    <div style="font-family:M;font-weight:700;font-size:21px;color:#DCE4F5;margin-top:18px;line-height:1.5">Cada recuadro <b style="color:#FFB300">“AQUÍ ENTRA SU VIDEO”</b> se reemplaza con su grabación.<br>La versión final dura unos 3:45 e incluye a los 10 Centinelas y las tomas falsas.</div>
+    <div class="hud" style="margin-top:26px;font-size:15px;color:#FF8A3D">VERSIÓN FINAL · JUEVES 29 DE OCTUBRE, 12:00 h</div>
+  </div>
+</div>
+
+<canvas id="part" width="1280" height="720" class="full" style="pointer-events:none"></canvas>
+<div class="full" id="grano" style="background:url(grano.png);background-size:640px 360px;mix-blend-mode:overlay;opacity:.16;pointer-events:none"></div>
+<div class="full" style="background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 62%,rgba(0,0,0,.45) 100%);pointer-events:none"></div>
+<div class="bar" id="barT" style="top:0"></div><div class="bar" id="barB" style="bottom:0"></div>
+<div id="sub"><span id="subT"></span></div>
+<div id="marca">MUESTRA</div>
+<div class="full" id="flash" style="background:#fff;opacity:0;pointer-events:none"></div>
+</div>
+
+<script>
+const W = 1280, H = 720, TOTAL = 76.5; window.TOTAL = TOTAL;
+const $ = id => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const eo = k => 1 - Math.pow(1 - cl(k), 3), ei = k => Math.pow(cl(k), 3);
+const eio = k => { k = cl(k); return k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; };
+const back = k => { k = cl(k); const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const pr = (t, a, b) => cl((t - a) / (b - a));
+const fade = (t, a, b, fi = .3, fo = .3) => Math.min(pr(t, a, a + fi), 1 - pr(t, b - fo, b));
+const rnd = (i, k = 0) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const show = (el, on) => { el.style.visibility = on ? 'inherit' : 'hidden'; return on; };
+const PP = ['#7B2FF7', '#FF6A00', '#E6007E', '#1C1620', '#FFB300'];
+
+// ---------- radio: líneas y tiempos (aud/r0..r5) ----------
+const RADIO = [
+  [1.0, 3.92, 'Base Centinela a todas las unidades… ¿me copian?'],
+  [22.8, 27.6, 'Unidad Blindaje Centinela, salida 19 de octubre. Destino: LOMAween.'],
+  [31.4, 34.15, 'Base Centinela a Trabajo en Equipo, ¿me copias?'],
+  [44.4, 46.6, 'Base Centinela a Pasión, ¿me copias?'],
+  [58.4, 61.5, 'Base Centinela a Enfoque a Resultados, ¿me copias?'],
+  [66.4, 69.96, 'Unidad Blindaje Centinela: llegó a destino. Cambio y fuera.'],
+];
+const habla = t => RADIO.some(([a, b]) => t >= a && t < b);
+
+// ---------- A · globo ----------
+const ret = (svg, x, y, s, col, a) => {
+  const d = s / 2, l = s * .28;
+  svg.innerHTML = `<g stroke="${col}" stroke-width="3" fill="none" opacity="${a}">
+    <path d="M${x - d},${y - d + l}V${y - d}H${x - d + l}M${x + d - l},${y - d}H${x + d}V${y - d + l}M${x + d},${y + d - l}V${y + d}H${x + d - l}M${x - d + l},${y + d}H${x - d}V${y + d - l}"/>
+    <circle cx="${x}" cy="${y}" r="4" fill="${col}"/><path d="M${x - d - 30},${y}H${x - d - 8}M${x + d + 8},${y}H${x + d + 30}M${x},${y - d - 30}V${y - d - 8}M${x},${y + d + 8}V${y + d + 30}" stroke-width="2"/></g>`;
+};
+function escenaA(t) {
+  $('aDot').style.opacity = (Math.floor(t * 2) % 2) ? .25 : 1;
+  const k = eio(pr(t, 0, 3.4));
+  const lat = lerp(8, 21.9895, k), lon = lerp(-62, -102.2471, k);
+  const alt = t < 3 ? 20200 - t * 2600 : 12400 * Math.exp(-(Math.min(t, 8.4) - 3) * 1.6);
+  $('aDat').innerHTML = `LAT ${lat.toFixed(4)}° N<br>LON ${Math.abs(lon).toFixed(4)}° O<br>ALT ${alt >= 10 ? Math.round(alt).toLocaleString('es-MX') + ' km' : (alt * 1000).toFixed(0) + ' m'}`;
+  const r = pr(t, 3.2, 4.2), ra = fade(t, 3.2, 8.4, .2, .4);
+  ret($('aRet'), 640, 360, lerp(320, 120, eo(r)), r < 1 ? '#FFFFFF' : '#FF8A3D', ra);
+  const o = fade(t, 3.9, 8.3, .4, .4); $('aObj').style.opacity = o; $('aObj').style.transform = `translateX(${(1 - eo(pr(t, 3.9, 4.5))) * 30}px)`;
+  const m = fade(t, 4.4, 8.3, .4, .4); $('aMapa').style.opacity = m;
+  const z = lerp(.62, 1.25, eio(pr(t, 4.4, 8.3))), px = 549, py = 45;
+  $('aMapaI').style.transform = `translate(${140 - px * z}px,${70 - py * z}px) scale(${z})`;
+  $('aPin').style.left = '132px'; $('aPin').style.top = '62px';
+  const pp = (t * 1.3) % 1; Object.assign($('aPinR').style, { left: '132px', top: '62px', transform: `scale(${1 + pp * 3})`, opacity: 1 - pp });
+}
+
+// ---------- B1 · vista aérea ----------
+const FX = 1080, FY = 640; // franja de la etiqueta original (oficinas) en la imagen aérea
+const retBox = (svg, x, y, w, h, col, a) => {
+  const l = 26;
+  svg.innerHTML = `<g stroke="${col}" stroke-width="3" fill="none" opacity="${a}"><path d="M${x - w / 2},${y - h / 2 + l}V${y - h / 2}H${x - w / 2 + l}M${x + w / 2 - l},${y - h / 2}H${x + w / 2}V${y - h / 2 + l}M${x + w / 2},${y + h / 2 - l}V${y + h / 2}H${x + w / 2 - l}M${x - w / 2 + l},${y + h / 2}H${x - w / 2}V${y + h / 2 - l}"/></g>`;
+};
+function escenaB1(t) {
+  const lt = t - 8.6, k = eo(pr(lt, 0, 2.6));
+  let s = lerp(.93, 1.35, k) + ei(pr(lt, 2.35, 2.7)) * 1.4;
+  const want = (c, f, S, Wd) => cl(c - f * S, Wd - (f === FX ? 1404 : 1061) * S, 0);
+  const cx = lerp(640 - 300, 640, k), cy = lerp(360 - 120, 360, k);
+  const tx = want(cx, FX, s, W), ty = want(cy, FY, s, H);
+  $('aer').style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+  $('aer').style.filter = `blur(${lerp(10, 0, eo(pr(lt, 0, .8))) + ei(pr(lt, 2.4, 2.7)) * 8}px) saturate(.85) contrast(1.08) brightness(.92)`;
+  $('bNube').style.opacity = 1 - eo(pr(lt, 0, .7));
+  const rx = tx + FX * s, ry = ty + FY * s, lk = pr(lt, 1.0, 1.5);
+  const pw = 470 * s, ph = 60 * s, pl = $('bPill');
+  Object.assign(pl.style, { left: (rx - pw / 2) + 'px', top: (ry - ph / 2) + 'px', width: pw + 'px', height: ph + 'px' });
+  const pt = eo(pr(lt, .3, .7)); $('bPillT').style.opacity = pt; $('bPillT').style.transform = `scale(${s / 1.35 * lerp(1.25, 1, pt)})`; $('bPillT').style.letterSpacing = lerp(10, 1, pt) + 'px';
+  const bw = lerp(pw + 260, pw + 30, eo(lk)), bh = lerp(ph + 200, ph + 26, eo(lk));
+  retBox($('bRet'), rx, ry, bw, bh, lk < 1 ? '#FFFFFF' : '#7CFFB2', fade(lt, .6, 2.55, .2, .2));
+  const ob = $('bObj'); ob.style.left = (rx - pw / 2) + 'px'; ob.style.top = (ry + ph / 2 + 22) + 'px'; ob.style.opacity = fade(lt, 1.6, 2.45, .3, .2);
+}
+
+// ---------- B2 · entrada de noche ----------
+function escenaB2(t) {
+  const lt = t - 11.3;
+  const s = lerp(.82, .9, lt / 1.3) + ei(pr(lt, 1.05, 1.3)) * .5;
+  const fx = 520, fy = 420;
+  const tx = cl(640 - fx * s, W - 1599 * s, 0), ty = cl(360 - fy * s, H - 899 * s, 0);
+  const n = $('noc'); n.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+  n.style.filter = `brightness(${.95 + Math.sin(t * 40) * .04 + (rnd(Math.floor(t * 12)) > .85 ? -.12 : 0)}) contrast(1.12) saturate(1.1) blur(${ei(pr(lt, 1.05, 1.3)) * 6}px)`;
+  $('niebla').style.transform = `translateX(${Math.sin(t) * 30}px)`;
+  const m = Math.floor(pr(lt, .1, 1.0) * 3); $('bHora').textContent = `23:5${7 + Math.min(m, 2)} h`.replace('23:59', '23:59');
+}
+
+// ---------- C1 · cabina ----------
+function escenaC1(t) {
+  const lt = t - 12.6, s = lerp(1.45, 1.52, lt / 2.4);
+  const ty = lerp(-1000, -180, eio(pr(lt, 0, 2.4)));
+  $('cab').style.transform = `translate(${(W - 900 * s) / 2}px,${ty}px) scale(${s})`;
+  $('cab').style.filter = `brightness(${.75 * eo(pr(lt, 0, .4)) + .05}) contrast(1.1) saturate(1.15) blur(${(1 - eo(pr(lt, 0, .35))) * 8}px)`;
+  const o = fade(lt, .6, 2.35, .4, .3); $('cPres').style.opacity = o;
+  $('cPres').style.transform = `scale(${lerp(.96, 1.03, pr(lt, .6, 2.4))})`; $('cPres').style.filter = `blur(${(1 - o) * 6}px)`;
+}
+
+// ---------- calavera de azúcar con el logo Centinela ----------
+function petalos(cx, cy, r, n, c1, c2, sz) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2, x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+    s += `<ellipse cx="${x}" cy="${y}" rx="${sz}" ry="${sz * .55}" transform="rotate(${a * 180 / Math.PI} ${x} ${y})" fill="${i % 2 ? c1 : c2}"/>`; }
+  return s;
+}
+function flor(cx, cy, r) {
+  let s = '';
+  for (let k = 0; k < 3; k++) s += petalos(cx, cy, r * (1 - k * .3), 12, k % 2 ? '#FF8A00' : '#FF6A00', k % 2 ? '#FFB300' : '#FF9A1F', r * (.42 - k * .08));
+  return s + `<circle cx="${cx}" cy="${cy}" r="${r * .22}" fill="#C24E00"/>`;
+}
+const CRANEO = 'M0,-205 C112,-205 176,-128 176,-30 C176,42 142,82 120,100 C114,132 100,152 80,160 L80,186 C80,204 -80,204 -80,186 L-80,160 C-100,152 -114,132 -120,100 C-142,82 -176,42 -176,-30 C-176,-128 -112,-205 0,-205 Z';
+function calaveraSVG() {
+  let dientes = '';
+  for (let i = -3; i <= 3; i++) dientes += `<line x1="${i * 18}" y1="140" x2="${i * 18}" y2="176" stroke="#3A2A3E" stroke-width="3"/>`;
+  return `<defs>
+    <radialGradient id="gHueso" cx=".45" cy=".35" r=".75"><stop offset="0" stop-color="#FFFDF7"/><stop offset=".7" stop-color="#F1E8D6"/><stop offset="1" stop-color="#CFC0A6"/></radialGradient>
+    <radialGradient id="gOjo"><stop offset="0" stop-color="#FFE7B0"/><stop offset=".35" stop-color="#FF8A1F"/><stop offset="1" stop-color="#FF5A00" stop-opacity="0"/></radialGradient>
+    <clipPath id="cOjoI"><ellipse cx="-66" cy="8" rx="44" ry="40"/></clipPath><clipPath id="cOjoD"><ellipse cx="66" cy="8" rx="44" ry="40"/></clipPath>
+    <filter id="fG" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+  <g id="calHalo" opacity="0"><ellipse cx="0" cy="-10" rx="230" ry="250" fill="#FF6A00" opacity=".18" filter="url(#fG)"/></g>
+  ${flor(-128, -168, 46)}${flor(128, -168, 46)}${flor(0, -214, 38)}
+  <path d="${CRANEO}" fill="url(#gHueso)" stroke="#2B1E30" stroke-width="5"/>
+  ${petalos(-66, 8, 62, 12, '#E6007E', '#7B2FF7', 12)}${petalos(66, 8, 62, 12, '#7B2FF7', '#E6007E', 12)}
+  <ellipse cx="-66" cy="8" rx="46" ry="42" fill="#1A0F28"/><ellipse cx="66" cy="8" rx="46" ry="42" fill="#1A0F28"/>
+  <g id="ojos" opacity="0">
+    <g clip-path="url(#cOjoI)"><circle cx="-66" cy="8" r="40" fill="#2A0E00"/><path id="radI" d="M-66,8 L-66,-40 A48,48 0 0 1 -24,-16 Z" fill="#FF8A1F" opacity=".75"/><circle cx="-66" cy="8" r="26" fill="none" stroke="#FF8A1F" stroke-width="2" opacity=".6"/></g>
+    <g clip-path="url(#cOjoD)"><circle cx="66" cy="8" r="40" fill="#2A0E00"/><path id="radD" d="M66,8 L66,-40 A48,48 0 0 1 108,-16 Z" fill="#FF8A1F" opacity=".75"/><circle cx="66" cy="8" r="26" fill="none" stroke="#FF8A1F" stroke-width="2" opacity=".6"/></g>
+    <circle cx="-66" cy="8" r="56" fill="url(#gOjo)" opacity=".7"/><circle cx="66" cy="8" r="56" fill="url(#gOjo)" opacity=".7"/>
+  </g>
+  <path d="M0,58 C-16,58 -24,78 -15,94 L0,110 L15,94 C24,78 16,58 0,58 Z" fill="#1A0F28"/>
+  <path d="M-120,96 c-14,-8 -10,-28 4,-26 c12,2 10,18 0,16" fill="none" stroke="#FF6A00" stroke-width="5" stroke-linecap="round"/>
+  <path d="M120,96 c14,-8 10,-28 -4,-26 c-12,2 -10,18 0,16" fill="none" stroke="#FF6A00" stroke-width="5" stroke-linecap="round"/>
+  <rect x="-66" y="138" width="132" height="40" rx="10" fill="#FFF8EC" stroke="#3A2A3E" stroke-width="4"/>
+  <line x1="-66" y1="158" x2="66" y2="158" stroke="#3A2A3E" stroke-width="3"/>${dientes}
+  ${[-40, -20, 0, 20, 40].map(x => `<circle cx="${x}" cy="194" r="4" fill="#E6007E"/>`).join('')}
+  <g id="calLogo" transform="translate(0,-112) scale(.36)">${logoSVG('lgCal')}</g>`;
+}
+function farolitos(n) { // hilo con farolitos de papel
+  let s = '<path d="M-20,30 Q320,70 640,40 T1300,30" fill="none" stroke="#5A4A66" stroke-width="2"/>';
+  for (let i = 0; i < n; i++) {
+    const x = 70 + i * (1140 / (n - 1)), y = 30 + 26 * Math.sin(i * 1.1) + 22, c = PP[i % 3];
+    s += `<g id="fa${i}"><line x1="${x}" y1="${y - 22}" x2="${x}" y2="${y}" stroke="#5A4A66" stroke-width="2"/>
+      <circle class="glo" cx="${x}" cy="${y + 26}" r="58" fill="${c}" opacity="0" filter="url(#fFar)"/>
+      <rect x="${x - 18}" y="${y}" width="36" height="52" rx="16" fill="${c}" opacity=".35" stroke="#000" stroke-opacity=".3"/>
+      <rect x="${x - 10}" y="${y - 4}" width="20" height="6" rx="2" fill="#2B2230"/><rect x="${x - 10}" y="${y + 50}" width="20" height="6" rx="2" fill="#2B2230"/></g>`;
+  }
+  return `<defs><filter id="fFar" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="14"/></filter></defs>` + s;
+}
+const NFAR = 9;
+function escenaC2(t) {
+  const lt = t - 15.0, cal = $('cal');
+  const sube = eo(pr(lt, 0, 1.0));
+  const tit = pr(t, 18.8, 19.1);
+  let s = lerp(.9, 1, sube) * lerp(1, 1.06, pr(lt, 1, 3.8)), y = lerp(40, 0, sube);
+  if (t >= 18.8) { s = lerp(1.06, .78, eo(pr(t, 18.8, 19.4))); y = lerp(0, -62, eo(pr(t, 18.8, 19.4))); }
+  const sh = t >= 18.8 && t < 19.3 ? (rnd(Math.floor(t * 60)) - .5) * 14 * (1 - pr(t, 18.8, 19.3)) : 0;
+  cal.style.transform = `translate(${sh}px,${y + sh * .5}px) scale(${s})`;
+  cal.style.opacity = cl(sube * 1.2); cal.style.filter = `brightness(${lerp(.3, 1, sube)})`;
+  $('foco').style.opacity = eo(pr(lt, 0, .6)) * (1 + Math.sin(t * 9) * .03);
+  // el logo cae sobre la frente
+  const lg = pr(t, 16.0, 16.3), lgEl = document.getElementById('calLogo');
+  lgEl.setAttribute('transform', `translate(0,-112) scale(${.36 * lerp(3, 1, eo(lg))})`); lgEl.setAttribute('opacity', lg > 0 ? cl(lg * 2) : 0);
+  // ojos con radar
+  const oj = pr(t, 16.5, 16.9); document.getElementById('ojos').setAttribute('opacity', eo(oj) * (t > 18.5 ? 1 : .85 + Math.sin(t * 14) * .15));
+  const ang = (t * 240) % 360; document.getElementById('radI').setAttribute('transform', `rotate(${ang} -66 8)`); document.getElementById('radD').setAttribute('transform', `rotate(${ang} 66 8)`);
+  document.getElementById('calHalo').setAttribute('opacity', eo(pr(t, 16.0, 16.6)) * .9 + (t > 18.5 ? .6 * pr(t, 18.5, 18.8) : 0));
+  // farolitos uno por uno
+  for (let i = 0; i < NFAR; i++) {
+    const g = document.getElementById('fa' + i); const on = pr(t, 17.0 + i * .17, 17.15 + i * .17);
+    g.children[1].setAttribute('opacity', on * (.75 + Math.sin(t * 7 + i) * .08)); g.children[2].setAttribute('opacity', .35 + on * .65);
+  }
+  $('faro').style.opacity = eo(pr(lt, .3, 1.2));
+  const ti = $('tit'), to = t >= 18.8 ? 1 : 0; show(ti, to);
+  if (to) {
+    const k = eo(pr(t, 18.8, 19.05)); $('titA').style.transform = `scale(${lerp(1.8, 1, k)})`; $('titA').style.opacity = k;
+    $('titB').style.opacity = eo(pr(t, 19.3, 19.8)); $('titB').style.letterSpacing = lerp(22, 10, eo(pr(t, 19.3, 20.2))) + 'px';
+  }
+  $('sC2').style.opacity = 1 - pr(t, 22.15, 22.5);
+}
+
+// ---------- mapa ----------
+const PCS = [[150, 560], [420, 300], [690, 500], [930, 250], [1140, 450]];
+const NOMBRES = [['SALIDA', '19 OCT · INICIO DEL MONTAJE'], ['PC1', 'TRABAJO EN EQUIPO'], ['PC2', 'PASIÓN'], ['PC3', 'ENFOQUE A RESULTADOS'], ['META', '30 OCT · 16:00 · LOMAWEEN']];
+let RUTA = [], LARGO = [], UPC = [];
+function prepMapa() {
+  const P = [PCS[0], ...PCS, PCS[PCS.length - 1]];
+  for (let i = 1; i < P.length - 2; i++) {
+    for (let j = 0; j < 40; j++) {
+      const u = j / 40, [p0, p1, p2, p3] = [P[i - 1], P[i], P[i + 1], P[i + 2]];
+      const f = (a, b, c, d) => .5 * ((2 * b) + (-a + c) * u + (2 * a - 5 * b + 4 * c - d) * u * u + (-a + 3 * b - 3 * c + d) * u * u * u);
+      if (j === 0) UPC.push(RUTA.length);
+      RUTA.push([f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])]);
+    }
+  }
+  RUTA.push(PCS[PCS.length - 1]); UPC.push(RUTA.length - 1);
+  LARGO = [0]; for (let i = 1; i < RUTA.length; i++) LARGO.push(LARGO[i - 1] + Math.hypot(RUTA[i][0] - RUTA[i - 1][0], RUTA[i][1] - RUTA[i - 1][1]));
+  const L = LARGO[LARGO.length - 1]; UPC = UPC.map(i => LARGO[i] / L);
+  const d = 'M' + RUTA.map(p => p.map(v => v.toFixed(1)).join(',')).join('L');
+  ['rutaBase', 'rutaDash', 'rutaHecha'].forEach(id => $(id).setAttribute('d', d));
+  $('rutaHecha').setAttribute('stroke-dasharray', `${L} ${L}`);
+  let rel = ''; for (let k = 0; k < 14; k++) { let s = `M-300,${k * 70 - 80}`; for (let x = -300; x <= 1600; x += 60) s += ` L${x},${(k * 70 - 80 + 26 * Math.sin(x / 140 + k) + 14 * Math.sin(x / 47 + k * 3)).toFixed(1)}`; rel += `<path d="${s}"/>`; }
+  $('relieve').innerHTML = rel;
+  $('pcs').innerHTML = PCS.map(([x, y], i) => `<g id="pc${i}"><circle cx="${x}" cy="${y}" r="70" fill="url(#gPC)" class="halo"/>
+    <circle cx="${x}" cy="${y}" r="17" fill="#061127" stroke="#FF8A3D" stroke-width="4" class="aro"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-family="M" font-weight="900" font-size="15" fill="#fff" class="ic">${i === 0 ? '▶' : i === 4 ? '★' : i}</text>
+    <text x="${x}" y="${y + (i === 1 || i === 3 ? -36 : 46)}" text-anchor="middle" font-family="M" font-weight="900" font-size="15" letter-spacing="2" fill="#FFD2B8">${NOMBRES[i][0]}</text>
+    <text x="${x}" y="${y + (i === 1 || i === 3 ? -18 : 64)}" text-anchor="middle" font-family="M" font-weight="800" font-size="12" letter-spacing="1.5" fill="#9FB0D0">${NOMBRES[i][1]}</text></g>`).join('');
+  $('troca').innerHTML = `<circle r="30" fill="#FF5A00" opacity=".25" id="trR"/><g id="trB"><rect x="-26" y="-9" width="34" height="18" rx="3" fill="#F4F6F9"/><rect x="9" y="-8" width="16" height="16" rx="4" fill="#FF5A00"/><rect x="19" y="-6" width="5" height="12" rx="2" fill="#9FD3FF"/></g>`;
+}
+function enRuta(u) {
+  const L = LARGO[LARGO.length - 1] * cl(u); let i = 1; while (i < LARGO.length - 1 && LARGO[i] < L) i++;
+  const k = (L - LARGO[i - 1]) / (LARGO[i] - LARGO[i - 1] || 1), a = RUTA[i - 1], b = RUTA[i];
+  return [lerp(a[0], b[0], k), lerp(a[1], b[1], k), Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI];
+}
+function uTroca(t) {
+  const tramos = [[25.9, 26.9, 0, .06], [30.7, 31.9, .06, UPC[1]], [43.4, 44.7, UPC[1], UPC[2]], [57.4, 58.7, UPC[2], UPC[3]], [66.0, 67.6, UPC[3], 1]];
+  let u = 0; for (const [a, b, u0, u1] of tramos) { if (t >= b) u = u1; else if (t >= a) { u = lerp(u0, u1, eio(pr(t, a, b))); break; } else break; }
+  return u;
+}
+function vista(cx, cy, s, ox = 640, oy = 360) { return [ox - cx * s, oy - cy * s, s]; }
+function camara(t) {
+  const full = vista(645, 400, 1, 640, 380), pcV = i => vista(PCS[i][0], PCS[i][1], 1.7, 1010, 560);
+  const key = [[22.5, vista(150, 560, 2.3)], [25.0, full], [30.6, full], [31.6, pcV(1)], [34.6, pcV(1)], [43.6, pcV(1)], [44.6, pcV(2)], [47, pcV(2)], [57.6, pcV(2)], [58.6, pcV(3)], [61, pcV(3)], [65.9, pcV(3)], [67.8, full]];
+  for (let i = 0; i < key.length - 1; i++) {
+    const [a, A] = key[i], [b, B] = key[i + 1];
+    if (t < b || i === key.length - 2) { const k = eio(pr(t, a, b)); return A.map((v, j) => lerp(v, B[j], k)); }
+  }
+}
+const PCTXT = {
+  1: ['PUNTO DE CONTROL 1', 'TRABAJO EN EQUIPO', 'Todos necesitamos de todos: cada proceso está enlazado. Si algo falla, falla todo el sistema.', 31.0, 34.6],
+  2: ['PUNTO DE CONTROL 2', 'PASIÓN', 'Llegar al corazón del operador: cuidarse es cuidar a su familia y a la sociedad.', 44.0, 47.0],
+  3: ['PUNTO DE CONTROL 3', 'ENFOQUE A RESULTADOS', 'Organizarnos para la misma meta: ideas, trabajo y colaboración, como en cada turno.', 58.0, 61.0],
+};
+function escribir(txt, k) { const n = Math.floor(txt.length * cl(k)); return txt.slice(0, n) + (k < 1 ? '<span style="opacity:.6">▌</span>' : ''); }
+const tw = (s, k) => s.slice(0, Math.floor(s.length * cl(k)));
+function escenaMapa(t) {
+  const [tx, ty, s] = camara(t); $('cam').setAttribute('transform', `translate(${tx},${ty}) scale(${s})`);
+  const L = LARGO[LARGO.length - 1], dib = eio(pr(t, 23.2, 25.6));
+  $('rutaBase').setAttribute('opacity', dib); $('rutaDash').setAttribute('opacity', dib);
+  const u = uTroca(t); $('rutaHecha').setAttribute('stroke-dashoffset', L * (1 - u));
+  const [x, y, a] = enRuta(u), pp = (t * 1.2) % 1;
+  $('troca').setAttribute('transform', `translate(${x},${y})`); $('trB').setAttribute('transform', `rotate(${a})`);
+  $('trR').setAttribute('r', 14 + pp * 30); $('trR').setAttribute('opacity', .4 * (1 - pp));
+  PCS.forEach((p, i) => {
+    const g = $('pc' + i), ap = eo(pr(t, 23.2 + i * .5, 23.6 + i * .5)); g.setAttribute('opacity', ap);
+    const hecho = i > 0 && u >= UPC[i] - .001, aro = g.querySelector('.aro');
+    aro.setAttribute('stroke', hecho ? '#2ED573' : '#FF8A3D'); g.querySelector('.ic').textContent = hecho ? '✓' : (i === 0 ? '▶' : i === 4 ? '★' : i);
+    g.querySelector('.halo').setAttribute('opacity', .6 + .4 * Math.sin(t * 4 + i));
+    const zoom = s > 1.2; g.querySelectorAll('text:not(.ic)').forEach(e => e.setAttribute('opacity', zoom ? 0 : 1));
+  });
+  $('mapa').style.filter = t > 26.8 && t < 30.7 ? `brightness(${1 - .45 * eo(pr(t, 26.8, 27.2)) * (1 - pr(t, 30.3, 30.7))})` : '';
+  // expediente
+  const ex = $('exp'), eon = show(ex, t >= 26.8 && t < 30.8);
+  if (eon) {
+    const k = eo(pr(t, 26.8, 27.25)), out = ei(pr(t, 30.3, 30.8));
+    ex.style.transform = `translateY(${(1 - k) * 500 - out * 700}px) rotate(${-2 + out * 8}deg)`;
+    $('e1').innerHTML = '<b>UNIDAD:</b> ' + tw('Área de Blindaje Centinela · Equipo 2', pr(t, 27.1, 27.6));
+    $('e2').innerHTML = '<b>SALIDA:</b> ' + tw('19 OCT · inicio del montaje', pr(t, 27.5, 27.9));
+    $('e3').innerHTML = '<b>MISIÓN:</b> ' + tw('Cultivar y celebrar nuestras tradiciones', pr(t, 27.8, 28.4));
+    $('e4').innerHTML = '<b>PUNTOS DE CONTROL:</b> ' + tw('Trabajo en Equipo · Pasión · Enfoque a Resultados', pr(t, 28.2, 28.8));
+    const st = pr(t, 28.8, 29.0), se = $('eSello'); se.style.opacity = st > 0 ? 1 : 0;
+    se.style.transform = `rotate(-12deg) scale(${lerp(2.4, 1, eo(st))})`;
+    const shk = t > 28.95 && t < 29.25 ? (rnd(Math.floor(t * 60)) - .5) * 12 : 0; ex.style.marginLeft = shk + 'px';
+  }
+  const d4 = $('e104'); if (show(d4, t >= 29.5 && t < 30.6)) { const k = back(pr(t, 29.5, 29.8)); d4.style.transform = `scale(${k}) rotate(${lerp(-18, -6, k)}deg)`; d4.style.opacity = 1 - pr(t, 30.3, 30.6); }
+  // radio y punto de control
+  let act = null; for (const n in PCTXT) { const P = PCTXT[n]; if (t >= P[3] && t < P[4]) act = [n, P]; }
+  const r = $('radio'), pc = $('pc');
+  show(r, !!act); show(pc, !!act);
+  if (act) {
+    const [n, [k1, k2, k3, a, b]] = act, R = RADIO[+n + 1];
+    const o = fade(t, a, b, .35, .3); r.style.opacity = o; r.style.transform = `translateX(${(1 - eo(pr(t, a, a + .4))) * -60}px)`;
+    $('rq').innerHTML = escribir('«' + R[2] + '»', pr(t, R[0], R[1] - .2));
+    const bars = $('wave').children, on = t >= R[0] && t < R[1];
+    for (let i = 0; i < bars.length; i++) { const h = on ? 8 + 58 * Math.abs(Math.sin(t * 19 + i * 1.7) * .6 + Math.sin(t * 31 + i * .6) * .4) * (.6 + .4 * Math.sin(i / 3)) : 4 + 2 * Math.sin(t * 3 + i); bars[i].style.height = h + 'px'; }
+    $('pcK').textContent = k1; $('pcN').textContent = k2; $('pcD').textContent = k3;
+    const tk = eo(pr(t, a + .9, a + 1.25)); pc.style.opacity = Math.min(tk, 1 - pr(t, b - .3, b));
+    $('pcN').style.transform = `scale(${lerp(1.5, 1, tk)})`; $('pcN').style.transformOrigin = '0 50%';
+    $('pcD').style.opacity = eo(pr(t, a + 1.6, a + 2.0));
+  }
+  const ll = $('lleg'); if (show(ll, t >= 67.6 && t < 69.5)) { const k = eo(pr(t, 67.6, 67.85)); ll.style.transform = `scale(${lerp(1.6, 1, k)})`; ll.style.opacity = k * (1 - pr(t, 69.2, 69.5)); }
+  $('mHud').style.opacity = t < 31 || t > 66 ? .9 : 0;
+}
+
+// ---------- tarjetas, piezas, montaje ----------
+const CARDS = [
+  [34.6, 37.8, '../material/armado_01.jpg', 'CENTINELA 02 / 10', 'OJO DE HALCÓN', '[Nombre real] · Monitorea las unidades en el mapa', '«Yo veo cada unidad en el mapa, de día y de noche. Ahora también veo cada flor fuera de lugar.»', '50% 30%'],
+  [37.8, 41.0, '../material/armado_02.jpg', 'CENTINELA 03 / 10', 'LA DE LAS ALERTAS', '[Nombre real] · Atiende alertas de velocidad y fatiga', '«Si una unidad pasa de 100, me entero. Si alguien quiere pegar algo con cinta… también.»', '40% 40%'],
+];
+function escenaCard(t) {
+  const c = CARDS.find(c => t >= c[0] && t < c[1]); if (!show($('sCard'), !!c)) return;
+  const [a, b, src, num, alias, rol, q, pos] = c, lt = t - a;
+  if ($('kFoto').dataset.s !== src) { $('kFoto').src = src; $('kBg').src = src; $('kFoto').dataset.s = src; $('kFoto').style.objectPosition = pos; }
+  $('kNum').textContent = num; $('kAlias').textContent = alias; $('kRol').textContent = rol; $('kQ').textContent = q;
+  const k = eo(pr(lt, 0, .45)); $('kMarco').style.transform = `translateX(${(1 - k) * -120}px) rotate(${lerp(-9, -3, k)}deg)`;
+  $('kFoto').style.transform = `scale(${lerp(1.12, 1.02, pr(lt, 0, 3.2))})`;
+  const fz = lt > 2.55; $('kFoto').style.filter = fz ? 'saturate(.25) contrast(1.2)' : '';
+  $('kFreeze').style.opacity = lt > 2.55 ? .85 * (1 - pr(lt, 2.55, 2.85)) : 0;
+  $('kRec').style.opacity = (Math.floor(t * 2) % 2) ? .2 : 1;
+  const al = eo(pr(lt, .35, .6)); $('kAlias').style.transform = `scale(${lerp(1.5, 1, al)})`; $('kAlias').style.transformOrigin = '0 50%'; $('kAlias').style.opacity = al;
+  $('kRol').style.opacity = eo(pr(lt, .6, .9)); $('kQ').style.opacity = eo(pr(lt, .9, 1.3)); $('kPh').style.opacity = eo(pr(lt, 1.3, 1.6));
+  $('kNum').style.opacity = eo(pr(lt, .2, .4));
+  $('sCard').style.opacity = Math.min(1, pr(lt, 0, .2), 1 - pr(t, b - .15, b));
+}
+const MONT = ['05', '06', '07', '10'];
+function prepMont() {
+  $('tiles').innerHTML = MONT.map((n, i) => `<div class="marco" id="ti${i}" style="left:${i % 2 ? 650 : 30}px;top:${i < 2 ? 30 : 372}px;width:600px;height:318px;border-radius:12px"><img class="foto" src="../material/armado_${n}.jpg" style="width:100%;height:100%;object-position:50% ${[35, 40, 35, 30][i]}%"></div>`).join('');
+}
+function engranes(t) {
+  const g = (cx, cy, r, n, ang, c) => { let d = ''; for (let i = 0; i < n * 2; i++) { const a0 = (i / (n * 2)) * Math.PI * 2, a1 = ((i + 1) / (n * 2)) * Math.PI * 2, R = i % 2 ? r : r + 14; d += (i ? 'L' : 'M') + (cx + Math.cos(a0) * R).toFixed(1) + ',' + (cy + Math.sin(a0) * R).toFixed(1) + 'L' + (cx + Math.cos(a1) * R).toFixed(1) + ',' + (cy + Math.sin(a1) * R).toFixed(1); }
+    return `<g transform="rotate(${ang} ${cx} ${cy})"><path d="${d}Z" fill="${c}" opacity=".9"/><circle cx="${cx}" cy="${cy}" r="${r * .35}" fill="#0B0716"/></g>`; };
+  return g(470, 360, 70, 10, t * 60, '#7B2FF7') + g(640, 360, 70, 10, -t * 60 + 18, '#E6007E') + g(810, 360, 70, 10, t * 60, '#FF6A00');
+}
+function escenaMont(t) {
+  if (!show($('sMont'), t >= 41.0 && t < 44.0)) return;
+  const lt = t - 41;
+  MONT.forEach((n, i) => { const k = eo(pr(lt, i * .18, i * .18 + .35)), el = $('ti' + i); el.style.opacity = k * (lt > 1.1 ? .32 : 1); el.style.transform = `scale(${lerp(.8, 1, k)}) rotate(${(1 - k) * (i % 2 ? 6 : -6)}deg)`; el.querySelector('img').style.transform = `scale(${1.05 + lt * .03})`; });
+  const ge = $('engr'); ge.innerHTML = engranes(t); ge.style.opacity = .55 * eo(pr(lt, 1.0, 1.4)); ge.style.transform = `scale(${lerp(.6, 1, eo(pr(lt, 1.0, 1.4)))})`; ge.style.transformOrigin = '640px 360px';
+  const a = lt < 2.0; $('mT1').textContent = a ? 'SI FALLA UNO, FALLA TODO EL SISTEMA' : 'NINGÚN VIAJE SE HACE SOLO';
+  $('mT2').textContent = a ? '«En la cabina cada proceso está enlazado.» — Ojo de Halcón' : '«Aquí todos jalamos parejo.» — La de las Alertas';
+  const k = a ? eo(pr(lt, 1.15, 1.4)) * (1 - pr(lt, 1.85, 2.0)) : eo(pr(lt, 2.0, 2.25));
+  $('mTxt').style.opacity = k; $('mT1').style.transform = `scale(${lerp(1.3, 1, k)})`;
+  $('mEq').style.opacity = eo(pr(lt, 2.3, 2.6)); $('mEq').style.transform = `translateY(${(1 - eo(pr(lt, 2.3, 2.6))) * 30}px)`;
+  $('sMont').style.opacity = 1 - pr(t, 43.8, 44.0);
+}
+const PIEZAS = [
+  [47.0, 49.6, '../material/armado_08.jpg', 'RECORRIDO · PIEZA 1 DE 7', 'EL PAPEL PICADO EN EL TECHO', 'LO EXPLICA: OJO DE HALCÓN', '«El papel picado cruza el techo como las rutas que seguimos en el mapa.»', 1200, 1600, -150, -600],
+  [49.6, 52.2, '../material/armado_13.jpg', 'RECORRIDO · PIEZA 2 DE 7', 'EL ALTAR EN FORMA DE TRACTO', 'LO EXPLICA: LA ARQUITECTA', '«Nuestro altar es un tracto, porque eso es lo que cuidamos: cada unidad que sale y cada operador que regresa.»', 1600, 900, -60, -30],
+];
+function escenaPieza(t) {
+  const p = PIEZAS.find(p => t >= p[0] && t < p[1]); if (!show($('sPieza'), !!p)) return;
+  const [a, b, src, num, nom, quien, q, w, h, y0, y1] = p, lt = t - a;
+  const f = $('pFoto'); if (f.dataset.s !== src) { f.src = src; f.dataset.s = src; f.style.width = w + 'px'; f.style.height = h + 'px'; }
+  const s = Math.max(W / w, H / h) * lerp(1.04, 1.12, pr(lt, 0, 2.6));
+  f.style.transform = `translate(${(W - w * s) / 2}px,${lerp(y0, y1, eio(pr(lt, 0, 2.6))) * (w > h ? 1 : 1)}px) scale(${s})`;
+  $('pNum').textContent = num; $('pNom').textContent = nom; $('pQuien').textContent = quien; $('pQ').textContent = q;
+  const k = eo(pr(lt, .2, .5)); $('pNom').style.opacity = k; $('pNom').style.transform = `translateX(${(1 - k) * -40}px)`;
+  $('pQuien').style.opacity = eo(pr(lt, .5, .8)); $('pQ').style.opacity = eo(pr(lt, .8, 1.2)); $('pPh').style.opacity = eo(pr(lt, 1.0, 1.3));
+  $('sPieza').style.opacity = Math.min(1, pr(lt, 0, .2), 1 - pr(t, b - .15, b));
+}
+function escenaTV(t) {
+  if (!show($('sTV'), t >= 52.2 && t < 55.6)) return;
+  const lt = t - 52.2, k = eo(pr(lt, 0, .5));
+  $('tvMarco').style.transform = `scale(${lerp(.85, 1, k)})`; $('sTV').style.opacity = Math.min(k, 1 - pr(t, 55.35, 55.6));
+}
+function escenaOnda(t) {
+  if (!show($('sOnda'), t >= 55.6 && t < 58.0)) return;
+  const lt = t - 55.6;
+  const aros = [['OPERADOR', 70, '#FF6A00', .1], ['SU FAMILIA', 150, '#E6007E', .6], ['LA SOCIEDAD', 235, '#7B2FF7', 1.1]];
+  let s = '';
+  for (let i = 0; i < 6; i++) { const ph = ((lt * .7 + i / 6) % 1); s += `<circle cx="640" cy="320" r="${40 + ph * 300}" fill="none" stroke="#FFB300" stroke-opacity="${(1 - ph) * .25}" stroke-width="2"/>`; }
+  aros.slice().reverse().forEach(([n, r, c, a]) => { const k = back(pr(lt, a, a + .4)); s += `<circle cx="640" cy="320" r="${r * k}" fill="${c}" fill-opacity=".16" stroke="${c}" stroke-width="4"/>`; });
+  aros.forEach(([n, r, c, a], i) => { const k = eo(pr(lt, a + .2, a + .5)); s += `<text x="640" y="${i === 0 ? 328 : 320 - r + 26}" text-anchor="middle" font-family="M" font-weight="900" font-size="${i === 0 ? 22 : 18}" letter-spacing="3" fill="#fff" opacity="${k}">${n}</text>`; });
+  $('onda').innerHTML = s; $('oQ').style.opacity = eo(pr(lt, 1.2, 1.6));
+  $('sOnda').style.opacity = Math.min(pr(lt, 0, .25), 1 - pr(t, 57.75, 58.0));
+}
+function escenaAD(t) {
+  if (!show($('sAD'), t >= 61.0 && t < 63.4)) return;
+  const lt = t - 61, k = eio(pr(lt, .5, 1.6)), x = lerp(W + 10, -10, k);
+  $('adD').style.clipPath = `inset(0 0 0 ${x}px)`; $('adL').style.left = (x - 3) + 'px'; $('adL').style.opacity = k > 0 && k < 1 ? 1 : 0;
+  $('adA').style.transform = $('adD').style.transform = `scale(${lerp(1.02, 1.1, lt / 2.4)})`;
+  $('adT1').style.opacity = 1 - k; $('adT2').style.opacity = eo(pr(lt, 1.2, 1.5));
+  $('sAD').style.opacity = Math.min(pr(lt, 0, .2), 1 - pr(t, 63.2, 63.4));
+}
+function escenaChk(t) {
+  if (!show($('sChk'), t >= 63.4 && t < 66.0)) return;
+  const lt = t - 63.4;
+  [1, 2, 3, 4].forEach(i => { const k = pr(lt, .2 + i * .3, .35 + i * .3), el = $('ck' + i); el.style.opacity = eo(pr(lt, i * .3, .15 + i * .3)); const bx = el.firstElementChild; bx.textContent = k > 0 ? '✓' : ''; bx.style.background = k > 0 ? '#2ED573' : 'transparent'; bx.style.transform = `scale(${k > 0 ? back(k) : 1})`; });
+  $('reloj').textContent = lt < 1.5 ? '11:58' : '11:59'; $('reloj').style.color = lt > 1.9 ? '#2ED573' : '#fff';
+  const ls = pr(lt, 1.9, 2.05); $('listo').style.opacity = ls > 0 ? 1 : 0; $('listo').style.transform = `rotate(-10deg) scale(${lerp(2.4, 1, eo(ls))})`;
+  $('sChk').style.opacity = Math.min(pr(lt, 0, .2), 1 - pr(t, 65.8, 66.0));
+}
+function escenaFin(t) {
+  if (!show($('sFin'), t >= 69.5 && t < 73.0)) return;
+  const lt = t - 69.5, s = lerp(.82, .9, lt / 3.5);
+  $('fFoto').style.transform = `translate(${(W - 1600 * s) / 2}px,${(H - 1200 * s) / 2 - 40}px) scale(${s})`;
+  $('fQ').style.opacity = eo(pr(lt, .2, .6)) * (1 - pr(lt, 1.3, 1.5));
+  const k = eo(pr(lt, 1.5, 1.75)); $('fS').style.opacity = k; $('fS').style.transform = `scale(${lerp(1.5, 1, k)})`;
+  const lg = $('fLogo'); const kl = back(pr(lt, 2.3, 2.6)); lg.style.opacity = pr(lt, 2.3, 2.4); lg.style.transform = `scale(${kl}) rotate(${(1 - kl) * -40}deg)`;
+  $('sFin').style.opacity = Math.min(pr(lt, 0, .25), 1 - pr(t, 72.7, 73.0));
+}
+
+// ---------- partículas: papel picado, pétalos y confeti ----------
+const ctx = $('part').getContext('2d');
+function lluvia(t, t0, t1, n, dens = 1) {
+  const a = fade(t, t0, t1, .4, .5) * dens; if (a <= 0) return;
+  for (let i = 0; i < n; i++) {
+    const v = 90 + rnd(i, 1) * 140, y = ((rnd(i, 2) * 900 + (t - t0) * v) % 900) - 80, x = rnd(i, 3) * 1360 - 40 + Math.sin(t * 1.4 + i) * 34;
+    const flip = Math.cos(t * (2 + rnd(i, 4) * 3) + i), rot = t * (rnd(i, 5) - .5) * 3 + i;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(1, flip); ctx.globalAlpha = a * .9;
+    if (i % 3 === 0) { ctx.fillStyle = ['#FF8A00', '#FFB300', '#FF6A00'][i % 3 === 0 ? (i >> 2) % 3 : 0]; ctx.beginPath(); ctx.ellipse(0, 0, 7, 4, 0, 0, 7); ctx.fill(); }
+    else { ctx.fillStyle = PP[i % 4 === 3 ? 4 : i % 4]; ctx.fillRect(-9, -6, 18, 12); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(-3, -2, 6, 4); }
+    ctx.restore();
+  }
+}
+function confeti(t, t0, cx, cy, n) {
+  const lt = t - t0; if (lt < 0 || lt > 1.6) return;
+  for (let i = 0; i < n; i++) {
+    const a = rnd(i, 7) * Math.PI * 2, v = 260 + rnd(i, 8) * 520, x = cx + Math.cos(a) * v * lt, y = cy + Math.sin(a) * v * lt + 420 * lt * lt;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(lt * 8 + i); ctx.globalAlpha = 1 - lt / 1.6; ctx.fillStyle = PP[i % 5 === 3 ? 4 : i % 5]; ctx.fillRect(-6, -4, 12, 8); ctx.restore();
+  }
+}
+function particulas(t) {
+  ctx.clearRect(0, 0, W, H);
+  lluvia(t, 12.6, 15.0, 70); lluvia(t, 18.8, 22.4, 90); lluvia(t, 69.5, 73.0, 70); lluvia(t, 73.0, 76.5, 40, .6);
+  confeti(t, 18.82, 640, 520, 90); confeti(t, 29.5, 1030, 160, 70); confeti(t, 65.3, 900, 400, 60); confeti(t, 67.6, 640, 520, 80); confeti(t, 71.0, 640, 480, 90);
+}
+
+// ---------- subtítulos de la radio ----------
+function subs(t) {
+  const r = RADIO.find(([a, b]) => t >= a && t < b + .25), s = $('sub');
+  if (!show(s, !!r)) return;
+  $('subT').innerHTML = `<i>📻 BASE CENTINELA</i>${r[2]}`; s.style.bottom = (t < 22.5 ? 66 : 22) + 'px';
+}
+
+// ---------- montaje general ----------
+function flashes(t) {
+  const ev = [[8.6, .9, .25], [11.3, .7, .18], [12.6, .8, .2], [16.0, .55, .25], [18.8, 1, .35], [31.0, .25, .15], [44.0, .25, .15], [58.0, .25, .15], [67.6, .5, .25], [71.0, .6, .3], [72.0, .4, .25]];
+  let o = 0; for (const [a, m, d] of ev) if (t >= a && t < a + d) o = Math.max(o, m * (1 - (t - a) / d));
+  $('flash').style.opacity = o;
+}
+function render(t) {
+  show($('sA'), t < 8.6) && escenaA(t);
+  show($('sB1'), t >= 8.6 && t < 11.3) && escenaB1(t);
+  show($('sB2'), t >= 11.3 && t < 12.6) && escenaB2(t);
+  show($('sC1'), t >= 12.6 && t < 15.0) && escenaC1(t);
+  show($('sC2'), t >= 15.0 && t < 22.5) && escenaC2(t);
+  const mapOn = (t >= 22.5 && t < 34.6) || (t >= 44.0 && t < 47.0) || (t >= 58.0 && t < 61.0) || (t >= 66.0 && t < 69.5);
+  if (show($('sMap'), mapOn)) { escenaMapa(t); $('sMap').style.opacity = Math.min(1, pr(t, 22.5, 22.9) + (t > 23 ? 1 : 0), t >= 69.2 ? 1 - pr(t, 69.2, 69.5) : 1); }
+  escenaCard(t); escenaMont(t); escenaPieza(t); escenaTV(t); escenaOnda(t); escenaAD(t); escenaChk(t); escenaFin(t);
+  if (show($('sEnd'), t >= 73.0)) $('sEnd').style.opacity = Math.min(pr(t, 73.0, 73.4), 1 - pr(t, 76.0, 76.5));
+  const bar = t < 22.5 ? 0 : eo(pr(t, 22.5, 23.0)) * 56; $('barT').style.transform = `translateY(${-bar}px)`; $('barB').style.transform = `translateY(${bar}px)`;
+  $('grano').style.backgroundPosition = `${Math.floor(rnd(Math.floor(t * 30), 9) * 640)}px ${Math.floor(rnd(Math.floor(t * 30), 10) * 360)}px`;
+  particulas(t); subs(t); flashes(t);
+}
+window.render = render;
+window.renderAsync = async t => {
+  const im = [];
+  if (t < 8.6) { const g = $('gl'), src = `globo/g_${String(Math.min(257, Math.floor(t * 30))).padStart(4, '0')}.jpg`; if (!g.src.endsWith(src)) { g.src = src; im.push(g); } }
+  if (t >= 52.2 && t < 55.6) { const v = $('tv'), n = 1 + Math.min(95, Math.max(0, Math.floor((t - 52.35) * 30))), src = `f877/f_${String(n).padStart(3, '0')}.jpg`; if (!v.src.endsWith(src)) { v.src = src; im.push(v); } }
+  for (const c of CARDS) if (t >= c[0] && t < c[1]) { $('kFoto').src.endsWith(c[2].slice(2)) || im.push($('kFoto'), $('kBg')); }
+  render(t);
+  await Promise.all([...document.images].filter(i => !i.complete || im.includes(i)).map(i => i.decode().catch(() => {})));
+};
+// preparar
+prepMapa(); prepMont();
+$('wave').innerHTML = Array.from({ length: 44 }, () => '<i></i>').join('');
+$('cal').innerHTML = calaveraSVG(); $('faro').innerHTML = farolitos(NFAR);
+$('fLogo').innerHTML = logoSVG('lgFin');
+render(0);
+</script>
+</body></html>
