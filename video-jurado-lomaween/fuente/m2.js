@@ -106,7 +106,7 @@ function prepCat() {
   const mk = document.createElement('canvas'); mk.width = MW; mk.height = MH;
   const bo = document.createElement('canvas'); bo.width = MW; bo.height = MH;
   Object.assign(CAT, { ok: true, off, th, thm, MW, MH, mk, bo, mkd: mk.getContext('2d').createImageData(MW, MH), bod: bo.getContext('2d').createImageData(MW, MH), real,
-    ojos: real ? [[566, 302], [720, 302]] : [[574, 375], [706, 375]] });
+    ojos: real ? [[564, 343], [725, 343]] : [[574, 375], [706, 375]] });
 }
 function escenaCat(t) {
   if (!CAT.ok) prepCat();
@@ -150,8 +150,8 @@ function escenaCat(t) {
   // ojos que se encienden
   const oj = eo(pr(lt, .9, 1.4)) * (1 - pr(t, 19.0, 19.5)) * (.85 + .15 * Math.sin(t * 9));
   if (oj > 0) for (const [x, y] of CAT.ojos) {
-    const g = c.createRadialGradient(x, y, 0, x, y, 70); g.addColorStop(0, `rgba(255,170,60,${.85 * oj})`); g.addColorStop(.3, `rgba(255,90,0,${.35 * oj})`); g.addColorStop(1, 'rgba(255,60,0,0)');
-    c.fillStyle = g; c.fillRect(x - 70, y - 70, 140, 140);
+    const R0 = CAT.real ? 58 : 70, g = c.createRadialGradient(x, y, 0, x, y, R0); g.addColorStop(0, `rgba(255,170,60,${(CAT.real ? .5 : .85) * oj})`); g.addColorStop(.35, `rgba(255,90,0,${(CAT.real ? .22 : .35) * oj})`); g.addColorStop(1, 'rgba(255,60,0,0)');
+    c.fillStyle = g; c.fillRect(x - R0, y - R0, R0 * 2, R0 * 2);
   }
   // brasas que flotan todo el tiempo
   c.setTransform(1, 0, 0, 1, 0, 0);
