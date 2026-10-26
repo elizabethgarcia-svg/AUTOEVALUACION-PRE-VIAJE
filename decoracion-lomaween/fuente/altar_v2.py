@@ -1,5 +1,5 @@
 # Plano del altar como lo están armando (foto armado_12): la estructura blanca es el tracto. Parrilla al centro,
-# faros a los lados, calavera arriba, carretera con tractos en el mantel negro, cruz de sal y cempasúchil al frente.
+# faros a los lados, calavera arriba, la carretera que arman ellos en el mantel negro con tractos de juguete, cruz de sal y cempasúchil al frente.
 exec(open('deco/planos.py').read().split('# ---------- 1. papel picado ----------')[0])
 import numpy as np, cv2
 P = 'imprimibles/png/'
@@ -70,8 +70,12 @@ ramo(d, 250, 936); ramo(d, 690, 926); vela(d, 300, 940); vela(d, 330, 942, 24); 
 for x in (392, 544): vela(d, x, 850, 22)
 # 4 · placa de Aguascalientes como defensa, sobre el mantel
 pegar(L, recorte(P + 'sen-2.png', (15, 55, 513, 323)), 468, 1104, 92, sombra=False)
-# 5 · la carretera con tractos en el mantel negro
-car = Image.open(P + 'tr-carretera.png').convert('RGBA'); pegar(L, car, 475, 1200, 548, sombra=False)
+# 5 · la carretera que arman ellos en el mantel negro, con tractos de juguete encima
+d.rectangle([200, 1150, 748, 1196], fill=(38, 38, 44, 255))
+for yb in (1153, 1192): d.line([(200, yb), (748, yb)], fill=(236, 236, 236, 255), width=3)
+for x in range(206, 748, 34): d.line([(x, 1172), (x + 20, 1172)], fill=(255, 196, 0, 255), width=4)
+pegar(L, Image.open(P + 'tr-tractos.png').convert('RGBA'), 475, 1187, 548)
+d = ImageDraw.Draw(L, 'RGBA')
 d = ImageDraw.Draw(L, 'RGBA')
 
 # 6 · la cruz de sal en el piso, sobre cartulina negra (en perspectiva)
@@ -131,7 +135,7 @@ items = [('Calavera detrás de la parrilla', 'Tracto_Tabloide.pdf, hojas 3 y 4 (
          ('Parrilla al centro', 'hojas 1 a 4 (arriba), empalmadas; sobre cartón\ny sujeta a la sábana con alfileres'),
          ('Faros en los dos bloques de los lados', 'hojas 5 y 6; arriba, floreros y velas LED'),
          ('Placa de Aguascalientes como defensa', 'Letreros_Carretera.pdf, sobre el mantel'),
-         ('Carretera con tractos en el mantel', 'Carretera_Mantel.pdf, 6 hojas en una sola línea,\ncon alfileres o seguritos al mantel'),
+         ('Carretera con tractos de juguete', 'la arman ustedes con cartulina negra y línea\namarilla, y encima los tractos de juguete reales'),
          ('Cruz de sal al centro', 'en el piso, sobre cartulina negra:\nse ve más y se recoge fácil'),
          ('Cempasúchil natural y pétalos', 'a los costados de la cruz, con velas LED'),
          ('Panteón de los malos hábitos', 'las 8 lápidas en el piso, 4 de cada lado'),
@@ -145,7 +149,7 @@ e.rounded_rectangle([24, y + 4, 626, y + 110], 14, fill=(120, 20, 40))
 for i, l in enumerate(['Nada clavado, pegado ni pintado en paredes, cristales,', 'pisos ni muebles: los imprimibles van sobre cartón,', 'sujetos a la sábana o al mantel con alfileres.']):
     e.text((44, y + 20 + i * 28), l, font=f(18), fill='white')
 y += 128; e.text((30, y), 'MEDIDAS DE LO IMPRESO', font=f(21), fill=(255, 179, 0)); y += 36
-for t1, t2 in [('Parrilla', '53 × 56 cm'), ('Calavera', '53 × 26 cm'), ('Cada faro', '38 × 26 cm'), ('Carretera (carta)', '152 × 18 cm')]:
+for t1, t2 in [('Parrilla', '53 × 56 cm'), ('Calavera', '53 × 26 cm'), ('Cada faro', '38 × 26 cm')]:
     e.text((44, y), t1, font=f(20), fill='white'); e.text((300, y), t2, font=f(20), fill=(255, 200, 120)); y += 30
 y += 8
 for l in ['Para los bloques de 60 × 58 y 38 × 28 cm. Imprime al', '100 % (tamaño real), sin ajustar a la hoja.']:
