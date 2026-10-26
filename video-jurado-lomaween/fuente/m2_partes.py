@@ -27,7 +27,7 @@ CAT_LOGO = r'''
   <img class="full" id="humo2" src="img/humo.png" style="opacity:.2;mix-blend-mode:screen">
   <div class="full" id="lgGrupo" style="transform-origin:640px 350px">
     <svg class="ab" id="lgSol" width="1280" height="720" style="left:0;top:0;overflow:visible"><g id="lgSolG" transform="translate(640,290) scale(.7)"></g></svg>
-    <div class="ab" id="lgMarca" style="left:470px;top:423px;width:340px;height:58px;box-sizing:border-box;border:4px solid #fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:M;font-weight:800;font-size:38px;letter-spacing:6px;padding-left:6px;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.85);box-shadow:0 0 18px rgba(255,255,255,.45),inset 0 0 12px rgba(255,255,255,.25)">CENTINELA</div>
+    <div class="ab" id="lgMarca" style="left:420px;top:420px;width:440px;height:66px;display:flex;align-items:center;justify-content:center;font-family:M;font-weight:800;font-size:50px;letter-spacing:6px;padding-left:6px;color:#fff;text-shadow:0 0 16px rgba(255,255,255,.55),0 4px 0 rgba(0,0,0,.35)">CENTINELA</div>
   </div>
   <canvas id="logoC" width="1280" height="720" class="full"></canvas>
   <div class="ab" id="tit" style="left:0;width:1280px;top:340px;text-align:center">
@@ -115,6 +115,22 @@ PUENTE_EXC = r'''
 </div>
 '''
 
+CIERRE = r'''
+<!-- cierre: cambio y fuera, con el tracto y el claxon -->
+<div class="sc" id="sCierre">
+  <img id="ciFoto" class="ab" src="img/troca501.jpg" style="width:1836px;height:1040px;transform-origin:0 0">
+  <div class="full" style="background:linear-gradient(180deg,rgba(24,10,60,.35),rgba(10,5,24,0) 55%,rgba(0,0,0,.45))"></div>
+  <div class="full" style="background:radial-gradient(ellipse 720px 420px at 300px 200px,rgba(5,4,12,.82),rgba(5,4,12,.35) 60%,rgba(5,4,12,0) 100%)"></div>
+  <canvas id="ciC" class="full" width="1280" height="720"></canvas>
+  <svg class="ab" id="ciLogo" width="1280" height="720" style="left:0;top:0;overflow:visible"><g id="ciLogoG" transform="translate(300,118) scale(.36)"></g></svg>
+  <div class="ab" style="left:20px;width:560px;top:205px;text-align:center">
+    <div class="A glo" id="ciT1" style="font-size:76px;white-space:nowrap">CAMBIO Y FUERA</div>
+    <div id="ciT2" style="font-family:M;font-weight:900;font-size:18px;letter-spacing:5px;color:#FF8A3D;margin-top:10px">10-28 · EQUIPO CENTINELA</div>
+    <div id="ciT3" style="font-family:M;font-weight:800;font-size:18px;letter-spacing:2px;margin-top:18px;line-height:1.45">DESDE LA CABINA,<br><span style="color:#FF8A3D">PROTEGEMOS CADA KILÓMETRO.</span></div>
+    <div id="ciT4" class="hud" style="margin-top:22px;color:#A9B0C2">GRUPO LOMA · OCTUBRE 2026</div>
+  </div>
+</div>
+'''
 END = r'''
 <!-- tarjeta final -->
 <div class="sc" id="sEnd">
@@ -130,6 +146,7 @@ END = r'''
 
 pieza = blk(198, 209).replace('<div class="ph ab" id="pPh"', '<div class="ab" id="pCarta" style="right:60px;top:44px;width:120px;height:176px;transform:rotate(6deg);filter:drop-shadow(0 12px 16px rgba(0,0,0,.6))"></div>\n  <div class="ph ab" id="pPh"')
 mont = blk(182, 196)
+END = CIERRE + END
 html = (blk(1, 54) + CSS + '</style>\n<script src="logo.js"></script><script src="loteria.js"></script>\n</head><body>\n<div id="v">\n'
         + blk(60, 116) + CAT_LOGO + blk(129, 162) + LOT + mont + '\n' + pieza + RESTO + blk(231, 259) + PUENTE_EXC + blk(261, 268) + END
         + blk(281, 288) + '\n<script src="m2.js"></script>\n</body></html>\n')

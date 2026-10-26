@@ -3,7 +3,7 @@
 # → swing en Trabajo en Equipo y Resultados → piano en Pasión y el puente → audio del 877 → swing final.
 import numpy as np
 base = open('musica_m.py').read().split('\n')
-codigo = '\n'.join(base[:258]).replace('TOTAL = 76.5', 'TOTAL = 137.3')
+codigo = '\n'.join(base[:258]).replace('TOTAL = 76.5', 'TOTAL = 163.3')
 exec(codigo)  # instrumentos, efectos, tema, compas(), tramo(), shout(), golpe_final(), espacio y patio (0–12.6)
 
 # ---------- instrumentos y efectos extra ----------
@@ -151,31 +151,65 @@ mus.put(86.7, campana(74, 2.0), .4)
 
 # ---------- 87.2–126.4: el audio del video del 877 (sin música nuestra) ----------
 exc = Pista()
-for i, (t0, d) in enumerate([(87.2, 12.3), (99.0, 13.3), (111.8, 14.6)]):
-    v, sr = sf.read(f'e877/s{i}.wav')
+for t0, nom in [(87.2, 's0'), (99.0, 't1'), (106.3, 't2'), (119.1, 's2'), (133.2, 'u1')]:  # bienvenida, casita, rescate, razón y recuerdo, regreso a casa
+    v, sr = sf.read(f'e877/{nom}.wav')
     if v.ndim > 1: v = v.mean(axis=1)
     e = np.ones(len(v)); f = int(.5 * SR); e[:f] = np.linspace(0, 1, f); e[-f:] = np.linspace(1, 0, f)
     exc.put(t0, v * e, 1.0)
-mus.x[int(87.3 * SR):int(126.3 * SR)] *= 0
+mus.x[int(87.3 * SR):int(146.8 * SR)] *= 0
+DT = 20.5  # lo que sigue al 877 se recorre porque el fragmento creció
 
-# ---------- llegada y final (126.4–137.3) ----------
-mus.put(126.4, platillo(2.0), .9)
+# ---------- llegada y final (133.7–144.6) ----------
+mus.put((126.4 + DT), platillo(2.0), .9)
 plan4 = [(0, 'B', 'med', False), (1, 'B', 'med', False), (2, 'B', 'full', True), (3, 'B', 'full', True)]
-tramo(126.4, plan4)
-shout(126.4 + 2 * 4 * BEAT, 'B', 2, 1.1); shout(126.4 + 3 * 4 * BEAT, 'B', 3, 1.1)
-tf = 126.4 + 15 * BEAT
+tramo((126.4 + DT), plan4)
+shout((126.4 + DT) + 2 * 4 * BEAT, 'B', 2, 1.1); shout((126.4 + DT) + 3 * 4 * BEAT, 'B', 3, 1.1)
+tf = (126.4 + DT) + 15 * BEAT
 mus.x[int((tf - .02) * SR):int((tf + 4) * SR)] *= 0
 golpe_final(tf, 1.2)
 for n in (50, 57, 62, 65): mus.put(tf, cuerdas(n, 4.6, .3, 2.0), 1.4)
 for i, (b, n, d) in enumerate(MEL['A'][:8]): mus.put(tf + 1.4 + b * .42, cajita(n + 12, 2.0), .9, .2)
 mus.put(tf + 1.0, campana(62, 4.5), .8, -.3)
-sfx.put(126.2, zumbido(.4), .9)
-sfx.put(128.0, boom(2.0), .8); sfx.put(128.0, platillo(2.0), .8)
-sfx.put(129.8, zumbido(.4), .8); sfx.put(131.5, platillo(1.2), .6)
-sfx.put(133.6, zumbido(.5, False), .5)
+sfx.put((126.2 + DT), zumbido(.4), .9)
+sfx.put((128.0 + DT), boom(2.0), .8); sfx.put((128.0 + DT), platillo(2.0), .8)
+sfx.put((129.8 + DT), zumbido(.4), .8); sfx.put((131.5 + DT), platillo(1.2), .6)
+
+# ---------- cierre: cambio y fuera con el tracto (133.8–139.8 + DT) ----------
+def claxon_aire(d, g=1.0):  # claxon de aire de tráiler: tres trompetas, ataque con aire y caída al soltar
+    t = tt(d); y = np.zeros_like(t)
+    for f0, w in ((233.1, 1.0), (293.7, .85), (349.2, .6)):
+        f = f0 * (1 - .035 * np.exp(-t * 22)) * (1 - .04 * np.clip((t - (d - .09)) / .09, 0, 1))
+        ph = np.cumsum(f * (1 + .002 * np.sin(2 * np.pi * 7 * t))) / SR
+        sierra = 2 * (ph % 1) - 1
+        y += w * (sierra + .35 * np.sign(np.sin(2 * np.pi * ph)))
+    y = filtro(y, lo=140, hi=4200) + filtro(y, lo=500, hi=1400) * .9  # resonancia de la trompeta
+    y += filtro(ruido(d), lo=900, hi=3500) * .18  # el aire
+    y = np.tanh(y * .9) * env(d, .025, .09)
+    eco = np.zeros(len(y) + int(.8 * SR)); eco[:len(y)] += y
+    for dl, ge in ((.31, .32), (.62, .14)): i = int(dl * SR); eco[i:i + len(y)] += filtro(y, hi=2200) * ge
+    return eco * .11 * g
+def motor(d, g=1.0):  # ralentí del tracto
+    t = tt(d); fz = 27 + .6 * np.sin(2 * np.pi * .3 * t)
+    ph = np.cumsum(fz) / SR; y = np.zeros_like(t)
+    for h, w in ((1, 1), (2, .6), (3, .35), (4, .25), (6, .12)): y += w * np.sin(2 * np.pi * h * ph + h)
+    y *= .75 + .25 * np.sin(2 * np.pi * fz / 2 * t) ** 2
+    y += filtro(ruido(d), hi=260) * .4
+    return filtro(y, hi=420) * env(d, .6, 1.0) * .09 * g
+def freno_aire(g=1.0):
+    d = .9; t = tt(d); return filtro(ruido(d), lo=1800, hi=9000) * np.exp(-t * 4.2) * env(d, .015, .2) * .16 * g
+tc = 133.8 + DT
+sfx.put(tc - .1, zumbido(.6, False), .6)
+sfx.put(tc, motor(5.6), 1.0, -.3)
+mus.put(tc, coro([50, 57, 62], 5.5), .7)
+sfx.put(tc + .2, boom(2.2), .55); sfx.put(tc + .25, campana(74, 2.2), .45, .3)
+for dt_, d in ((1.6, .35), (2.1, 1.15)): sfx.put(tc + dt_, claxon_aire(d), 2.6, -.2)
+sfx.put(tc + 4.0, freno_aire(), .8, -.3)
+for n in (50, 57, 62, 66): mus.put(tc + 6.0, cuerdas(n, 3.2, .6, 1.4), 1.0)  # acorde final en la tarjeta de muestra
+mus.put(tc + 6.0, cajita(74, 2.5), .6); mus.put(tc + 6.4, cajita(81, 2.5), .5)
+
 
 # ---------- voces de radio y mezcla ----------
-RADIO = [(1.0, 'r0'), (26.7, 'r1'), (53.6, 'r2'), (61.6, 'r4'), (69.4, 'r3'), (126.8, 'r5')]
+RADIO = [(1.0, 'r0'), (26.7, 'r1'), (53.6, 'r2'), (61.6, 'r4'), (69.4, 'r3'), (126.8 + DT, 'r5b'), (134.3 + DT, 'r6')]
 DUCK = np.ones(N)
 for t0, f in RADIO:
     v, sr = sf.read(f'aud/{f}.wav')
@@ -208,6 +242,6 @@ ent = int(.4 * SR); mezcla[:ent] *= np.linspace(0, 1, ent)[:, None]
 sal = int(2.0 * SR); mezcla[-sal:] *= (np.linspace(1, 0, sal) ** 1.6)[:, None]
 mezcla = mezcla / np.max(np.abs(mezcla)) * .95
 sf.write('mezcla_m2.wav', mezcla.astype(np.float32), SR, subtype='FLOAT')
-for a, b, nom in [(0, 14.6, 'intro'), (33.6, 53.2, 'lotería'), (87.2, 126.4, '877'), (126.4, 137.3, 'final')]:
+for a, b, nom in [(0, 14.6, 'intro'), (33.6, 53.2, 'lotería'), (87.2, 146.9, '877'), (146.9, 154.3, 'llegada'), (154.3, 160.3, 'cierre')]:
     seg = mezcla[int(a * SR):int(b * SR)]; print(nom, round(20 * np.log10(np.sqrt(np.mean(seg ** 2)) + 1e-9), 1), 'dB')
 print('ok', nf / SR)

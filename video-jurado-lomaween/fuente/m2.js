@@ -1,6 +1,7 @@
 // Muestra v2 del video del jurado: Catrina que se deshace en brasas, logo con chispas, lotería de misiones,
 // puntos de control en orden Trabajo en Equipo → Resultados → Pasión, puente emotivo y fragmento del 877.
-const W = 1280, H = 720, TOTAL = 137.3; window.TOTAL = TOTAL;
+const W = 1280, H = 720, TOTAL = 163.3; window.TOTAL = TOTAL;
+const EXC_END = 146.9, DT = 20.5; // el fragmento del 877 dura 59.7 s; lo que sigue se recorre DT
 const $ = id => document.getElementById(id);
 const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, k) => a + (b - a) * k;
@@ -22,7 +23,8 @@ const RADIO = [
   [53.6, 56.35, 'Base Centinela a Trabajo en Equipo, ¿me copias?'],
   [61.6, 64.67, 'Base Centinela a Enfoque a Resultados, ¿me copias?'],
   [69.4, 71.58, 'Base Centinela a Pasión, ¿me copias?'],
-  [126.8, 130.36, 'Unidad Blindaje Centinela: llegó a destino. Cambio y fuera.'],
+  [126.8, 129.6, 'Unidad Blindaje Centinela: llegó a destino.'],
+  [134.3, 135.45, 'Cambio y fuera.'],
 ];
 
 // ---------- A · globo ----------
@@ -174,16 +176,12 @@ function prepLogo() {
     const L = p.getTotalLength();
     for (let i = 0; i < n; i++) { const q = p.getPointAtLength(L * i / n); pts.push([LX + q.x * LS, LY + q.y * LS, 0]); }
   }
-  const bx = [470, 423, 340, 58]; // recuadro de CENTINELA
-  for (let i = 0; i < 100; i++) {
-    const per = 2 * (bx[2] + bx[3]), d = per * i / 100;
-    let x, y; if (d < bx[2]) [x, y] = [bx[0] + d, bx[1]]; else if (d < bx[2] + bx[3]) [x, y] = [bx[0] + bx[2], bx[1] + d - bx[2]]; else if (d < 2 * bx[2] + bx[3]) [x, y] = [bx[0] + bx[2] - (d - bx[2] - bx[3]), bx[1] + bx[3]]; else [x, y] = [bx[0], bx[1] + bx[3] - (d - 2 * bx[2] - bx[3])];
-    pts.push([x, y, 1]);
-  }
+  const bx = [430, 430, 420, 48]; // chispas que dibujan el contorno de CENTINELA
+  for (let i = 0; i < 90; i++) pts.push([bx[0] + rnd(i, 21) * bx[2], bx[1] + rnd(i, 22) * bx[3], 1]);
   LG.ch = pts.map(([x, y, m], k) => {
     const a = rnd(k, 11) * Math.PI * 2, dist = 260 + rnd(k, 12) * 520, t0 = (m ? 20.15 : 19.62) + rnd(k, 13) * (m ? .75 : .95), dur = .32 + rnd(k, 14) * .26;
     const sx = x + Math.cos(a) * dist, sy = y + Math.sin(a) * dist, mx = (sx + x) / 2 + Math.cos(a + 1.6) * dist * .35, my = (sy + y) / 2 + Math.sin(a + 1.6) * dist * .35;
-    return { x, y, sx, sy, mx, my, t0, dur };
+    return { x, y, sx, sy, mx, my, t0, dur, m };
   });
   LG.pC = new Path2D(LOGO_C); LG.pD = new Path2D(LOGO_D);
   $('lgSolG').innerHTML = logoSVG('lgIntro');
@@ -196,11 +194,11 @@ function neon(c, col, glow, lw, relleno) {
   c.restore();
 }
 function marcaNeon(c, col, glow, k, relleno) {
-  c.save(); c.beginPath(); c.rect(460, 410, 360 * k, 90); c.clip();
-  c.shadowColor = glow; c.shadowBlur = 18; c.strokeStyle = col; c.lineWidth = 3.5; c.strokeRect(472, 425, 336, 54);
-  c.font = '800 38px M'; c.letterSpacing = '6px'; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.save(); c.beginPath(); c.rect(410, 410, 460 * k, 90); c.clip();
+  c.shadowColor = glow; c.shadowBlur = 18; c.strokeStyle = col;
+  c.font = '800 50px M'; c.letterSpacing = '6px'; c.textAlign = 'center'; c.textBaseline = 'middle';
   if (relleno) { c.fillStyle = relleno; c.fillText('CENTINELA', 643, 454); }
-  c.lineWidth = 1.6; c.strokeText('CENTINELA', 643, 454); c.restore();
+  c.lineWidth = 1.8; c.strokeText('CENTINELA', 643, 454); c.restore();
 }
 function escenaLogo(t) {
   if (!LG.ch) prepLogo();
@@ -221,7 +219,7 @@ function escenaLogo(t) {
         const [x1, y1] = bz(u, p), [x0, y0] = bz(Math.max(0, u - .12), p);
         c.strokeStyle = 'rgba(255,150,70,.85)'; c.lineWidth = 1.8; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
         c.fillStyle = '#FFE0B0'; c.fillRect(x1 - 1.5, y1 - 1.5, 3, 3);
-      } else if (t < 21.2) { lit++; c.fillStyle = 'rgba(255,70,30,.9)'; c.beginPath(); c.arc(p.x, p.y, 2.2, 0, 7); c.fill(); }
+      } else if (t < 21.2 && !p.m) { lit++; c.fillStyle = 'rgba(255,70,30,.9)'; c.beginPath(); c.arc(p.x, p.y, 2.2, 0, 7); c.fill(); }
     }
     c.globalCompositeOperation = 'source-over';
     const nk = eo(pr(t, 20.8, 21.2)) * (1 - pr(t, 21.65, 22.3));
@@ -495,25 +493,57 @@ function escenaPuente(t) {
   $('pnPh').style.opacity = eo(pr(lt, 4.6, 5.0));
   $('sPuente').style.opacity = Math.min(pr(lt, 0, .5), 1 - pr(t, 86.8, 87.2));
 }
-const SEGS = [[87.2, 0, 369], [99.0, 1, 399], [111.8, 2, 438]];
-function segFrame(t, [a, i, n]) { return `e877/s${i}_${String(cl(Math.floor((t - a) * 30) + 1, 1, n)).padStart(4, '0')}.jpg`; }
+const SEGS = [[87.2, 's0', 369], [99.0, 't1', 234], [106.3, 't2', 399], [119.1, 's2', 438], [133.2, 'u1', 411]]; // bienvenida, casita, rescate, razón y recuerdo, regreso a casa
+function segFrame(t, [a, i, n]) { return `e877/${i}_${String(cl(Math.floor((t - a) * 30) + 1, 1, n)).padStart(4, '0')}.jpg`; }
 function escenaExc(t) {
-  if (!show($('sExc'), t >= 87.2 && t < 126.4)) return null;
+  if (!show($('sExc'), t >= 87.2 && t < EXC_END)) return null;
   const act = SEGS.filter(([a, i, n]) => t >= a && t < a + n / 30);
   const e0 = $('ex0'), e1 = $('ex1'), want = [];
   if (act.length) { want.push([e0, segFrame(t, act[0])]); e0.style.opacity = 1; }
   if (act.length > 1) { want.push([e1, segFrame(t, act[1])]); e1.style.opacity = pr(t, act[1][0], act[1][0] + .5); show(e1, true); } else show(e1, false);
   $('exTag').style.opacity = fade(t, 87.6, 91.2, .4, .5);
-  $('sExc').style.opacity = Math.min(pr(t, 87.2, 87.6), 1 - pr(t, 125.9, 126.4));
+  $('sExc').style.opacity = Math.min(pr(t, 87.2, 87.6), 1 - pr(t, EXC_END - .5, EXC_END));
   return want;
+}
+// ---------- cierre: cambio y fuera (133.8–139.8) ----------
+const CLAX = [[135.4, .35], [135.9, 1.15]];
+function escenaCierre(t) {
+  if (!show($('sCierre'), t >= 133.8 && t < 139.8)) return;
+  const lt = t - 133.8, s = lerp(.71, .76, lt / 6);
+  if (!$('ciLogoG').innerHTML) $('ciLogoG').innerHTML = logoSVG('lgCi');
+  const cl0 = CLAX.reduce((m, [a, d]) => Math.max(m, t >= a && t < a + d + .25 ? Math.min(1, (t - a) / .05) * (1 - pr(t, a + d, a + d + .25)) : 0), 0);
+  $('ciFoto').style.transform = `translate(${-40 - lt * 6}px,${(H - 1040 * s) / 2 + 10}px) scale(${s})`;
+  $('ciFoto').style.filter = `brightness(${.98 + .4 * cl0}) saturate(1.1) contrast(1.05)`;
+  const c = $('ciC').getContext('2d'); c.clearRect(0, 0, W, H); c.globalCompositeOperation = 'lighter';
+  // faros del tracto que destellan con el claxon
+  for (const [x, y] of [[300, 712], [140, 718]]) {
+    if (cl0 <= 0) continue;
+    const g = c.createRadialGradient(x, y, 0, x, y, 260); g.addColorStop(0, `rgba(255,244,220,${.9 * cl0})`); g.addColorStop(.15, `rgba(255,220,160,${.45 * cl0})`); g.addColorStop(1, 'rgba(255,200,120,0)');
+    c.fillStyle = g; c.fillRect(x - 260, y - 260, 520, 520);
+    const r = c.createLinearGradient(x - 700, y, x + 700, y); r.addColorStop(0, 'rgba(180,210,255,0)'); r.addColorStop(.5, `rgba(220,235,255,${.55 * cl0})`); r.addColorStop(1, 'rgba(180,210,255,0)');
+    c.fillStyle = r; c.fillRect(x - 700, y - 3, 1400, 6);
+  }
+  // ondas de radio que salen del logo
+  for (let i = 0; i < 4; i++) {
+    const k = ((lt - .6) * .55 + i / 4) % 1; if (lt < .6) break;
+    c.strokeStyle = `rgba(255,110,30,${(1 - k) * .75})`; c.lineWidth = 5; c.lineCap = 'round';
+    c.beginPath(); c.arc(320, 108, 56 + k * 150, -Math.PI * .5, -Math.PI * .05); c.stroke();
+  }
+  c.globalCompositeOperation = 'source-over';
+  const kl = back(pr(lt, .2, .75)); $('ciLogo').style.opacity = pr(lt, .2, .3);
+  $('ciLogo').style.transform = `scale(${kl})`; $('ciLogo').style.transformOrigin = '300px 130px';
+  $('ciLogo').style.filter = `drop-shadow(0 0 ${14 + 16 * cl0}px rgba(255,110,30,.7))`;
+  const k1 = eo(pr(lt, .7, .95)); $('ciT1').style.opacity = k1; $('ciT1').style.transform = `scale(${lerp(1.6, 1, k1)})`;
+  $('ciT2').style.opacity = eo(pr(lt, 1.2, 1.5)); $('ciT3').style.opacity = eo(pr(lt, 1.5, 1.8)); $('ciT4').style.opacity = eo(pr(lt, 1.8, 2.1));
+  $('sCierre').style.opacity = Math.min(pr(lt, 0, .5), 1 - pr(t, 139.2, 139.8));
 }
 function escenaFin(t) {
   if (!show($('sFin'), t >= 130.0 && t < 133.8)) return;
   const lt = t - 130.0, s = lerp(.82, .9, lt / 3.8);
   $('fFoto').style.transform = `translate(${(W - 1600 * s) / 2}px,${(H - 1200 * s) / 2 - 40}px) scale(${s})`;
-  $('fQ').style.opacity = eo(pr(lt, .2, .6)) * (1 - pr(lt, 1.3, 1.5));
+  $('fQ').style.opacity = 0;
   const k = eo(pr(lt, 1.5, 1.75)); $('fS').style.opacity = k; $('fS').style.transform = `scale(${lerp(1.5, 1, k)})`;
-  const lg = $('fLogo'), kl = back(pr(lt, 2.3, 2.6)); lg.style.opacity = pr(lt, 2.3, 2.4); lg.style.transform = `scale(${kl}) rotate(${(1 - kl) * -40}deg)`;
+  $('fLogo').style.opacity = 0;
   $('sFin').style.opacity = Math.min(pr(lt, 0, .25), 1 - pr(t, 133.5, 133.8));
 }
 
@@ -539,7 +569,7 @@ function confeti(t, t0, cx, cy, n) {
 }
 function particulas(t) {
   ctx.clearRect(0, 0, W, H);
-  lluvia(t, 12.6, 14.6, 70); lluvia(t, 23.4, 26.4, 90); lluvia(t, 130.0, 133.8, 70); lluvia(t, 133.8, 137.3, 40, .6);
+  lluvia(t, 12.6, 14.6, 70); lluvia(t, 23.4, 26.4, 90); lluvia(t, 130.0, 133.8, 70); lluvia(t, 139.8, 142.8, 40, .6);
   confeti(t, 23.47, 640, 400, 90); confeti(t, 32.2, 1030, 160, 70); confeti(t, 68.3, 900, 400, 60); confeti(t, 128.0, 640, 140, 80); confeti(t, 131.5, 640, 560, 90);
 }
 function subs(t) {
@@ -548,12 +578,13 @@ function subs(t) {
   $('subT').innerHTML = `<i>📻 BASE CENTINELA</i>${r[2]}`; s.style.bottom = (t < 26.4 ? 66 : 22) + 'px';
 }
 function flashes(t) {
-  const ev = [[8.6, .9, .25], [11.3, .7, .18], [12.6, .8, .2], [14.6, 1, .45], [21.62, .3, .25], [23.45, .9, .3], [33.6, .3, .2], [53.2, .25, .15], [61.2, .25, .15], [69.0, .25, .15], [128.0, .5, .25], [131.5, .6, .3], [132.3, .4, .25]];
+  const ev = [[8.6, .9, .25], [11.3, .7, .18], [12.6, .8, .2], [14.6, 1, .45], [21.62, .3, .25], [23.45, .9, .3], [33.6, .3, .2], [53.2, .25, .15], [61.2, .25, .15], [69.0, .25, .15], [128.0, .5, .25], [131.5, .6, .3]];
   let o = 0; for (const [a, m, d] of ev) if (t >= a && t < a + d) o = Math.max(o, m * (1 - (t - a) / d));
   $('flash').style.opacity = o;
 }
 
-function render(t) {
+function render(t0) {
+  const t = t0 < 87.2 ? t0 : t0 < EXC_END ? 100 : t0 - DT; // durante el 877 solo se ve el fragmento
   show($('sA'), t < 8.6) && escenaA(t);
   show($('sB1'), t >= 8.6 && t < 11.3) && escenaB1(t);
   show($('sB2'), t >= 11.3 && t < 12.6) && escenaB2(t);
@@ -563,11 +594,12 @@ function render(t) {
   show($('sMap'), MAPA_ON(t)) && escenaMapa(t);
   show($('sLot'), t >= 33.6 && t < 53.2) && escenaLot(t);
   escenaCard(t); escenaMont(t); escenaPieza(t); escenaResto(t); escenaAD(t); escenaChk(t); escenaPuente(t);
-  const ex = escenaExc(t);
+  const ex = escenaExc(t0);
   escenaFin(t);
-  if (show($('sEnd'), t >= 133.8)) $('sEnd').style.opacity = Math.min(pr(t, 133.8, 134.2), 1 - pr(t, 136.8, 137.3));
+  escenaCierre(t);
+  if (show($('sEnd'), t >= 139.8)) $('sEnd').style.opacity = Math.min(pr(t, 139.8, 140.2), 1 - pr(t, 142.3, 142.8));
   const bar = t < 26.4 ? 0 : eo(pr(t, 26.4, 26.9)) * 56; $('barT').style.transform = `translateY(${-bar}px)`; $('barB').style.transform = `translateY(${bar}px)`;
-  $('grano').style.backgroundPosition = `${Math.floor(rnd(Math.floor(t * 30), 9) * 640)}px ${Math.floor(rnd(Math.floor(t * 30), 10) * 360)}px`;
+  $('grano').style.backgroundPosition = `${Math.floor(rnd(Math.floor(t0 * 30), 9) * 640)}px ${Math.floor(rnd(Math.floor(t0 * 30), 10) * 360)}px`;
   particulas(t); subs(t); flashes(t);
   return ex;
 }
@@ -575,7 +607,7 @@ window.render = render;
 window.renderAsync = async t => {
   const im = [];
   if (t < 8.6) { const g = $('gl'), src = `globo/g_${String(Math.min(257, Math.floor(t * 30))).padStart(4, '0')}.jpg`; if (!g.src.endsWith(src)) { g.src = src; im.push(g); } }
-  if (t >= 87.2 && t < 126.4) {
+  if (t >= 87.2 && t < EXC_END) {
     for (const [el, src] of escenaExc(t) || []) if (!el.src.endsWith(src)) { el.src = src; im.push(el); }
   }
   render(t);

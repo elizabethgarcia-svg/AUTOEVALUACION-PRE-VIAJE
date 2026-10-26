@@ -1,0 +1,216 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Anton;src:url(../../build2/fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(../../build2/fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(../../build2/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(../../build2/fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:700;src:url(../../build2/fonts/playfair-display-latin-700-italic.woff2)}
+html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#000}
+#v{position:relative;width:1280px;height:720px;overflow:hidden;background:#000;font-family:M;font-weight:800;color:#fff}
+.sc{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;visibility:hidden}
+.ab{position:absolute}.full{position:absolute;left:0;top:0;width:1280px;height:720px}
+.vcr{font-family:"DejaVu Sans Mono",monospace;font-weight:700;color:#F4F4F4;text-shadow:2px 0 0 rgba(255,0,60,.7),-2px 0 0 rgba(0,220,255,.7),0 0 8px rgba(255,255,255,.6)}
+.A{font-family:Anton;line-height:1}
+.glo{text-shadow:0 0 18px rgba(255,90,0,.9),0 0 50px rgba(255,90,0,.55),0 5px 0 rgba(0,0,0,.5)}
+.cap{display:inline-block;padding:10px 22px;border-radius:12px;background:rgba(8,6,16,.78);font-family:M;font-weight:800;font-size:26px;line-height:1.25}
+.cap b{color:#FFB300}
+.sello{position:absolute;font-family:Anton;letter-spacing:4px;border:8px solid currentColor;border-radius:14px;padding:6px 26px;line-height:1.05}
+.ph{border:2px dashed rgba(255,255,255,.8);border-radius:16px;background:rgba(10,8,20,.6);padding:12px 18px;font-family:M;font-weight:800;font-size:16px;letter-spacing:1px}
+.ph b{color:#FFB300}
+.burb{position:absolute;padding:12px 22px;border-radius:30px;background:#fff;color:#1A1A2E;font-family:Anton;font-size:46px;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+#marca{position:absolute;right:18px;top:14px;font-family:M;font-weight:900;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);background:rgba(229,57,47,.85);padding:4px 10px;border-radius:6px}
+</style></head><body>
+<div id="v">
+  <!-- VHS: cinta que arranca -->
+  <div class="sc" id="sPlay">
+    <div class="full" style="background:#1430C8"></div>
+    <div class="ab vcr" style="left:60px;top:50px;font-size:40px">PLAY ▶</div>
+    <div class="ab" style="left:0;width:1280px;top:270px;text-align:center"><div class="vcr" style="font-size:96px;letter-spacing:6px">TOMAS FALSAS</div><div class="vcr" style="font-size:26px;margin-top:14px;letter-spacing:4px">LA 57 DE LAS ÁNIMAS · DETRÁS DE CÁMARAS</div></div>
+    <div class="ab vcr" style="left:60px;bottom:50px;font-size:28px">SP  0:00:00</div>
+  </div>
+  <!-- tomas (fotos y videos del armado) -->
+  <div class="sc" id="sClip">
+    <img id="cBg" class="full" style="object-fit:cover;filter:blur(28px) brightness(.4) saturate(1.2);transform:scale(1.15)">
+    <div class="ab" id="cMarco" style="left:437px;top:0;width:406px;height:720px;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.7)"><img id="cImg" style="width:406px;height:720px;display:block;transform-origin:0 0"></div>
+    <div class="ab" id="cap" style="left:0;width:1280px;bottom:70px;text-align:center"><span class="cap" id="capT"></span></div>
+    <div class="ab" id="flecha" style="left:860px;top:380px"><div class="A" style="font-size:40px;color:#FFB300;text-shadow:0 3px 0 #000">← SUPERVISOR</div></div>
+    <div class="sello" id="corte" style="left:470px;top:250px;color:#E5392F;font-size:88px;background:rgba(255,255,255,.08)">¡CORTE!</div>
+    <div class="ab vcr" id="ffT" style="right:60px;top:110px;font-size:48px">▶▶ ×4</div>
+  </div>
+  <!-- la claqueta -->
+  <div class="sc" id="sClaq">
+    <div class="full" style="background:radial-gradient(ellipse at 50% 50%,#2A2A33,#0A0A0E 75%)"></div>
+    <svg class="ab" width="1280" height="720" style="left:0;top:0">
+      <g id="claq" transform="translate(640,380)">
+        <rect x="-300" y="-110" width="600" height="300" rx="10" fill="#1A1A1E" stroke="#EEE" stroke-width="5"/>
+        <g font-family="M" font-weight="800" fill="#EEE" font-size="22">
+          <text x="-270" y="-60">PRODUCCIÓN: LA 57 DE LAS ÁNIMAS</text>
+          <line x1="-300" y1="-40" x2="300" y2="-40" stroke="#EEE" stroke-width="3"/>
+          <text x="-270" y="0">ESCENA</text><text x="-60" y="0">TOMA</text><text x="140" y="0">ROLLO</text>
+          <text x="-270" y="60" font-family="Anton" font-size="56">ARMADO</text><text x="-60" y="60" font-family="Anton" font-size="56">14</text><text x="140" y="60" font-family="Anton" font-size="56">3</text>
+          <line x1="-300" y1="90" x2="300" y2="90" stroke="#EEE" stroke-width="3"/>
+          <text x="-270" y="135">DIRECTORA: LA BASE · CÁMARA: QUIEN SE DEJÓ</text>
+        </g>
+        <g id="claqTapa" transform="rotate(0 -300 -110)">
+          <rect x="-300" y="-170" width="600" height="58" rx="6" fill="#1A1A1E" stroke="#EEE" stroke-width="5"/>
+          <g id="rayas"></g>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <!-- Centinela con su error de grabación -->
+  <div class="sc" id="sErr">
+    <img class="full" src="../material/armado_01.jpg" style="object-fit:cover;filter:blur(26px) brightness(.35)">
+    <div class="ab" id="eMarco" style="left:120px;top:90px;width:420px;height:540px;border:6px solid #fff;border-radius:12px;overflow:hidden;transform:rotate(-3deg)"><img src="../material/armado_01.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%"></div>
+    <div class="ab" style="left:620px;top:120px;width:600px">
+      <div class="ab vcr" style="position:relative;font-size:30px">TOMA 3</div>
+      <div class="A glo" style="font-size:64px;margin-top:10px">OJO DE HALCÓN</div>
+      <div id="eQ" style="font-family:PF;font-style:italic;font-weight:700;font-size:30px;line-height:1.3;margin-top:18px;min-height:120px"></div>
+      <div class="ph" id="ePh" style="margin-top:20px;display:inline-block">▶ <b>AQUÍ ENTRAN SUS ERRORES DE GRABACIÓN</b> · los que salgan, ¡que nadie los borre!</div>
+    </div>
+    <div class="sello" id="otra" style="left:560px;top:470px;color:#FFB300;font-size:70px">¡OTRA VEZ!</div>
+  </div>
+  <!-- el ¡10-4! cada quien a su ritmo -->
+  <div class="sc" id="s104">
+    <img id="gFoto" class="ab" src="../material/armado_03.jpg" style="width:1600px;height:1200px;transform-origin:0 0">
+    <div class="full" style="background:linear-gradient(0deg,rgba(0,0,0,.7),rgba(0,0,0,0) 40%)"></div>
+    <div class="burb" id="b1" style="left:120px;top:120px">¡10-4!</div>
+    <div class="burb" id="b2" style="left:470px;top:70px">¡10-4!</div>
+    <div class="burb" id="b3" style="left:820px;top:130px">¡10…!</div>
+    <div class="burb" id="b4" style="left:990px;top:300px;background:#FFB300">¡¿10-qué?!</div>
+    <div class="ab" style="left:0;width:1280px;bottom:70px;text-align:center"><span class="cap">TOMA 9 del <b>«¡10-4!»</b>: cada quien a su ritmo</span></div>
+  </div>
+  <!-- hasta el 877 se equivoca -->
+  <div class="sc" id="sOops">
+    <img id="oImg" class="full" src="e877/s0_0040.jpg">
+    <div class="burb" id="oB" style="left:830px;top:215px;font-size:38px">¿Así está bien? 😅</div>
+    <div class="sello" id="oCorte" style="left:470px;top:260px;color:#E5392F;font-size:88px;background:rgba(255,255,255,.08)">¡CORTE!</div>
+    <div class="ab" style="left:0;width:1280px;bottom:70px;text-align:center"><span class="cap">TOMA 27 · Hasta el 877 se equivoca: <b>«¡Ho… ho… hola, amiguitos!»</b></span></div>
+  </div>
+  <!-- después de los créditos: el 877 abre los ojos -->
+  <div class="sc" id="sOjos">
+    <div class="full" style="background:#000"></div>
+    <div class="ab" id="ojMarco" style="left:0;top:0;width:1280px;height:720px;transform-origin:622px 243px;-webkit-mask-image:radial-gradient(ellipse 260px 120px at 622px 245px,#000 55%,transparent 100%)">
+      <img src="../bloopers/ojos877.jpg" style="width:1280px;height:720px;display:block;filter:brightness(.85)">
+      <div class="ab" id="lidT1" style="left:500px;width:130px;top:140px;height:110px;background:#000;border-radius:0 0 60px 60px"></div>
+      <div class="ab" id="lidB1" style="left:500px;width:130px;top:240px;height:110px;background:#000;border-radius:60px 60px 0 0"></div>
+      <div class="ab" id="lidT2" style="left:612px;width:130px;top:140px;height:110px;background:#000;border-radius:0 0 60px 60px"></div>
+      <div class="ab" id="lidB2" style="left:612px;width:130px;top:240px;height:110px;background:#000;border-radius:60px 60px 0 0"></div>
+    </div>
+    <div class="ab" id="ojSub" style="left:0;width:1280px;bottom:120px;text-align:center"><span class="cap" id="ojSubT"></span></div>
+  </div>
+  <!-- tarjeta de muestra -->
+  <div class="sc" id="sFin">
+    <div class="full" style="background:radial-gradient(ellipse at 50% 45%,#1E1033,#050409 70%)"></div>
+    <div class="ab" style="left:0;width:1280px;top:230px;text-align:center">
+      <span style="display:inline-block;padding:6px 14px;border-radius:999px;font-weight:900;font-size:13px;letter-spacing:3px;background:#E5392F">MUESTRA · TOMAS FALSAS</span>
+      <div class="A glo" style="font-size:64px;margin-top:18px">VAN DESPUÉS DE «CAMBIO Y FUERA»</div>
+      <div style="font-family:M;font-weight:700;font-size:21px;color:#DCE4F5;margin-top:18px;line-height:1.5">Graben tres tomas de cada frase y no borren las que salgan mal:<br>son el final más divertido del video.</div>
+    </div>
+  </div>
+  <!-- capa VHS -->
+  <div class="full" id="lineas" style="background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,rgba(0,0,0,0) 2px 4px);pointer-events:none"></div>
+  <canvas id="ruido" width="1280" height="720" class="full" style="pointer-events:none"></canvas>
+  <div class="ab vcr" id="hudPlay" style="left:50px;top:40px;font-size:32px">PLAY ▶</div>
+  <div class="ab vcr" id="hudRec" style="right:60px;top:40px;font-size:30px"><span style="color:#FF3B30">●</span> REC</div>
+  <div class="ab vcr" id="hudFecha" style="right:60px;bottom:30px;font-size:26px;text-align:right">OCT. 25 2026<br><span id="hudHora">18:42:07</span></div>
+  <div class="ab vcr" id="hudRew" style="left:0;width:1280px;top:300px;text-align:center;font-size:72px">◀◀ REBOBINANDO</div>
+  <div class="ab vcr" id="hudStop" style="left:50px;top:40px;font-size:32px">■ STOP</div>
+  <div class="full" id="crt" style="background:#000;pointer-events:none"></div>
+  <div id="marca">MUESTRA</div>
+</div>
+<script>
+const W = 1280, H = 720, TOTAL = 37.0; window.TOTAL = TOTAL;
+const $ = id => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, k) => a + (b - a) * k;
+const eo = k => 1 - Math.pow(1 - cl(k), 3), ei = k => Math.pow(cl(k), 3);
+const back = k => { k = cl(k); const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const pr = (t, a, b) => cl((t - a) / (b - a)), fade = (t, a, b, fi = .3, fo = .3) => Math.min(pr(t, a, a + fi), 1 - pr(t, b - fo, b));
+const rnd = (i, k = 0) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const show = (el, on) => { el.style.visibility = on ? 'inherit' : 'hidden'; return on; };
+const fr = (v, n) => `../bloopers/${v}/f_${String(cl(Math.round(n), 1, { v1: 172, v2: 351, v3: 239 }[v])).padStart(4, '0')}.jpg`;
+// qué cuadro de los videos del armado va en cada instante
+function clip(t) {
+  if (t >= 3.2 && t < 7.4) return ['v2', 16 + (Math.min(t, 6.8) - 3.2) * 30, 'TOMA 14 · <b>«¡Que no se mueva el papel picado!»</b>'];
+  if (t >= 7.4 && t < 8.4) return ['v3', 129 * (1 - pr(t, 7.4, 8.4)) + 1, ''];
+  if (t >= 8.4 && t < 12.0) return ['v3', 129 + (t - 8.4) * 30, 'Mientras tanto… <b>supervisión de calidad</b> 😎'];
+  if (t >= 16.0 && t < 17.75) return ['v2', 141 + (t - 16.0) * 120, '3 horas de papel picado… <b>en 3 segundos</b>'];
+  if (t >= 17.75 && t < 19.0) return ['v1', 1 + (t - 17.75) * 137, '3 horas de papel picado… <b>en 3 segundos</b>'];
+  return null;
+}
+function render(t) {
+  show($('sPlay'), t < 2.2);
+  show($('sClaq'), t >= 2.2 && t < 3.2) && (() => {
+    const k = eo(pr(t, 2.2, 2.45)); $('claq').setAttribute('transform', `translate(640,${lerp(800, 380, k)}) rotate(${lerp(8, -2, k)})`);
+    const a = t < 2.6 ? -28 : lerp(-28, 0, eo(pr(t, 2.6, 2.85))); $('claqTapa').setAttribute('transform', `rotate(${a} -300 -110)`);
+  })();
+  const c = clip(t);
+  if (show($('sClip'), !!c)) {
+    const [v, n, cap] = c, src = fr(v, n);
+    if (!$('cImg').src.endsWith(src.slice(2))) { $('cImg').src = src; $('cBg').src = src; }
+    $('capT').innerHTML = cap; $('cap').style.opacity = cap ? fade(t, t < 7.4 ? 3.3 : t < 12 ? 8.6 : 16.1, t < 7.4 ? 7.4 : t < 12 ? 12 : 19, .3, .2) : 0;
+    const z = t >= 8.4 && t < 12 ? lerp(1, 1.45, eo(pr(t, 9.0, 10.2))) : 1;
+    $('cImg').style.transform = `translate(${(1 - z) * 406 * .72}px,${(1 - z) * 720 * .66}px) scale(${z})`;
+    $('flecha').style.opacity = t >= 9.4 && t < 12 ? eo(pr(t, 9.4, 9.6)) : 0; $('flecha').style.transform = `translateX(${Math.sin(t * 9) * 8}px)`;
+    const co = t >= 6.8 && t < 7.4; $('corte').style.opacity = co ? 1 : 0; $('corte').style.transform = `rotate(-8deg) scale(${co ? lerp(2.2, 1, eo(pr(t, 6.8, 6.95))) : 1})`;
+    $('cImg').style.filter = co ? 'saturate(.2) contrast(1.2)' : t >= 7.4 && t < 8.4 ? 'hue-rotate(40deg) saturate(1.6)' : '';
+    $('ffT').style.opacity = t >= 16 && t < 19 ? (Math.floor(t * 3) % 2 ? .35 : 1) : 0;
+  }
+  if (show($('sErr'), t >= 12.0 && t < 16.0)) {
+    const lt = t - 12, frase = '«Yo veo cada unidad en el mapa, de día y de no… ¿cómo era? ¡Ay, perdón!»';
+    $('eQ').textContent = frase.slice(0, Math.floor(frase.length * pr(lt, .3, 2.6)));
+    $('ePh').style.opacity = eo(pr(lt, 1.2, 1.5));
+    const o = pr(t, 15.0, 15.15); $('otra').style.opacity = o > 0 ? 1 : 0; $('otra').style.transform = `rotate(-10deg) scale(${lerp(2.2, 1, eo(o))})`;
+    $('sErr').style.opacity = Math.min(pr(lt, 0, .2), 1 - pr(t, 15.8, 16.0));
+  }
+  if (show($('s104'), t >= 19.0 && t < 23.0)) {
+    const lt = t - 19, s = lerp(.82, .88, lt / 4);
+    $('gFoto').style.transform = `translate(${(W - 1600 * s) / 2}px,${(H - 1200 * s) / 2 - 30}px) scale(${s})`;
+    [[1, .5], [2, .8], [3, 1.6], [4, 2.6]].forEach(([i, a]) => { const k = back(pr(lt, a, a + .25)); $('b' + i).style.transform = `scale(${k}) rotate(${(i % 2 ? -1 : 1) * 6}deg)`; $('b' + i).style.opacity = pr(lt, a, a + .05); });
+  }
+  if (show($('sOops'), t >= 23.0 && t < 27.0)) {
+    const lt = t - 23.0;  // la cinta se traba: ¡Ho… ho… hola, amiguitos!
+    const n = lt < .3 ? 40 + lt * 30 : lt < 1.65 ? 48 + ((lt - .3) % .45) * 30 : lt < 3.1 ? 48 + (lt - 1.65) * 30 : 92;
+    const src = `e877/s0_${String(Math.round(n)).padStart(4, '0')}.jpg`; if (!$('oImg').src.endsWith(src)) $('oImg').src = src;
+    const traba = lt >= .3 && lt < 1.65 && ((lt - .3) % .45) < .08;
+    $('oImg').style.filter = lt >= 3.1 ? 'saturate(.2) contrast(1.2)' : traba ? 'hue-rotate(60deg) saturate(2)' : '';
+    $('oImg').style.transform = traba ? `translateX(${(rnd(Math.floor(t * 60)) - .5) * 30}px)` : '';
+    const kb = back(pr(lt, 3.2, 3.5)); $('oB').style.opacity = pr(lt, 3.2, 3.25); $('oB').style.transform = `scale(${kb})`;
+    const kc = pr(lt, 3.1, 3.25); $('oCorte').style.opacity = kc > 0 ? 1 : 0; $('oCorte').style.transform = `rotate(-8deg) scale(${lerp(2.2, 1, eo(kc))})`;
+  }
+  if (show($('sOjos'), t >= 29.2 && t < 35.0)) {
+    const lt = t - 29.2;
+    const abre = eo(pr(lt, .2, .7)), parp = Math.sin(Math.PI * pr(lt, 2.2, 2.45)), guino = Math.sin(Math.PI * pr(lt, 3.8, 4.4));
+    const a1 = cl(abre - parp), a2 = cl(abre - Math.max(parp, guino));
+    $('lidT1').style.transform = `translateY(${-110 * a1}px)`; $('lidB1').style.transform = `translateY(${110 * a1}px)`;
+    $('lidT2').style.transform = `translateY(${-110 * a2}px)`; $('lidB2').style.transform = `translateY(${110 * a2}px)`;
+    $('ojMarco').style.transform = `scale(${lerp(1.15, 1.25, lt / 6)})`;
+    const sub = lt >= 1.1 && lt < 2.1 ? '🚛 «¿Nos copian?»' : lt >= 3.1 && lt < 3.9 ? '🚛 ¡Pip, pip!' : '';
+    $('ojSubT').textContent = sub; $('ojSub').style.opacity = sub ? 1 : 0;
+    $('sOjos').style.opacity = Math.min(pr(lt, 0, .3), 1 - pr(t, 34.4, 35.0));
+  }
+  if (show($('sFin'), t >= 35.0)) $('sFin').style.opacity = Math.min(pr(t, 35.0, 35.4), 1 - pr(t, 36.6, 37.0));
+  // capa VHS
+  const vhs = t < 27.0;
+  show($('lineas'), vhs); show($('hudPlay'), t >= 2.2 && t < 27.0 && !(t >= 7.4 && t < 8.4)); show($('hudRec'), t >= 3.2 && t < 27.0 && Math.floor(t * 2) % 2 === 0);
+  show($('hudFecha'), t >= 3.2 && t < 27.0); $('hudHora').textContent = `18:42:${String(7 + Math.floor(t)).padStart(2, '0')}`;
+  show($('hudRew'), t >= 7.4 && t < 8.4); show($('hudStop'), t >= 27.0 && t < 28.0);
+  const r = $('ruido').getContext('2d'); r.clearRect(0, 0, W, H);
+  if (vhs || (t >= 27 && t < 27.6)) {
+    const fuerte = (t >= 7.4 && t < 8.4) || t < .4 || (t >= 2.15 && t < 2.3) || (t >= 16 && t < 19) || (t >= 23.3 && t < 24.65 && ((t - 23.3) % .45) < .08) || t >= 26.85;
+    const nb = fuerte ? 7 : (rnd(Math.floor(t * 30), 3) > .82 ? 1 : 0);
+    for (let b = 0; b < nb; b++) {
+      const y = rnd(Math.floor(t * 30) + b, 5) * H, h = 4 + rnd(b, Math.floor(t * 30)) * (fuerte ? 40 : 10);
+      for (let x = 0; x < W; x += 8) { const v = rnd(x + b * 97, Math.floor(t * 30)) * 255 | 0; r.fillStyle = `rgba(${v},${v},${v},.55)`; r.fillRect(x, y, 8, h); }
+    }
+    $('v').style.transform = `translate(${(rnd(Math.floor(t * 30), 8) - .5) * (fuerte ? 10 : 2)}px,0)`;
+  } else $('v').style.transform = '';
+  // apagado de tele vieja
+  const k = pr(t, 27.4, 28.0), crt = $('crt');
+  if (t >= 27.4 && t < 29.2) { crt.style.opacity = 1; crt.style.background = k < 1 ? `radial-gradient(ellipse ${lerp(700, 6, ei(k))}px ${lerp(380, 1.5, eo(k * 1.6))}px at 50% 50%,rgba(255,255,255,${.95 - k * .3}) 0%,rgba(255,255,255,.0) 70%,#000 100%)` : '#000'; }
+  else crt.style.opacity = 0;
+}
+document.getElementById('rayas').innerHTML = Array.from({ length: 8 }, (_, i) => `<path d="M${-290 + i * 76},-166 l40,0 l-30,50 l-40,0 Z" fill="#EEE"/>`).join('');
+window.render = render;
+window.renderAsync = async t => { render(t); await Promise.all([...document.images].filter(i => !i.complete).map(i => i.decode().catch(() => {}))); await Promise.all([$('cImg'), $('cBg')].map(i => i.src ? i.decode().catch(() => {}) : 0)); };
+</script></body></html>
