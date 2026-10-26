@@ -121,6 +121,7 @@ pegar(L, recorte(P + 'sen-3.png', (15, 55, 513, 323)), 714, 1334, 78)
 
 foto.alpha_composite(brillo.filter(ImageFilter.GaussianBlur(12)))
 foto.alpha_composite(L)
+foto.convert('RGB').crop((0, 380, 900, 1600)).save('deco/altar_limpio.jpg', quality=93)
 d = ImageDraw.Draw(foto, 'RGBA')
 for n, (x, y) in enumerate([(468, 700), (468, 930), (287, 1000), (548, 1080), (868, 1168), (470, 1450), (250, 1350), (100, 1290), (464, 560)], 1): num(d, n, x, y, 22)
 im = foto.convert('RGB').crop((0, 380, 900, 1600))

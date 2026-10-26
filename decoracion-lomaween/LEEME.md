@@ -1,6 +1,16 @@
 # Decoración LOMAween · La 57 de las Ánimas
 
-`Plan_Decoracion_Actualizado.pdf` (6 hojas) es el plan vigente. Trae qué cambió, el recorrido, el altar armado como tracto, la tele, los letreros de los monitores, los escritorios con ofrenda, el papel picado en líneas y la lista de material.
+`Plan_Maestro_La57_de_las_Animas.pdf` (64 hojas) junta todo el proyecto en un solo documento:
+
+1. Las bases del concurso y cómo cumplimos cada una.
+2. Los objetivos, uno por valor, con su meta y su evidencia.
+3. El plan estructurado: las fases, el cronograma y la organización del equipo.
+4. El boceto a lápiz del altar y de la cabina.
+5. El diseño de la cabina.
+6. El guion de producción del video.
+7. El anexo con todas las ilustraciones para imprimir (hojas 21 a 64).
+
+`Plan_Decoracion_Actualizado.pdf` (6 hojas) es solo la parte de la decoración. Trae qué cambió, el recorrido, el altar armado como tracto, la tele, los letreros de los monitores, los escritorios con ofrenda, el papel picado en líneas y la lista de material.
 
 ## Para imprimir (carpeta `imprimir/`, todo en tamaño carta y a color)
 
@@ -17,7 +27,7 @@ Las piezas de varias hojas traen línea punteada para recortar, marcas negras pa
 
 ## Planos
 
-En `planos/` están las imágenes del plan: el altar como tracto, la tele con el 877 y los letreros sobre los monitores.
+En `planos/` están las imágenes del plan: los dos bocetos a lápiz (`0_boceto_altar.jpg` y `0_boceto_cabina.jpg`), el altar como tracto, la tele con el 877 y los letreros sobre los monitores.
 
 `version-anterior/` guarda el primer plan, con alebrijes, el altar en la esquina de las cajas y el papel picado en X. Ya no se usa.
 
@@ -28,4 +38,5 @@ Cada imprimible es una página HTML. `node pdf.js <pagina.html> <salida.pdf> [ho
 - La parrilla va en vertical: `tracto.html?o=v`.
 - La calavera y los faros van en horizontal: `tracto.html?o=h`.
 - La carretera es `tracto.html?o=carretera`.
-- Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`.
+- Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`; `boceto.py` pasa los planos a lápiz.
+- El plan maestro sale de `maestro.html`, `plan.html?maestro=9,…` y `guion.html?maestro=14,…`, unidos con `pdfunite` junto con los imprimibles.

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>La 57 de las Ánimas · Plan maestro</title>
+<style>
+@font-face { font-family: M; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: M; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(fonts/cinzel-latin-900-normal.woff2); }
+@font-face { font-family: G; src: url(fonts/gochi-hand-latin-400-normal.woff2); }
+:root { --noche: #1a0e28; --naranja: #ff6a00; --oro: #ffb300; --rosa: #e6007e; --morado: #7b2ff7; --verde: #1e8e4e; --rojo: #8a1430; --azul: #1f5fae;
+  --tinta: #221a2c; --suave: #5d5468; --linea: #e4dfe9; --crema: #fbf6ee; }
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 9.6pt; line-height: 1.4; color: var(--tinta); }
+.p { width: 816px; height: 1056px; padding: 40px 46px 50px; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+.p:last-child { page-break-after: auto; }
+h1, h2, h3 { font-family: M; margin: 0; }
+h2 { font-size: 22pt; font-weight: 900; color: var(--noche); line-height: 1.1; }
+h2 small { display: block; font-size: 10pt; font-weight: 700; color: var(--suave); margin-top: 4px; }
+h3 { font-size: 9.8pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--naranja); margin: 14px 0 6px; }
+.sec { font-family: M; font-weight: 900; font-size: 9pt; letter-spacing: .14em; color: var(--naranja); text-transform: uppercase; margin-bottom: 4px; }
+ol, ul { margin: 0; padding-left: 1.2em; } li { margin: 0 0 4px; } li::marker { color: var(--naranja); font-weight: 800; }
+p { margin: 0 0 6px; }
+.pie { position: absolute; left: 46px; right: 46px; bottom: 20px; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 5px; }
+table { width: 100%; border-collapse: collapse; font-size: 8.7pt; line-height: 1.34; }
+th { font-family: M; font-weight: 800; text-align: left; background: #f2ecf7; padding: 6px 8px; font-size: 8.4pt; }
+td { padding: 6px 8px; border-top: 1px solid var(--linea); vertical-align: top; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.caja { background: var(--crema); border-radius: 10px; padding: 10px 13px; }
+.regla { background: var(--rojo); color: #fff; border-radius: 10px; padding: 10px 14px; font-family: M; font-weight: 800; font-size: 9.4pt; }
+.picado { display: flex; gap: 6px; justify-content: center; padding-top: 12px; }
+.picado i { display: block; width: 44px; height: 48px; background: var(--c);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 75% 84%, 62% 100%, 50% 84%, 38% 100%, 25% 84%, 12% 100%, 0 82%);
+  -webkit-mask: radial-gradient(circle at 50% 42%, transparent 0 8px, #000 8.5px); }
+.picado i:nth-child(6n+1) { --c: #ffd23a; } .picado i:nth-child(6n+2) { --c: #f2f2f2; } .picado i:nth-child(6n+3) { --c: #2f8cff; }
+.picado i:nth-child(6n+4) { --c: #ff3e7a; } .picado i:nth-child(6n+5) { --c: #3fd06b; } .picado i:nth-child(6n+6) { --c: #a34dff; }
+.oscura { background: var(--noche); color: #fff; padding: 0; }
+.oscura .in { padding: 22px 46px 0; }
+.eyebrow { font-family: M; font-weight: 800; font-size: 9pt; letter-spacing: .14em; text-transform: uppercase; color: var(--oro); }
+.titulo { font-family: C; font-weight: 900; font-size: 44pt; line-height: 1; margin: 10px 0 4px; }
+.sub { font-family: M; font-weight: 800; font-size: 15pt; color: var(--naranja); }
+.portada-foto { margin: 22px auto 0; width: 560px; height: 520px; border-radius: 14px; overflow: hidden; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.portada-foto img { position: absolute; top: 0; width: 560px; height: 760px; object-fit: cover; object-position: top; }
+.portada-foto .boc { left: 0; clip-path: inset(0 50% 0 0); }
+.portada-foto .col { left: 0; clip-path: inset(0 0 0 50%); }
+.portada-foto .raya { position: absolute; left: 279px; top: 0; bottom: 0; width: 3px; background: var(--oro); }
+.portada-foto .et { position: absolute; bottom: 12px; font-family: G; font-size: 20pt; color: #fff; text-shadow: 0 2px 8px #000; }
+.indice { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 10px; }
+.indice div { display: grid; grid-template-columns: 34px 1fr 50px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--linea); }
+.indice b { font-family: M; font-weight: 900; color: var(--naranja); font-size: 12pt; }
+.indice span { font-family: M; font-weight: 800; font-size: 11pt; }
+.indice span i { display: block; font-family: Inter; font-weight: 400; font-style: normal; font-size: 8.8pt; color: var(--suave); }
+.indice em { font-style: normal; text-align: right; font-family: M; font-weight: 800; color: var(--suave); }
+.frase { font-family: C; font-weight: 900; font-size: 17pt; line-height: 1.25; color: var(--noche); text-align: center; padding: 16px 30px; border-top: 3px solid var(--naranja); border-bottom: 3px solid var(--naranja); margin: 18px 0 0; }
+.obj { border: 2px solid var(--linea); border-radius: 12px; padding: 10px 13px; margin-bottom: 9px; display: grid; grid-template-columns: 150px 1fr; gap: 12px; }
+.obj .k { font-family: M; font-weight: 900; font-size: 11pt; color: var(--noche); }
+.obj .k i { display: block; font-style: normal; font-size: 8.2pt; font-weight: 800; color: #fff; background: var(--c, var(--naranja)); border-radius: 20px; padding: 2px 9px; margin-bottom: 6px; width: max-content; letter-spacing: .04em; }
+.obj dl { margin: 0; display: grid; grid-template-columns: 70px 1fr; gap: 3px 10px; font-size: 9pt; }
+.obj dt { font-family: M; font-weight: 800; font-size: 7.8pt; color: var(--suave); text-transform: uppercase; padding-top: 1px; }
+.obj dd { margin: 0; }
+.equipos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.equipos div { border-radius: 12px; padding: 11px 12px; color: #fff; font-size: 8.9pt; }
+.equipos b { display: block; font-family: M; font-weight: 900; font-size: 11pt; margin-bottom: 4px; }
+.anexo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.anexo div { border: 2px solid var(--linea); border-radius: 12px; padding: 9px; text-align: center; font-size: 8.4pt; }
+.anexo .im { height: 118px; display: flex; align-items: center; justify-content: center; background: #f6f2f9; border-radius: 8px; margin-bottom: 6px; overflow: hidden; }
+.anexo .im img { max-width: 100%; max-height: 112px; }
+.anexo b { display: block; font-family: M; font-weight: 900; font-size: 9pt; }
+.anexo em { font-style: normal; color: var(--naranja); font-family: M; font-weight: 800; }
+.boc-hoja { display: block; margin: 10px auto 0; max-width: 724px; max-height: 900px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+</style></head><body>
+
+<!-- 1 · portada -->
+<div class="p oscura">
+  <div class="picado"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="in" style="text-align:center">
+    <div class="eyebrow">LOMAween 2026 · Grupo Loma · Patio Loretito</div>
+    <div class="titulo">La 57 de las Ánimas</div>
+    <div class="sub">Plan maestro · Área de Blindaje Centinela · Equipo 2</div>
+    <div class="portada-foto">
+      <img class="boc" src="../deco/boceto_altar_solo.jpg"><img class="col" src="../deco/altar_limpio.jpg"><div class="raya"></div>
+      <div class="et" style="left:16px">el boceto…</div><div class="et" style="right:16px">…y la cabina</div>
+    </div>
+    <p style="margin-top:22px;font-family:M;font-weight:800;font-size:10pt;color:#cfc4e0;letter-spacing:.04em">CENTINELAS DE RUTA · CENTINELAS DE SEGURIDAD · RESCATES CARRETEROS</p>
+    <p style="font-size:9pt;color:#a99bbb">Del 19 de octubre al 3 de noviembre de 2026</p>
+  </div>
+  <div class="pie" style="color:#a99bbb;border-color:rgba(255,255,255,.15)"><span>La 57 de las Ánimas · Plan maestro</span><span>1</span></div>
+</div>
+
+<!-- 2 · índice y concepto -->
+<div class="p">
+  <h2>Contenido<small>Todo el proyecto en un solo documento: de las bases del concurso a la última hoja para imprimir</small></h2>
+  <div class="indice">
+    <div><b>1</b><span>Las bases del concurso<i>Lo que pide la convocatoria y cómo lo cumplimos</i></span><em>3</em></div>
+    <div><b>2</b><span>Los objetivos<i>El objetivo general, uno por cada valor y cómo los comprobamos</i></span><em>4</em></div>
+    <div><b>3</b><span>El plan estructurado<i>Las fases, el cronograma y la organización del equipo</i></span><em>5</em></div>
+    <div><b>4</b><span>El boceto<i>Así empezó el diseño: el altar y la cabina a lápiz</i></span><em>7</em></div>
+    <div><b>5</b><span>El diseño de la cabina<i>El altar como tracto, la tele, los monitores, los escritorios, el techo y el material</i></span><em>9</em></div>
+    <div><b>6</b><span>El video para el jurado<i>El guion de producción: qué grabamos, quién, dónde, cómo y cuándo</i></span><em>14</em></div>
+    <div><b>7</b><span>Anexo · Ilustraciones para imprimir<i>Tracto, carretera, lápidas, letreros y la lotería, listos en tamaño carta</i></span><em>20</em></div>
+  </div>
+  <h3 style="margin-top:22px">El concepto</h3>
+  <p><b>«La 57 de las Ánimas»</b> es la bitácora de un viaje. La cabina monitorea su propio concurso como monitorea una unidad: sale el 19 de octubre, pasa por tres puntos de control, uno por valor, y llega a destino el 30.</p>
+  <p>En esta carretera, el altar es el tracto del 877. Los malos hábitos se quedan en el panteón, y cada operador regresa a casa.</p>
+  <div class="frase">«Recordemos a quienes se fueron,<br>y cuidemos a quienes regresan.»</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro</span><span>2</span></div>
+</div>
+
+<!-- 3 · las bases -->
+<div class="p">
+  <div class="sec">1 · Las bases</div>
+  <h2>Lo que pide la convocatoria<small>Y la respuesta de la cabina a cada punto</small></h2>
+  <table style="margin-top:14px">
+    <tr><th style="width:24%">Base</th><th style="width:38%">Lo que dice la convocatoria</th><th>Cómo lo cumplimos</th></tr>
+    <tr><td><b>Objetivo</b></td><td>Cultivar y celebrar nuestras tradiciones, integrando la pasión, el trabajo en equipo y un excelente resultado, con Día de Muertos o Halloween.</td><td>Día de Muertos de principio a fin: altar, ofrenda, cruz de sal, cempasúchil, papel picado y panteón, contado como un viaje de la cabina.</td></tr>
+    <tr><td><b>Fecha y lugar</b></td><td>Evaluación el viernes 30 de octubre de 2026, en las instalaciones de Grupo Loma.</td><td>El Área de Blindaje Centinela, Ala B, en Patio Loretito.</td></tr>
+    <tr><td><b>Participantes</b></td><td>Equipo 2 (Blindaje Centinela): Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros.</td><td>Los tres grupos y los dos turnos, con una misión para cada Centinela en la lotería.</td></tr>
+    <tr><td><b>Lo prohibido</b></td><td>Clavar, taladrar, pintar o poner cinta en paredes o pisos, y usar materiales que manchen, rayen o deterioren superficies, ventanas, vidrios o mobiliario.</td><td>Todo cuelga con nylon de la rejilla, se sujeta con alfileres a la sábana o al mantel, se para con atriles de cartón o va suelto en el piso. Velas LED y sal sobre cartulina.</td></tr>
+    <tr><td><b>Trabajo en Equipo</b></td><td>La integración, colaboración e inclusión de todos durante el diseño y el montaje.</td><td>Punto de control 1 del video: el reclutamiento, el armado de los tres equipos y quién hizo qué.</td></tr>
+    <tr><td><b>Pasión</b></td><td>La creatividad, el entusiasmo, la ambientación y la dedicación en los detalles.</td><td>Punto de control 3: el recorrido pieza por pieza, todo hecho a mano, y el 877.</td></tr>
+    <tr><td><b>Enfoque a Resultados</b></td><td>El impacto visual, la entrega puntual y el apego al espacio asignado.</td><td>Punto de control 2: el antes y el después, lista el miércoles 28 y todo dentro del área, sin un solo daño.</td></tr>
+    <tr><td><b>Entregable</b></td><td>Un video recorriendo el espacio y explicando explícitamente los tres valores, a más tardar el viernes 30 a las 20:00.</td><td>Video de unos 3:30 con un punto de control por valor. Versión final el jueves 29 a las 12:00.</td></tr>
+    <tr><td><b>Visita especial</b></td><td>Los hijos de los colaboradores visitan Patio Loretito el viernes 30 de 16:00 a 17:00. Decoración lista antes de las 16:00 y dulces obligatorios.</td><td>Dulces listos y el 877 con ojos en la tele para recibir a los Mini Centinelas, sin sustos.</td></tr>
+    <tr><td><b>Montaje y desmontaje</b></td><td>Desde el lunes 19 de octubre; terminado antes del viernes 30 a las 16:00. Áreas limpias a partir del martes 3 de noviembre.</td><td>Montaje del 19 al 28. Desmontaje a más tardar el lunes 2: se descuelga el nylon y se barren la sal y los pétalos, para entregar el área limpia el martes 3.</td></tr>
+  </table>
+  <div class="regla" style="margin-top:12px">Nada clavado, taladrado, pintado ni con cinta en paredes, pisos, cristales o monitores. Nada que manche, raye o dañe. Sin fuego.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · Las bases</span><span>3</span></div>
+</div>
+
+<!-- 4 · objetivos -->
+<div class="p">
+  <div class="sec">2 · Los objetivos</div>
+  <h2>A dónde queremos llegar<small>Un objetivo general y uno por cada valor, con su meta y cómo lo vamos a comprobar</small></h2>
+  <div class="caja" style="margin:14px 0 12px;font-size:10pt"><b>Objetivo general:</b> celebrar el Día de Muertos en la cabina de Blindaje Centinela con trabajo en equipo, pasión y un excelente resultado, y con un mensaje de prevención: que cada operador llegue con bien a casa.</div>
+  <div class="obj" style="--c:#22a699"><div class="k"><i>VALOR</i>Trabajo en Equipo</div><dl>
+    <dt>Objetivo</dt><dd>Que todo el equipo participe en el diseño, el armado y el video.</dd>
+    <dt>Meta</dt><dd>Los tres grupos (Ruta, Seguridad y Rescates) y los dos turnos. Diez misiones repartidas en la lotería, una por Centinela.</dd>
+    <dt>Evidencia</dt><dd>El reclutamiento de la lotería y los clips del armado en el video.</dd></dl></div>
+  <div class="obj" style="--c:#6a2bd9"><div class="k"><i>VALOR</i>Pasión</div><dl>
+    <dt>Objetivo</dt><dd>Que cada detalle cuente nuestra historia.</dd>
+    <dt>Meta</dt><dd>El altar en forma de tracto, la carretera, el panteón, la ofrenda, el papel picado y el 877, hechos a mano por el equipo.</dd>
+    <dt>Evidencia</dt><dd>El recorrido pieza por pieza, cada una explicada por quien la hizo.</dd></dl></div>
+  <div class="obj" style="--c:#f5b400"><div class="k"><i>VALOR</i>Enfoque a Resultados</div><dl>
+    <dt>Objetivo</dt><dd>Impacto visual, entrega puntual y apego al espacio asignado.</dd>
+    <dt>Meta</dt><dd>Decoración terminada el miércoles 28 y video final el jueves 29 a las 12:00. Cero daños y todo dentro del área.</dd>
+    <dt>Evidencia</dt><dd>El antes y el después, el reloj, la prueba de cero cinta y la lista palomeada.</dd></dl></div>
+  <div class="obj" style="--c:#c62828"><div class="k"><i>MENSAJE</i>Prevención</div><dl>
+    <dt>Objetivo</dt><dd>Que la decoración también cuide.</dd>
+    <dt>Meta</dt><dd>Los 8 malos hábitos enterrados en el panteón, los letreros de la ruta y el 877, que habla de regresar a casa.</dd>
+    <dt>Evidencia</dt><dd>El panteón y el fragmento del 877 en el video.</dd></dl></div>
+  <div class="obj" style="--c:#ff6a00"><div class="k"><i>VISITA</i>Los niños</div><dl>
+    <dt>Objetivo</dt><dd>Un día alegre y mágico para los Mini Centinelas.</dd>
+    <dt>Meta</dt><dd>Todo listo antes de las 16:00 del viernes 30, dulces para todos y el 877 con ojos en la tele.</dd>
+    <dt>Evidencia</dt><dd>Fotos de la visita, con permiso de los papás, para una versión corta en redes.</dd></dl></div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · Los objetivos</span><span>4</span></div>
+</div>
+
+<!-- 5 · plan estructurado: fases y cronograma -->
+<div class="p">
+  <div class="sec">3 · El plan estructurado</div>
+  <h2>Las fases y el cronograma<small>Del 19 de octubre al 3 de noviembre. La línea naranja es hoy, lunes 26</small></h2>
+  <svg id="gantt" width="724" height="430" style="display:block;margin-top:12px"></svg>
+  <table style="margin-top:10px">
+    <tr><th style="width:26%">Fase</th><th>Qué se hace</th><th style="width:18%">Entregable</th></tr>
+    <tr><td><b>1 · Concepto</b></td><td>Leer la convocatoria, escoger el tema y la historia: la bitácora de un viaje por la 57 de las Ánimas.</td><td>El concepto</td></tr>
+    <tr><td><b>2 · Diseño y boceto</b></td><td>El boceto del altar y de la cabina, el recorrido y las piezas de cada zona.</td><td>El plan de decoración</td></tr>
+    <tr><td><b>3 · Material e impresión</b></td><td>Compras, impresión de las ilustraciones y armado sobre cartón.</td><td>El anexo impreso</td></tr>
+    <tr><td><b>4 · Montaje</b></td><td>Papel picado, manteles, la base del altar, el tracto, la carretera, el panteón, los letreros y la ofrenda.</td><td>La cabina decorada</td></tr>
+    <tr><td><b>5 · Grabación y edición</b></td><td>Los cinco bloques de grabación y la edición con música y efectos.</td><td>El video para el jurado</td></tr>
+    <tr><td><b>6 · Entrega y visita</b></td><td>El video final, los últimos detalles, los dulces y la visita de los niños.</td><td>La evaluación</td></tr>
+    <tr><td><b>7 · Desmontaje</b></td><td>Descolgar, barrer y dejar el área como estaba.</td><td>El área limpia</td></tr>
+  </table>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · El plan estructurado</span><span>5</span></div>
+</div>
+
+<!-- 6 · organización -->
+<div class="p">
+  <div class="sec">3 · El plan estructurado</div>
+  <h2>La organización del equipo<small>Una propuesta para repartir el trabajo: cada grupo tiene su zona y cada Centinela su misión</small></h2>
+  <div class="equipos" style="margin-top:14px">
+    <div style="background:#1f5fae"><b>Centinelas de Ruta</b>La carretera del mantel, los letreros de carretera, los letreros de los monitores y el papel picado.</div>
+    <div style="background:#6a2bd9"><b>Centinelas de Seguridad</b>El panteón de las lápidas, la tele con el 877 y los ojos, y que ninguna pantalla muestre datos.</div>
+    <div style="background:#c94a00"><b>Rescates Carreteros</b>El tracto del altar (calavera, parrilla y faros), la cruz de sal y el cempasúchil.</div>
+  </div>
+  <div class="caja" style="margin-top:10px"><b>Todos:</b> la ofrenda de su propio escritorio (sarape, pan, mandarinas, cacahuates, vela y flor), los dulces para los niños y su parte del video. <b>La Base</b> coordina el turno, la grabación y el envío de los archivos.</div>
+  <h3>El reparto de las misiones</h3>
+  <table>
+    <tr><th style="width:23%">Centinela</th><th style="width:24%">Su tarjeta de lotería</th><th>Lo que explica en el video</th><th style="width:15%">Tomas</th></tr>
+    <tr><td><b>La Base</b></td><td>Reparte y canta las cartas</td><td>Las llamadas de radio y los letreros de los monitores</td><td>T02, T12, T13, T30</td></tr>
+    <tr><td><b>Ojo de Halcón</b></td><td>El Trabajo en Equipo y El Papel Picado</td><td>Punto de control 1 y el papel picado</td><td>T03, T14, T23</td></tr>
+    <tr><td><b>La de las Alertas</b></td><td>La Carretera</td><td>Punto de control 1 y la carretera</td><td>T04, T15, T25</td></tr>
+    <tr><td><b>El Rescatista</b></td><td>La Cruz</td><td>La cruz de sal, el cempasúchil y las velas</td><td>T05, T26</td></tr>
+    <tr><td><b>Caza Jammers</b></td><td>La Catrina</td><td>El panteón de los malos hábitos</td><td>T06, T27</td></tr>
+    <tr><td><b>La Voz</b></td><td>El 877</td><td>La tele con el 877</td><td>T07, T28</td></tr>
+    <tr><td><b>El de la Llamada</b></td><td>La Pasión</td><td>Punto de control 3 y la frase de los días difíciles</td><td>T08, T31, T32</td></tr>
+    <tr><td><b>La Arquitecta</b></td><td>El Tracto</td><td>El altar en forma de tracto</td><td>T09, T24</td></tr>
+    <tr><td><b>Manos de Cempasúchil</b></td><td>La Ofrenda</td><td>La ofrenda de los escritorios</td><td>T10, T29</td></tr>
+    <tr><td><b>El Turno de la Noche</b></td><td>El Resultado</td><td>Punto de control 2</td><td>T11, T21</td></tr>
+  </table>
+  <p style="margin-top:8px;font-size:8.6pt;color:var(--suave)">Los alias son propuesta: cada quien puede escoger el suyo. El nombre real va en su tarjeta de personaje en el video.</p>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · El plan estructurado</span><span>6</span></div>
+</div>
+
+<!-- 7 · boceto 1 -->
+<div class="p">
+  <div class="sec">4 · El boceto</div>
+  <h2>Así empezó: el altar a lápiz<small>La base blanca que armamos se convirtió en el tracto del 877</small></h2>
+  <img class="boc-hoja" src="../deco/boceto_altar.jpg" style="height:880px">
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · El boceto</span><span>7</span></div>
+</div>
+
+<!-- 8 · boceto 2 -->
+<div class="p">
+  <div class="sec">4 · El boceto</div>
+  <h2>La cabina a lápiz<small>La tele con el 877 y los letreros de carretera sobre los monitores</small></h2>
+  <img class="boc-hoja" src="../deco/boceto_cabina.jpg" style="width:724px">
+  <div class="caja" style="margin-top:14px"><b>Del boceto a la cabina:</b> primero se dibujó cada zona sobre las fotos del área, después se midió y se convirtió en piezas para imprimir. Las siguientes hojas muestran cómo queda cada zona y el anexo trae las ilustraciones listas.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan maestro · El boceto</span><span>8</span></div>
+</div>
+
+<!-- 20 · anexo -->
+<div class="p oscura">
+  <div class="picado"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="in">
+    <div class="eyebrow">7 · Anexo</div>
+    <div class="titulo" style="font-size:34pt">Ilustraciones para imprimir</div>
+    <div class="sub" style="font-size:12pt">Todo en tamaño carta y a color. Las piezas grandes traen línea para recortar, marcas para empalmar y un mapita de cada hoja</div>
+    <div class="anexo">
+      <div style="background:#fff;color:var(--tinta)"><div class="im" style="background:#0f0c12"><img src="png/tr-calavera.png"></div><b>Calavera del tracto</b>51 × 36 cm · <em>hojas 21 a 24</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/tr-parrilla.png"></div><b>Parrilla del 877</b>57 × 51 cm · <em>hojas 25 a 30</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/tr-faroIzq.png"></div><b>Los dos faros</b>27 × 20 cm · <em>hojas 31 y 32</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im" style="background:#0d0b10"><img src="png/tr-carretera.png"></div><b>Carretera del mantel</b>152 × 18 cm · <em>hojas 33 a 38</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/lap-1.png"></div><b>8 lápidas del panteón</b>una por hoja · <em>hojas 39 a 46</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/sen-5.png"></div><b>6 letreros de carretera</b>uno por hoja · <em>hojas 47 a 52</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/mon-1.png"></div><b>4 letreros de monitor</b>2 hojas cada uno · <em>hojas 53 a 60</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im"><img src="png/lot-1.png"></div><b>Lotería Centinela</b>10 tarjetas y reversos · <em>hojas 61 a 64</em></div>
+      <div style="background:#fff;color:var(--tinta)"><div class="im" style="background:#fff3e6;font-family:M;font-weight:900;color:#ff6a00;font-size:30pt">44</div><b>hojas en total</b>imprime de la 21 a la 64</div>
+    </div>
+  </div>
+  <div class="pie" style="color:#a99bbb;border-color:rgba(255,255,255,.15)"><span>La 57 de las Ánimas · Plan maestro · Anexo</span><span>20</span></div>
+</div>
+
+<script>
+// ---------- cronograma ----------
+(function () {
+  const d0 = new Date(2026, 9, 19), dias = 16, X0 = 150, W = 724 - X0 - 6, dx = W / dias;
+  const F = [['1 · Concepto', 0, 2, '#7b2ff7'], ['2 · Diseño y boceto', 1, 4, '#e6007e'], ['3 · Material e impresión', 2, 8, '#1f5fae'],
+    ['4 · Montaje', 6, 10, '#1e8e4e'], ['5 · Grabación y edición', 7, 11, '#ff6a00'], ['6 · Entrega y visita', 10, 12, '#c62828'], ['7 · Desmontaje', 12, 15, '#5d5468']];
+  const hitos = [[10.5, 'Video final · jue 29 12:00'], [11.67, 'Niños · vie 30 16:00'], [11.83, 'Límite · vie 30 20:00']];
+  const DS = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+  let s = `<rect width="724" height="430" rx="12" fill="#fbf6ee"/>`;
+  for (let i = 0; i < dias; i++) {
+    const d = new Date(d0.getTime() + i * 864e5), x = X0 + i * dx, finde = d.getDay() === 0 || d.getDay() === 6;
+    if (finde) s += `<rect x="${x}" y="44" width="${dx}" height="${7 * 44 + 6}" fill="#efe7f5"/>`;
+    s += `<text x="${x + dx / 2}" y="22" text-anchor="middle" font-family="M" font-weight="800" font-size="9" fill="#5d5468">${DS[d.getDay()]}</text>
+      <text x="${x + dx / 2}" y="37" text-anchor="middle" font-family="M" font-weight="900" font-size="11" fill="#221a2c">${d.getDate()}</text>`;
+  }
+  s += `<text x="${X0}" y="12" font-family="M" font-weight="800" font-size="8" fill="#ff6a00">OCTUBRE</text><text x="${X0 + 13 * dx + 2}" y="12" font-family="M" font-weight="800" font-size="8" fill="#ff6a00">NOVIEMBRE</text>`;
+  F.forEach(([n, a, b, c], k) => {
+    const y = 52 + k * 44;
+    s += `<text x="10" y="${y + 21}" font-family="M" font-weight="800" font-size="10.5" fill="#221a2c">${n}</text>
+      <rect x="${X0 + a * dx + 2}" y="${y + 6}" width="${(b - a) * dx - 4}" height="24" rx="8" fill="${c}"/>`;
+    const hecho = Math.max(0, Math.min(b, 7.6) - a) / (b - a);
+    if (hecho < 1 && hecho > 0) s += `<rect x="${X0 + a * dx + 2 + hecho * ((b - a) * dx - 4)}" y="${y + 6}" width="${(1 - hecho) * ((b - a) * dx - 4)}" height="24" rx="0" fill="#fff" opacity=".55"/>`;
+    if (hecho === 0) s += `<rect x="${X0 + a * dx + 2}" y="${y + 6}" width="${(b - a) * dx - 4}" height="24" rx="8" fill="#fff" opacity=".55"/>`;
+    s += `<text x="${X0 + a * dx + 10}" y="${y + 22}" font-family="M" font-weight="900" font-size="9" fill="#fff">${hecho >= 1 ? '✓ HECHO' : hecho > 0 ? 'EN CURSO' : ''}</text>`;
+  });
+  const hoy = X0 + 7.5 * dx;
+  s += `<line x1="${hoy}" y1="40" x2="${hoy}" y2="${52 + 7 * 44}" stroke="#ff6a00" stroke-width="3"/><text x="${hoy + 4}" y="${52 + 7 * 44 + 2}" font-family="M" font-weight="900" font-size="9" fill="#ff6a00">HOY</text>`;
+  hitos.forEach(([d, t], k) => {
+    const x = X0 + d * dx, y = 52 + 7 * 44 + 22 + k * 18;
+    s += `<path d="M${x},${y - 6} l6,6 l-6,6 l-6,-6 Z" fill="#c62828"/><text x="${x + 10}" y="${y + 4}" font-family="M" font-weight="800" font-size="9.5" fill="#221a2c">${t}</text>`;
+  });
+  document.getElementById('gantt').innerHTML = s;
+})();
+document.fonts.ready.then(() => { document.body.dataset.listo = 1; });
+</script>
+</body></html>

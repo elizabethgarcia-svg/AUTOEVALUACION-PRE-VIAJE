@@ -19,6 +19,7 @@ def colgar_letrero(im, x0, y0, ancho, techo, k=0):
 pos = [(128, 800, 140, 590), (352, 768, 104, 588), (494, 744, 94, 590), (820, 742, 110, 600)]
 alto = []
 for k, (x, y, w, t) in enumerate(pos): alto.append(colgar_letrero(foto, x, y - O, w, t - O, k))
+foto.convert('RGB').save('deco/monitores_limpio.jpg', quality=93)
 d = ImageDraw.Draw(foto, 'RGBA')
 for k, (x, y, w, t) in enumerate(pos):
     cx = x + w // 2; cy = y - O + alto[k] + 26

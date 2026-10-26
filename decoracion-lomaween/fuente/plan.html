@@ -287,4 +287,12 @@ td:first-child { font-weight: 700; white-space: nowrap; }
 })();
 document.fonts.ready.then(() => { document.body.dataset.listo = 1; });
 </script>
+<script>
+// dentro del plan maestro: pie de página con la sección y la numeración corrida (?maestro=inicio,seccion,saltar)
+(function () {
+  const om = new URLSearchParams(location.search).get('maestro'); if (om === null) return;
+  const [o, sec, skip] = om.split(',');
+  document.querySelectorAll('.p').forEach((p, i) => { const s = p.querySelectorAll('.pie span'); if (s.length === 2) { s[0].textContent = 'La 57 de las Ánimas · Plan maestro · ' + decodeURIComponent(sec); s[1].textContent = +o + i - (+skip || 0); } });
+})();
+</script>
 </body></html>

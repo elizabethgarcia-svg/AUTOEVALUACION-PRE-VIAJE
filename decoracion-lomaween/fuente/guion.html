@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Guion de producción · Video para el jurado</title>
+<style>
+@font-face { font-family: M; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: M; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(fonts/cinzel-latin-900-normal.woff2); }
+:root { --noche: #1a0e28; --naranja: #ff6a00; --oro: #ffb300; --rojo: #8a1430; --verde: #1e8e4e; --azul: #1f5fae;
+  --tinta: #221a2c; --suave: #5d5468; --linea: #e4dfe9; --crema: #fbf6ee; }
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 9.4pt; line-height: 1.38; color: var(--tinta); }
+.p { width: 816px; height: 1056px; padding: 40px 46px 50px; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+.p:last-child { page-break-after: auto; }
+h1, h2, h3 { font-family: M; margin: 0; }
+h2 { font-size: 21pt; font-weight: 900; color: var(--noche); line-height: 1.1; }
+h2 small { display: block; font-size: 10pt; font-weight: 700; color: var(--suave); margin-top: 4px; }
+h3 { font-size: 9.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--naranja); margin: 14px 0 6px; }
+ol, ul { margin: 0; padding-left: 1.2em; } li { margin: 0 0 3px; } li::marker { color: var(--naranja); font-weight: 800; }
+p { margin: 0 0 6px; }
+.pie { position: absolute; left: 46px; right: 46px; bottom: 20px; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 5px; }
+table { width: 100%; border-collapse: collapse; font-size: 8.3pt; line-height: 1.3; }
+th { font-family: M; font-weight: 800; text-align: left; background: #f2ecf7; padding: 5px 6px; font-size: 7.9pt; }
+td { padding: 5px 6px; border-top: 1px solid var(--linea); vertical-align: top; }
+td.n { font-family: M; font-weight: 900; color: var(--naranja); white-space: nowrap; }
+tr.esc td { background: var(--noche); color: #fff; font-family: M; font-weight: 800; font-size: 8.2pt; letter-spacing: .03em; padding: 4px 6px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.caja { background: var(--crema); border-radius: 10px; padding: 10px 13px; }
+.caja.osc { background: var(--noche); color: #f0eaf7; }
+.caja.osc b { color: #fff; }
+.regla { background: var(--rojo); color: #fff; border-radius: 10px; padding: 9px 13px; font-family: M; font-weight: 800; font-size: 9pt; margin-top: 10px; }
+.chip { display: inline-block; font-family: M; font-weight: 800; font-size: 7.4pt; border-radius: 20px; padding: 1px 8px; color: #fff; letter-spacing: .03em; }
+.A { background: #7b2ff7; } .B { background: #1e8e4e; } .Cc { background: #ff6a00; } .D { background: #e6007e; } .E { background: #1f5fae; }
+.cab { background: var(--noche); color: #fff; margin: -40px -46px 18px; padding: 26px 46px 22px; }
+.cab .eyebrow { font-family: M; font-weight: 800; font-size: 8.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--oro); }
+.cab h1 { font-family: C; font-weight: 900; font-size: 30pt; line-height: 1.05; margin: 6px 0 4px; }
+.cab .sub { font-family: M; font-weight: 800; font-size: 12pt; color: var(--naranja); }
+.dia { border: 2px solid var(--linea); border-radius: 12px; padding: 10px 13px; margin-bottom: 10px; }
+.dia h4 { font-family: M; font-weight: 900; font-size: 11pt; margin: 0 0 6px; color: var(--noche); }
+.dia h4 span { color: var(--naranja); }
+.bloque { display: grid; grid-template-columns: 92px 1fr; gap: 8px; padding: 5px 0; border-top: 1px dashed var(--linea); }
+.bloque:first-of-type { border-top: 0; }
+.bloque .h { font-family: M; font-weight: 800; font-size: 8.4pt; color: var(--suave); }
+.fichas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ficha { border: 2px solid var(--linea); border-radius: 12px; padding: 9px 12px; font-size: 8.5pt; line-height: 1.33; break-inside: avoid; }
+.ficha .t { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; border-bottom: 2px solid var(--naranja); padding-bottom: 4px; margin-bottom: 5px; }
+.ficha .t b { font-family: M; font-weight: 900; font-size: 11pt; }
+.ficha .t i { font-style: normal; color: var(--suave); font-size: 8pt; }
+.ficha .t em { margin-left: auto; font-style: normal; font-family: M; font-weight: 900; color: var(--naranja); font-size: 10pt; }
+.ficha dl { margin: 0; display: grid; grid-template-columns: 84px 1fr; gap: 2px 8px; }
+.ficha dt { font-family: M; font-weight: 800; font-size: 7.4pt; color: var(--suave); text-transform: uppercase; letter-spacing: .03em; padding-top: 1px; }
+.ficha dd { margin: 0; }
+.check { padding-left: 1.2em; } .check li { list-style: none; position: relative; }
+.check li::before { content: ''; position: absolute; left: -16px; top: 2px; width: 10px; height: 10px; border: 1.6px solid var(--naranja); border-radius: 2px; }
+.enc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 6px; }
+.enc div { text-align: center; font-size: 8pt; }
+.enc svg { display: block; margin: 0 auto 4px; }
+</style></head><body>
+
+<!-- 1 · resumen -->
+<div class="p">
+  <div class="cab">
+    <div class="eyebrow">LOMAween 2026 · Área de Blindaje Centinela · Equipo 2</div>
+    <h1>Guion de producción</h1>
+    <div class="sub">El video para el jurado: qué grabamos, quién, dónde, cómo y cuándo</div>
+  </div>
+  <div class="cols">
+    <div class="caja osc"><h3 style="margin-top:0;color:var(--oro)">Lo que ya está hecho</h3><ul>
+      <li>La apertura: el zoom desde el espacio, la Catrina que se quema y el logo Centinela en 3D.</li>
+      <li>La bitácora con el recorrido del plan, del boceto al sello de APROBADO.</li>
+      <li>La mesa de la lotería y las tarjetas de personaje.</li>
+      <li>Las gráficas de la cabina, los engranes y el reloj.</li>
+      <li>El fragmento del 877, el cierre «Cambio y fuera» y el look de las tomas falsas.</li>
+      <li>Toda la música, original y sin derechos.</li>
+    </ul></div>
+    <div class="caja"><h3 style="margin-top:0">Lo que grabamos nosotros</h3><ul>
+      <li>A cada Centinela recibiendo su tarjeta, presentándose y haciendo su pose.</li>
+      <li>Las frases de los tres puntos de control.</li>
+      <li>El recorrido: cada pieza con quien la explica.</li>
+      <li>El armado, el «antes» y el «después».</li>
+      <li>El grito de todo el equipo y las tomas falsas.</li>
+      <li>La voz de La Base para las llamadas de radio.</li>
+    </ul></div>
+  </div>
+
+  <h3>El video en 7 escenas (unos 3:30)</h3>
+  <table>
+    <tr><th style="width:24%">Escena</th><th>Qué se ve</th><th style="width:34%">Lo que grabamos</th></tr>
+    <tr><td><b>1 · Apertura</b><br>0:00–0:26</td><td>Del espacio a TROB Loretito, la Catrina en brasas y el logo.</td><td>Nada: ya está animada. La Base pone la voz de la radio (T13).</td></tr>
+    <tr><td><b>2 · La bitácora</b><br>0:26–0:41</td><td>El mapa con la ruta, el expediente, el recorrido del plan y el sello de APROBADO.</td><td>«¡10-4!» de cada quien en su lugar (T01).</td></tr>
+    <tr><td><b>3 · Reclutamiento</b><br>0:41–1:17</td><td>La Base reparte la lotería y cada Centinela recibe su misión.</td><td>Las 10 entregas de tarjeta con presentación y pose (T02 a T11) y las manos barajando (T12).</td></tr>
+    <tr><td><b>4 · Trabajo en Equipo</b><br>1:17–1:42</td><td>Engranes y el armado con los tres equipos.</td><td>Ojo de Halcón y La de las Alertas (T14 y T15), el armado (T16) y el choque de manos (T17).</td></tr>
+    <tr><td><b>5 · Enfoque a Resultados</b><br>1:42–2:07</td><td>Antes y después, el reloj y la lista palomeada.</td><td>El «después» (T19), el reloj (T20), El Turno de la Noche (T21) y la prueba de cero cinta (T22).</td></tr>
+    <tr><td><b>6 · Pasión</b><br>2:07–3:05</td><td>El recorrido, el porqué del 877 y su fragmento.</td><td>Las 8 piezas del recorrido (T23 a T30), El de la Llamada (T31 y T32) y la tele (T33).</td></tr>
+    <tr><td><b>7 · Llegada</b><br>3:05–3:30</td><td>«Llegó a destino», el grito y «Cambio y fuera». Después, las tomas falsas.</td><td>El recorrido final (T34), el grito de todos (T35) y los errores (T37).</td></tr>
+  </table>
+
+  <h3>Las fechas que no se mueven</h3>
+  <table>
+    <tr><td style="width:24%"><b>Hoy, lunes 26</b></td><td>Imprimir y armar el tracto, la carretera, las lápidas, los letreros y la lotería. Grabar el armado mientras se hace.</td></tr>
+    <tr><td><b>Martes 27</b></td><td>Bloques A y B: el reclutamiento y Trabajo en Equipo. En la noche me mandan lo grabado.</td></tr>
+    <tr><td><b>Miércoles 28</b></td><td>Decoración terminada a las 9:00. Bloques C y D: el recorrido, Resultados, Pasión y el grito. <b>Todo enviado a las 14:00.</b> En la noche les mando la versión completa.</td></tr>
+    <tr><td><b>Jueves 29 · 12:00</b></td><td>La versión final, con sus cambios, lista para enviarla al jurado (el límite de la convocatoria es el viernes 30 a las 20:00).</td></tr>
+    <tr><td><b>Viernes 30 · 16:00</b></td><td>Todo listo y con dulces para la visita de los niños, de 16:00 a 17:00.</td></tr>
+  </table>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>1</span></div>
+</div>
+
+<!-- 2 · plan de grabación -->
+<div class="p">
+  <h2>El plan de grabación<small>Cinco bloques en dos días. Cada bloque se graba en un solo lugar, para no mover luces ni gente</small></h2>
+  <div style="margin-top:14px"></div>
+  <div class="dia"><h4>Lunes 26 <span>· mientras se arma</span></h4>
+    <div class="bloque"><div class="h">Toda la tarde</div><div><span class="chip B">B</span> <b>El armado (T16).</b> Quien tenga el celular libre graba clips de 10 a 15 segundos: imprimiendo, recortando y empalmando la parrilla, pegando las lápidas en cartón, colgando los letreros con nylon, poniendo la carretera en el mantel. Que salgan personas de los tres equipos y de los dos turnos.</div></div>
+  </div>
+  <div class="dia"><h4>Martes 27 <span>· el reclutamiento y Trabajo en Equipo</span></h4>
+    <div class="bloque"><div class="h">9:00–10:45<br>Junto al altar</div><div><span class="chip A">A</span> <b>Reclutamiento (T02 a T11).</b> Un Centinela a la vez, unos 8 minutos cada uno, con la luz de la ventana de frente. Alguien le pasa la tarjeta desde fuera de cuadro; él o ella dice «¡Me tocó…!», su presentación y hace su pose. Tres tomas. Orden sugerido: La Base, Ojo de Halcón, La de las Alertas, El Rescatista, Caza Jammers, La Voz, El de la Llamada, La Arquitecta, Manos de Cempasúchil y El Turno de la Noche.</div></div>
+    <div class="bloque"><div class="h">10:45–11:15<br>En la mesa</div><div><span class="chip A">A</span> <b>Las manos de La Base (T12)</b> barajando y repartiendo la lotería sobre un sarape, grabado desde arriba. <b>La voz de La Base (T13):</b> las 7 llamadas de radio, en un cuarto sin eco, con el celular a un palmo de la boca.</div></div>
+    <div class="bloque"><div class="h">11:15–11:30<br>Cada lugar</div><div><span class="chip A">A</span> <b>«¡10-4!» (T01).</b> Cada quien en su lugar de trabajo, con audífonos, mirando a la cámara. Dos segundos por persona.</div></div>
+    <div class="bloque"><div class="h">13:00–14:00<br>La cabina</div><div><span class="chip B">B</span> <b>Trabajo en Equipo (T14, T15 y T17).</b> Las frases de Ojo de Halcón y La de las Alertas en su lugar de trabajo, y el choque de manos de todo el turno.</div></div>
+    <div class="bloque"><div class="h">En la noche</div><div>Me mandan los bloques A y B. Con eso armo la apertura, la bitácora, el reclutamiento y Trabajo en Equipo.</div></div>
+  </div>
+  <div class="dia"><h4>Miércoles 28 <span>· la decoración terminada</span></h4>
+    <div class="bloque"><div class="h">Antes de 9:00</div><div><b>Todo en su lugar:</b> el cempasúchil natural fresco, la cruz de sal, las velas LED prendidas y las pantallas sin datos de clientes, placas ni rutas. Fuera cartones, mochilas y cajas del cuadro.</div></div>
+    <div class="bloque"><div class="h">9:00–10:45<br>Altar y cabina</div><div><span class="chip Cc">C</span> <b>El recorrido (T23 a T30).</b> Cada pieza con quien la explica: primero la toma abierta con la persona y la pieza, después 5 segundos de cerca de la pieza sola. En el orden del recorrido: papel picado, altar, carretera, cruz de sal, panteón, tele, ofrenda y letreros de los monitores.</div></div>
+    <div class="bloque"><div class="h">10:45–11:30<br>La entrada</div><div><span class="chip Cc">C</span> <b>Resultados (T19 a T22)</b> y <b>el recorrido final (T34).</b> El «después» desde el mismo lugar que el «antes», el reloj junto al altar terminado, El Turno de la Noche y los detalles del nylon y los alfileres.</div></div>
+    <div class="bloque"><div class="h">11:30–12:30<br>Frente al altar</div><div><span class="chip D">D</span> <b>Pasión y el cierre (T31 a T36).</b> El de la Llamada con su tarjeta y la frase de los días difíciles, alguien viendo al 877 en la tele, todo el equipo gritando y, si quieren, unas manos hojeando el plan maestro impreso.</div></div>
+    <div class="bloque"><div class="h">14:00</div><div><b>Todo enviado</b>, incluidas las tomas falsas. Si una pieza no está lista, se graba lo que haya y el jueves a primera hora me mandan solo esa toma.</div></div>
+  </div>
+  <div class="regla">Una regla para todo: el celular siempre acostado y la luz siempre de frente. Lo demás lo arreglo yo en la edición.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>2</span></div>
+</div>
+
+<!-- 3 · lista de tomas (1) -->
+<div class="p">
+  <h2>La lista de tomas<small>Cada toma tiene un número: así se llama el archivo. Tres tomas de cada frase y dos segundos quietos antes y después</small></h2>
+  <table style="margin-top:12px">
+    <tr><th style="width:38px">#</th><th style="width:96px">Quién</th><th>Qué dice o hace</th><th style="width:150px">Cómo</th><th style="width:30px">Bl.</th></tr>
+    <tr class="esc"><td colspan="5">ESCENA 2 · LA BITÁCORA</td></tr>
+    <tr><td class="n">T01</td><td>Todos</td><td>«¡10-4!», con energía.</td><td>En su lugar, con audífonos, de pecho para arriba. 2 s.</td><td>A</td></tr>
+    <tr class="esc"><td colspan="5">ESCENA 3 · RECLUTAMIENTO</td></tr>
+    <tr><td class="n">T02–T11</td><td>Cada Centinela</td><td>Recibe su tarjeta desde fuera de cuadro, la voltea a la cámara y dice «¡Me tocó…!» con el nombre de la carta. Pausa. Su frase de presentación. Pausa. Su pose, 3 segundos quieto. Las frases están en las fichas.</td><td>Toma de pecho, la cámara a la altura de los ojos, mirando a la lente. Una sola toma seguida, tres veces.</td><td>A</td></tr>
+    <tr><td class="n">T12</td><td>La Base</td><td>Baraja la lotería y reparte las cartas boca abajo, una por una.</td><td>Desde arriba, sobre un sarape. Solo las manos. 15 s.</td><td>A</td></tr>
+    <tr><td class="n">T13</td><td>La Base</td><td>Las 7 llamadas de radio (están en su ficha).</td><td>Solo audio: nota de voz a un palmo de la boca, en un cuarto sin eco.</td><td>A</td></tr>
+    <tr class="esc"><td colspan="5">ESCENA 4 · PUNTO DE CONTROL 1 · TRABAJO EN EQUIPO</td></tr>
+    <tr><td class="n">T14</td><td>Ojo de Halcón</td><td>«En la cabina cada proceso está enlazado: si falla uno, falla todo el sistema.»</td><td>En su lugar de trabajo, de pecho.</td><td>B</td></tr>
+    <tr><td class="n">T15</td><td>La de las Alertas</td><td>«Ningún viaje se hace solo: aquí todos jalamos parejo.»</td><td>En su lugar de trabajo, de pecho.</td><td>B</td></tr>
+    <tr><td class="n">T16</td><td>Los tres equipos</td><td>El armado: imprimir, recortar, empalmar la parrilla, pegar lápidas en cartón, colgar letreros, poner la carretera, hacer la cruz de sal. Que salgan Ruta, Seguridad y Rescates, y los dos turnos.</td><td>Clips de 10 a 15 s, de cerca y de lejos. La cruz de sal, en cámara rápida.</td><td>B</td></tr>
+    <tr><td class="n">T17</td><td>Todo el turno</td><td>Chocan las manos al centro y gritan «¡10-4!».</td><td>Desde arriba o de lado. 5 s.</td><td>B</td></tr>
+    <tr class="esc"><td colspan="5">ESCENA 5 · PUNTO DE CONTROL 2 · ENFOQUE A RESULTADOS</td></tr>
+    <tr><td class="n">T18</td><td>—</td><td>El «antes»: la esquina con las cajas y la cabina sin decorar. Ya están las fotos del 19 y el 25 de octubre.</td><td>Si falta alguna, desde la entrada.</td><td>—</td></tr>
+    <tr><td class="n">T19</td><td>—</td><td>El «después», desde el mismo lugar y la misma altura que el «antes».</td><td>Celular quieto, 10 s.</td><td>C</td></tr>
+    <tr><td class="n">T20</td><td>—</td><td>Un celular con la fecha y la hora junto al altar terminado.</td><td>De cerca, 5 s.</td><td>C</td></tr>
+    <tr><td class="n">T21</td><td>El Turno de la Noche</td><td>«Empezamos el 19 y quedó lista un día antes, sin un solo clavo ni un pedazo de cinta: llegamos a destino, completos y sin un rasguño.»</td><td>Frente al altar, de pecho.</td><td>C</td></tr>
+    <tr><td class="n">T22</td><td>—</td><td>La prueba de cero cinta: el nylon de la rejilla, los alfileres en la sábana, los atriles de las lápidas.</td><td>3 clips de cerca, 5 s cada uno.</td><td>C</td></tr>
+  </table>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>3</span></div>
+</div>
+
+<!-- 4 · lista de tomas (2) -->
+<div class="p">
+  <h2>La lista de tomas<small>Segunda parte: Pasión, la llegada y las tomas falsas</small></h2>
+  <table style="margin-top:12px">
+    <tr><th style="width:38px">#</th><th style="width:96px">Quién</th><th>Qué dice o hace</th><th style="width:150px">Cómo</th><th style="width:30px">Bl.</th></tr>
+    <tr class="esc"><td colspan="5">ESCENA 6 · PUNTO DE CONTROL 3 · PASIÓN · EL RECORRIDO</td></tr>
+    <tr><td class="n">T23</td><td>Ojo de Halcón</td><td><b>El papel picado:</b> «El papel picado cruza el techo de pared a pared, como las rutas que seguimos en el mapa.»</td><td>Grabado desde abajo, con la persona señalando.</td><td>C</td></tr>
+    <tr><td class="n">T24</td><td>La Arquitecta</td><td><b>El altar:</b> «Nuestro altar es un tracto: la parrilla, los faros y la calavera del 877. Eso es lo que cuidamos: cada unidad que sale y cada operador que regresa.»</td><td>Abierta, la persona a un lado del altar. Después, de cerca, la parrilla y la calavera.</td><td>C</td></tr>
+    <tr><td class="n">T25</td><td>La de las Alertas</td><td><b>La carretera:</b> «En el mantel va la carretera con sus tractos, y alrededor los señalamientos: el KM 57, Aguascalientes, Saltillo… Es el camino que cuidamos todos los días.»</td><td>Agachada junto al mantel. De cerca, los tractos de izquierda a derecha.</td><td>C</td></tr>
+    <tr><td class="n">T26</td><td>El Rescatista</td><td><b>La cruz de sal:</b> «La cruz de sal purifica el camino, y el cempasúchil y las velas guían de regreso a casa a los que se nos adelantaron.»</td><td>De pie junto a la cruz. De cerca, desde arriba, la cruz y los pétalos.</td><td>C</td></tr>
+    <tr><td class="n">T27</td><td>Caza Jammers</td><td><b>El panteón:</b> «La Catrina es la reina del panteón, y aquí enterramos los malos hábitos que la cabina detecta: el exceso de velocidad, el celular, la fatiga… y el desvío de ruta, que ese es mío. Aquí se quedan, y no regresan.»</td><td>Entre las lápidas. De cerca, recorrer las 8 lápidas.</td><td>C</td></tr>
+    <tr><td class="n">T28</td><td>La Voz</td><td><b>La tele:</b> «En la tele está el 877: un video que hicimos nosotros, con nuestra voz, para que los niños sepan qué hacemos aquí.»</td><td>Junto a la tele con el 877 en pantalla.</td><td>C</td></tr>
+    <tr><td class="n">T29</td><td>Manos de Cempasúchil</td><td><b>La ofrenda:</b> «En cada escritorio pusimos la ofrenda: el sarape de México, mandarinas, cacahuates, pan de muerto, velas y flores.»</td><td>Junto a un escritorio. De cerca, la ofrenda.</td><td>C</td></tr>
+    <tr><td class="n">T30</td><td>La Base</td><td><b>Los monitores:</b> «Arriba de cada monitor, un letrero de carretera: Zona de restricción, Zona sin cobertura, Estatus al cliente… Así se vive la ruta desde la cabina.»</td><td>Bajo los letreros, sin pantallas con datos a la vista.</td><td>C</td></tr>
+    <tr><td class="n">T31</td><td>El de la Llamada</td><td>Lee su tarjeta: «¡Me tocó La Pasión!». Luego: «Lo que se hace con el corazón se nota en los detalles. Por eso hicimos al 877: para llegar al corazón del operador… desde su casa.»</td><td>Frente al altar, de pecho, con calma.</td><td>D</td></tr>
+    <tr><td class="n">T32</td><td>El de la Llamada</td><td>«En la cabina también hemos vivido días difíciles. Días que nos enseñaron a reinventarnos, todos los días. Por eso nació el 877: para hacer equipo desde casa, porque ahí empieza la prevención.»</td><td>Más cerrada, en voz baja, mirando a la lente. Sin nombres ni casos.</td><td>D</td></tr>
+    <tr><td class="n">T33</td><td>Cualquiera</td><td>Alguien viendo al 877 en la tele, de espaldas.</td><td>Por encima del hombro. 8 s.</td><td>D</td></tr>
+    <tr class="esc"><td colspan="5">ESCENA 7 · LLEGADA A DESTINO Y TOMAS FALSAS</td></tr>
+    <tr><td class="n">T34</td><td>—</td><td>El recorrido final: de la entrada al altar, a los escritorios, la tele y los monitores.</td><td>Caminando muy despacio, el celular con las dos manos a la altura del pecho. 25 a 30 s.</td><td>C</td></tr>
+    <tr><td class="n">T35</td><td>Todo el equipo</td><td>«¡Desde la cabina, protegemos cada kilómetro!»</td><td>Frente al altar, toma abierta con todos. Tres tomas.</td><td>D</td></tr>
+    <tr><td class="n">T36</td><td>Cualquiera</td><td>Opcional: unas manos hojeando el plan maestro impreso, para la bitácora.</td><td>Desde arriba, sobre un escritorio. 5 s.</td><td>D</td></tr>
+    <tr><td class="n">T37</td><td>Todos</td><td>Las tomas falsas: risas, frases trabadas, la tarjeta que se cae. Que nadie las borre.</td><td>Como salgan. El archivo empieza con TF_.</td><td>Todos</td></tr>
+  </table>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>4</span></div>
+</div>
+
+<!-- 5 · fichas (1) -->
+<div class="p">
+  <h2>Las fichas de cada Centinela<small>Recórtenlas y denle a cada quien la suya. Los alias son propuesta: cámbienlos y pásenme el nombre real para su tarjeta</small></h2>
+  <div class="fichas" style="margin-top:12px">
+    <div class="ficha"><div class="t"><b>La Base</b><i>coordina el turno</i><em>T02 · T12 · T13 · T30</em></div><dl>
+      <dt>Su papel</dt><dd>Reparte y canta la lotería, y llama por radio a cada punto de control.</dd>
+      <dt>Se presenta</dt><dd>«Aquí Base Centinela: tenemos una misión… y no es de monitoreo.»</dd>
+      <dt>Pose</dt><dd>Se pone los audífonos y voltea a la cámara.</dd>
+      <dt>Radio (T13)</dt><dd>«Base Centinela a todas las unidades… ¿me copian?» · «Unidad Blindaje Centinela, salida 19 de octubre. Destino: LOMAween.» · «Base Centinela a Trabajo en Equipo, ¿me copias?» · «…a Enfoque a Resultados…» · «…a Pasión…» · «Unidad Blindaje Centinela: llegó a destino.» · «Cambio y fuera.»</dd>
+      <dt>Recorrido</dt><dd>Los letreros de los monitores (T30).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>Ojo de Halcón</b><i>monitorea las unidades</i><em>T03 · T14 · T23</em></div><dl>
+      <dt>Sus tarjetas</dt><dd>«¡Me tocó El Trabajo en Equipo!» y, de pilón, El Papel Picado («le tocó doble, porque todo lo ve»).</dd>
+      <dt>Se presenta</dt><dd>«Yo veo cada unidad en el mapa, de día y de noche. Ahora también veo cada flor fuera de lugar.»</dd>
+      <dt>Pose</dt><dd>Binoculares con las manos.</dd>
+      <dt>Su frase</dt><dd>«En la cabina cada proceso está enlazado: si falla uno, falla todo el sistema.»</dd>
+      <dt>Recorrido</dt><dd>El papel picado (T23).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>La de las Alertas</b><i>exceso de velocidad y fatiga</i><em>T04 · T15 · T25</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó La Carretera!»</dd>
+      <dt>Se presenta</dt><dd>«Si una unidad pasa de 100, me entero. Si alguien quiere pegar algo con cinta… también.»</dd>
+      <dt>Pose</dt><dd>Señala a la cámara: «¡ni lo pienses!».</dd>
+      <dt>Su frase</dt><dd>«Ningún viaje se hace solo: aquí todos jalamos parejo.»</dd>
+      <dt>Recorrido</dt><dd>La carretera (T25).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>El Rescatista</b><i>coordina el rescate carretero</i><em>T05 · T26</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó La Cruz!»</dd>
+      <dt>Se presenta</dt><dd>«Si algo pasa en el camino, salimos de inmediato. Hoy rescaté tres catrinas y un pan de muerto.»</dd>
+      <dt>Pose</dt><dd>Carga una lápida como si la rescatara.</dd>
+      <dt>Recorrido</dt><dd>La cruz de sal, el cempasúchil y las velas (T26).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>Caza Jammers</b><i>jammers y desvíos de ruta</i><em>T06 · T27</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó La Catrina!»</dd>
+      <dt>Se presenta</dt><dd>«Ningún jammer se nos esconde… ni de muerto.»</dd>
+      <dt>Pose</dt><dd>Se baja los lentes oscuros, despacio.</dd>
+      <dt>Recorrido</dt><dd>El panteón de los malos hábitos (T27).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>La Voz</b><i>la voz del 877</i><em>T07 · T28</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó El 877!»</dd>
+      <dt>Se presenta</dt><dd>«Yo le di voz al cuento… y nos prestaron un tráiler.»</dd>
+      <dt>Pose</dt><dd>El celular como micrófono.</dd>
+      <dt>Recorrido</dt><dd>La tele con el 877 (T28).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>El de la Llamada</b><i>llama a los operadores</i><em>T08 · T31 · T32</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó La Pasión!»</dd>
+      <dt>Se presenta</dt><dd>«"¿Cómo vas, compañero?" Esa pregunta, a tiempo, salva un viaje.»</dd>
+      <dt>Pose</dt><dd>Teléfono al oído y guiño.</dd>
+      <dt>Sus frases</dt><dd>La del corazón (T31) y la de los días difíciles (T32), en voz baja y sin prisa.</dd></dl></div>
+    <div class="ficha"><div class="t"><b>La Arquitecta</b><i>armó el altar</i><em>T09 · T24</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó El Tracto!»</dd>
+      <dt>Se presenta</dt><dd>«Si coordinamos rutas de miles de kilómetros, ¿cómo no íbamos a armar un tracto de cartón?»</dd>
+      <dt>Pose</dt><dd>Presume el tracto con las dos manos.</dd>
+      <dt>Recorrido</dt><dd>El altar en forma de tracto (T24).</dd></dl></div>
+  </div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>5</span></div>
+</div>
+
+<!-- 6 · fichas (2) y cómo grabar -->
+<div class="p">
+  <div class="fichas">
+    <div class="ficha"><div class="t"><b>Manos de Cempasúchil</b><i>la ofrenda y las flores</i><em>T10 · T29</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó La Ofrenda!»</dd>
+      <dt>Se presenta</dt><dd>«Mandarinas, cacahuates, pan y flores… y ni una sola con exceso de velocidad.»</dd>
+      <dt>Pose</dt><dd>Avienta pétalos al aire, sobre la cartulina para no ensuciar.</dd>
+      <dt>Recorrido</dt><dd>La ofrenda de los escritorios (T29).</dd></dl></div>
+    <div class="ficha"><div class="t"><b>El Turno de la Noche</b><i>el turno nocturno</i><em>T11 · T21</em></div><dl>
+      <dt>Su tarjeta</dt><dd>«¡Me tocó El Resultado!»</dd>
+      <dt>Se presenta</dt><dd>«Mientras todos duermen, aquí seguimos jalando parejo.»</dd>
+      <dt>Pose</dt><dd>Brinda con su taza: «¡y sin cachimba!».</dd>
+      <dt>Su frase</dt><dd>La de Enfoque a Resultados (T21).</dd></dl></div>
+  </div>
+
+  <h3>Cómo se graba</h3>
+  <div class="enc">
+    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="2" y="2" width="116" height="66" rx="6" fill="#f2ecf7" stroke="#221a2c" stroke-width="2"/><circle cx="60" cy="30" r="11" fill="#5d5468"/><path d="M36,68 C38,48 82,48 84,68" fill="#5d5468"/></svg><b>De pecho para arriba</b><br>con aire sobre la cabeza</div>
+    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="20" y="10" width="80" height="50" rx="8" fill="#221a2c"/><circle cx="88" cy="35" r="6" fill="#fff"/><path d="M8,35 H18 M102,35 H112" stroke="#ff6a00" stroke-width="3"/></svg><b>Celular acostado</b><br>1080p a 30 cuadros</div>
+    <div><svg width="120" height="70" viewBox="0 0 120 70"><circle cx="28" cy="30" r="14" fill="#ffb300"/><path d="M48,30 H70" stroke="#ffb300" stroke-width="4"/><circle cx="92" cy="30" r="10" fill="#5d5468"/><path d="M74,68 C76,52 108,52 110,68" fill="#5d5468"/></svg><b>Luz de frente</b><br>ventana o lámpara delante</div>
+    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="14" y="16" width="26" height="38" rx="5" fill="#221a2c"/><path d="M48,35 h40" stroke="#5d5468" stroke-width="2" stroke-dasharray="4 4"/><circle cx="100" cy="30" r="10" fill="#5d5468"/></svg><b>A menos de un metro</b><br>sin música ni ventilador</div>
+  </div>
+  <div class="cols" style="margin-top:10px">
+    <div><ul>
+      <li><b>Tres tomas de cada frase:</b> una normal, una con más energía y una chistosa.</li>
+      <li><b>Dos segundos quietos</b> antes y después de hablar.</li>
+      <li><b>Cámara de atrás</b> del celular, a la altura de los ojos, mirando a la lente.</li>
+      <li><b>Si hay ruido,</b> otra persona graba una nota de voz cerca de la boca al mismo tiempo.</li>
+      <li><b>Vestuario:</b> la playera o chamarra del equipo y un toque de Día de Muertos igual para todos: una flor en el pelo o maquillaje sencillo de calavera.</li>
+    </ul></div>
+    <div><ul>
+      <li><b>Pantallas:</b> que no se vean datos de clientes, placas ni rutas. Si algo se cuela, yo lo difumino.</li>
+      <li><b>La tarjeta</b> se pasa desde fuera de cuadro, por la derecha, y se voltea hacia la cámara.</li>
+      <li><b>Las tomas de cerca</b> de las piezas: el celular se mueve muy despacio, de lado a lado.</li>
+      <li><b>El «después»</b> se graba desde el mismo lugar y a la misma altura que el «antes».</li>
+    </ul></div>
+  </div>
+  <h3>Para mandarme los archivos</h3>
+  <div class="cols">
+    <div class="caja"><b>Nombre:</b> número de toma, alias y qué es. Por ejemplo, <b>T09_Arquitecta_tarjeta.mp4</b> o <b>TF_Base_risas.mp4</b>.<br><b>Por WhatsApp:</b> siempre como <i>documento</i>, para que no pierdan calidad.</div>
+    <div class="caja"><b>Antes de grabar:</b><ul class="check" style="margin-top:4px">
+      <li>Lotería impresa y recortada</li><li>Celulares cargados y con espacio</li><li>Lente limpio</li><li>Pantallas sin datos</li><li>Ventiladores y música apagados</li></ul></div>
+  </div>
+  <h3>Lo que hago yo con lo que me manden</h3>
+  <div class="cols">
+    <div class="caja osc"><ul>
+      <li>Escojo la mejor de las tres tomas y la pongo en su escena.</li>
+      <li>Les doy a todas el mismo color de película, naranja y morado, con grano fino.</li>
+      <li>Pongo las tarjetas de personaje con su alias, las gráficas de la cabina y la música.</li>
+      <li>Difumino cualquier pantalla o dato que se cuele.</li>
+    </ul></div>
+    <div class="caja"><b>La visita de los niños (viernes 30, 16:00):</b> no entra en el video del jurado, porque es después de la entrega. Si graban a los Mini Centinelas, con permiso de los papás, armo después una versión corta para redes.<br><br><b>Si algo no sale:</b> se graba lo que haya y me lo mandan. Es mejor una toma sencilla a tiempo que una perfecta tarde.</div>
+  </div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>6</span></div>
+</div>
+<script>document.fonts.ready.then(() => { document.body.dataset.listo = 1; });</script>
+<script>
+// dentro del plan maestro: pie de página con la sección y la numeración corrida (?maestro=inicio,seccion,saltar)
+(function () {
+  const om = new URLSearchParams(location.search).get('maestro'); if (om === null) return;
+  const [o, sec, skip] = om.split(',');
+  document.querySelectorAll('.p').forEach((p, i) => { const s = p.querySelectorAll('.pie span'); if (s.length === 2) { s[0].textContent = 'La 57 de las Ánimas · Plan maestro · ' + decodeURIComponent(sec); s[1].textContent = +o + i - (+skip || 0); } });
+})();
+</script>
+</body></html>
