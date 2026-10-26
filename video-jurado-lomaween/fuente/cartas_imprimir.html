@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(../../build2/fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(../../build2/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(../../build2/fonts/montserrat-latin-900-normal.woff2)}
+@page{size:letter;margin:0}
+body{margin:0;font-family:M}
+.hoja{width:8.5in;height:11in;position:relative;page-break-after:always;overflow:hidden}
+.grid{position:absolute;left:2cm;top:1.0cm;display:grid;grid-template-columns:8.6cm 8.6cm;grid-template-rows:12.6cm 12.6cm;column-gap:.8cm;row-gap:.7cm}
+.c{width:8.6cm;height:12.6cm;position:relative;break-inside:avoid}
+.c svg{width:100%;height:100%;display:block}
+.pie{position:absolute;left:0;right:0;top:.3cm;text-align:center;font-size:9pt;color:#777;font-weight:800;letter-spacing:1px}
+.quien{position:absolute;left:0;right:0;bottom:-.48cm;text-align:center;font-size:8pt;color:#555;font-weight:800;letter-spacing:1px}
+</style><script src="logo.js"></script><script src="loteria.js"></script></head><body><div id="d"></div>
+<script>
+let h = '';
+for (let p = 0; p < 3; p++) {
+  const cs = CARTAS.slice(p * 4, p * 4 + 4);
+  h += `<div class="hoja"><div class="grid">${cs.map((c, i) => `<div class="c">${cartaSVG(c).replace(/papel(\d+)/g, 'papel$1_' + p + i).replace(/cBand/g, 'cBand' + p + i)}<div class="quien">PARA: ${c.quien}</div></div>`).join('')}</div>
+    <div class="pie">LOTERÍA CENTINELA · MISIÓN LOMAWEEN · HOJA ${p + 1} DE 4 · imprimir a color, tamaño carta, sin ajustar a la página</div></div>`;
+}
+const rv = reversoSVG(logoSVG('lr'));
+h += `<div class="hoja"><div class="grid">${[0, 1, 2, 3].map(i => `<div class="c">${rv.replace(/id="rev"/g, 'id="rev' + i + '"').replace(/url\(#rev\)/g, 'url(#rev' + i + ')').replace(/lr/g, 'lr' + i)}</div>`).join('')}</div>
+  <div class="pie">REVERSOS · imprimir 3 veces y pegar detrás de cada tarjeta (o imprimir por las dos caras)</div></div>`;
+document.getElementById('d').innerHTML = h;
+</script></body></html>

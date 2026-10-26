@@ -6,7 +6,7 @@ const { spawn } = require('child_process');
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
   p.on('pageerror', e => { console.log('ERROR:', e.message); process.exit(1); });
-  await p.goto('file://' + __dirname + '/muestra.html');
+  await p.goto('file://' + __dirname + '/' + (process.env.PAGINA || 'muestra.html'));
   await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
   const n0 = Math.round(+desde * 30), n1 = Math.round(+hasta * 30);
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', '30', '-c:v', 'mjpeg', '-i', '-',
