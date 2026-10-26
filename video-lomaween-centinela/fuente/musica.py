@@ -1,5 +1,5 @@
 # Música original emotiva (sintetizada, libre de derechos) + efectos suaves, mezclada con la voz.
-# Fa mayor, 66 BPM: piano -> guitarra -> caja de música -> cuerdas en el regreso a casa.
+# Inicio emotivo a 84 BPM, Fa mayor a 66 BPM en medio y final melancólico en Re menor después de la llamada.
 import json, sys, numpy as np, soundfile as sf
 from scipy.signal import lfilter
 
@@ -132,23 +132,85 @@ def arpegio_guitarra(t, i):
     for k, n in enumerate(notas):
         mus.put(t + k * BEAT / 2, guitarra(n), 0.9 if k else 1.1)
 
+def bombo(d=0.5):
+    t = tt(d); f = 42 + 50 * np.exp(-t * 28)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9) * 0.22
+
+def rasgueo(t0, ac, r, g=0.55):
+    for k, n in enumerate([r + 12] + ac + [ac[1] + 12]): mus.put(t0 + k * .016, guitarra(n, 1.6, .8), g)
+
+# --- 1. inicio emotivo, con más movimiento (84 BPM; bajo que desciende Fa–Mi–Re–Si♭) ---
+B1 = 60 / 84; BAR1 = 4 * B1
+AC1 = [(41, [53, 57, 60]), (40, [52, 55, 60]), (38, [53, 57, 62]), (34, [53, 58, 62])]
+MEL1 = [[(72, 1), (74, .5), (76, .5), (77, 1.5), (76, .5)], [(76, 1), (74, 1), (72, 2)],
+        [(74, .5), (76, .5), (77, 1), (81, 1.5), (79, .5)], [(77, 1), (76, 1), (74, 1), (72, 1)]]
 t, i = 0.0, 0
+while t + BAR1 <= ini["camino"] - .3:
+    r, ac = AC1[i % 4]
+    radio = ini["radio"] - .3 <= t < ini["espera"] - .6
+    espera = t >= ini["espera"] - .6
+    if radio:
+        # se abre espacio para la estática y la voz del radio
+        for n in ac: mus.put(t, cuerdas(n, BAR1 + 1.0), .55)
+        mus.put(t, piano(r + 12, 3.0, .55))
+    else:
+        mus.put(t, piano(r, 3.0, .85))
+        for k, n in enumerate([ac[0], ac[1], ac[2], ac[0] + 12, ac[2], ac[1], ac[2], ac[0] + 12]):
+            mus.put(t + k * B1 / 2, piano(n, 1.8, .5))
+        for b in (0, 2): mus.put(t + b * B1, bombo(), .8 if espera else .6)
+        if not espera:
+            for b in (1, 3): rasgueo(t + b * B1, ac, r)
+        c = 0
+        for n, b in MEL1[i % 4]:
+            mus.put(t + c * B1, piano(n + (12 if espera and i % 8 >= 4 else 0), 2.4, .95)); c += b
+        for n in ac + [r + 12]: mus.put(t - .2, cuerdas(n, BAR1 + 1.0), 1.0 if espera else .45)
+    t += BAR1; i += 1
+# --- 2. la parte de en medio se queda como estaba (66 BPM) ---
+T_FINAL = fin["cambio"] + .6
+i = 0
 while t < FIN - BAR * .5:
-    sec_camino = ini["camino"] - .5 <= t < ini["alertas"] - .5 or t < ini["radio"] - .3 or ini["despedida"] - .5 <= t < ini["cambio"] - .3
+    if t + BAR > T_FINAL:
+        # puente en Si♭ (común a Fa mayor y a Re menor) mientras termina la llamada
+        if T_FINAL - t > .5:
+            for n in [50, 53, 58]: mus.put(t, cuerdas(n, T_FINAL - t + 1.2), .8)
+            mus.put(t, piano(34, 3.5, .7))
+        t = T_FINAL; break
+    sec_camino = ini["camino"] - .5 <= t < ini["alertas"] - .5 or ini["despedida"] - .5 <= t < ini["cambio"] - .3
     sec_msg = ini["mensaje"] - .5 <= t < ini["razon"] - 1
     sec_clim = t >= ini["razon"] - 1.5
-    calma = ini["alertas"] - .5 <= t < ini["mensaje"] - .5 or ini["radio"] - .3 <= t < ini["espera"] - .5
+    calma = ini["alertas"] - .5 <= t < ini["mensaje"] - .5
     arpegio_piano(t, i, 0.75 if calma else 1.0)
     if sec_camino: arpegio_guitarra(t, i)
     if sec_msg: melodia(t, i, cajita, 1.0, 12)
-    elif not calma and t > 2: melodia(t, i, lambda n: piano(n, 3.0, .9), 1.0)
+    elif not calma: melodia(t, i, lambda n: piano(n, 3.0, .9), 1.0)
     if sec_clim or sec_msg:
         r, ac = ACORDES[i % 4]
         for n in ac + [r + 12]: mus.put(t - .3, cuerdas(n, BAR + 1.2), 1.0 if sec_clim else 0.55)
     t += BAR; i += 1
-# acorde final que resuelve
-for n in [41, 53, 57, 60, 65, 69]: mus.put(t, piano(n, 6.0, .9))
-for n in [53, 57, 60, 65]: mus.put(t - .3, cuerdas(n, 5.5), 1.0)
+# --- 3. después de la llamada: final melancólico en Re menor (60 BPM) ---
+B3 = 1.0; BAR3 = 4 * B3
+PROG = {'Dm': (38, [50, 53, 57], [(69, 2), (67, 1), (65, 1)]), 'Bb': (34, [50, 53, 58], [(65, 1.5), (67, .5), (69, 2)]),
+        'F': (41, [53, 57, 60], [(72, 2), (70, 1), (69, 1)]), 'C': (36, [52, 55, 60], [(67, 3), (64, 1)]),
+        'Gm': (43, [50, 55, 58], [(70, 2), (69, 1), (67, 1)]), 'A': (33, [49, 52, 57], [(69, 2), (73, 2)])}
+n_bar = max(3, int((TOTAL - 6.5 - t) / BAR3))
+orden = {3: ['Dm', 'Gm', 'A'], 4: ['Dm', 'Bb', 'Gm', 'A'], 5: ['Dm', 'Bb', 'F', 'Gm', 'A']}.get(n_bar, ['Dm', 'Bb', 'F', 'C', 'Gm', 'A'][:n_bar])
+for k, nombre in enumerate(orden):
+    r, ac, mel = PROG[nombre]
+    mus.put(t, piano(r, 4.5, .7)); mus.put(t, piano(r + 12, 4.5, .45))
+    for j, n in enumerate([ac[0], ac[1], ac[2], ac[1] + 12, ac[2], ac[1]]):
+        mus.put(t + j * B3 * .5 + .02 * j, piano(n, 2.6, .38))
+    for n in ac: mus.put(t - .3, cuerdas(n, BAR3 + 1.4), .75)
+    mus.put(t - .3, cuerdas(r + 12, BAR3 + 1.4), 1.1)
+    c = 0
+    for n, b in mel:
+        mus.put(t + c * B3, piano(n, 3.4, .8))
+        if k >= len(orden) - 2: mus.put(t + c * B3 + .03, cajita(n + 12, 2.6), .55)
+        c += b
+    t += BAR3
+# acorde final: Re menor con novena, que se queda sonando
+for n in [38, 50, 53, 57, 62, 64]: mus.put(t, piano(n, 7.0, .75))
+mus.put(t, piano(74, 6.0, .7)); mus.put(t + .03, cajita(86, 3.0), .5)
+for n in [50, 53, 57, 62]: mus.put(t - .3, cuerdas(n, 6.5), .9)
 
 # efectos
 def estatica(d):
