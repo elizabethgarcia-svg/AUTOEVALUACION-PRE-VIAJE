@@ -107,11 +107,11 @@ for i, (x, y, w) in enumerate([(52, 1418, 74), (140, 1410, 72), (762, 1410, 72),
     pegar(L, lap[i], x, y, w)
 d = ImageDraw.Draw(L, 'RGBA')
 
-# 9 · letreros: Destinos y Parador colgados como señales de autopista; KM 57 y Cruce de ánimas en palitos
-for x0, x1, top in [(262, 398, 405), (560, 696, 405)]:
-    for x in (x0 + 18, x1 - 18): d.line([(x, top), (x, 528)], fill=(255, 255, 255, 210), width=2)
-pegar(L, recorte(P + 'sen-5.png', (15, 31, 513, 349)), 330, 612, 150)
-pegar(L, recorte(P + 'sen-4.png', (15, 31, 513, 349)), 628, 612, 150)
+# 9 · letreros: Destinos y Parador en grande, colgados como señales de autopista; KM 57 y Cruce de ánimas en palitos
+for x0, x1 in [(260, 400), (558, 698)]:  # nylon a la rejilla
+    for x in (x0 + 18, x1 - 18): d.line([(x, 405), (x, 530)], fill=(255, 255, 255, 210), width=2)
+pegar(L, recorte(P + 'sen-5.png', (15, 31, 513, 349)), 330, 616, 140)
+pegar(L, recorte(P + 'sen-4.png', (15, 31, 513, 349)), 628, 616, 140)
 d = ImageDraw.Draw(L, 'RGBA')
 def palito(x, y0, y1): d.rectangle([x - 4, y0, x + 4, y1], fill=(140, 96, 52, 255), outline=(80, 50, 24, 255))
 palito(186, 1180, 1330); palito(778, 1200, 1336)
@@ -123,7 +123,7 @@ foto.alpha_composite(brillo.filter(ImageFilter.GaussianBlur(12)))
 foto.alpha_composite(L)
 foto.convert('RGB').crop((0, 380, 900, 1600)).save('deco/altar_limpio.jpg', quality=93)
 d = ImageDraw.Draw(foto, 'RGBA')
-for n, (x, y) in enumerate([(468, 700), (468, 930), (287, 1000), (548, 1080), (868, 1168), (470, 1450), (250, 1350), (100, 1290), (464, 560)], 1): num(d, n, x, y, 22)
+for n, (x, y) in enumerate([(616, 800), (468, 930), (287, 1000), (548, 1080), (868, 1168), (470, 1450), (250, 1350), (100, 1290), (464, 560)], 1): num(d, n, x, y, 22)
 im = foto.convert('RGB').crop((0, 380, 900, 1600))
 
 lado = Image.new('RGB', (650, im.height), (20, 14, 32)); e = ImageDraw.Draw(lado)
@@ -135,7 +135,7 @@ items = [('Calavera detrás de la parrilla', 'Tracto_Tabloide.pdf, hojas 3 y 4 (
          ('Cruz de sal al centro', 'en el piso, sobre cartulina negra:\nse ve más y se recoge fácil'),
          ('Cempasúchil natural y pétalos', 'a los costados de la cruz, con velas LED'),
          ('Panteón de los malos hábitos', 'las 8 lápidas en el piso, 4 de cada lado'),
-         ('Letreros de la carretera', 'Destinos y Parador colgados con nylon; KM 57,\nCruce de ánimas y placa de Saltillo al pie')]
+         ('Letreros de la carretera', 'Destinos y Parador en grande, colgados con nylon;\nKM 57, Cruce de ánimas y placa de Saltillo al pie')]
 y = 28
 for k, (t1, t2) in enumerate(items, 1):
     num(e, k, 44, y + 20, 21); e.text((82, y), t1, font=f(23), fill='white'); y += 33

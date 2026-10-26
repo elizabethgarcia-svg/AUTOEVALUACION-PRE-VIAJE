@@ -6,12 +6,13 @@
 @page{margin:0}
 body{margin:0}
 .p{position:relative;page-break-after:always;overflow:hidden;background:#fff}
-.v{width:816px;height:1056px}.h{width:1056px;height:816px}
+.v{width:816px;height:1056px}.h{width:1056px;height:816px}.g{width:1632px;height:1056px}
 .p svg{position:absolute;left:0;top:0}
 .pie{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:M;font-weight:800;font-size:11px;letter-spacing:1px;color:#888}
 </style><script src="logo.js"></script></head><body><div id="d"></div>
 <script>
 // Letreros de la carretera del altar. ?o=v imprime las hojas verticales y ?o=h las horizontales.
+// ?o=g imprime Destinos y Parador en grande, uno por tabloide horizontal (39 × 25 cm).
 const O = new URLSearchParams(location.search).get('o') || 'v';
 const corte = (d) => `<path d="${d}" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="8 6"/>`;
 const flecha = (x, y, ang, s = 1, c = '#fff') => `<g transform="translate(${x},${y}) rotate(${ang}) scale(${s})"><path d="M-46,-14 H10 V-38 L50,0 L10,38 V14 H-46 Z" fill="${c}"/></g>`;
@@ -82,7 +83,11 @@ function placa(estado, sub, num, col, acento, n) {
     ${corte('M30,110 H1026 V646 H30 Z')}</svg><div class="pie">LETRERO ${n} DE 6 · PLACA DE ${estado}${sub !== 'MÉXICO' ? ' · ' + sub : ''} (de juguete) · Recorta y pégala sobre cartón</div>`;
 }
 const V = ['km', 'animas'], Hs = ['placaAgs', 'placaSlt', 'parador', 'destinos'];
-document.getElementById('d').innerHTML = (O === 'v' ? V : Hs).map(k => `<div class="p ${O}">${S[k]()}</div>`).join('');
+const GRANDE = { destinos: 'LETRERO 5 DE 6 · DESTINOS', parador: 'LETRERO 4 DE 6 · PARADOR CENTINELA' };
+document.getElementById('d').innerHTML = O === 'g'
+  ? ['destinos', 'parador'].map(k => `<div class="p g">${S[k]().split('</svg>')[0].replace('<svg width="1056" height="816">', '<svg width="1632" height="1056" viewBox="0 39 1056 683">')}</svg>
+      <div class="pie">${GRANDE[k]} · EN GRANDE: 39 × 25 CM · Imprímelo en tabloide al 100 %, recórtalo, pégalo sobre cartón y cuélgalo con nylon de la rejilla</div></div>`).join('')
+  : (O === 'v' ? V : Hs).map(k => `<div class="p ${O}">${S[k]()}</div>`).join('');
 document.fonts.ready.then(() => {
   document.querySelectorAll('text[data-max]').forEach(el => { const mx = +el.dataset.max, w = el.getComputedTextLength(); if (w > mx) el.setAttribute('font-size', (parseFloat(el.getAttribute('font-size')) * mx / w).toFixed(1)); });
   document.body.dataset.listo = 1;
