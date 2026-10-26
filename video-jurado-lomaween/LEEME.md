@@ -1,10 +1,10 @@
 # Video para el jurado · Centinelas: Misión LOMAween
 
+`Muestra_Completa_Video_Jurado.mp4` (3:20) junta la muestra 3 y las tomas falsas en un solo video.
+
 `Muestra3_Video_Jurado_Centinelas_WhatsApp.mp4` es la muestra vigente (2:43): Catrina que se quema en brasas, logo Centinela en 3D que se enciende con chispas, la lotería de las misiones, los puntos de control en orden Trabajo en Equipo → Resultados → Pasión, la frase de los días difíciles, un fragmento del 877 (bienvenida, la casita, el Rescate Carretero, «Recordemos a quienes se fueron» y el regreso a casa con los niños), la llegada a destino y el cierre «Cambio y fuera» con el tracto 501 y su claxon. Los recuadros "AQUÍ ENTRA SU VIDEO" se cambian por las grabaciones.
 
 `Muestra_Tomas_Falsas.mp4` (0:37) es la muestra de las tomas falsas, que van después de «Cambio y fuera»: cámara VHS, claqueta, rebobinado, la toma trabada del 877 y, después de los créditos, el 877 abriendo los ojos. Lleva una cumbia original.
-
-`Muestra_Video_Jurado_Centinelas_WhatsApp.mp4` es la primera muestra (1:16).
 
 `Loteria_Centinela_para_imprimir.pdf` trae las 10 tarjetas de misión y sus reversos, en tamaño carta, para que cada Centinela reciba la suya en cámara.
 
