@@ -1,14 +1,15 @@
 # Decoración LOMAween · La 57 de las Ánimas
 
-`Plan_Maestro_La57_de_las_Animas.pdf` (40 hojas) junta todo el proyecto en un solo documento:
+`Plan_Maestro_La57_de_las_Animas.pdf` es la **versión definitiva** (25 hojas, 26 de octubre). Junta todo el proyecto en un solo documento:
 
 1. Las bases del concurso y cómo cumplimos cada una.
 2. Los objetivos, uno por valor, con su meta y su evidencia.
 3. El plan estructurado: las fases, el cronograma y la organización del equipo.
 4. El boceto a lápiz del altar y de la cabina.
 5. El diseño de la cabina.
-6. El guion de producción del video.
-7. El anexo: los 20 tabloides para imprimir (hojas 21 a 40), iguales a `Impresion_Tabloide_Completa.pdf`.
+6. El guion de producción del video, con cómo se graba paso por paso (hojas 14 a 25).
+
+Ya no trae las hojas para imprimir: esas van aparte, en `imprimir/Impresion_Tabloide_Completa.pdf`.
 
 `Plan_Decoracion_Actualizado.pdf` (6 hojas) es solo la parte de la decoración. Trae qué cambió, el recorrido, el altar armado como tracto, la tele, los letreros de los monitores, los escritorios con ofrenda, el papel picado en líneas y la lista de material.
 
@@ -39,4 +40,4 @@ Cada imprimible es una página HTML. `node pdf.js <pagina.html> <salida.pdf> [ho
 - La versión carta anterior: `tracto.html?o=v` (parrilla) y `tracto.html?o=h` (calavera y faros).
 - `imponer_tabloide.py` arma `Impresion_Tabloide_Completa.pdf`: mete el tracto y los letreros grandes (`senales.html?o=g`, con `pdf_tab.js … horizontal`) tal cual y acomoda de dos en dos, al 100 %, las demás hojas carta.
 - Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`; `boceto.py` pasa los planos a lápiz.
-- El plan maestro sale de `maestro.html`, `plan.html?maestro=9,…` y `guion.html?maestro=14,…`, unidos con `pdfunite` junto con los imprimibles.
+- El plan maestro sale de `maestro.html` (hojas 1 a 8), `plan.html?maestro=9,…` (sin su portada) y `guion.html?maestro=14,…`, unidos con `pdfunite`. Los dibujos del guion están en `guion_dibujos.js`.

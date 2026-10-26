@@ -55,6 +55,36 @@ tr.esc td { background: var(--noche); color: #fff; font-family: M; font-weight: 
 .enc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 6px; }
 .enc div { text-align: center; font-size: 8pt; }
 .enc svg { display: block; margin: 0 auto 4px; }
+.roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.roles div { background: var(--crema); border-radius: 10px; padding: 9px 10px; font-size: 8.5pt; line-height: 1.34; }
+.roles b { display: block; font-family: M; font-weight: 900; font-size: 9.4pt; margin-bottom: 3px; color: var(--noche); }
+.tel { border: 2px solid var(--linea); border-radius: 12px; padding: 10px 12px; font-size: 8.7pt; line-height: 1.38; }
+.tel > b:first-child { font-family: M; font-weight: 900; font-size: 10.5pt; color: var(--noche); }
+.tel ol { margin-top: 5px; } .tel i { font-style: normal; color: var(--azul); font-weight: 600; }
+.pasos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+.pasos div { background: var(--noche); color: #efe8f7; border-radius: 12px; padding: 10px; font-size: 8.5pt; line-height: 1.36; }
+.pasos em { display: flex; width: 30px; height: 30px; border-radius: 50%; background: var(--naranja); color: #fff; font-style: normal; font-family: M; font-weight: 900; font-size: 14pt; align-items: center; justify-content: center; margin-bottom: 6px; }
+.pasos strong { display: block; font-family: M; font-weight: 900; color: #fff; font-size: 11pt; margin-bottom: 4px; }
+.pasos b { color: #fff; }
+.pares { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.par { border: 2px solid var(--linea); border-radius: 12px; padding: 8px 6px; text-align: center; font-size: 7.8pt; }
+.par .t { font-family: M; font-weight: 900; font-size: 9.2pt; margin-bottom: 4px; color: var(--noche); }
+.par .dos { display: flex; justify-content: space-around; }
+.par .dos div { display: flex; flex-direction: column; align-items: center; font-family: M; font-weight: 800; }
+.recetas { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
+.recetas.una { grid-template-columns: 1fr; }
+.receta { border: 2px solid var(--linea); border-radius: 12px; padding: 9px 12px; font-size: 8.5pt; line-height: 1.34; break-inside: avoid; overflow: hidden; }
+.receta h4 { font-family: M; font-weight: 900; font-size: 10.4pt; margin: 0 0 5px; color: var(--noche); }
+.receta h4 span { display: inline-flex; width: 22px; height: 22px; border-radius: 6px; background: var(--naranja); color: #fff; align-items: center; justify-content: center; margin-right: 6px; font-size: 10pt; }
+.receta h4 i { font-style: normal; font-family: Inter; font-weight: 600; font-size: 8pt; color: var(--suave); margin-left: 4px; }
+.receta .aco { margin: 0 0 5px; background: #f6f2f9; border-radius: 6px; padding: 4px 7px; }
+.receta .dib { float: right; width: 150px; height: 100px; margin: 0 0 4px 10px; }
+.receta ol { padding-left: 1.25em; } .receta li { margin-bottom: 2px; }
+.bolsillos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.bolsillo { border: 2px dashed #999; border-radius: 14px; padding: 14px 16px; font-size: 10pt; line-height: 1.45; }
+.bolsillo .bt { font-family: M; font-weight: 900; font-size: 13pt; color: var(--naranja); margin-bottom: 8px; }
+.bolsillo li { margin-bottom: 5px; }
+.bolsillo .bp { margin-top: 8px; font-family: M; font-weight: 800; color: var(--noche); }
 </style></head><body>
 
 <!-- 1 · resumen -->
@@ -131,9 +161,144 @@ tr.esc td { background: var(--noche); color: #fff; font-family: M; font-weight: 
   <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>2</span></div>
 </div>
 
+<!-- 3 · antes de grabar -->
+<div class="p">
+  <h2>Antes de grabar<small>Quién hace qué, qué necesitan y cómo se prepara el celular. Se hace una sola vez, antes del primer bloque</small></h2>
+  <h3>El equipo de grabación: cuatro papeles</h3>
+  <div class="roles">
+    <div><b>🎥 Quien graba</b>Coloca el celular, acomoda la toma, presiona grabar y revisa cada toma al terminar.</div>
+    <div><b>🎬 Quien dirige</b>Dice «¡Silencio, grabando!», «¡Acción!» y «¡Corte!». Decide si se repite.</div>
+    <div><b>🤝 Quien ayuda</b>Pasa la tarjeta, sostiene la lámpara y quita de la toma mochilas, tazas y cables.</div>
+    <div><b>📝 Quien anota</b>Palomea la lista de tomas y apunta cuál salió mejor: «T09, la 2 es la buena».</div>
+  </div>
+  <p style="margin-top:8px;font-size:8.8pt;color:var(--suave)">Pueden ser las mismas dos o tres personas en todos los bloques; así cada vez les sale más rápido. Quien sale a cuadro no puede grabar al mismo tiempo: túrnense.</p>
+  <div class="cols" style="margin-top:4px">
+    <div><h3>Lo que necesitan</h3><ul class="check">
+      <li>Dos celulares cargados: uno graba y el otro graba la voz de respaldo</li>
+      <li>Un tripié para celular. Si no hay, una pila de libros o cajas y el celular recargado en una taza</li>
+      <li>Una lámpara de escritorio de luz blanca, o la luz de una ventana</li>
+      <li>Audífonos, para revisar cómo se oye</li>
+      <li>Esta lista de tomas impresa y una pluma</li>
+      <li>Las tarjetas de la lotería, ya recortadas</li>
+      <li>Un cargador o una batería externa</li>
+      <li>Un trapito o la playera, para limpiar la lente</li>
+    </ul></div>
+    <div><h3>La claqueta casera</h3>
+      <div class="caja">Antes de cada toma, alguien se pone frente a la cámara y dice en voz alta el número de toma, quién sale y qué intento es. Luego da <b>una palmada</b> y se sale de la toma.<br><br>
+        <span style="font-family:M;font-weight:900;font-size:11pt;color:var(--noche)">«Toma nueve, La Arquitecta, la uno» 👏</span><br><br>
+        Con eso yo sé qué toma es y cuál es la mejor. <b>Ya no tienen que cambiarle el nombre a los archivos.</b></div>
+    </div>
+  </div>
+  <h3>Cómo se prepara el celular</h3>
+  <div class="cols">
+    <div class="tel"><b>iPhone</b><ol>
+      <li><i>Ajustes › Cámara › Grabar video</i>: escoge <b>1080p a 30 cps</b>.</li>
+      <li><i>Ajustes › Cámara › Formatos</i>: escoge <b>Más compatible</b>.</li>
+      <li><i>Ajustes › Cámara</i>: activa la <b>Cuadrícula</b>.</li>
+      <li>En la cámara usa el modo <b>Video</b> (no Cinematográfico ni Retrato) y el lente <b>1x</b>.</li>
+      <li>Para fijar la luz y el enfoque, deja el dedo sobre la cara en la pantalla hasta que salga <b>BLOQUEO AE/AF</b>.</li>
+    </ol></div>
+    <div class="tel"><b>Android</b> (Samsung, Motorola, Xiaomi…)<ol>
+      <li>Abre la cámara en el modo <b>Video</b>.</li>
+      <li>Toca el engrane ⚙ o el letrero de calidad y escoge <b>FHD 1080p, 30 fps</b>.</li>
+      <li>En los ajustes activa las <b>Líneas de cuadrícula</b> y la <b>Estabilización de video</b>.</li>
+      <li>Usa el lente <b>1x</b>, sin filtros ni modo belleza.</li>
+      <li>Para fijar la luz y el enfoque, deja el dedo sobre la cara en la pantalla hasta que salga el <b>candado</b>.</li>
+    </ol></div>
+  </div>
+  <div class="caja" style="margin-top:10px"><b>En los dos:</b> pon el celular en <b>Modo avión</b> o <b>No molestar</b> para que no entre una llamada a media toma. Deja al menos <b>5 GB libres</b> y la batería arriba de 70 %. Sube el brillo de la pantalla para ver bien. Usa siempre la <b>cámara de atrás</b>, nunca la de selfie.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
+
+<!-- 4 · la toma en 5 pasos -->
+<div class="p">
+  <h2>Cada toma, en 5 pasos<small>Siempre la misma rutina. Al tercer Centinela ya les sale sola</small></h2>
+  <div class="pasos">
+    <div><em>1</em><strong>Coloca</strong>El celular <b>acostado</b> en el tripié, a la <b>altura de los ojos</b> de quien sale. Para una toma de pecho, a <b>dos pasos grandes</b> (1.5 m).</div>
+    <div><em>2</em><strong>Acomoda</strong>Los <b>ojos sobre la línea de arriba</b> de la cuadrícula y un puño de aire arriba de la cabeza. Revisa que atrás no haya mochilas, tazas ni pantallas con datos.</div>
+    <div><em>3</em><strong>Ilumina</strong>La ventana o la lámpara <b>de frente a la cara</b>, detrás de quien graba. Deja el dedo sobre la cara en la pantalla para fijar la luz.</div>
+    <div><em>4</em><strong>Graba</strong>Claqueta, «¡Acción!», <b>2 segundos quietos</b>, la frase, <b>2 segundos quietos</b> y «¡Corte!». Tres veces: normal, con más energía y chistosa.</div>
+    <div><em>5</em><strong>Revisa</strong>Ve la toma con audífonos: ¿se ve clara la cara?, ¿se oye cada palabra?, ¿no salió una pantalla? Si todo está bien, palomea y siguiente.</div>
+  </div>
+  <h3 style="margin-top:16px">Así sí · Así no</h3>
+  <div class="pares" id="pares"></div>
+  <div class="caja" style="margin-top:12px"><b>Para contar los 2 segundos:</b> «mil uno, mil dos», en silencio. Quien dirige lo marca con los dedos y la persona empieza a hablar cuando baja la mano.<br>
+    <b>Si alguien se traba:</b> no se corta. Se queda callado un segundo, respira y vuelve a empezar la frase desde el principio. Yo corto en la edición.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
+
+<!-- 5 · recetas (1) -->
+<div class="p">
+  <h2>Cómo se graba cada toma<small>Las recetas, paso por paso. Cada una dice para qué tomas de la lista es</small></h2>
+  <div class="recetas una">
+    <div class="receta"><h4><span>A</span>La entrega de la tarjeta <i>T02 a T11</i></h4>
+      <div class="dib" data-d="tarjeta"></div>
+      <p class="aco">De <b>cintura para arriba</b>, para que quepa la tarjeta: el celular a 2 m. Quien ayuda se para a la derecha, fuera de la toma, con la tarjeta boca abajo.</p>
+      <ol><li>Claqueta y «¡Acción!». La persona mira a la cámara 2 segundos.</li>
+        <li>Entra la mano de quien ayuda por la derecha y le da la tarjeta.</li>
+        <li>La voltea hacia la cámara a la altura del pecho y la deja <b>quieta 2 segundos</b>, sin taparse la cara.</li>
+        <li>Dice «¡Me tocó El Tracto!» (o su carta).</li>
+        <li>Baja la tarjeta y dice su presentación.</li>
+        <li>Hace su pose <b>3 segundos</b> sin moverse. «¡Corte!».</li></ol></div>
+    <div class="receta"><h4><span>B</span>Las frases de los puntos de control <i>T14, T15, T21, T31 y T32</i></h4>
+      <div class="dib" data-d="frase"></div>
+      <p class="aco">De <b>pecho para arriba</b>, a 1.5 m, en su lugar de trabajo o frente al altar.</p>
+      <ol><li>Que se aprenda la frase o que alguien se la lea justo antes.</li>
+        <li>Mira <b>a la lente</b>, no a la pantalla. Si cuesta, pega una carita de papel junto a la lente.</li>
+        <li>Habla despacio y un poquito más fuerte que de costumbre.</li>
+        <li>La de los días difíciles (T32) va más cerca, de hombros para arriba, en voz baja y sin prisa.</li></ol></div>
+    <div class="receta"><h4><span>C</span>Las piezas del recorrido <i>T23 a T30</i></h4>
+      <div class="dib" data-d="pieza"></div>
+      <p class="aco">Son <b>dos tomas por pieza</b>: una con la persona y otra de cerca, de la pieza sola.</p>
+      <ol><li><b>Toma abierta:</b> el celular a 2 o 3 m, para que quepan la persona y la pieza. La persona se para a un lado, sin taparla, la señala con la mano y dice su frase.</li>
+        <li><b>Toma de cerca:</b> sin persona. El celular a medio metro de la pieza y se mueve <b>muy despacio</b> de izquierda a derecha, contando de «mil uno» a «mil seis».</li>
+        <li>El papel picado (T23) se graba desde abajo, con el celular apuntando al techo.</li></ol></div>
+  </div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
+
+<!-- 6 · recetas (2) -->
+<div class="p">
+  <div class="recetas">
+    <div class="receta"><h4><span>D</span>El armado <i>T16 y T17</i></h4>
+      <p class="aco">Clips cortos de <b>10 a 15 segundos</b>, con el celular quieto.</p>
+      <ol><li>Graba las manos de cerca: recortando, pegando las lápidas, colgando letreros, armando la carretera con los tractos, haciendo la cruz de sal.</li>
+        <li>Luego, la misma acción de lejos, para que se vea quién la hace.</li>
+        <li>Nadie mira a la cámara ni le habla. Que se vean caras concentradas y risas.</li>
+        <li>Que salgan los tres grupos y los dos turnos. La cruz de sal y el armado del tracto quedan muy bien en <b>cámara rápida</b> (Time-lapse).</li></ol></div>
+    <div class="receta"><h4><span>E</span>El «antes» y el «después» <i>T18 y T19</i></h4>
+      <div class="dib" data-d="antes"></div>
+      <ol><li>Escojan un lugar fijo para pararse, por ejemplo junto a la puerta de entrada, y una marca: una loseta o una pata de la silla.</li>
+        <li>Si les falta el «antes», graben 10 segundos quietos desde ahí y tomen una foto del encuadre.</li>
+        <li>Para el «después», párense en la misma marca, a la misma altura, y comparen con la foto antes de grabar 10 segundos quietos.</li></ol></div>
+    <div class="receta"><h4><span>F</span>El reloj <i>T20</i></h4>
+      <ol><li>Alguien sostiene otro celular con la pantalla de bloqueo encendida, donde se ven la fecha y la hora.</li>
+        <li>Lo pone junto al altar terminado y se graba de cerca 5 segundos, que se lean bien la hora y el día.</li></ol></div>
+    <div class="receta"><h4><span>G</span>El recorrido caminando <i>T34</i></h4>
+      <div class="dib" data-d="caminar"></div>
+      <ol><li>Ensayen una vez sin grabar: entrada, altar, escritorios, tele y monitores.</li>
+        <li>El celular con <b>las dos manos</b> a la altura del pecho y los <b>codos pegados</b> al cuerpo.</li>
+        <li>Rodillas un poco dobladas y pasos cortitos, como pato. Nada de vueltas rápidas.</li>
+        <li>De 25 a 30 segundos, con la estabilización activada.</li></ol></div>
+    <div class="receta"><h4><span>H</span>El grito de todo el equipo <i>T35</i></h4>
+      <div class="dib" data-d="grupo"></div>
+      <ol><li>Todos frente al altar en dos filas, los más bajitos adelante, sin tapar el tracto.</li>
+        <li>El celular en el tripié a <b>5 pasos grandes</b> (4 m), acostado, que quepan todos y el altar.</li>
+        <li>Quien dirige cuenta «3, 2, 1» con los dedos y todos gritan juntos, con el puño arriba.</li>
+        <li>Tres tomas. Para que salga también quien graba, usen el temporizador de 10 segundos.</li></ol></div>
+    <div class="receta"><h4><span>I</span>La voz de La Base <i>T13</i></h4>
+      <ol><li>En un lugar sin eco: una oficina chica con cortinas, o dentro de un coche.</li>
+        <li>Con la grabadora del celular (Notas de voz en iPhone, Grabadora en Android), a <b>un palmo</b> de la boca y un poco de lado.</li>
+        <li>Cada llamada tres veces, con una pausa entre una y otra. Voz de radio: clara y con calma.</li></ol></div>
+    <div class="receta"><h4><span>J</span>Las tomas falsas <i>T37</i></h4>
+      <ol><li>Si alguien se equivoca o se ríe, <b>no detengan la grabación</b>.</li>
+        <li>No borren nada: mándenme todo, los errores también.</li></ol></div>
+  </div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
 <!-- 3 · lista de tomas (1) -->
 <div class="p">
-  <h2>La lista de tomas<small>Cada toma tiene un número: así se llama el archivo. Tres tomas de cada frase y dos segundos quietos antes y después</small></h2>
+  <h2>La lista de tomas<small>Cada toma tiene un número: es el que se dice en la claqueta. Tres tomas de cada frase y dos segundos quietos antes y después</small></h2>
   <table style="margin-top:12px">
     <tr><th style="width:38px">#</th><th style="width:96px">Quién</th><th>Qué dice o hace</th><th style="width:150px">Cómo</th><th style="width:30px">Bl.</th></tr>
     <tr class="esc"><td colspan="5">ESCENA 2 · LA BITÁCORA</td></tr>
@@ -249,33 +414,24 @@ tr.esc td { background: var(--noche); color: #fff; font-family: M; font-weight: 
       <dt>Su frase</dt><dd>La de Enfoque a Resultados (T21).</dd></dl></div>
   </div>
 
-  <h3>Cómo se graba</h3>
-  <div class="enc">
-    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="2" y="2" width="116" height="66" rx="6" fill="#f2ecf7" stroke="#221a2c" stroke-width="2"/><circle cx="60" cy="30" r="11" fill="#5d5468"/><path d="M36,68 C38,48 82,48 84,68" fill="#5d5468"/></svg><b>De pecho para arriba</b><br>con aire sobre la cabeza</div>
-    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="20" y="10" width="80" height="50" rx="8" fill="#221a2c"/><circle cx="88" cy="35" r="6" fill="#fff"/><path d="M8,35 H18 M102,35 H112" stroke="#ff6a00" stroke-width="3"/></svg><b>Celular acostado</b><br>1080p a 30 cuadros</div>
-    <div><svg width="120" height="70" viewBox="0 0 120 70"><circle cx="28" cy="30" r="14" fill="#ffb300"/><path d="M48,30 H70" stroke="#ffb300" stroke-width="4"/><circle cx="92" cy="30" r="10" fill="#5d5468"/><path d="M74,68 C76,52 108,52 110,68" fill="#5d5468"/></svg><b>Luz de frente</b><br>ventana o lámpara delante</div>
-    <div><svg width="120" height="70" viewBox="0 0 120 70"><rect x="14" y="16" width="26" height="38" rx="5" fill="#221a2c"/><path d="M48,35 h40" stroke="#5d5468" stroke-width="2" stroke-dasharray="4 4"/><circle cx="100" cy="30" r="10" fill="#5d5468"/></svg><b>A menos de un metro</b><br>sin música ni ventilador</div>
-  </div>
-  <div class="cols" style="margin-top:10px">
-    <div><ul>
-      <li><b>Tres tomas de cada frase:</b> una normal, una con más energía y una chistosa.</li>
-      <li><b>Dos segundos quietos</b> antes y después de hablar.</li>
-      <li><b>Cámara de atrás</b> del celular, a la altura de los ojos, mirando a la lente.</li>
-      <li><b>Si hay ruido,</b> otra persona graba una nota de voz cerca de la boca al mismo tiempo.</li>
-      <li><b>Vestuario:</b> la playera o chamarra del equipo y un toque de Día de Muertos igual para todos: una flor en el pelo o maquillaje sencillo de calavera.</li>
-    </ul></div>
-    <div><ul>
-      <li><b>Pantallas:</b> que no se vean datos de clientes, placas ni rutas. Si algo se cuela, yo lo difumino.</li>
-      <li><b>La tarjeta</b> se pasa desde fuera de cuadro, por la derecha, y se voltea hacia la cámara.</li>
-      <li><b>Las tomas de cerca</b> de las piezas: el celular se mueve muy despacio, de lado a lado.</li>
-      <li><b>El «después»</b> se graba desde el mismo lugar y a la misma altura que el «antes».</li>
-    </ul></div>
-  </div>
-  <h3>Para mandarme los archivos</h3>
+  <h3>El día de grabación: la lista</h3>
   <div class="cols">
-    <div class="caja"><b>Nombre:</b> número de toma, alias y qué es. Por ejemplo, <b>T09_Arquitecta_tarjeta.mp4</b> o <b>TF_Base_risas.mp4</b>.<br><b>Por WhatsApp:</b> siempre como <i>documento</i>, para que no pierdan calidad.</div>
-    <div class="caja"><b>Antes de grabar:</b><ul class="check" style="margin-top:4px">
-      <li>Lotería impresa y recortada</li><li>Celulares cargados y con espacio</li><li>Lente limpio</li><li>Pantallas sin datos</li><li>Ventiladores y música apagados</li></ul></div>
+    <div class="caja"><b>Antes de cada bloque</b><ul class="check" style="margin-top:5px">
+      <li>Las tarjetas de la lotería recortadas</li>
+      <li>Los celulares cargados, con 5 GB libres y en Modo avión</li>
+      <li>La lente limpia y el tripié listo</li>
+      <li>Ninguna pantalla con datos de clientes, placas ni rutas a la vista</li>
+      <li>Ventiladores, música y celulares en silencio</li>
+      <li>La lista de tomas impresa y una pluma</li>
+      <li><b>Vestuario:</b> la playera o chamarra del equipo y un toque de Día de Muertos igual para todos: una flor en el pelo o maquillaje sencillo de calavera</li>
+    </ul></div>
+    <div class="caja"><b>Al terminar cada bloque</b><ul class="check" style="margin-top:5px">
+      <li>Todas las tomas del bloque palomeadas en la lista</li>
+      <li>Apuntada la mejor de cada una («T09, la 2»)</li>
+      <li>Los videos mandados como documento o subidos al Drive</li>
+      <li>Los celulares otra vez a cargar</li>
+      <li>Nada borrado: las tomas falsas también van</li>
+    </ul></div>
   </div>
   <h3>Lo que hago yo con lo que me manden</h3>
   <div class="cols">
@@ -289,11 +445,82 @@ tr.esc td { background: var(--noche); color: #fff; font-family: M; font-weight: 
   </div>
   <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span>6</span></div>
 </div>
+<!-- 11 · mandar los archivos y errores -->
+<div class="p">
+  <h2>Para mandarme lo grabado<small>Sin cambiar nombres: la claqueta ya dice qué toma es</small></h2>
+  <div class="cols" style="margin-top:12px">
+    <div class="tel"><b>Por WhatsApp, como documento</b> (así no pierde calidad)<ol>
+      <li>Abre el chat conmigo.</li>
+      <li><b>Android:</b> toca el clip 📎 › <b>Documento</b> › busca los videos y selecciónalos.<br><b>iPhone:</b> toca el <b>+</b> › <b>Documento</b> › <b>Elegir de Fotos</b> › selecciona los videos.</li>
+      <li>Toca <b>Enviar</b> y escribe qué bloque es: «Bloque A, T02 a T06».</li>
+    </ol><p style="margin:6px 0 0;font-size:8.4pt;color:var(--suave)">No los mandes como foto o video normal: WhatsApp los achica y se ven borrosos.</p></div>
+    <div class="tel"><b>O por Google Drive</b> (para muchos videos)<ol>
+      <li>La Base crea una carpeta «Videos LOMAween» y comparte el enlace con todos.</li>
+      <li>Desde la app de Drive: <b>+</b> › <b>Subir</b> › escoge los videos.</li>
+      <li>Avísame en el chat cuando terminen de subir.</li>
+    </ol></div>
+  </div>
+  <table style="margin-top:12px">
+    <tr><th style="width:30%">Cuándo</th><th>Qué me mandan</th></tr>
+    <tr><td><b>Martes 27, en la noche</b></td><td>Bloques A y B: el reclutamiento, la voz de La Base, el «¡10-4!», Trabajo en Equipo y el armado.</td></tr>
+    <tr><td><b>Miércoles 28, a las 14:00</b></td><td>Bloques C y D: el recorrido, el antes y el después, el reloj, Pasión, el grito y las tomas falsas.</td></tr>
+  </table>
+  <h2 style="margin-top:22px">Los errores que más pasan<small>Y cómo evitarlos</small></h2>
+  <table style="margin-top:10px">
+    <tr><th style="width:34%">Lo que pasa</th><th>Cómo se evita</th></tr>
+    <tr><td><b>El video salió vertical</b></td><td>Acuesta el celular <i>antes</i> de presionar grabar. Si ya empezó, corta y vuelve a empezar.</td></tr>
+    <tr><td><b>La cara sale oscura</b> (contraluz)</td><td>La ventana va detrás de quien graba, nunca detrás de quien sale. O prendan la lámpara de frente.</td></tr>
+    <tr><td><b>La imagen se mueve</b></td><td>Usen el tripié o recarguen el celular. Si lo sostienen, los codos pegados al cuerpo.</td></tr>
+    <tr><td><b>No se oye bien o hay eco</b></td><td>Acérquense (1.5 m máximo), apaguen ventiladores y música, y graben también una nota de voz con el otro celular.</td></tr>
+    <tr><td><b>La frase salió cortada</b></td><td>Esperen 2 segundos después de «¡Acción!» y 2 segundos antes de «¡Corte!».</td></tr>
+    <tr><td><b>Se ve borroso</b></td><td>No usen el zoom: acérquense caminando. Limpien la lente con la playera.</td></tr>
+    <tr><td><b>Se ve una pantalla con datos</b></td><td>Muevan la cámara o apaguen la pantalla. Si se coló, avísenme y yo la difumino.</td></tr>
+    <tr><td><b>Mira la pantalla y no la lente</b></td><td>Peguen una carita de papel junto a la lente para que mire ahí.</td></tr>
+    <tr><td><b>Se acabó la pila o el espacio</b></td><td>Carguen antes de cada bloque y dejen 5 GB libres. Tengan el cargador a la mano.</td></tr>
+    <tr><td><b>Entró una llamada a media toma</b></td><td>Modo avión o No molestar antes de grabar.</td></tr>
+  </table>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
+
+<!-- 12 · hoja de bolsillo -->
+<div class="p">
+  <h2>La hoja de bolsillo<small>Recórtenla y que la tenga a la mano quien graba. Son dos copias</small></h2>
+  <div class="bolsillos">
+    <div class="bolsillo"><div class="bt">Las 10 reglas de quien graba</div><ol>
+      <li><b>Celular acostado</b>, siempre.</li>
+      <li><b>Cámara de atrás</b>, lente 1x, sin zoom ni filtros.</li>
+      <li>A la <b>altura de los ojos</b> de quien sale.</li>
+      <li><b>Luz de frente</b>: la ventana detrás de mí.</li>
+      <li><b>Silencio</b>: ventiladores y música apagados.</li>
+      <li><b>Claqueta</b>: «Toma __, __, la __» y una palmada.</li>
+      <li>«¡Acción!» › <b>2 segundos</b> › frase › <b>2 segundos</b> › «¡Corte!».</li>
+      <li><b>Tres tomas</b> de cada frase.</li>
+      <li><b>Reviso</b> cada toma con audífonos.</li>
+      <li><b>Ninguna pantalla</b> con datos a la vista.</li>
+    </ol><div class="bp">Si alguien se equivoca: sigo grabando 😄</div></div>
+    <div class="bolsillo"><div class="bt">Las 10 reglas de quien graba</div><ol>
+      <li><b>Celular acostado</b>, siempre.</li>
+      <li><b>Cámara de atrás</b>, lente 1x, sin zoom ni filtros.</li>
+      <li>A la <b>altura de los ojos</b> de quien sale.</li>
+      <li><b>Luz de frente</b>: la ventana detrás de mí.</li>
+      <li><b>Silencio</b>: ventiladores y música apagados.</li>
+      <li><b>Claqueta</b>: «Toma __, __, la __» y una palmada.</li>
+      <li>«¡Acción!» › <b>2 segundos</b> › frase › <b>2 segundos</b> › «¡Corte!».</li>
+      <li><b>Tres tomas</b> de cada frase.</li>
+      <li><b>Reviso</b> cada toma con audífonos.</li>
+      <li><b>Ninguna pantalla</b> con datos a la vista.</li>
+    </ol><div class="bp">Si alguien se equivoca: sigo grabando 😄</div></div>
+  </div>
+  <div class="caja" style="margin-top:14px"><b>Las distancias, en pasos grandes:</b> de pecho para arriba, 2 pasos · de cintura para arriba (con la tarjeta), 3 pasos · una persona con su pieza, 3 o 4 pasos · todo el equipo, 5 pasos.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Guion de producción</span><span></span></div>
+</div>
+<script src="guion_dibujos.js"></script>
 <script>document.fonts.ready.then(() => { document.body.dataset.listo = 1; });</script>
 <script>
 // dentro del plan maestro: pie de página con la sección y la numeración corrida (?maestro=inicio,seccion,saltar)
 (function () {
-  const om = new URLSearchParams(location.search).get('maestro'); if (om === null) return;
+  const om = new URLSearchParams(location.search).get('maestro');
+  if (om === null) { document.querySelectorAll('.p').forEach((p, i) => { const s = p.querySelectorAll('.pie span'); if (s.length === 2) s[1].textContent = i + 1; }); return; }
   const [o, sec, skip] = om.split(',');
   document.querySelectorAll('.p').forEach((p, i) => { const s = p.querySelectorAll('.pie span'); if (s.length === 2) { s[0].textContent = 'La 57 de las Ánimas · Plan maestro · ' + decodeURIComponent(sec); s[1].textContent = +o + i - (+skip || 0); } });
 })();

@@ -84,12 +84,12 @@ if __name__ == '__main__':
     alt = Image.open('deco/altar_limpio.jpg')
     ska = lapiz(alt, 3); ska.save('deco/boceto_altar_solo.jpg', quality=92)
     k = (1100 - 140) / alt.width; X = lambda x: 70 + x * k; Y = lambda y: 150 + y * k   # coordenadas de la foto recortada → hoja
-    N = [('o', X(468), Y(400), 120, 92), ('t', X(600), Y(250), 'calavera impresa\n51 × 36 cm + marco\nde cempasúchil', 30, (226, 92, 10)), ('f', (X(600), Y(320)), (X(560), Y(390)), (226, 92, 10)),
+    N = [('o', X(468), Y(400), 120, 92), ('t', X(600), Y(250), 'calavera impresa\ndetrás, con marco\nde cempasúchil', 30, (226, 92, 10)), ('f', (X(600), Y(320)), (X(560), Y(390)), (226, 92, 10)),
          ('t', X(30), Y(470), 'parrilla\ncon el 877', 30), ('f', (X(120), Y(500)), (X(380), Y(560))),
          ('t', X(20), Y(640), 'faros', 32), ('f', (X(70), Y(660)), (X(235), Y(630))),
          ('t', X(748), Y(650), 'placa AGS =\ndefensa', 28), ('f', (X(748), Y(690)), (X(522), Y(708))),
          ('m', (X(190), Y(936)), (X(760), Y(936)), '1.60 m aprox.'),
-         ('t', X(330), Y(865), 'carretera con tractos en el mantel', 28), ('f', (X(320), Y(880)), (X(250), Y(815))),
+         ('t', X(330), Y(865), 'carretera con tractos de juguete', 28), ('f', (X(320), Y(880)), (X(250), Y(815))),
          ('t', X(640), Y(1005), 'cruz de sal', 32, (226, 92, 10)), ('f', (X(640), Y(1030)), (X(500), Y(1030)), (226, 92, 10)),
          ('t', X(250), Y(1172), 'pétalos + cempasúchil natural', 28),
          ('t', X(8), Y(905), 'panteón:\n8 lápidas', 28), ('f', (X(40), Y(960)), (X(70), Y(1000))),

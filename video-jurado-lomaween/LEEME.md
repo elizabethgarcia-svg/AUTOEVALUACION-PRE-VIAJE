@@ -15,12 +15,15 @@
 
 Los recuadros "AQUÍ ENTRA SU VIDEO" se cambian por las grabaciones.
 
-`Guion_Produccion_Video.pdf` (6 hojas) dice qué grabar, quién, dónde, cómo y cuándo:
+`Guion_Produccion_Video.pdf` (12 hojas) dice qué grabar, quién, dónde, cómo y cuándo, pensado para quien nunca ha grabado:
 
 - el plan de grabación por bloques del lunes 26 al miércoles 28;
-- la lista de tomas T01 a T37;
-- la ficha de cada Centinela con sus frases;
-- cómo mandar los archivos.
+- antes de grabar: los cuatro papeles del equipo, lo que se necesita, la claqueta casera y cómo preparar el celular (iPhone y Android);
+- cada toma en 5 pasos, con dibujos de «así sí / así no»;
+- las recetas de cada tipo de toma (de la A a la J);
+- la lista de tomas T01 a T37 y la ficha de cada Centinela con sus frases;
+- la lista del día de grabación, cómo mandar lo grabado y los errores que más pasan;
+- la hoja de bolsillo para quien graba.
 
 `Muestra_Tomas_Falsas.mp4` (0:37) es la muestra de las tomas falsas, que van después de «Cambio y fuera»: cámara VHS, claqueta, rebobinado, la toma trabada del 877 y, después de los créditos, el 877 abriendo los ojos. Lleva una cumbia original.
 
