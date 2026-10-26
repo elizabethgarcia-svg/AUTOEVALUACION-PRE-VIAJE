@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>La 57 de las Ánimas · Plan actualizado</title>
+<style>
+@font-face { font-family: M; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: M; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(fonts/cinzel-latin-900-normal.woff2); }
+:root { --noche: #1a0e28; --naranja: #ff6a00; --oro: #ffb300; --rosa: #e6007e; --morado: #7b2ff7; --verde: #1e8e4e; --rojo: #8a1430;
+  --tinta: #221a2c; --suave: #5d5468; --linea: #e4dfe9; --crema: #fbf6ee; }
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 10pt; line-height: 1.4; color: var(--tinta); }
+.p { width: 816px; height: 1056px; padding: 40px 46px 50px; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+.p:last-child { page-break-after: auto; }
+h1, h2, h3 { font-family: M; margin: 0; }
+h2 { font-size: 22pt; font-weight: 900; color: var(--noche); line-height: 1.1; }
+h2 small { display: block; font-size: 10.5pt; font-weight: 700; color: var(--suave); margin-top: 4px; }
+h3 { font-size: 10pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--naranja); margin: 0 0 6px; }
+ol, ul { margin: 0; padding-left: 1.25em; } li { margin: 0 0 4px; } li::marker { color: var(--naranja); font-weight: 800; }
+p { margin: 0 0 6px; } b { font-weight: 700; }
+.pie { position: absolute; left: 46px; right: 46px; bottom: 20px; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 5px; }
+.foto { display: block; margin: 12px auto 0; border-radius: 10px; }
+.nota { background: var(--crema); border-left: 5px solid var(--naranja); border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 9.5pt; }
+.regla { background: var(--rojo); color: #fff; border-radius: 10px; padding: 10px 14px; font-family: M; font-weight: 800; font-size: 9.5pt; margin-top: 10px; }
+
+/* portada */
+.portada { background: var(--noche); color: #fff; padding: 0; }
+.picado { display: flex; gap: 6px; justify-content: center; padding-top: 12px; }
+.picado i { display: block; width: 44px; height: 48px; background: var(--c);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 75% 84%, 62% 100%, 50% 84%, 38% 100%, 25% 84%, 12% 100%, 0 82%);
+  -webkit-mask: radial-gradient(circle at 50% 42%, transparent 0 8px, #000 8.5px); }
+.picado i:nth-child(6n+1) { --c: #ffd23a; } .picado i:nth-child(6n+2) { --c: #f2f2f2; } .picado i:nth-child(6n+3) { --c: #2f8cff; }
+.picado i:nth-child(6n+4) { --c: #ff3e7a; } .picado i:nth-child(6n+5) { --c: #3fd06b; } .picado i:nth-child(6n+6) { --c: #a34dff; }
+.portada .in { padding: 18px 46px 0; }
+.eyebrow { font-family: M; font-weight: 800; font-size: 9pt; letter-spacing: .14em; text-transform: uppercase; color: var(--oro); }
+.portada h1 { font-family: C; font-weight: 900; font-size: 40pt; line-height: 1; margin: 8px 0 2px; color: #fff; }
+.portada .sub { font-family: M; font-weight: 800; font-size: 14pt; color: var(--naranja); }
+.cambios { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.cambios div { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 10px 12px; font-size: 9.2pt; color: #e9e3f2; }
+.cambios b { display: block; font-family: M; font-weight: 800; color: #fff; font-size: 10pt; margin-bottom: 2px; }
+.portada h3 { color: var(--oro); margin-top: 18px; }
+.ruta { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.ruta div { background: #fff; color: var(--tinta); border-radius: 10px; padding: 9px 10px 10px; font-size: 8.4pt; line-height: 1.32; position: relative; }
+.ruta div::after { content: '▶'; position: absolute; right: -9px; top: 22px; color: var(--naranja); font-size: 10pt; }
+.ruta div:last-child::after { content: none; }
+.ruta em { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: var(--naranja); color: #fff; font-style: normal; font-family: M; font-weight: 900;
+  align-items: center; justify-content: center; font-size: 11pt; margin-bottom: 4px; }
+.ruta b { display: block; font-family: M; font-weight: 800; font-size: 9.2pt; margin-bottom: 2px; }
+table { width: 100%; border-collapse: collapse; font-size: 8.8pt; }
+.portada table { background: #fff; color: var(--tinta); border-radius: 10px; overflow: hidden; }
+th { font-family: M; font-weight: 800; text-align: left; background: #f2ecf7; padding: 6px 8px; font-size: 8.6pt; }
+td { padding: 6px 8px; border-top: 1px solid var(--linea); vertical-align: top; }
+td:first-child { font-weight: 700; white-space: nowrap; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 12px; }
+.check li { list-style: none; position: relative; padding-left: 4px; } .check { padding-left: 1.2em; }
+.check li::before { content: ''; position: absolute; left: -16px; top: 2px; width: 10px; height: 10px; border: 1.6px solid var(--naranja); border-radius: 2px; }
+.fechas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.fechas div { background: var(--noche); color: #fff; border-radius: 10px; padding: 10px 12px; font-size: 9pt; }
+.fechas b { display: block; font-family: M; font-weight: 900; color: var(--oro); font-size: 11pt; }
+</style></head><body>
+
+<!-- 1 · portada -->
+<div class="p portada">
+  <div class="picado"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="in">
+    <div class="eyebrow">LOMAween 2026 · Área de Blindaje Centinela · Equipo 2</div>
+    <h1>La 57 de las Ánimas</h1>
+    <div class="sub">Plan de decoración actualizado</div>
+
+    <h3>Qué cambió</h3>
+    <div class="cambios" style="margin-top:0">
+      <div><b>El altar está en la otra esquina</b>En la contraesquina de donde iba al principio, porque ahí se quedan las cajas. La estructura blanca es el tracto: parrilla al centro, faros a los lados y la calavera arriba.</div>
+      <div><b>Ya no van alebrijes</b>Tampoco el rincón del café ni la catrina del cristal. Todo se concentra en el altar, los escritorios, el techo, la tele y los monitores.</div>
+      <div><b>El papel picado va en líneas</b>Tiras paralelas de pared a pared, una tras otra a lo largo del salón, como ya quedó colgado. Ya no en X.</div>
+      <div><b>Lo nuevo para imprimir</b>El tracto (calavera, parrilla y faros), la carretera con tractos para el mantel, 8 lápidas, 6 letreros de carretera y 4 letreros para los monitores.</div>
+    </div>
+
+    <h3>El recorrido</h3>
+    <div class="ruta">
+      <div><em>1</em><b>El altar</b>El tracto del 877, la carretera con tractos, la cruz de sal, cempasúchil y el panteón.</div>
+      <div><em>2</em><b>Escritorios</b>Mantel o plástico negro, caminos de sarape y ofrenda: pan, mandarinas, cacahuates, velas y flores.</div>
+      <div><em>3</em><b>El techo</b>Papel picado en líneas de pared a pared. Ya está colgado.</div>
+      <div><em>4</em><b>La tele</b>El 877 en pantalla con su marco de flores y ojos saltones en los monitores.</div>
+      <div><em>5</em><b>Monitores</b>4 letreros grandes colgados con nylon: Zona de restricción y compañía.</div>
+    </div>
+
+    <h3>Qué imprimir (todo en tamaño carta, a color)</h3>
+    <table>
+      <tr><th>Archivo</th><th>Hojas</th><th>Cómo se arma</th></tr>
+      <tr><td>Tracto_Altar.pdf</td><td>12</td><td>Calavera (hojas 1 a 4), parrilla (5 a 10) y los 2 faros (11 y 12). Empalma, pega sobre cartón y sujeta a la sábana con alfileres.</td></tr>
+      <tr><td>Carretera_Mantel.pdf</td><td>6</td><td>Una tira de 152 × 18 cm con 3 tractos. Va en una sola línea a lo largo del mantel negro, con alfileres o seguritos.</td></tr>
+      <tr><td>Lapidas_Prevencion.pdf</td><td>8</td><td>Una lápida por hoja. Recorta por la línea, pégala sobre cartón grueso y ponle un atril de cartón por detrás para que se pare sola.</td></tr>
+      <tr><td>Letreros_Carretera.pdf</td><td>6</td><td>KM 57, placa de Aguascalientes, placa de Saltillo, Parador, Destinos y Cruce de ánimas. Sobre cartón, con un palito de madera.</td></tr>
+      <tr><td>Letreros_Monitores.pdf</td><td>8</td><td>4 letreros de 2 hojas cada uno (51 × 18 cm). Empalma las 2 hojas, pégalas en cartón y cuélgalas con 2 hilos de nylon.</td></tr>
+    </table>
+  </div>
+  <div class="pie" style="color:#a99bbb;border-color:rgba(255,255,255,.15)"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 1 de 6</span></div>
+</div>
+
+<!-- 2 · altar -->
+<div class="p">
+  <h2>1 · El altar: el tracto del 877<small>Sobre la estructura que ya armaron: lo blanco es el tracto, el mantel negro lleva la carretera y al frente va la cruz de sal</small></h2>
+  <img class="foto" src="../deco/n1_altar_esquina.jpg" style="width:724px">
+  <div class="cols" style="margin-top:10px">
+    <div><h3>El tracto, de arriba hacia abajo</h3><ol>
+      <li><b>Calavera</b> (Tracto_Altar.pdf, hojas 1 a 4): empalmada sobre cartón, parada encima del bloque de en medio con un atril por detrás y su marco de cempasúchil.</li>
+      <li><b>Parrilla</b> (hojas 5 a 10): sobre cartón, al frente del bloque de en medio, sujeta a la sábana con alfileres.</li>
+      <li><b>Faros</b> (hojas 11 y 12): uno en cada bloque de los lados. Arriba, floreros con cempasúchil y velas LED.</li>
+      <li><b>Placa de Aguascalientes</b> centrada abajo de la parrilla, como defensa.</li>
+    </ol></div>
+    <div><h3>El mantel y el piso</h3><ol start="5">
+      <li><b>Carretera</b> (Carretera_Mantel.pdf): las 6 hojas en una línea a lo largo del mantel negro, con alfileres o seguritos.</li>
+      <li><b>Cruz de sal</b> al centro, sobre un pliego de cartulina negra: se marca con gis y se rellena con sal de grano (1 kg alcanza).</li>
+      <li><b>Cempasúchil natural y pétalos</b> a los dos costados de la cruz, con velas LED.</li>
+      <li><b>Lápidas</b> en el piso, 4 de cada lado. <b>Letreros:</b> Destinos y Parador colgados con nylon; KM 57 y Cruce de ánimas en palito; la placa de Saltillo, recargada al pie.</li>
+    </ol></div>
+  </div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 2 de 6</span></div>
+</div>
+
+<!-- 3 · tele -->
+<div class="p">
+  <h2>2 · La tele: el 877 con ojos<small>El marco de flores ya está puesto; falta el 877 en pantalla y los ojos saltones en los monitores</small></h2>
+  <img class="foto" src="../deco/n2_tele.jpg" style="height:780px">
+  <div class="nota"><b>En la pantalla:</b> la imagen <b>Pantalla_877_con_ojos.jpg</b> (viene en la misma carpeta) a pantalla completa, o el video muestra en repetición. <b>Ojos saltones:</b> pegados a una pinza de papelería que se sujeta del borde del monitor, nunca pegados al monitor. En las pantallas no debe verse nada de clientes, placas ni rutas.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 3 de 6</span></div>
+</div>
+
+<!-- 4 · monitores -->
+<div class="p">
+  <h2>3 · Letreros sobre los monitores<small>Cada letrero son 2 hojas carta empalmadas, sobre cartón, colgado con nylon de la rejilla</small></h2>
+  <img class="foto" src="../deco/n3_monitores.jpg" style="height:770px">
+  <div class="nota"><b>Para empalmar:</b> recorta la hoja 1 por la línea punteada y pégala encima de la hoja 2, justo en las marcas. Luego pega el letrero completo sobre cartón (la cinta y el pegamento van solo en el papel y el cartón). Dos hilos de nylon por letrero, a un palmo arriba del monitor para que no tape la pantalla.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 4 de 6</span></div>
+</div>
+
+<!-- 5 · escritorios y techo -->
+<div class="p">
+  <h2>4 · Escritorios con ofrenda<small>Mantel o plástico negro, dos caminos de sarape y una ofrenda chiquita en cada escritorio</small></h2>
+  <svg id="escritorio" viewBox="0 0 724 380" width="724" height="380" style="display:block;margin-top:10px"></svg>
+  <div class="cols" style="margin-top:4px">
+    <div><h3>En cada escritorio</h3><ol>
+      <li>Mantel o plástico negro cubriendo todo, caído al frente.</li>
+      <li>Dos caminos de sarape atravesados, uno en cada punta.</li>
+      <li>Sobre un sarape, la ofrenda en un plato: <b>pan de muerto, 2 o 3 mandarinas y cacahuates</b>.</li>
+      <li>Sobre el otro, <b>vela LED y un florero de cempasúchil</b>.</li>
+    </ol></div>
+    <div><h3>Para que no estorbe</h3><ul>
+      <li>La comida va en plato o charola, lejos de teclados y cables.</li>
+      <li>El mantel se sujeta con pinzas por debajo del borde, sin cinta.</li>
+      <li>Monitores y teclados quedan libres para trabajar.</li>
+    </ul></div>
+  </div>
+  <h2 style="margin-top:20px">5 · El techo<small>Papel picado en líneas de pared a pared, como ya quedó colgado</small></h2>
+  <svg id="techo" viewBox="0 0 724 250" width="724" height="250" style="display:block;margin-top:8px"></svg>
+  <div class="pie"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 5 de 6</span></div>
+</div>
+
+<!-- 6 · material, reglas y fechas -->
+<div class="p">
+  <h2>Lista de material<small>Palomea lo que ya tienen; casi todo es de casa o de papelería</small></h2>
+  <div class="cols">
+    <div><h3>Altar</h3><ul class="check">
+      <li>Cartón grueso (los que ya están junto al altar) para la calavera, la parrilla, los faros, las lápidas y sus atriles</li>
+      <li>Alfileres y seguritos</li>
+      <li>Cempasúchil natural: manojos para floreros y marco, y pétalos</li>
+      <li>Floreros chicos (4)</li>
+      <li>Velas LED (el juego de 24 alcanza para altar y escritorios)</li>
+      <li>Sal de grano (1 kg), 1 pliego de cartulina negra y un gis</li>
+      <li>2 palitos de madera y 2 vasos con piedras</li>
+      <li>Tela negra para tapar lo que no debe salir</li>
+    </ul>
+    <h3 style="margin-top:14px">Impresiones</h3><ul class="check">
+      <li>Tracto_Altar.pdf · 12 hojas</li>
+      <li>Carretera_Mantel.pdf · 6 hojas</li>
+      <li>Lapidas_Prevencion.pdf · 8 hojas</li>
+      <li>Letreros_Carretera.pdf · 6 hojas</li>
+      <li>Letreros_Monitores.pdf · 8 hojas</li>
+    </ul></div>
+    <div><h3>Escritorios, tele y monitores</h3><ul class="check">
+      <li>Mantel o plástico negro por escritorio</li>
+      <li>2 caminos de sarape por escritorio</li>
+      <li>Pan de muerto, mandarinas y cacahuates</li>
+      <li>Platos o charolas</li>
+      <li>Floreros chicos con cempasúchil</li>
+      <li>Pinzas de papelería</li>
+      <li>Ojos saltones</li>
+      <li>Hilo nylon (un rollo)</li>
+      <li>Lápiz adhesivo o resistol (solo para papel y cartón)</li>
+      <li>Tijeras y cúter</li>
+    </ul></div>
+  </div>
+  <div class="regla">Reglas de la convocatoria: nada clavado, taladrado, pintado ni con cinta en paredes, pisos, cristales o monitores. Nada que manche, raye o dañe. Sin fuego: solo velas LED. Todo va sobre muebles, en el piso suelto o colgado con nylon de la rejilla.</div>
+  <h3 style="margin-top:18px">Fechas</h3>
+  <div class="fechas">
+    <div><b>Jueves 29 · 12:00</b>El altar y la cabina listos para grabar la entrega del video al jurado.</div>
+    <div><b>Viernes 30 · 16:00</b>Visita de los niños: el recorrido completo, del altar a los monitores.</div>
+    <div><b>Viernes 30 · 20:00</b>Cierre del concurso. Después se retira todo sin dejar marcas.</div>
+  </div>
+  <div class="nota" style="margin-top:16px"><b>Antes de grabar:</b> fuera cartones, paraguas, mochilas y cajas del cuadro (o tapadas con tela negra), y en las pantallas nada de clientes, placas ni rutas. <b>Tinta:</b> la calavera y la carretera llevan mucho negro; revisa la impresora antes de empezar.</div>
+  <div class="pie"><span>La 57 de las Ánimas · Plan actualizado</span><span>Hoja 6 de 6</span></div>
+</div>
+
+<script>
+// ---------- escritorio con ofrenda ----------
+(function () {
+  const S = ['#e6007e', '#ff6a00', '#ffc400', '#1e8e4e', '#00a3e0', '#7b2ff7', '#e6007e', '#ff6a00', '#ffc400', '#1e8e4e'];
+  function sarape(x0, x1, xt0, xt1) {   // camino de sarape: tramo arriba (trapecio) + caída al frente
+    let g = '';
+    const n = S.length;
+    for (let i = 0; i < n; i++) {
+      const a = i / n, b = (i + 1) / n;
+      const ta = xt0 + (xt1 - xt0) * a, tb = xt0 + (xt1 - xt0) * b, fa = x0 + (x1 - x0) * a, fb = x0 + (x1 - x0) * b;
+      g += `<polygon points="${ta},130 ${tb},130 ${fb},215 ${fa},215" fill="${S[i]}"/><rect x="${fa}" y="215" width="${fb - fa}" height="108" fill="${S[i]}"/>`;
+      g += `<line x1="${(fa + fb) / 2}" y1="323" x2="${(fa + fb) / 2}" y2="336" stroke="${S[i]}" stroke-width="3"/>`;
+    }
+    return g;
+  }
+  function flor(x, y, r) {
+    let g = '';
+    for (let k = 0; k < 10; k++) { const a = k / 10 * 6.283; g += `<circle cx="${x + Math.cos(a) * r * .55}" cy="${y + Math.sin(a) * r * .55}" r="${r * .5}" fill="${k % 2 ? '#ff8a00' : '#ffa400'}"/>`; }
+    return g + `<circle cx="${x}" cy="${y}" r="${r * .42}" fill="#ffc21a"/>`;
+  }
+  function vela(x, y) {
+    return `<ellipse cx="${x}" cy="${y - 52}" rx="30" ry="30" fill="#ffd27a" opacity=".35"/><rect x="${x - 15}" y="${y - 44}" width="30" height="44" rx="5" fill="#f7ecd2" stroke="#b9a47e" stroke-width="2"/>
+      <path d="M${x},${y - 66} C${x - 8},${y - 54} ${x - 6},${y - 46} ${x},${y - 44} C${x + 6},${y - 46} ${x + 8},${y - 54} ${x},${y - 66} Z" fill="#ffb300"/>`;
+  }
+  function etiqueta(x, y, tx, ty, txt, anc = 'start') {
+    return `<line x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" stroke="#5d5468" stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="3" fill="#5d5468"/>
+      <text x="${tx + (anc === 'start' ? 4 : anc === 'end' ? -4 : 0)}" y="${ty + 4}" text-anchor="${anc}" font-family="M" font-weight="800" font-size="13" fill="#221a2c">${txt}</text>`;
+  }
+  let h = `<rect width="724" height="380" rx="14" fill="#fbf6ee"/>`;
+  // monitores
+  for (const mx of [262, 432]) h += `<rect x="${mx}" y="22" width="150" height="92" rx="6" fill="#2c2833"/><rect x="${mx + 8}" y="30" width="134" height="76" rx="3" fill="#5b7fa8"/>
+      <rect x="${mx + 68}" y="114" width="14" height="22" fill="#2c2833"/><rect x="${mx + 48}" y="134" width="54" height="6" rx="3" fill="#2c2833"/>`;
+  // mesa con mantel negro
+  h += `<polygon points="120,130 604,130 670,215 54,215" fill="#16121b"/><rect x="54" y="215" width="616" height="108" fill="#0e0b12"/>`;
+  for (let x = 58; x < 670; x += 9) h += `<line x1="${x}" y1="323" x2="${x}" y2="331" stroke="#0e0b12" stroke-width="2"/>`;
+  h += `<rect x="62" y="331" width="22" height="40" fill="#3a3640"/><rect x="640" y="331" width="22" height="40" fill="#3a3640"/>`;
+  // teclados
+  h += `<polygon points="284,168 396,168 404,190 276,190" fill="#c9c6cf"/><polygon points="438,168 550,168 558,190 430,190" fill="#c9c6cf"/>`;
+  // sarapes
+  h += sarape(96, 186, 146, 216) + sarape(538, 628, 508, 578);
+  // ofrenda izquierda: plato, pan de muerto, mandarinas, cacahuates
+  h += `<ellipse cx="170" cy="182" rx="74" ry="20" fill="#f4f1ea" stroke="#cfc6b6" stroke-width="2"/>
+    <path d="M128,180 C128,140 196,140 196,180 Z" fill="#c97a2c"/><path d="M134,172 C150,160 176,160 190,172" stroke="#a65d1b" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M162,150 L162,178" stroke="#a65d1b" stroke-width="7" stroke-linecap="round"/><circle cx="162" cy="146" r="7" fill="#a65d1b"/>`;
+  for (let k = 0; k < 18; k++) h += `<circle cx="${136 + (k * 37) % 56}" cy="${158 + (k * 13) % 20}" r="1.6" fill="#fff6dc"/>`;
+  for (const [x, y] of [[212, 176], [228, 166], [232, 184]]) h += `<circle cx="${x}" cy="${y}" r="13" fill="#ff8c1a" stroke="#d96a00" stroke-width="2"/><path d="M${x},${y - 13} q6,-8 12,-4" stroke="#2e8b3a" stroke-width="4" fill="none"/>`;
+  h += `<ellipse cx="104" cy="186" rx="28" ry="10" fill="#8a5a2e"/><path d="M76,186 q28,22 56,0" fill="#6d4421"/>`;
+  for (let k = 0; k < 9; k++) h += `<ellipse cx="${86 + (k * 7) % 38}" cy="${180 + (k % 3) * 3}" rx="6" ry="3.6" fill="#e3c18e" stroke="#b8925c" stroke-width="1"/>`;
+  // ofrenda derecha: florero con cempasúchil y vela LED
+  h += `<path d="M560,186 L556,150 L584,150 L580,186 Z" fill="#3b2a5c"/>` + flor(560, 132, 18) + flor(584, 128, 16) + flor(572, 112, 17);
+  h += vela(620, 190) + vela(116, 128);
+  // etiquetas
+  h += etiqueta(162, 150, 70, 44, 'Pan de muerto', 'start');
+  h += etiqueta(232, 166, 196, 74, 'Mandarinas', 'end');
+  h += etiqueta(96, 182, 20, 100, 'Cacahuates', 'start');
+  h += etiqueta(572, 112, 612, 48, 'Cempasúchil', 'start');
+  h += etiqueta(620, 140, 690, 100, 'Vela LED', 'end');
+  h += etiqueta(140, 270, 20, 360, 'Camino de sarape', 'start');
+  h += etiqueta(360, 280, 300, 360, 'Mantel o plástico negro', 'start');
+  document.getElementById('escritorio').innerHTML = h;
+})();
+
+// ---------- techo visto desde arriba: tiras paralelas de pared a pared ----------
+(function () {
+  const C = ['#ffd23a', '#f2f2f2', '#2f8cff', '#ff3e7a', '#3fd06b', '#a34dff', '#ff7a1a'];
+  let h = `<rect width="724" height="250" rx="14" fill="#1a0e28"/>
+    <text x="24" y="30" font-family="M" font-weight="900" font-size="13" fill="#ffb300" letter-spacing="1.5">VISTO DESDE ARRIBA</text>
+    <rect x="70" y="48" width="470" height="180" fill="none" stroke="#fff" stroke-width="3"/>
+    <text x="60" y="140" transform="rotate(-90 60 140)" text-anchor="middle" font-family="M" font-weight="800" font-size="12" fill="#cfc4e0">pared</text>
+    <text x="558" y="140" transform="rotate(90 558 140)" text-anchor="middle" font-family="M" font-weight="800" font-size="12" fill="#cfc4e0">pared</text>`;
+  for (let r = 0; r < 8; r++) {
+    const y = 62 + r * 22;
+    h += `<line x1="70" y1="${y}" x2="540" y2="${y}" stroke="#fff" stroke-width="1.2" opacity=".8"/><circle cx="70" cy="${y}" r="4" fill="#ff6a00"/><circle cx="540" cy="${y}" r="4" fill="#ff6a00"/>`;
+    for (let k = 0; k < 17; k++) h += `<rect x="${80 + k * 27 + (r % 2) * 10}" y="${y}" width="20" height="13" fill="${C[(k + r * 2) % C.length]}"/>`;
+  }
+  h += `<text x="566" y="70" font-family="M" font-weight="800" font-size="12.5" fill="#fff">Tiras paralelas,</text>
+    <text x="566" y="88" font-family="M" font-weight="800" font-size="12.5" fill="#fff">de pared a pared,</text>
+    <text x="566" y="106" font-family="M" font-weight="800" font-size="12.5" fill="#fff">una tras otra a lo</text>
+    <text x="566" y="124" font-family="M" font-weight="800" font-size="12.5" fill="#fff">largo del salón</text>
+    <circle cx="574" cy="152" r="5" fill="#ff6a00"/><text x="586" y="156" font-family="M" font-weight="700" font-size="11" fill="#cfc4e0">amarre a la rejilla</text>
+    <rect x="562" y="176" width="146" height="40" rx="8" fill="#1e8e4e"/>
+    <text x="635" y="201" text-anchor="middle" font-family="M" font-weight="900" font-size="13" fill="#fff">✓ YA ESTÁ COLGADO</text>`;
+  document.getElementById('techo').innerHTML = h;
+})();
+document.fonts.ready.then(() => { document.body.dataset.listo = 1; });
+</script>
+</body></html>

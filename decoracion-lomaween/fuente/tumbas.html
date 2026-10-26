@@ -1,0 +1,101 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Cinzel;font-weight:700;src:url(fonts/cinzel-latin-700-normal.woff2)}
+@font-face{font-family:Cinzel;font-weight:900;src:url(fonts/cinzel-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:700;src:url(fonts/playfair-display-latin-700-italic.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+@page{size:letter;margin:0}
+body{margin:0}
+.p{width:816px;height:1056px;position:relative;page-break-after:always;overflow:hidden;background:#fff}
+.p svg{position:absolute;left:0;top:0}
+</style><script src="logo.js"></script></head><body><div id="d"></div>
+<script>
+// Lápidas de la prevención: "Aquí yace…" los malos hábitos al volante. Una por hoja carta.
+const T = [
+  { n: ['EL EXCESO', 'DE VELOCIDAD'], nac: 'con prisa', mur: 'sin frenar', e: ['Iba tan rápido', 'que llegó antes… aquí.'], top: 'cruz' },
+  { n: ['EL CELULAR', 'AL VOLANTE'], nac: 'con un mensajito', mur: 'en «visto»', e: ['«Nomás iba a contestar', 'tantito.»'], top: 'calavera' },
+  { n: ['LA FATIGA'], nac: 'en la madrugada', mur: 'sin dormir sus horas', e: ['Dijo «aguanto otro tramo»…', 'y no aguantó.'], top: 'cruz' },
+  { n: ['LA CACHIMBA'], nac: 'en una parada no autorizada', mur: 'por un cafecito', e: ['Se paró donde no debía', 'y aquí se quedó.'], top: 'calavera' },
+  { n: ['EL CINTURÓN', 'SIN ABROCHAR'], nac: '«al cabo es poquito»', mur: 'en el primer frenón', e: ['Nunca se lo puso:', '«al cabo voy cerquita».'], top: 'cruz' },
+  { n: ['EL DESVÍO', 'DE RUTA'], nac: 'buscando un atajo', mur: 'fuera de cobertura', e: ['Tomó el atajo…', 'y el atajo lo tomó a él.'], top: 'calavera' },
+  { n: ['EL «NOMÁS UNA', 'CERVECITA»'], nac: 'en la fiesta', mur: 'al volante', e: ['Juró que estaba', 'bien para manejar.'], top: 'cruz' },
+  { n: ['EL «YA MERITO', 'LLEGO»'], nac: 'en el último kilómetro', mur: 'por confiado', e: ['Se confió', 'a dos cuadras de su casa.'], top: 'calavera' },
+];
+const rnd = (i, k = 0) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const LAP = 'M98,930 L98,330 C98,160 258,80 408,80 C558,80 718,160 718,330 L718,930 Z';
+function grabado(x, y, txt, fam, peso, tam, extra = '') {
+  return `<text x="${x + 1.6}" y="${y + 2}" text-anchor="middle" font-family="${fam}" font-weight="${peso}" font-size="${tam}" fill="#D7DADF" ${extra} class="aj">${txt}</text>
+          <text x="${x}" y="${y}" text-anchor="middle" font-family="${fam}" font-weight="${peso}" font-size="${tam}" fill="#2A2C31" ${extra} class="aj">${txt}</text>`;
+}
+function cempa(cx, cy, r, i) {
+  let s = `<circle cx="${cx}" cy="${cy + 2}" r="${r}" fill="#000" opacity=".25"/>`;
+  for (let ring = 0; ring < 5; ring++) {
+    const n = 10 + ring * 3, rr = r * (1 - ring * .18);
+    for (let k = 0; k < n; k++) { const a = k / n * 6.283 + ring * .5 + rnd(i + k, ring) * .2, x = cx + Math.cos(a) * rr * .7, y = cy + Math.sin(a) * rr * .7;
+      s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(rr * .28).toFixed(1)}" fill="${['#B83A00', '#E35A00', '#FF7A0A', '#FF9A1F', '#FFB23A'][ring]}" stroke="#7A2400" stroke-width=".6"/>`; }
+  }
+  return s;
+}
+function vela(x, y) {
+  return `<rect x="${x - 14}" y="${y - 60}" width="28" height="60" rx="4" fill="#F7EBD0" stroke="#9C8A66" stroke-width="2"/>
+    <ellipse cx="${x}" cy="${y - 92}" rx="30" ry="40" fill="#FFD27A" opacity=".35"/>
+    <path d="M${x},${y - 108} C${x - 11},${y - 88} ${x - 8},${y - 72} ${x},${y - 66} C${x + 8},${y - 72} ${x + 11},${y - 88} ${x},${y - 108} Z" fill="#FFB300" stroke="#E36A00" stroke-width="2"/>
+    <line x1="${x}" y1="${y - 66}" x2="${x}" y2="${y - 60}" stroke="#333" stroke-width="2"/>`;
+}
+function adorno(tipo) {
+  if (tipo === 'cruz') return `<g transform="translate(408,170)"><path d="M-14,-62 H14 V-20 H48 V8 H14 V70 H-14 V8 H-48 V-20 H-14 Z" fill="#6C6F75" stroke="#3B3D42" stroke-width="4"/><path d="M-14,-62 H14 V-20 H48" fill="none" stroke="#C9CCD1" stroke-width="2.5"/></g>`;
+  return `<g transform="translate(408,168)">
+    <path d="M0,-60 C40,-60 58,-34 58,-6 C58,16 48,28 38,34 L38,52 C38,60 -38,60 -38,52 L-38,34 C-48,28 -58,16 -58,-6 C-58,-34 -40,-60 0,-60 Z" fill="#6C6F75" stroke="#3B3D42" stroke-width="4"/>
+    <ellipse cx="-21" cy="0" rx="14" ry="13" fill="#2A2C31"/><ellipse cx="21" cy="0" rx="14" ry="13" fill="#2A2C31"/>
+    <path d="M0,16 l-7,12 h14 Z" fill="#2A2C31"/>${[-18, -6, 6, 18].map(x => `<line x1="${x}" y1="40" x2="${x}" y2="54" stroke="#2A2C31" stroke-width="3"/>`).join('')}</g>`;
+}
+function grieta(i) {
+  let x = 140 + rnd(i, 1) * 520, y = 360 + rnd(i, 2) * 480, d = `M${x.toFixed(0)},${y.toFixed(0)}`;
+  for (let k = 0; k < 6; k++) { x += (rnd(i, k + 3) - .5) * 40; y += 18 + rnd(i, k + 9) * 22; d += ` L${x.toFixed(0)},${y.toFixed(0)}`; }
+  return `<path d="${d}" fill="none" stroke="#3E4045" stroke-width="2.4" opacity=".8"/><path d="${d}" transform="translate(1.5,1.5)" fill="none" stroke="#C3C6CB" stroke-width="1" opacity=".6"/>`;
+}
+function lapida(t, i) {
+  let musgo = '';
+  for (let k = 0; k < 26; k++) { const lado = k % 2, x = lado ? 690 - rnd(i, k) * 120 : 126 + rnd(i, k) * 120, y = 900 - rnd(i, k + 40) * 150 * rnd(i, k + 7);
+    musgo += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(6 + rnd(i, k + 60) * 16).toFixed(0)}" fill="${k % 3 ? '#5E7D3A' : '#7E9E4C'}" opacity=".45"/>`; }
+  let flores = ''; for (let k = 0; k < 9; k++) flores += cempa(150 + k * 64, 1000 - (k % 2) * 16, 30 + (k % 3) * 4, i * 10 + k);
+  const yN = t.n.length === 1 ? 470 : 440;
+  return `<svg width="816" height="1056" viewBox="0 0 816 1056">
+    <defs>
+      <linearGradient id="pd${i}" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" stop-color="#B9BCC1"/><stop offset=".5" stop-color="#8E9196"/><stop offset="1" stop-color="#63666C"/></linearGradient>
+      <filter id="gr${i}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="${i + 3}"/><feColorMatrix type="matrix" values="0 0 0 0 .2  0 0 0 0 .2  0 0 0 0 .22  0 0 0 -1.1 1.05"/></filter>
+      <filter id="mn${i}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="3" seed="${i + 11}"/><feColorMatrix type="matrix" values="0 0 0 0 .15  0 0 0 0 .15  0 0 0 0 .17  0 0 0 -1.6 1.0"/></filter>
+      <clipPath id="cl${i}"><path d="${LAP}"/></clipPath>
+    </defs>
+    <path d="${LAP}" transform="translate(8,10)" fill="#000" opacity=".18"/>
+    <path d="${LAP}" fill="url(#pd${i})"/>
+    <g clip-path="url(#cl${i})"><rect width="816" height="1056" filter="url(#mn${i})" opacity=".55"/><rect width="816" height="1056" filter="url(#gr${i})" opacity=".55"/>${musgo}${grieta(i)}${grieta(i + 20)}</g>
+    <path d="${LAP}" fill="none" stroke="#45484D" stroke-width="5"/>
+    <path d="${LAP}" transform="translate(408,505) scale(.9,.93) translate(-408,-505)" fill="none" stroke="#4A4D52" stroke-width="3"/>
+    <path d="${LAP}" transform="translate(409.5,506.5) scale(.9,.93) translate(-408,-505)" fill="none" stroke="#D0D3D8" stroke-width="1.5" opacity=".8"/>
+    <rect x="66" y="905" width="684" height="80" rx="6" fill="#6F7278" stroke="#45484D" stroke-width="4"/><rect x="66" y="905" width="684" height="80" rx="6" filter="url(#gr${i})" opacity=".5"/>
+    ${adorno(t.top)}
+    ${grabado(408, 278, 'Q.E.P.D.', 'Cinzel', 700, 24, 'letter-spacing="8"')}
+    ${grabado(408, 350, 'AQUÍ YACE', 'Cinzel', 700, 38, 'letter-spacing="9"')}
+    ${t.n.map((l, k) => grabado(408, yN + k * 78, l, 'Cinzel', 900, 66, `data-max="540"`)).join('')}
+    <line x1="230" y1="${yN + t.n.length * 78 - 30}" x2="586" y2="${yN + t.n.length * 78 - 30}" stroke="#45484D" stroke-width="3"/>
+    ${grabado(408, yN + t.n.length * 78 + 22, 'Nació: ' + t.nac, 'Cinzel', 700, 25, 'data-max="500"')}
+    ${grabado(408, yN + t.n.length * 78 + 60, 'Murió: ' + t.mur, 'Cinzel', 700, 25, 'data-max="500"')}
+    ${t.e.map((l, k) => grabado(408, yN + t.n.length * 78 + 126 + k * 40, l, 'PF', 700, 31, 'font-style="italic" data-max="520"')).join('')}
+    ${grabado(408, 870, 'Desde la cabina, protegemos cada kilómetro', 'Cinzel', 700, 17, 'data-max="470"')}
+    ${flores}
+    ${vela(132, 968)}${vela(684, 968)}
+    <g transform="translate(400,805) scale(.12)">${logoSVG('lg' + i)}</g>
+    <path d="M86,940 L86,330 C86,150 252,68 408,68 C564,68 730,150 730,330 L730,940 L760,940 L760,1040 L56,1040 L56,940 Z" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="8 6"/>
+    <text x="408" y="1052" text-anchor="middle" font-family="M" font-weight="800" font-size="11" fill="#888" letter-spacing="1">LÁPIDA ${i + 1} DE 8 · Recorta por la línea punteada y pégala sobre cartón grueso · No se pega en paredes ni muebles</text>
+  </svg>`;
+}
+document.getElementById('d').innerHTML = T.map((t, i) => `<div class="p">${lapida(t, i)}</div>`).join('');
+// ajusta textos largos al ancho de la lápida
+document.fonts.ready.then(() => {
+  document.querySelectorAll('text[data-max]').forEach(el => {
+    const mx = +el.getAttribute('data-max'), w = el.getComputedTextLength();
+    if (w > mx) { el.setAttribute('textLength', mx); el.setAttribute('lengthAdjust', 'spacingAndGlyphs'); const twin = el.previousElementSibling; if (twin && twin.textContent === el.textContent) { twin.setAttribute('textLength', mx); twin.setAttribute('lengthAdjust', 'spacingAndGlyphs'); } }
+  });
+  document.body.dataset.listo = 1;
+});
+</script></body></html>

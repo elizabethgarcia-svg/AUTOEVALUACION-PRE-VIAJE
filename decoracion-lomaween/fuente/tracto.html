@@ -1,0 +1,191 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:C;font-weight:900;src:url(fonts/cinzel-latin-900-normal.woff2)}
+@page{margin:0}
+body{margin:0}
+.p{position:relative;page-break-after:always;overflow:hidden;background:#fff}
+.v{width:816px;height:1056px}.h{width:1056px;height:816px}
+.p svg{position:absolute;left:0;top:0}
+.pie{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:M;font-weight:800;font-size:11px;letter-spacing:.5px;color:#888}
+</style><script src="logo.js"></script></head><body><div id="d"></div>
+<script>
+// El tracto del altar sobre la estructura blanca que ya armaron: calavera arriba, parrilla al centro, faros a los lados,
+// y la carretera con tractos para el mantel negro de abajo. Cada pieza se reparte en hojas carta para empalmar.
+const Q = new URLSearchParams(location.search);
+const cromo = (id, x1 = 0, y1 = 0, x2 = 0, y2 = 1) => `<linearGradient id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">
+  <stop offset="0" stop-color="#fbfcfd"/><stop offset=".35" stop-color="#c9ced5"/><stop offset=".55" stop-color="#8e959e"/><stop offset=".8" stop-color="#e3e6ea"/><stop offset="1" stop-color="#9aa1aa"/></linearGradient>`;
+
+// ---------- parrilla (57 × 51 cm) ----------
+function parrilla() {
+  const W = 2160, H = 1920;
+  let s = `<defs>${cromo('pc')}${cromo('pv', 0, 0, 1, 0)}${cromo('pm', 0, 0, 1, 1)}
+    <linearGradient id="pr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9b0c22"/><stop offset=".5" stop-color="#d81e36"/><stop offset="1" stop-color="#9b0c22"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="#fff"/>`;
+  // corona de arriba con sus marquitas
+  s += `<rect x="120" y="70" width="1920" height="150" rx="40" fill="url(#pm)" stroke="#6b7078" stroke-width="8"/>`;
+  for (let i = 0; i < 14; i++) { const x = 230 + i * 130; if (Math.abs(x - 1080) > 190) s += `<rect x="${x}" y="150" width="14" height="50" rx="4" fill="#2a2d33"/>`; }
+  // marco y fondo de la parrilla
+  s += `<rect x="180" y="250" width="1800" height="1600" rx="70" fill="url(#pm)" stroke="#5f646c" stroke-width="10"/>
+    <rect x="260" y="330" width="1640" height="1440" rx="36" fill="#1f2228"/>`;
+  for (let y = 352; y < 1750; y += 50) s += `<rect x="270" y="${y}" width="1620" height="24" rx="6" fill="url(#pc)"/>`;
+  for (let i = 0; i < 8; i++) { const x = 330 + i * 214; s += `<rect x="${x}" y="336" width="30" height="1428" rx="8" fill="url(#pv)" stroke="#555b63" stroke-width="2"/>`; }
+  // tornillos
+  for (const [x, y] of [[230, 300], [1930, 300], [230, 1800], [1930, 1800]]) s += `<circle cx="${x}" cy="${y}" r="20" fill="url(#pm)" stroke="#4e535a" stroke-width="5"/>`;
+  // emblema del 877 (en lugar de la marca)
+  s += `<g transform="translate(1080,0)">
+    <path d="M-170,170 H170 V560 C170,690 90,760 0,800 C-90,760 -170,690 -170,560 Z" fill="url(#pm)" stroke="#5f646c" stroke-width="8"/>
+    <path d="M-140,200 H140 V555 C140,660 75,720 0,752 C-75,720 -140,660 -140,555 Z" fill="url(#pr)"/>
+    ${[-95, -50, 0, 50, 95].map(x => `<rect x="${x - 12}" y="200" width="24" height="110" fill="#fff" opacity=".9"/>`).join('')}
+    <circle cy="430" r="118" fill="#fff" stroke="url(#pm)" stroke-width="16"/>
+    <text y="462" text-anchor="middle" font-family="M" font-weight="900" font-size="88" fill="#c8102e">877</text>
+    <text y="636" text-anchor="middle" font-family="M" font-weight="900" font-size="50" fill="#fff" letter-spacing="4">TROB</text></g>`;
+  return { W, H, s };
+}
+
+// ---------- faro (26.7 × 20.4 cm, una hoja cada uno) ----------
+function faro(lado) {
+  const W = 1010, H = 770, sx = lado === 'der' ? -1 : 1;
+  let s = `<defs>${cromo('fm' + lado, 0, 0, 1, 1)}
+    <radialGradient id="fg${lado}" cx=".42" cy=".4" r=".62"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#fffbe6"/><stop offset=".75" stop-color="#e6e9ee"/><stop offset="1" stop-color="#9ea6b0"/></radialGradient>
+    <linearGradient id="fa${lado}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#ff7300"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="#fff"/><g transform="translate(${lado === 'der' ? W : 0},0) scale(${sx},1)">
+    <rect x="50" y="160" width="910" height="450" rx="80" fill="url(#fm${lado})" stroke="#5a5f67" stroke-width="10"/>
+    <rect x="86" y="196" width="838" height="378" rx="56" fill="#1b1d22"/>`;
+  for (const cx of [290, 570]) s += `<circle cx="${cx}" cy="385" r="156" fill="url(#fm${lado})" stroke="#4e535a" stroke-width="6"/>
+    <circle cx="${cx}" cy="385" r="132" fill="url(#fg${lado})"/>
+    <circle cx="${cx}" cy="385" r="98" fill="none" stroke="#b7bec8" stroke-width="5"/><circle cx="${cx}" cy="385" r="62" fill="none" stroke="#c9cfd8" stroke-width="4"/>
+    <circle cx="${cx}" cy="385" r="30" fill="#fff" stroke="#d9dde3" stroke-width="4"/>
+    <path d="M${cx - 90},${385 - 70} A118,118 0 0 1 ${cx + 40},${385 - 112}" stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" opacity=".9"/>`;
+  s += `<rect x="760" y="236" width="130" height="300" rx="26" fill="url(#fa${lado})" stroke="#a84a00" stroke-width="5"/>`;
+  for (let y = 262; y < 520; y += 34) s += `<line x1="772" y1="${y}" x2="878" y2="${y}" stroke="#ffe29a" stroke-width="4" opacity=".7"/>`;
+  s += `<rect x="140" y="540" width="560" height="16" rx="8" fill="#dff5ff" stroke="#9ccbe0" stroke-width="2"/></g>`;
+  return { W, H, s };
+}
+
+// ---------- calavera para arriba de la parrilla (51 × 36 cm) ----------
+function calavera() {
+  const W = 1920, H = 1344, CR = '#f4ead6', cx = 960;
+  const petalos = (x, y, r, n, rr, c) => Array.from({ length: n }, (_, i) => { const a = i / n * Math.PI * 2; return `<ellipse cx="${x + Math.cos(a) * r}" cy="${y + Math.sin(a) * r}" rx="${rr}" ry="${rr * .62}" transform="rotate(${a * 180 / Math.PI} ${x + Math.cos(a) * r} ${y + Math.sin(a) * r})" fill="${typeof c === 'function' ? c(i) : c}"/>`; }).join('');
+  const florecita = (x, y, r, c = CR) => petalos(x, y, r * .62, 5, r * .5, c) + `<circle cx="${x}" cy="${y}" r="${r * .32}" fill="#ff8a00"/>`;
+  const voluta = (sg) => `<g transform="translate(${cx},0) scale(${sg},1)" fill="none" stroke="${CR}" stroke-linecap="round">
+      <path d="M345,690 C420,560 560,470 690,500 C790,525 800,645 718,662 C655,676 628,612 668,590" stroke-width="22"/>
+      <path d="M345,770 C430,890 560,940 690,910 C790,886 800,768 718,752 C655,740 628,804 668,826" stroke-width="22"/>
+      <path d="M345,730 C420,730 470,710 520,690" stroke-width="12"/><path d="M345,730 C420,730 470,750 520,770" stroke-width="12"/></g>
+    <g transform="translate(${cx},0) scale(${sg},1)" fill="${CR}">
+      <ellipse cx="470" cy="575" rx="40" ry="16" transform="rotate(-38 470 575)"/><ellipse cx="470" cy="885" rx="40" ry="16" transform="rotate(38 470 885)"/>
+      <ellipse cx="575" cy="690" rx="30" ry="12" transform="rotate(-20 575 690)"/><ellipse cx="575" cy="770" rx="30" ry="12" transform="rotate(20 575 770)"/></g>
+    <g transform="translate(${cx},0) scale(${sg},1)">${florecita(560, 980, 70)}${florecita(700, 1060, 46, '#ff6a00')}${florecita(780, 380, 44, '#e6007e')}
+      ${[[470, 900], [640, 940], [830, 520], [520, 380]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="12" fill="${CR}"/>`).join('')}</g>`;
+  let s = `<rect width="${W}" height="${H}" fill="#fff"/>
+    <path d="M30,330 Q30,30 330,30 H1590 Q1890,30 1890,330 V1314 H30 Z" fill="#0f0c12"/>
+    <path d="M70,345 Q70,70 345,70 H1575 Q1850,70 1850,345 V1274 H70 Z" fill="none" stroke="#ff6a00" stroke-width="8"/>
+    ${voluta(-1)}${voluta(1)}`;
+  // la calaverita de azúcar
+  s += `<g>
+    <path d="M${cx - 300},560 C${cx - 300},330 ${cx - 160},230 ${cx},230 C${cx + 160},230 ${cx + 300},330 ${cx + 300},560 C${cx + 300},680 ${cx + 265},750 ${cx + 220},790 L${cx + 205},900 C${cx + 200},990 ${cx + 110},1050 ${cx},1050 C${cx - 110},1050 ${cx - 200},990 ${cx - 205},900 L${cx - 220},790 C${cx - 265},750 ${cx - 300},680 ${cx - 300},560 Z" fill="${CR}"/>
+    ${petalos(cx, 400, 70, 12, 30, '#0f0c12')}<circle cx="${cx}" cy="400" r="46" fill="#ff6a00"/><circle cx="${cx}" cy="400" r="20" fill="${CR}"/>
+    ${petalos(cx, 400, 120, 16, 12, i => i % 2 ? '#e6007e' : '#7b2ff7')}
+    ${[-1, 1].map(sg => { const ex = cx + sg * 125, ey = 640; return `
+      ${petalos(ex, ey, 112, 12, 34, i => i % 2 ? '#ff6a00' : '#e6007e')}
+      <circle cx="${ex}" cy="${ey}" r="100" fill="#0f0c12"/>${petalos(ex, ey, 34, 6, 18, CR)}<circle cx="${ex}" cy="${ey}" r="14" fill="#ffb300"/>
+      <path d="M${ex - sg * 120},${ey - 140} q${sg * 60},-40 ${sg * 140},-6" stroke="#0f0c12" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M${cx + sg * 150},835 c${sg * 60},-10 ${sg * 70},60 ${sg * 20},70 c${-sg * 40},8 ${-sg * 44},-36 ${-sg * 14},-40" stroke="#0f0c12" stroke-width="10" fill="none" stroke-linecap="round"/>
+      ${[0, 1, 2].map(k => `<circle cx="${cx + sg * (205 - k * 16)}" cy="${735 + k * 30}" r="8" fill="#7b2ff7"/>`).join('')}`; }).join('')}
+    <path d="M${cx},760 C${cx - 22},730 ${cx - 52},752 ${cx - 40},786 L${cx},840 L${cx + 40},786 C${cx + 52},752 ${cx + 22},730 ${cx},760 Z" fill="#0f0c12"/>
+    <rect x="${cx - 150}" y="880" width="300" height="96" rx="40" fill="#0f0c12"/>
+    ${Array.from({ length: 7 }, (_, i) => `<rect x="${cx - 132 + i * 38}" y="892" width="30" height="72" rx="10" fill="${CR}"/>`).join('')}
+    <line x1="${cx - 150}" y1="928" x2="${cx + 150}" y2="928" stroke="#0f0c12" stroke-width="8"/>
+    ${florecita(cx, 1012, 34, '#ff6a00')}</g>`;
+  s += `<text x="${cx}" y="1220" text-anchor="middle" font-family="C" font-weight="900" font-size="92" fill="${CR}" letter-spacing="6">LA 57 DE LAS ÁNIMAS</text>`;
+  return { W, H, s };
+}
+
+// ---------- carretera con tractos para el mantel (152 × 18 cm) ----------
+function tracto(x, cab, caja, letras, num, id) {
+  // tractocamión de perfil hacia la derecha; x = defensa trasera de la caja, ruedas sobre y = 600
+  const y = 600;
+  let s = `<g transform="translate(${x},0)">
+    <rect x="0" y="${y - 330}" width="1180" height="250" rx="10" fill="${caja}" stroke="#6b6f76" stroke-width="5"/>
+    <rect x="0" y="${y - 82}" width="1180" height="16" fill="#3a3d43"/>
+    ${[100, 300, 500, 700, 900, 1100].map(k => `<rect x="${k}" y="${y - 330}" width="5" height="250" fill="#000" opacity=".08"/>`).join('')}
+    ${[30, 400, 780, 1150].map(k => `<circle cx="${k}" cy="${y - 322}" r="7" fill="#ffb300"/>`).join('')}
+    ${letras}
+    <rect x="820" y="${y - 66}" width="14" height="50" fill="#555"/>
+    <rect x="1190" y="${y - 300}" width="170" height="230" rx="10" fill="${cab}" stroke="#4b4f56" stroke-width="5"/>
+    <path d="M1360,${y - 290} H1440 Q1462,${y - 290} 1466,${y - 268} L1480,${y - 180} H1360 Z" fill="${cab}" stroke="#4b4f56" stroke-width="5"/>
+    <path d="M1380,${y - 272} H1436 L1450,${y - 196} H1380 Z" fill="#8fc6ea" stroke="#4b4f56" stroke-width="4"/>
+    <path d="M1360,${y - 182} H1600 Q1640,${y - 178} 1646,${y - 140} L1652,${y - 80} H1360 Z" fill="${cab}" stroke="#4b4f56" stroke-width="5"/>
+    <rect x="1396" y="${y - 176}" width="72" height="56" rx="6" fill="#fff" opacity=".85"/>
+    <text x="1432" y="${y - 134}" text-anchor="middle" font-family="M" font-weight="900" font-size="38" fill="#1b1b1f">${num}</text>
+    <rect x="1636" y="${y - 136}" width="18" height="26" rx="4" fill="#fff6c2" stroke="#777" stroke-width="2"/>
+    <rect x="1600" y="${y - 96}" width="70" height="34" rx="6" fill="#c9ced5" stroke="#6b7078" stroke-width="3"/>
+    <rect x="1340" y="${y - 410}" width="20" height="200" rx="6" fill="#c9ced5" stroke="#6b7078" stroke-width="3"/>
+    <rect x="1250" y="${y - 108}" width="150" height="44" rx="22" fill="#d7dbe0" stroke="#6b7078" stroke-width="3"/>
+    <rect x="1458" y="${y - 250}" width="10" height="70" fill="#4b4f56"/><rect x="1452" y="${y - 262}" width="22" height="40" rx="4" fill="#c9ced5" stroke="#4b4f56" stroke-width="2"/>`;
+  for (const wx of [110, 230, 1235, 1355, 1560]) s += `<circle cx="${wx}" cy="${y - 50}" r="50" fill="#141418"/><circle cx="${wx}" cy="${y - 50}" r="24" fill="#b8bec6"/><circle cx="${wx}" cy="${y - 50}" r="8" fill="#555"/>`;
+  return s + '</g>';
+}
+function carretera() {
+  const W = 5760, H = 672;
+  let s = `<rect width="${W}" height="${H}" fill="#0d0b10"/>
+    <rect x="0" y="560" width="${W}" height="112" fill="#2a2a30"/><rect x="0" y="566" width="${W}" height="6" fill="#e8e8e8"/><rect x="0" y="660" width="${W}" height="6" fill="#e8e8e8"/>`;
+  for (let x = 20; x < W; x += 180) s += `<rect x="${x}" y="612" width="100" height="10" fill="#ffc400"/>`;
+  // estrellitas y cempasúchil a la orilla
+  let sem = 7; const rnd = () => (sem = (sem * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 110; i++) s += `<circle cx="${(rnd() * W).toFixed(0)}" cy="${(20 + rnd() * 220).toFixed(0)}" r="${(1.5 + rnd() * 2.5).toFixed(1)}" fill="#fff" opacity="${(.2 + rnd() * .45).toFixed(2)}"/>`;
+  const marca = (id) => `<g transform="translate(150,${600 - 210}) scale(.46)">${logoSVG(id)}</g>`;
+  const letreroCaja = (t1, t2, id) => `<text x="680" y="${600 - 205}" text-anchor="middle" font-family="M" font-weight="900" font-size="66" fill="#1b1b1f" letter-spacing="3" data-max="860">${t1}</text>
+    ${marca(id)}<text x="680" y="${600 - 135}" text-anchor="middle" font-family="M" font-weight="900" font-size="40" fill="#ff5a00" letter-spacing="4" data-max="860">${t2}</text>`;
+  s += tracto(120, '#ffffff', '#f6f6f4', letreroCaja('CENTINELA', 'LA 57 DE LAS ÁNIMAS', 'c1'), '877', 1);
+  s += tracto(2050, '#ff6a00', '#f6f6f4', letreroCaja('CERO SINIESTROS', 'CADA KM CUENTA', 'c2'), '501', 2);
+  s += tracto(3980, '#ffffff', '#f6f6f4', letreroCaja('DE REGRESO A CASA', 'AGUASCALIENTES · SALTILLO', 'c3'), '1028', 3);
+  // poste de kilómetro entre tractos
+  for (const [x, k] of [[1940, '57'], [3870, '58']]) s += `<rect x="${x - 6}" y="420" width="12" height="150" fill="#ddd"/><rect x="${x - 40}" y="360" width="80" height="100" rx="8" fill="#fff" stroke="#111" stroke-width="5"/>
+    <text x="${x}" y="384" text-anchor="middle" font-family="M" font-weight="900" font-size="22" fill="#111">KM</text><text x="${x}" y="446" text-anchor="middle" font-family="M" font-weight="900" font-size="56" fill="#111">${k}</text>`;
+  return { W, H, s };
+}
+
+// ---------- reparto en hojas carta ----------
+const M = 48;   // margen de la hoja
+function hojas(nombre, pieza, cols, filas, orient) {
+  const PW = orient === 'v' ? 816 : 1056, PH = orient === 'v' ? 1056 : 816, CW = PW - 2 * M, CH = PH - 2 * M;
+  const sx = pieza.W / (cols * CW), sy = pieza.H / (filas * CH), k = 1 / Math.max(sx, sy);
+  let h = '', n = 0;
+  for (let f = 0; f < filas; f++) for (let c = 0; c < cols; c++) {
+    n++;
+    const id = nombre.replace(/\W/g, '') + n;
+    const mapa = `<g transform="translate(${PW - M - cols * 16},14)">${Array.from({ length: filas * cols }, (_, i) => `<rect x="${(i % cols) * 16}" y="${Math.floor(i / cols) * 12}" width="14" height="10" fill="${i === n - 1 ? '#ff6a00' : '#ddd'}"/>`).join('')}</g>`;
+    let marcas = '';
+    if (c < cols - 1) marcas += `<line x1="${M + CW}" y1="10" x2="${M + CW}" y2="${PH - 10}" stroke="#999" stroke-width="1.5" stroke-dasharray="8 6"/>`;
+    if (f < filas - 1) marcas += `<line x1="10" y1="${M + CH}" x2="${PW - 10}" y2="${M + CH}" stroke="#999" stroke-width="1.5" stroke-dasharray="8 6"/>`;
+    if (c > 0) marcas += `<path d="M${M},12 V${M - 8} M${M},${PH - 12} V${PH - M + 8}" stroke="#111" stroke-width="2"/>`;
+    if (f > 0) marcas += `<path d="M12,${M} H${M - 8} M${PW - 12},${M} H${PW - M + 8}" stroke="#111" stroke-width="2"/>`;
+    const ayuda = (c < cols - 1 || f < filas - 1) ? 'Recorta por la línea punteada y empalma sobre la hoja de al lado, en las marcas negras' : 'Esta es la última hoja: aquí terminan las marcas';
+    h += `<div class="p ${orient}"><svg width="${PW}" height="${PH}">
+      <defs><clipPath id="k${id}"><rect x="${M}" y="${M}" width="${CW}" height="${CH}"/></clipPath></defs>
+      <g clip-path="url(#k${id})"><g transform="translate(${M - c * CW},${M - f * CH}) scale(${k})">${pieza.s.replace(/id="(\w+)"/g, `id="$1${id}"`).replace(/url\(#(\w+)\)/g, `url(#$1${id})`)}</g></g>
+      ${marcas}${filas * cols > 1 ? mapa : ''}
+      <text x="${M}" y="30" font-family="M" font-weight="900" font-size="14" fill="#555">${nombre}${filas * cols > 1 ? ` · HOJA ${n} DE ${filas * cols}` : ''}</text>
+    </svg><div class="pie">${filas * cols > 1 ? ayuda + ' · ' : ''}Pégalo sobre la sábana o el cartón con lápiz adhesivo o alfileres, nunca en paredes ni muebles</div></div>`;
+  }
+  return h;
+}
+
+const PIEZAS = { parrilla: () => parrilla(), faroIzq: () => faro('izq'), faroDer: () => faro('der'), calavera: () => calavera(), carretera: () => carretera() };
+let h = '';
+if (Q.get('full')) {
+  const p = PIEZAS[Q.get('full')](), w = 1000, alto = Math.round(w * p.H / p.W);
+  h = `<svg class="full" width="${w}" height="${alto}" viewBox="0 0 ${p.W} ${p.H}" style="display:block">${p.s}</svg>`;
+} else if (Q.get('o') === 'v') {
+  h = hojas('PARRILLA DEL TRACTO', parrilla(), 3, 2, 'v');
+} else {
+  h = hojas('CALAVERA DEL TRACTO', calavera(), 2, 2, 'h') + hojas('FARO IZQUIERDO', faro('izq'), 1, 1, 'h') + hojas('FARO DERECHO', faro('der'), 1, 1, 'h');
+  if (Q.get('o') === 'carretera') h = hojas('CARRETERA DEL MANTEL', carretera(), 6, 1, 'h');
+}
+document.getElementById('d').innerHTML = h;
+document.fonts.ready.then(() => {
+  document.querySelectorAll('text[data-max]').forEach(el => { const mx = +el.dataset.max, w = el.getBBox().width; if (w > mx) el.setAttribute('font-size', (parseFloat(el.getAttribute('font-size')) * mx / w).toFixed(1)); });
+  document.body.dataset.listo = 1;
+});
+</script></body></html>
