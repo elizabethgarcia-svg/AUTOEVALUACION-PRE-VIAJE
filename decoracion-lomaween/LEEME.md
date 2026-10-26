@@ -22,7 +22,7 @@
 | `Lapidas_Prevencion.pdf` | 8 | El panteón de los malos hábitos, una lápida por hoja |
 | `Letreros_Carretera.pdf` | 6 | KM 57, placa de Aguascalientes, placa de Saltillo, Parador, Destinos y Cruce de ánimas |
 | `Letreros_Monitores.pdf` | 8 | 4 letreros de 2 hojas: Zona de restricción, Zona sin cobertura, Estatus al cliente y Parada no autorizada |
-| **`Impresion_Tabloide_Completa.pdf`** | **23 tabloide** | **Todo junto para la imprenta.** Hojas 1 a 6: el tracto. Hojas 7 a 10: las 8 lápidas, dos por hoja. Hojas 11 y 12: KM 57 con Cruce de ánimas, y las dos placas. Hojas 13 y 14: Destinos (verde) y Parador (azul) en grande, de 39 × 25 cm, uno por hoja. Hojas 15 a 18: un letrero de monitor por hoja. Hojas 19 a 21: la carretera del mantel. Hojas 22 y 23: la lotería. Las hojas carta van de dos en dos sin cambiar de tamaño, con la línea de corte entre las dos |
+| **`Impresion_Tabloide_Completa.pdf`** | **20 tabloide** | **Todo junto para la imprenta.** Hojas 1 a 6: el tracto. Hojas 7 a 10: las 8 lápidas, dos por hoja. Hojas 11 y 12: KM 57 con Cruce de ánimas, y las dos placas. Hojas 13 y 14: Destinos (verde) y Parador (azul) en grande, de 39 × 25 cm, uno por hoja. Hojas 15 a 18: un letrero de monitor por hoja. Hojas 19 y 20: la lotería. Las hojas carta van de dos en dos sin cambiar de tamaño, con la línea de corte entre las dos |
 | `Pantalla_877_con_ojos.jpg` | — | Para poner a pantalla completa en la tele |
 
 Las piezas de varias hojas traen línea punteada para recortar, marcas negras para empalmar y un mapita con el lugar de cada hoja.

@@ -1,6 +1,6 @@
 # Arma el archivo completo para imprimir todo en tabloide (11 × 17 in = dos cartas), al 100 %:
 # - el tracto y los letreros de Destinos y Parador, que ya vienen hechos en tabloide, entran completos;
-# - las hojas carta (lápidas, letreros, monitores, carretera del mantel y lotería) van de dos en dos, sin cambiar de tamaño,
+# - las hojas carta (lápidas, letreros, monitores y lotería) van de dos en dos, sin cambiar de tamaño,
 #   con la línea de corte entre las dos.
 import io, sys
 from pypdf import PdfReader, PdfWriter, Transformation, PageObject
@@ -14,7 +14,6 @@ lap = PdfReader(IMP + 'Lapidas_Prevencion.pdf')
 sen = PdfReader(IMP + 'Letreros_Carretera.pdf')
 gra = PdfReader('Letreros_Destinos_Parador_Grandes.pdf')
 mon = PdfReader(IMP + 'Letreros_Monitores.pdf')
-car = PdfReader(IMP + 'Carretera_Mantel.pdf')
 lot = PdfReader(LOT)
 MON = ['A · ZONA DE RESTRICCIÓN', 'B · ZONA SIN COBERTURA', 'C · ESTATUS AL CLIENTE', 'D · PARADA NO AUTORIZADA']
 
@@ -29,8 +28,6 @@ hojas.append((False, V2((sen, 1), (sen, 2)), 'LETREROS DE CARRETERA · PLACAS DE
 hojas.append((True, [(gra, 0, 0, 0)], 'LETREROS DE CARRETERA · DESTINOS (VERDE), EN GRANDE', None, True))
 hojas.append((True, [(gra, 1, 0, 0)], 'LETREROS DE CARRETERA · PARADOR CENTINELA (AZUL), EN GRANDE', None, True))
 for k in range(4): hojas.append((False, V2((mon, 2 * k), (mon, 2 * k + 1)), f'LETRERO DE MONITOR {MON[k]}', 'CORTA AQUÍ: ARRIBA LA HOJA 1 Y ABAJO LA HOJA 2 DEL MISMO LETRERO; LUEGO EMPÁLMALAS', True))
-for k in range(3): hojas.append((False, V2((car, 2 * k), (car, 2 * k + 1)), f'CARRETERA DEL MANTEL · HOJAS {2 * k + 1} Y {2 * k + 2} DE 6',
-                                 'CORTA AQUÍ Y PON LAS 6 HOJAS UNA JUNTO A LA OTRA, EN ORDEN', False))
 for k in range(2): hojas.append((True, H2((lot, 2 * k), (lot, 2 * k + 1)), f'LOTERÍA CENTINELA · TABLOIDE {k + 1} DE 2', 'CORTA AQUÍ PARA SEPARAR LAS DOS HOJAS', True))
 
 def marcas(horiz, arriba, corte, derecha, total, n):
