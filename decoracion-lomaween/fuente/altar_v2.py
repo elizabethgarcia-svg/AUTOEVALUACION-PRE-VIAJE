@@ -51,7 +51,7 @@ def vela(d, x, y, h=30):
 
 L = Image.new('RGBA', foto.size, (0, 0, 0, 0))
 # 1 · la calavera parada sobre la parrilla, con su marco de cempasúchil
-pegar(L, Image.open(P + 'tr-calavera.png').convert('RGBA'), 468, 850, 182)
+pegar(L, Image.open(P + 'tab-calavera.png').convert('RGBA'), 468, 852, 192)
 d = ImageDraw.Draw(L, 'RGBA')
 for k in range(34):  # marco de flores: lados y arco de arriba
     t = k / 33
@@ -60,10 +60,10 @@ for k in range(34):  # marco de flores: lados y arco de arriba
     else: x, y = 564, 752 + (t - .7) / .3 * 96
     flor(d, x, y, 12)
 # 2 · la parrilla al frente del bloque de en medio
-pegar(L, Image.open(P + 'tr-parrilla.png').convert('RGBA'), 468, 1044, 212, sombra=False, alfa=250)
+pegar(L, recorte(P + 'tab-parrilla.png'), 468, 1042, 191, sombra=False)
 # 3 · los faros en los bloques de los lados
-pegar(L, recorte(P + 'tr-faroIzq.png'), 287, 1038, 104, sombra=False)
-pegar(L, recorte(P + 'tr-faroDer.png'), 645, 1036, 104, sombra=False)
+pegar(L, recorte(P + 'tab-faro.png'), 285, 1042, 134, sombra=False)
+pegar(L, recorte(P + 'tab-faroDer.png'), 645, 1040, 134, sombra=False)
 d = ImageDraw.Draw(L, 'RGBA')
 # floreros y velas sobre los bloques de los lados
 ramo(d, 250, 936); ramo(d, 690, 926); vela(d, 300, 940); vela(d, 330, 942, 24); vela(d, 610, 932); vela(d, 640, 930, 24)
@@ -127,9 +127,9 @@ for n, (x, y) in enumerate([(468, 700), (468, 930), (287, 1000), (548, 1080), (8
 im = foto.convert('RGB').crop((0, 380, 900, 1600))
 
 lado = Image.new('RGB', (650, im.height), (20, 14, 32)); e = ImageDraw.Draw(lado)
-items = [('Calavera arriba de la parrilla', 'Tracto_Altar.pdf, hojas 1 a 4; sobre cartón,\nparada con un atril y su marco de cempasúchil'),
-         ('Parrilla al centro', 'hojas 5 a 10, empalmadas; sobre cartón y\nsujeta a la sábana con alfileres'),
-         ('Faros en los dos bloques de los lados', 'hojas 11 y 12; arriba, floreros y velas LED'),
+items = [('Calavera detrás de la parrilla', 'Tracto_Tabloide.pdf, hojas 3 y 4 (abajo); sobre\ncartón más alto, que entra por detrás del bloque'),
+         ('Parrilla al centro', 'hojas 1 a 4 (arriba), empalmadas; sobre cartón\ny sujeta a la sábana con alfileres'),
+         ('Faros en los dos bloques de los lados', 'hojas 5 y 6; arriba, floreros y velas LED'),
          ('Placa de Aguascalientes como defensa', 'Letreros_Carretera.pdf, sobre el mantel'),
          ('Carretera con tractos en el mantel', 'Carretera_Mantel.pdf, 6 hojas en una sola línea,\ncon alfileres o seguritos al mantel'),
          ('Cruz de sal al centro', 'en el piso, sobre cartulina negra:\nse ve más y se recoge fácil'),
@@ -140,15 +140,15 @@ y = 28
 for k, (t1, t2) in enumerate(items, 1):
     num(e, k, 44, y + 20, 21); e.text((82, y), t1, font=f(23), fill='white'); y += 33
     for l in t2.split('\n'): e.text((82, y), l, font=f(18), fill=(200, 190, 220)); y += 24
-    y += 16
+    y += 11
 e.rounded_rectangle([24, y + 4, 626, y + 110], 14, fill=(120, 20, 40))
 for i, l in enumerate(['Nada clavado, pegado ni pintado en paredes, cristales,', 'pisos ni muebles: los imprimibles van sobre cartón,', 'sujetos a la sábana o al mantel con alfileres.']):
     e.text((44, y + 20 + i * 28), l, font=f(18), fill='white')
-y += 150; e.text((30, y), 'MEDIDAS YA IMPRESAS Y EMPALMADAS', font=f(21), fill=(255, 179, 0)); y += 36
-for t1, t2 in [('Calavera', '51 × 36 cm'), ('Parrilla', '57 × 51 cm'), ('Cada faro', '27 × 20 cm'), ('Carretera', '152 × 18 cm')]:
+y += 128; e.text((30, y), 'MEDIDAS DE LO IMPRESO', font=f(21), fill=(255, 179, 0)); y += 36
+for t1, t2 in [('Parrilla', '53 × 56 cm'), ('Calavera', '53 × 26 cm'), ('Cada faro', '38 × 26 cm'), ('Carretera (carta)', '152 × 18 cm')]:
     e.text((44, y), t1, font=f(20), fill='white'); e.text((300, y), t2, font=f(20), fill=(255, 200, 120)); y += 30
 y += 8
-for l in ['Mide el bloque de en medio: si es más chico que la', 'parrilla, recorta parejo el marco blanco de la orilla.']:
+for l in ['Para los bloques de 60 × 58 y 38 × 28 cm. Imprime al', '100 % (tamaño real), sin ajustar a la hoja.']:
     e.text((30, y), l, font=f(17), fill=(200, 190, 220)); y += 24
 out = Image.new('RGB', (im.width + lado.width, im.height)); out.paste(im, (0, 0)); out.paste(lado, (im.width, 0))
 titulo(out, '1 · El altar: el tracto del 877', 'Lo blanco es el tracto: parrilla al centro, faros a los lados y la calavera arriba').save('deco/n1_altar_esquina.jpg', quality=88)

@@ -1,0 +1,141 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(fonts/montserrat-latin-900-normal.woff2)}
+@page{margin:0}
+body{margin:0}
+.p{position:relative;page-break-after:always;overflow:hidden;background:#fff}
+.v{width:1056px;height:1632px}.h{width:1632px;height:1056px}
+.p svg{position:absolute}
+</style></head><body><div id="d"></div>
+<script>
+// El tracto del altar en tabloide (11 × 17 in, como dos cartas), con las medidas reales de la estructura:
+// bloque de en medio 60 × 58 cm (parrilla) y bloques de los lados 38 × 28 cm (faros).
+// La parrilla (53.3 × 56 cm) y la calavera (53.3 × 26.3 cm) salen juntas en 4 tabloides verticales; los faros, en 2 horizontales.
+const Q = new URLSearchParams(location.search);
+const PX = 96 / 25.4, MG = 6.5;                       // px por mm y margen de la hoja en mm
+const TW = 279.4 - 2 * MG, TH = 431.8 - 2 * MG;        // área impresa de un tabloide vertical, en mm
+const CR = '#ead6b8', NEG = '#1d191b';
+
+// ---------- la calavera, lo más parecida a la imagen de referencia (crema sobre negro) ----------
+function calavera() {
+  const W = 1230, H = 606, cx = 615;
+  const pet = (x, y, r, n, rx, ry, col, rot0 = 0) => Array.from({ length: n }, (_, i) => { const a = rot0 + i / n * 360, ar = a * Math.PI / 180;
+    return `<ellipse cx="${(x + Math.cos(ar) * r).toFixed(1)}" cy="${(y + Math.sin(ar) * r).toFixed(1)}" rx="${rx}" ry="${ry}" transform="rotate(${a + 90} ${(x + Math.cos(ar) * r).toFixed(1)} ${(y + Math.sin(ar) * r).toFixed(1)})" fill="${col}"/>`; }).join('');
+  const flor5 = (x, y, r) => pet(x, y, r * .52, 5, r * .3, r * .5, CR, -90) + `<circle cx="${x}" cy="${y}" r="${r * .2}" fill="${NEG}"/><circle cx="${x}" cy="${y}" r="${r * .08}" fill="${CR}"/>`;
+  const gota = (x, y, l, w, rot) => `<path d="M0,0 C${w},${-l * .35} ${w * .6},${-l * .85} 0,${-l} C${-w * .6},${-l * .85} ${-w},${-l * .35} 0,0 Z" transform="translate(${x},${y}) rotate(${rot})" fill="${CR}"/>`;
+  const adorno = sg => `<g transform="translate(${cx},0) scale(${sg},1) translate(${-cx},0)">
+      <path d="M392,566 C330,520 268,452 270,372 C272,292 318,232 372,234 C424,236 440,296 404,318 C378,334 352,312 366,292" fill="none" stroke="${CR}" stroke-width="22" stroke-linecap="round"/>
+      <path d="M300,470 C250,452 226,420 224,388" fill="none" stroke="${CR}" stroke-width="12" stroke-linecap="round"/>
+      ${gota(224, 392, 62, 22, -35)}${gota(300, 300, 46, 16, -60)}${gota(352, 446, 44, 15, 40)}
+      ${gota(262, 214, 40, 14, -20)}${gota(306, 186, 38, 13, 8)}${gota(348, 196, 34, 12, 35)}${gota(232, 248, 30, 11, -55)}
+      ${flor5(196, 540, 46)}${flor5(330, 528, 50)}<circle cx="458" cy="572" r="9" fill="${CR}"/></g>`;
+  let s = `<path d="M0,96 Q0,62 34,58 Q615,-30 1196,58 Q1230,62 1230,96 V${H} H0 Z" fill="${NEG}"/>${adorno(1)}${adorno(-1)}`;
+  // la calaverita
+  s += `<path d="M439,270 A176,176 0 0 1 791,270 C791,330 786,372 772,400 C760,425 735,440 728,470 L722,520 C718,552 690,574 615,574 C540,574 512,552 508,520 L502,470 C495,440 470,425 458,400 C444,372 439,330 439,270 Z" fill="${CR}"/>
+    <circle cx="${cx}" cy="196" r="70" fill="none" stroke="${NEG}" stroke-width="7"/>
+    ${pet(cx, 196, 34, 8, 13, 28, NEG)}<circle cx="${cx}" cy="196" r="15" fill="${NEG}"/><circle cx="${cx}" cy="196" r="6" fill="${CR}"/>
+    ${Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2; return `<circle cx="${(cx + Math.cos(a) * 82).toFixed(1)}" cy="${(196 + Math.sin(a) * 82).toFixed(1)}" r="4.5" fill="${NEG}"/>`; }).join('')}
+    ${[-1, 1].map(sg => `<g transform="translate(${cx},0) scale(${sg},1) translate(${-cx},0)" fill="none" stroke="${NEG}" stroke-linecap="round">
+      <path d="M470,262 C462,190 500,132 556,112" stroke-width="8"/><path d="M486,232 C480,212 494,196 510,200 C524,204 522,222 508,224" stroke-width="7"/>
+      <path d="M520,150 C512,170 528,182 540,172" stroke-width="6"/><path d="M466,300 C482,292 498,300 500,316" stroke-width="6"/>
+      <circle cx="532" cy="330" r="60" fill="${NEG}" stroke="none"/><circle cx="532" cy="330" r="46" stroke="${CR}" stroke-width="4"/>
+      <path d="M470,412 C486,396 510,402 512,420 C514,436 494,442 486,430" stroke-width="7"/>
+      <path d="M520,546 C540,556 560,560 578,560" stroke-width="6"/></g>
+      ${flor5(cx + sg * -83, 330, 40)}`).join('')}
+    <path d="M${cx},392 C${cx - 6},380 ${cx - 30},378 ${cx - 30},398 C${cx - 30},414 ${cx - 12},426 ${cx},440 C${cx + 12},426 ${cx + 30},414 ${cx + 30},398 C${cx + 30},378 ${cx + 6},380 ${cx},392 Z" fill="${NEG}"/>
+    <rect x="522" y="456" width="186" height="76" rx="22" fill="${NEG}"/>
+    ${Array.from({ length: 7 }, (_, i) => `<rect x="${532 + i * 24.5}" y="463" width="20" height="28" rx="5" fill="${CR}"/><rect x="${532 + i * 24.5}" y="497" width="20" height="28" rx="5" fill="${CR}"/>`).join('')}
+    <circle cx="${cx}" cy="553" r="6" fill="${NEG}"/><circle cx="${cx - 22}" cy="549" r="4.5" fill="${NEG}"/><circle cx="${cx + 22}" cy="549" r="4.5" fill="${NEG}"/>`;
+  return { W, H, s };
+}
+
+// ---------- la parrilla, como la de la referencia, con el emblema del 877 ----------
+function parrilla() {
+  const W = 533, H = 560, c = W / 2;   // en mm
+  let s = `<defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a9adb3"/><stop offset=".45" stop-color="#e4e6e9"/><stop offset="1" stop-color="#9da1a8"/></linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b5121b"/><stop offset=".5" stop-color="#e2282f"/><stop offset="1" stop-color="#b5121b"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="#fff"/>`;
+  for (let i = 0; i < 10; i++) { const x = 46 + i * 49.5; if (Math.abs(x - c) > 70) s += `<rect x="${x - 1.6}" y="44" width="3.2" height="20" rx="1.2" fill="#2a2a2e"/>`; }   // las marquitas de arriba
+  s += `<path d="M18,${H - 10} V112 Q18,74 56,74 H${W - 56} Q${W - 18},74 ${W - 18},112 V${H - 10} Z" fill="none" stroke="#222" stroke-width="3.6"/>
+    <path d="M38,${H - 28} V122 Q38,94 66,94 H${W - 66} Q${W - 38},94 ${W - 38},122 V${H - 28} Z" fill="#d7d9dc" stroke="#5b5f66" stroke-width="2"/>`;
+  for (let y = 102; y < H - 30; y += 8.2) s += `<rect x="40" y="${y}" width="${W - 80}" height="3.4" fill="#6f737a"/><rect x="40" y="${y + 3.4}" width="${W - 80}" height="1.2" fill="#f3f4f5"/>`;
+  for (let i = 0; i < 13; i++) { const x = 56 + i * ((W - 112) / 12); s += `<rect x="${x - 4.2}" y="98" width="8.4" height="${H - 128}" fill="url(#gb)" stroke="#6b6f76" stroke-width=".8"/>`; }
+  s += `<rect x="38" y="${H - 34}" width="${W - 76}" height="6" fill="#5b5f66"/>`;
+  // emblema rojo con franjas, al estilo de la referencia, con el 877 al centro
+  s += `<g transform="translate(${c},0)">
+    <rect x="-58" y="22" width="116" height="178" rx="56" fill="#fff" stroke="#c9ccd1" stroke-width="3"/>
+    <rect x="-52" y="28" width="104" height="166" rx="50" fill="url(#gr)"/>
+    ${[-30, -15, 0, 15, 30].map(x => `<rect x="${x - 4.5}" y="34" width="9" height="${48 - Math.abs(x) * .35}" rx="3" fill="#fff"/><rect x="${x - 4.5}" y="${188 - 48 + Math.abs(x) * .35}" width="9" height="${48 - Math.abs(x) * .35}" rx="3" fill="#fff"/>`).join('')}
+    <circle cy="111" r="40" fill="#fff" stroke="#b5121b" stroke-width="4"/>
+    <text y="124" text-anchor="middle" font-family="M" font-weight="900" font-size="34" fill="#c8102e">877</text></g>`;
+  return { W, H, s };
+}
+
+// ---------- faro (38 × 26.2 cm, uno por hoja) ----------
+function faro(lado) {
+  const W = 380, H = 262, id = lado;
+  let g = `<defs><linearGradient id="fm${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfcfd"/><stop offset=".35" stop-color="#c9ced5"/><stop offset=".55" stop-color="#8e959e"/><stop offset=".8" stop-color="#e3e6ea"/><stop offset="1" stop-color="#9aa1aa"/></linearGradient>
+    <radialGradient id="fg${id}" cx=".42" cy=".4" r=".62"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#fffbe6"/><stop offset=".75" stop-color="#e6e9ee"/><stop offset="1" stop-color="#9ea6b0"/></radialGradient>
+    <linearGradient id="fa${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#ff7300"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="#fff"/><g transform="translate(${lado === 'der' ? W : 0},0) scale(${lado === 'der' ? -1 : 1},1)">
+    <rect x="8" y="14" width="364" height="234" rx="44" fill="url(#fm${id})" stroke="#5a5f67" stroke-width="3.5"/>
+    <rect x="22" y="28" width="336" height="206" rx="32" fill="#1b1d22"/>`;
+  for (const x of [104, 220]) g += `<circle cx="${x}" cy="131" r="82" fill="url(#fm${id})" stroke="#4e535a" stroke-width="2.4"/><circle cx="${x}" cy="131" r="70" fill="url(#fg${id})"/>
+    <circle cx="${x}" cy="131" r="52" fill="none" stroke="#b7bec8" stroke-width="2"/><circle cx="${x}" cy="131" r="33" fill="none" stroke="#c9cfd8" stroke-width="1.6"/><circle cx="${x}" cy="131" r="15" fill="#fff" stroke="#d9dde3" stroke-width="1.6"/>
+    <path d="M${x - 48},${131 - 38} A62,62 0 0 1 ${x + 22},${131 - 60}" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>`;
+  g += `<rect x="304" y="44" width="46" height="174" rx="14" fill="url(#fa${id})" stroke="#a84a00" stroke-width="2"/>`;
+  for (let y = 58; y < 210; y += 16) g += `<line x1="309" y1="${y}" x2="345" y2="${y}" stroke="#ffe29a" stroke-width="1.6" opacity=".7"/>`;
+  g += `<rect x="40" y="220" width="250" height="6" rx="3" fill="#dff5ff" stroke="#9ccbe0" stroke-width=".8"/></g>`;
+  return { W, H, s: g };
+}
+
+// ---------- la lámina de parrilla + calavera (2 × 2 tabloides verticales) ----------
+function lamina() {
+  const W = 2 * TW, H = 2 * TH, cal = calavera(), par = parrilla();
+  const yc = 575, hc = W * cal.H / cal.W;   // la calavera ocupa todo el ancho y lo que queda abajo
+  return { W, H, hc, s: `<rect width="${W}" height="${H}" fill="#fff"/>
+    <g transform="translate(${(W - par.W) / 2},0)">${par.s}</g>
+    <line x1="0" y1="567.5" x2="${W}" y2="567.5" stroke="#888" stroke-width=".6" stroke-dasharray="4 3"/>
+    <text x="${W / 2}" y="565" text-anchor="middle" font-family="M" font-weight="800" font-size="4.2" fill="#888">✂ CORTA AQUÍ: ARRIBA ES LA PARRILLA, ABAJO LA CALAVERA</text>
+    <g transform="translate(0,${yc}) scale(${W / cal.W})">${cal.s}</g>` };
+}
+
+function hoja(nombre, n, total, pieza, vx, vy, vw, vh, orient, juntas, nota) {
+  const PW = (orient === 'v' ? 279.4 : 431.8) * PX, PH = (orient === 'v' ? 431.8 : 279.4) * PX, m = MG * PX, cw = vw * PX, ch = vh * PX;
+  const id = 'h' + n + orient;
+  const cuerpo = pieza.s.replace(/id="(\w+)"/g, `id="$1${id}"`).replace(/url\(#(\w+)\)/g, `url(#$1${id})`);
+  let marcas = '';
+  if (juntas.includes('der')) marcas += `<line x1="${m + cw}" y1="0" x2="${m + cw}" y2="${PH}" stroke="#777" stroke-width="1" stroke-dasharray="6 5"/>`;
+  if (juntas.includes('izq')) marcas += `<line x1="${m}" y1="0" x2="${m}" y2="${PH}" stroke="#777" stroke-width="1" stroke-dasharray="6 5"/>`;
+  if (juntas.includes('abajo')) marcas += `<line x1="0" y1="${m + ch}" x2="${PW}" y2="${m + ch}" stroke="#777" stroke-width="1" stroke-dasharray="6 5"/>`;
+  if (juntas.includes('arriba')) marcas += `<line x1="0" y1="${m}" x2="${PW}" y2="${m}" stroke="#777" stroke-width="1" stroke-dasharray="6 5"/>`;
+  const mapa = total > 1 ? `<g transform="translate(${PW - m - 30},4)">${[0, 1, 2, 3].map(i => `<rect x="${(i % 2) * 14}" y="${Math.floor(i / 2) * 8}" width="12" height="6.5" fill="${i === n - 1 ? '#ff6a00' : '#ccc'}"/>`).join('')}</g>` : '';
+  return `<div class="p ${orient}"><svg width="${PW}" height="${PH}" style="left:0;top:0">
+    <svg x="${m}" y="${m}" width="${cw}" height="${ch}" viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="none">${cuerpo}</svg>
+    ${marcas}${mapa}
+    <text x="${m}" y="16" font-family="M" font-weight="900" font-size="11" fill="#666">${nombre}${total > 1 ? ` · HOJA ${n} DE ${total}` : ''}</text>
+    <text x="${PW / 2}" y="${PH - 7}" text-anchor="middle" font-family="M" font-weight="800" font-size="9.5" fill="#888">${nota}</text></svg></div>`;
+}
+
+let h = '';
+const L = lamina();
+if (Q.get('full') === 'calavera') { const c = calavera(); h = `<svg class="full" width="1230" height="606" viewBox="0 0 1230 606" style="display:block;position:static">${c.s}</svg>`; }
+else if (Q.get('full') === 'lamina') h = `<svg class="full" width="${L.W * 2}" height="${L.H * 2}" viewBox="0 0 ${L.W} ${L.H}" style="display:block;position:static">${L.s}</svg>`;
+else if (Q.get('full') === 'faro' || Q.get('full') === 'faroDer') { const f = faro(Q.get('full') === 'faro' ? 'izq' : 'der'); h = `<svg class="full" width="760" height="524" viewBox="0 0 380 262" style="display:block;position:static">${f.s}</svg>`; }
+else if (Q.get('full') === 'parrilla') { const f = parrilla(); h = `<svg class="full" width="1066" height="1120" viewBox="0 0 ${f.W} ${f.H}" style="display:block;position:static">${f.s}</svg>`; }
+else if (Q.get('o') === 'v') {
+  const N = 'IMPRIMIR EN TABLOIDE AL 100 % (TAMAÑO REAL) · Recorta por las líneas punteadas, junta las hojas por detrás con cinta y pégalas sobre cartón';
+  h += hoja('PARRILLA Y CALAVERA', 1, 4, L, 0, 0, TW, TH, 'v', ['der', 'abajo'], N);
+  h += hoja('PARRILLA Y CALAVERA', 2, 4, L, TW, 0, TW, TH, 'v', ['izq', 'abajo'], N);
+  h += hoja('PARRILLA Y CALAVERA', 3, 4, L, 0, TH, TW, TH, 'v', ['der', 'arriba'], N);
+  h += hoja('PARRILLA Y CALAVERA', 4, 4, L, TW, TH, TW, TH, 'v', ['izq', 'arriba'], N);
+} else {
+  const N = 'IMPRIMIR EN TABLOIDE AL 100 % (TAMAÑO REAL) · Recorta y pégalo sobre cartón; va al frente del bloque del lado, sujeto con alfileres';
+  for (const [k, lado, nom] of [[1, 'izq', 'FARO IZQUIERDO'], [2, 'der', 'FARO DERECHO']]) {
+    const f = faro(lado), pw = 431.8 - 2 * MG, ph = 279.4 - 2 * MG;
+    h += hoja(nom, k, 1, { s: `<rect width="${pw}" height="${ph}" fill="#fff"/><g transform="translate(${(pw - f.W) / 2},${(ph - f.H) / 2})">${f.s}</g>` }, 0, 0, pw, ph, 'h', [], N);
+  }
+}
+document.getElementById('d').innerHTML = h;
+document.fonts.ready.then(() => { document.body.dataset.listo = 1; });
+</script></body></html>

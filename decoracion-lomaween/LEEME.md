@@ -1,6 +1,6 @@
 # Decoración LOMAween · La 57 de las Ánimas
 
-`Plan_Maestro_La57_de_las_Animas.pdf` (64 hojas) junta todo el proyecto en un solo documento:
+`Plan_Maestro_La57_de_las_Animas.pdf` (58 hojas) junta todo el proyecto en un solo documento:
 
 1. Las bases del concurso y cómo cumplimos cada una.
 2. Los objetivos, uno por valor, con su meta y su evidencia.
@@ -8,15 +8,16 @@
 4. El boceto a lápiz del altar y de la cabina.
 5. El diseño de la cabina.
 6. El guion de producción del video.
-7. El anexo con todas las ilustraciones para imprimir (hojas 21 a 64).
+7. El anexo con todas las ilustraciones para imprimir: el tracto en tabloide (hojas 21 a 26) y lo demás en carta (27 a 58).
 
 `Plan_Decoracion_Actualizado.pdf` (6 hojas) es solo la parte de la decoración. Trae qué cambió, el recorrido, el altar armado como tracto, la tele, los letreros de los monitores, los escritorios con ofrenda, el papel picado en líneas y la lista de material.
 
-## Para imprimir (carpeta `imprimir/`, todo en tamaño carta y a color)
+## Para imprimir (carpeta `imprimir/`, a color y al 100 %, sin ajustar a la hoja)
 
 | Archivo | Hojas | Qué es |
 |---|---|---|
-| `Tracto_Altar.pdf` | 12 | Calavera (hojas 1 a 4, 51 × 36 cm), parrilla (5 a 10, 57 × 51 cm) y los dos faros (11 y 12) |
+| `Tracto_Tabloide.pdf` | 6 tabloide | Con las medidas reales (bloque de en medio 60 × 58 cm, bloques de los lados 38 × 28 cm). Hojas 1 a 4: la parrilla (53 × 56 cm) arriba y la calavera (53 × 26 cm) abajo, que se separan con tijera. Hojas 5 y 6: un faro de 38 × 26 cm en cada una |
+| `Tracto_Altar.pdf` | 12 carta | La versión anterior en carta, con otras medidas. Ya no se usa |
 | `Carretera_Mantel.pdf` | 6 | Tira de 152 × 18 cm con 3 tractos para el mantel negro |
 | `Lapidas_Prevencion.pdf` | 8 | El panteón de los malos hábitos, una lápida por hoja |
 | `Letreros_Carretera.pdf` | 6 | KM 57, placa de Aguascalientes, placa de Saltillo, Parador, Destinos y Cruce de ánimas |
@@ -35,8 +36,8 @@ En `planos/` están las imágenes del plan: los dos bocetos a lápiz (`0_boceto_
 
 Cada imprimible es una página HTML. `node pdf.js <pagina.html> <salida.pdf> [horizontal]` la convierte a PDF con Playwright.
 
-- La parrilla va en vertical: `tracto.html?o=v`.
-- La calavera y los faros van en horizontal: `tracto.html?o=h`.
+- El tracto en tabloide: `node pdf_tab.js "tabloide.html?o=v" …` (parrilla y calavera) y `node pdf_tab.js "tabloide.html?o=h" … horizontal` (faros), unidos con `pdfunite`.
+- La versión carta anterior: `tracto.html?o=v` (parrilla) y `tracto.html?o=h` (calavera y faros).
 - La carretera es `tracto.html?o=carretera`.
 - Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`; `boceto.py` pasa los planos a lápiz.
 - El plan maestro sale de `maestro.html`, `plan.html?maestro=9,…` y `guion.html?maestro=14,…`, unidos con `pdfunite` junto con los imprimibles.
