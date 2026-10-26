@@ -22,6 +22,7 @@
 | `Lapidas_Prevencion.pdf` | 8 | El panteón de los malos hábitos, una lápida por hoja |
 | `Letreros_Carretera.pdf` | 6 | KM 57, placa de Aguascalientes, placa de Saltillo, Parador, Destinos y Cruce de ánimas |
 | `Letreros_Monitores.pdf` | 8 | 4 letreros de 2 hojas: Zona de restricción, Zona sin cobertura, Estatus al cliente y Parada no autorizada |
+| `Letreros_y_Lapidas_Tabloide.pdf` | 11 tabloide | Las mismas piezas de los tres archivos de arriba, de dos en dos y del mismo tamaño. Hojas 1 a 4: las 8 lápidas. Hojas 5 a 7: los 6 letreros de carretera. Hojas 8 a 11: un letrero de monitor completo (sus dos mitades) en cada una |
 | `Pantalla_877_con_ojos.jpg` | — | Para poner a pantalla completa en la tele |
 
 Las piezas de varias hojas traen línea punteada para recortar, marcas negras para empalmar y un mapita con el lugar de cada hoja.
@@ -38,6 +39,7 @@ Cada imprimible es una página HTML. `node pdf.js <pagina.html> <salida.pdf> [ho
 
 - El tracto en tabloide: `node pdf_tab.js "tabloide.html?o=v" …` (parrilla y calavera) y `node pdf_tab.js "tabloide.html?o=h" … horizontal` (faros), unidos con `pdfunite`.
 - La versión carta anterior: `tracto.html?o=v` (parrilla) y `tracto.html?o=h` (calavera y faros).
+- `imponer_tabloide.py` acomoda de dos en dos, al 100 %, las hojas carta de las lápidas y los letreros en tabloides.
 - La carretera es `tracto.html?o=carretera`.
 - Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`; `boceto.py` pasa los planos a lápiz.
 - El plan maestro sale de `maestro.html`, `plan.html?maestro=9,…` y `guion.html?maestro=14,…`, unidos con `pdfunite` junto con los imprimibles.
