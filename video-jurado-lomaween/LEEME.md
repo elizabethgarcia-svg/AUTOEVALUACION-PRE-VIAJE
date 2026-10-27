@@ -25,6 +25,13 @@ Los recuadros "AQUÍ ENTRA SU VIDEO" se cambian por las grabaciones.
 - la lista del día de grabación, cómo mandar lo grabado y los errores que más pasan;
 - la hoja de bolsillo para quien graba.
 
+## Muestra ilustrada del martes 27
+
+Es para que el equipo vea cómo se actúa en cada toma antes de grabar.
+
+- `Muestra_Ilustrativa_Grabacion_Martes.pdf` (4 hojas, tipo historieta). Trae el horario de la mañana, cómo se acomodan frente al altar visto desde arriba, los 5 papeles, lo que se revisa antes de la primera toma y las 4 reglas de oro. Luego vienen los 14 pasos con dibujo: los 8 de cada Centinela en el reclutamiento, las manos y la voz de La Base, el «¡10-4!», las frases de Trabajo en Equipo, el choque de manos y cómo mandar lo grabado. Cierra con qué hacer si algo sale mal.
+- `Muestra_Ilustrativa_Martes_Video.mp4` (2:28, vertical para el celular). Son las mismas escenas, con voz que explica cada paso.
+
 `Muestra_Tomas_Falsas.mp4` (0:37) es la muestra de las tomas falsas, que van después de «Cambio y fuera»: cámara VHS, claqueta, rebobinado, la toma trabada del 877 y, después de los créditos, el 877 abriendo los ojos. Lleva una cumbia original.
 
 `Loteria_Centinela_para_imprimir.pdf` trae las 10 tarjetas de misión y sus reversos, en tamaño carta, para que cada Centinela reciba la suya en cámara.
@@ -40,5 +47,6 @@ El guion completo está en el documento "Guion del video para el jurado".
 5. `pdf_cartas.js` genera el PDF de la lotería desde `cartas_imprimir.html`.
 6. Las tomas falsas son `tomas.html` (se graba con `PAGINA=tomas.html node render_m.js …`) y su cumbia, `musica_tomas.py`.
 7. La muestra 4 intercala el recorrido del plan en la bitácora (31.5 s, 7 s): `plan_html.py` arma `muestra4.html` con `plan.js`, que recorre el resto del video. El audio es `musica_plan.py` y `empalme_audio.py` lo mete en la mezcla.
+8. La muestra ilustrada del martes: el PDF sale de `decoracion-lomaween/fuente/muestra_martes.html`, con los dibujos de `dibujos_grabar.js`. El video está en `fuente/martes/`: `escenas.js` trae lo que sale en pantalla y lo que dice la voz, `voz.py` hace la voz con Kokoro (`ef_dora`), `render.js` graba `escenas.html` cuadro por cuadro y `audio.py` mezcla la voz con una marimba suave.
 
 La vista aérea y la foto nocturna de la entrada salen de la presentación de instalaciones; la imagen satelital lleva el crédito "Imágenes ©Google".
