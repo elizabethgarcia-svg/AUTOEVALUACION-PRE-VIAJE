@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Así se graba el martes · video</title>
+<style>
+@font-face { font-family: M; font-weight: 800; src: url(../../../decoracion-lomaween/fuente/fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(../../../decoracion-lomaween/fuente/fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(../../../decoracion-lomaween/fuente/fonts/cinzel-latin-900-normal.woff2); }
+@font-face { font-family: G; src: url(../../../decoracion-lomaween/fuente/fonts/gochi-hand-latin-400-normal.woff2); }
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #fbf6ee; font-family: Inter, sans-serif; color: #221a2c; }
+.esc { position: absolute; inset: 0; display: none; }
+.cab { position: absolute; left: 0; right: 0; top: 0; height: 330px; background: #1a0e28; padding: 70px 60px 0; }
+.ceja { font-family: M; font-weight: 800; font-size: 25px; letter-spacing: .16em; color: #ffb300; text-transform: uppercase; }
+.tit { display: flex; align-items: center; gap: 24px; margin-top: 26px; font-family: M; font-weight: 900; font-size: 74px; line-height: 1.02; color: #fff; }
+.tit em { display: inline-flex; flex: none; width: 112px; height: 112px; border-radius: 50%; background: #ff6a00; font-style: normal; align-items: center; justify-content: center; font-size: 64px; }
+.hora { position: absolute; right: 60px; top: 58px; background: #ff6a00; color: #fff; font-family: M; font-weight: 900; font-size: 34px; border-radius: 40px; padding: 8px 26px; }
+.marco { position: absolute; left: 40px; top: 400px; width: 1000px; border-radius: 30px; overflow: hidden; box-shadow: 0 14px 40px rgba(26,14,40,.22); background: #fff; border: 6px solid #fff; }
+.marco svg { display: block; width: 100%; height: auto; transform-origin: 50% 50%; }
+.abajo { position: absolute; left: 60px; right: 60px; top: 1050px; }
+.chips { display: flex; flex-wrap: wrap; gap: 14px; }
+.chip { font-family: M; font-weight: 900; font-size: 36px; color: #fff; border-radius: 30px; padding: 8px 24px; letter-spacing: .04em; }
+.dice { position: relative; margin-top: 34px; background: #fff; border: 5px solid #221a2c; border-radius: 34px; padding: 22px 34px 24px; font-family: G; font-size: 68px; line-height: 1.12; }
+.dice::before { content: ''; position: absolute; left: 70px; top: -30px; border: 15px solid transparent; border-bottom: 15px solid #221a2c; }
+.texto { margin-top: 38px; font-size: 52px; line-height: 1.34; font-weight: 500; }
+.pie { position: absolute; left: 60px; right: 60px; bottom: 70px; display: flex; gap: 10px; }
+.pie i { flex: 1; height: 12px; border-radius: 6px; background: #e4dfe9; }
+.pie i.si { background: #ff6a00; }
+.marca { position: absolute; left: 60px; right: 60px; bottom: 100px; font-family: M; font-weight: 800; font-size: 24px; color: #8a8193; letter-spacing: .08em; }
+/* portada y cierre */
+.oscuro { background: #1a0e28; color: #fff; }
+.oscuro .ceja { position: absolute; left: 70px; top: 150px; }
+.grande { position: absolute; left: 70px; right: 70px; top: 220px; font-family: C; font-weight: 900; font-size: 116px; line-height: 1.02; }
+.sub { position: absolute; left: 70px; right: 70px; top: 590px; font-family: M; font-weight: 900; font-size: 44px; line-height: 1.2; color: #ff6a00; }
+.linea { position: absolute; left: 70px; right: 70px; top: 790px; display: grid; gap: 18px; }
+.linea div { display: flex; gap: 28px; align-items: baseline; background: rgba(255,255,255,.07); border-left: 10px solid var(--c); border-radius: 16px; padding: 22px 28px; font-size: 38px; line-height: 1.25; }
+.linea b { flex: none; width: 240px; font-family: M; font-weight: 900; font-size: 40px; color: #ffb300; }
+.reglas { position: absolute; left: 70px; right: 70px; top: 560px; display: grid; gap: 26px; }
+.reglas div { display: flex; gap: 30px; align-items: center; background: #fff; color: #221a2c; border-radius: 26px; padding: 30px 34px; font-size: 44px; line-height: 1.22; font-weight: 600; }
+.reglas em { flex: none; display: inline-flex; width: 92px; height: 92px; border-radius: 50%; background: #ff6a00; color: #fff; font-family: M; font-weight: 900; font-style: normal; font-size: 50px; align-items: center; justify-content: center; }
+.portada { position: absolute; left: 160px; top: 1400px; width: 760px; border-radius: 26px; overflow: hidden; border: 6px solid #fff; }
+.portada svg { display: block; width: 100%; height: auto; }
+.diez4 { position: absolute; left: 0; right: 0; top: 1500px; text-align: center; font-family: M; font-weight: 900; font-size: 150px; color: #ffb300; }
+</style><script src="../../../decoracion-lomaween/fuente/dibujos_grabar.js"></script><script src="escenas.js"></script></head><body>
+<div id="raiz"></div>
+<script>
+const ROLES = { centinela: ['CENTINELA', '#ff6a00'], graba: ['QUIEN GRABA', '#1f5fae'], dirige: ['QUIEN DIRIGE', '#7b2ff7'], ayuda: ['QUIEN AYUDA', '#1e8e4e'], anota: ['QUIEN ANOTA', '#5d5468'], base: ['LA BASE', '#c62828'] };
+const raiz = document.getElementById('raiz');
+// cada escena se arma solo cuando le toca (los dibujos repiten id de degradados)
+const HTML = ESCENAS.map((e, i) => {
+  const d = document.createElement('div'); d.className = 'esc'; d.id = 'e' + i;
+  if (e.tipo === 'titulo') {
+    d.classList.add('oscuro');
+    d.innerHTML = `<div class="ceja">LOMAween 2026 · La 57 de las Ánimas</div>
+      <div class="grande a1">Así se graba el martes 27</div>
+      <div class="sub a2">Dónde se para cada quien, qué dice y qué hace, paso por paso</div>
+      <div class="linea a3">
+        <div style="--c:#ff6a00"><b>9:15</b>Los 10 Centinelas, uno a la vez</div>
+        <div style="--c:#c62828"><b>10:45</b>Las manos y la voz de La Base</div>
+        <div style="--c:#1f5fae"><b>11:15</b>El «¡10-4!» de cada quien</div>
+        <div style="--c:#1e8e4e"><b>13:00</b>Trabajo en Equipo</div>
+        <div style="--c:#7b2ff7"><b>En la noche</b>Me mandan todo</div></div>
+      <div class="portada a5">${DG.vineta('pose')}</div>`;
+  } else if (e.tipo === 'cierre') {
+    d.classList.add('oscuro');
+    d.innerHTML = `<div class="ceja">Para que todo salga bien</div>
+      <div class="grande a1" style="font-size:104px">Las 4 reglas de oro</div>
+      <div class="reglas">
+        <div class="r0"><em>1</em>El celular siempre acostado, nunca parado</div>
+        <div class="r1"><em>2</em>2 segundos quietos antes y después</div>
+        <div class="r2"><em>3</em>Si alguien se traba, respira y empieza otra vez</div>
+        <div class="r3"><em>4</em>Se revisa con audífonos antes del siguiente</div></div>
+      <div class="diez4 a4">¡10-4!</div>`;
+  } else {
+    const svg = e.tipo === 'plano' ? `<svg viewBox="0 0 720 420">${DG.plano()}</svg>` : DG.vineta(e.v);
+    const chips = (e.quien || []).map(q => `<span class="chip" style="background:${ROLES[q][1]}">${ROLES[q][0]}</span>`).join('');
+    d.innerHTML = `<div class="cab"><div class="ceja">Así se graba el martes</div><div class="hora">${e.hora}</div>
+        <div class="tit">${e.paso ? `<em>${e.paso}</em>` : ''}<span>${e.titulo}</span></div></div>
+      <div class="marco">${svg}</div>
+      <div class="abajo"><div class="chips a1">${chips}</div>${e.dice ? `<div class="dice a2">${e.dice}</div>` : ''}<div class="texto a3">${e.texto}</div></div>
+      <div class="marca">LOMAween 2026 · Blindaje Centinela</div>
+      <div class="pie">${ESCENAS.map((_, j) => `<i class="${j <= i ? 'si' : ''}"></i>`).join('')}</div>`;
+  }
+  d.style.display = 'block'; return d.outerHTML;
+});
+let actual = -1;
+// entrada suave de cada parte
+const sal = (t, a, dur = .45) => Math.max(0, Math.min(1, (t - a) / dur));
+const suave = x => 1 - Math.pow(1 - x, 3);
+function aparece(el, t, a, dy = 40) { if (!el) return; const k = suave(sal(t, a)); el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+window.render = function (i, t, total) {
+  if (actual !== i) { raiz.innerHTML = HTML[i]; actual = i; }
+  const d = document.getElementById('e' + i);
+  const svg = d.querySelector('.marco svg');
+  if (svg) { const k = suave(sal(t, 0, .5)); d.querySelector('.marco').style.opacity = k; d.querySelector('.marco').style.transform = `scale(${.94 + .06 * k})`;
+    svg.style.transform = `scale(${1 + .05 * t / total})`; }
+  aparece(d.querySelector('.a1'), t, .25); aparece(d.querySelector('.a2'), t, .6); aparece(d.querySelector('.a3'), t, .95); aparece(d.querySelector('.a4'), t, total - 2.6, 0);
+  aparece(d.querySelector(".a5"), t, 1.4);
+  [0, 1, 2, 3].forEach(r => aparece(d.querySelector('.r' + r), t, 2.2 + r * 2.3, 0));
+};
+document.fonts.ready.then(() => { document.body.dataset.listo = 1; });
+</script></body></html>
