@@ -27,21 +27,32 @@ Los recuadros "AQUÍ ENTRA SU VIDEO" se cambian por las grabaciones.
 
 ## Libreto de los Centinelas
 
-`Libreto_Centinelas.pdf` (14 hojas) trae lo que dice y lo que hace cada quien en todo el video. Cada línea lleva una etiqueta:
+`Libreto_Centinelas.pdf` es la versión 2 (15 hojas): lo que dice y lo que hace cada quien en todo el video. Lo que dice el libreto manda sobre las frases y el orden del guion de producción.
+
+Lo que cambió en la versión 2:
+
+- La lotería abre el video, después de la apertura: La Base baraja y reparte, y cada Centinela recibe su carta.
+- Cada Centinela canta el verso de su carta y dice «¡Me tocó…!». La Base ya no canta: solo baraja, reparte, se presenta una vez y pone la voz de la radio.
+- Las cartas de los valores (Trabajo en Equipo, El Resultado y La Pasión) explican a detalle el valor de Grupo Loma, cada una en su punto de control.
+- Las demás cartas se explican junto a su pieza del recorrido, con lo que significan en el transporte. Las presentaciones chistosas salen; la pose se queda.
+- Los letreros de los monitores (T30) los explica La de las Alertas.
+
+Cada línea lleva una etiqueta:
 
 - **DICE**: se dice en voz alta;
 - **HACE**: se actúa sin hablar;
-- **CANTA**: lo canta La Base, fuera de cuadro;
+- **CANTA**: el verso de la carta, dicho como en la lotería;
 - **SOLO VOZ**: solo se graba la voz, para la radio;
 - **IMAGEN**: nadie habla.
 
 Las hojas van así:
 
-1. El reparto, con un renglón para el nombre real y la carta de cada Centinela.
-2. Cómo se canta la lotería y los 10 cantos, en el orden en que se reparten.
-3. Cómo se entregan las tarjetas, paso a paso, con los tres casos especiales: La Base, Ojo de Halcón y El de la Llamada.
-4. a 9. El guion completo, escena por escena.
-10. a 14. La hoja de cada Centinela, para recortar.
+1. Qué cambió, cómo se lee y el orden nuevo del video.
+2. El reparto y lo que explica cada carta, con cuándo se graba.
+3. Cómo se canta cada carta y los versos, en el orden en que se reparten.
+4. Cómo se entregan las cartas, paso a paso.
+5. a 10. El guion completo, escena por escena.
+11. a 15. La hoja de cada Centinela, para recortar.
 
 ## Muestra ilustrada del martes 27
 
