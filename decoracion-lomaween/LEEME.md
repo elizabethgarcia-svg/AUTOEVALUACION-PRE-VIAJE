@@ -42,3 +42,4 @@ Cada imprimible es una página HTML. `node pdf.js <pagina.html> <salida.pdf> [ho
 - Los planos sobre las fotos se hacen con los `.py`, que usan `planos.py`; `boceto.py` pasa los planos a lápiz.
 - El plan maestro sale de `maestro.html` (hojas 1 a 8), `plan.html?maestro=9,…` (sin su portada) y `guion.html?maestro=14,…`, unidos con `pdfunite`. Los dibujos del guion están en `guion_dibujos.js`.
 - La muestra ilustrada de la grabación del martes sale de `muestra_martes.html`, con `node pdf.js`, y sus dibujos están en `dibujos_grabar.js`.
+- El libreto de los Centinelas sale de `libreto.html`, con `node pdf.js`. Usa `loteria.js` para las cartas y `dibujos_grabar.js` para los dibujos.

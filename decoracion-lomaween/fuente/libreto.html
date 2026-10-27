@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Libreto de los Centinelas</title>
+<style>
+@font-face { font-family: M; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: M; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(fonts/cinzel-latin-900-normal.woff2); }
+@font-face { font-family: Anton; src: url(fonts/anton-latin-400-normal.woff2); }
+@font-face { font-family: G; src: url(fonts/gochi-hand-latin-400-normal.woff2); }
+:root { --noche: #1a0e28; --naranja: #ff6a00; --oro: #ffb300; --rojo: #c62828; --morado: #7b2ff7; --tinta: #221a2c; --suave: #5d5468; --linea: #e4dfe9; --crema: #fbf6ee;
+  --dice: #e85d00; --hace: #2a7f78; --canta: #b07800; --voz: #c62828; --imagen: #8a8193; }
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 9.3pt; line-height: 1.38; color: var(--tinta); }
+.p { width: 816px; height: 1056px; padding: 40px 46px 50px; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+.p:last-child { page-break-after: auto; }
+.cuerpo { height: 956px; overflow: hidden; }
+.cuerpo:has(.cab) { overflow: visible; }
+h2 { font-family: M; font-size: 20pt; font-weight: 900; color: var(--noche); line-height: 1.1; margin: 0 0 4px; }
+h2 small { display: block; font-size: 10pt; font-weight: 700; color: var(--suave); margin-top: 4px; }
+h3 { font-family: M; font-size: 9.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--naranja); margin: 14px 0 6px; }
+p { margin: 0 0 6px; }
+.pie { position: absolute; left: 46px; right: 46px; bottom: 20px; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 5px; }
+.cab { background: var(--noche); color: #fff; margin: -40px -46px 12px; padding: 18px 46px 14px; }
+.cab .eyebrow { font-family: M; font-weight: 800; font-size: 8.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--oro); }
+.cab h1 { font-family: C; font-weight: 900; font-size: 28pt; line-height: 1.05; margin: 6px 0 4px; }
+.cab .sub { font-family: M; font-weight: 800; font-size: 11.5pt; color: var(--naranja); }
+.caja { background: var(--crema); border-radius: 10px; padding: 10px 13px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 8.4pt; line-height: 1.3; }
+th { font-family: M; font-weight: 800; text-align: left; background: #f2ecf7; padding: 5px 6px; font-size: 7.9pt; }
+td { padding: 4px 6px; border-top: 1px solid var(--linea); vertical-align: middle; }
+.reparto td { padding: 2px 6px; }
+td.n { font-family: M; font-weight: 900; color: var(--naranja); white-space: nowrap; }
+td.al b { font-family: M; font-weight: 900; font-size: 9.2pt; display: block; color: var(--noche); }
+td.al i { font-style: normal; color: var(--suave); font-size: 7.8pt; }
+.raya { border-bottom: 1.4px solid #b9b0c4; height: 18px; }
+.mini { display: inline-block; width: 30px; vertical-align: middle; margin-right: 6px; flex: none; }
+.mini svg { display: block; width: 100%; height: auto; }
+.cartas { display: flex; align-items: center; }
+.cartas span { font-family: M; font-weight: 800; font-size: 8pt; line-height: 1.2; }
+
+/* las cinco etiquetas: qué se dice y qué se actúa */
+.et { display: inline-flex; align-items: center; justify-content: center; gap: 3px; min-width: 70px; font-family: M; font-weight: 900; font-size: 7.3pt; letter-spacing: .05em; color: #fff; border-radius: 12px; padding: 2px 7px; white-space: nowrap; }
+.et.dice { background: var(--dice); } .et.hace { background: var(--hace); } .et.canta { background: var(--canta); } .et.voz { background: var(--voz); } .et.imagen { background: var(--imagen); }
+.tx.dice { font-family: M; font-weight: 800; font-size: 9.4pt; color: var(--tinta); background: #fff4ec; border: 1.5px solid #ffc9a3; border-radius: 8px; padding: 3px 8px; }
+.tx.hace { font-style: italic; color: #1e5d58; background: #eaf5f4; border-radius: 8px; padding: 3px 8px; }
+.tx.canta { font-family: G; font-size: 12pt; line-height: 1.2; color: #7a4f00; background: #fff6dc; border-radius: 8px; padding: 2px 8px; }
+.tx.voz { font-family: M; font-weight: 800; color: #8a1d1d; background: #fdeeee; border-radius: 8px; padding: 3px 8px; }
+.tx.imagen { color: var(--suave); font-style: italic; padding: 3px 8px; }
+.leyenda { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.leyenda div { border-radius: 10px; padding: 8px 9px; background: var(--crema); font-size: 8.1pt; line-height: 1.3; }
+.leyenda .et { margin-bottom: 5px; }
+.ejemplo { display: grid; grid-template-columns: 84px 1fr; gap: 5px 8px; align-items: center; margin-top: 8px; }
+
+/* el guion escena por escena */
+.esc { display: flex; align-items: baseline; gap: 10px; background: var(--noche); color: #fff; border-radius: 9px; padding: 6px 12px; margin: 10px 0 6px; font-family: M; font-weight: 900; font-size: 10.5pt; }
+.esc span { color: var(--oro); }
+.esc i { font-style: normal; font-family: Inter; font-weight: 600; font-size: 8.2pt; color: #d9cfe8; margin-left: auto; }
+.grupo { border: 1.5px solid var(--linea); border-radius: 10px; padding: 3px 9px; margin-bottom: 6px; }
+.grupo .gt { display: flex; align-items: baseline; gap: 8px; font-family: M; font-weight: 900; font-size: 9.6pt; color: var(--noche); padding: 2px 0 3px; border-bottom: 1px solid var(--linea); margin-bottom: 2px; }
+.grupo .gt b { color: var(--naranja); }
+.grupo .gt i { font-style: normal; font-family: Inter; font-weight: 600; font-size: 7.8pt; color: var(--suave); margin-left: auto; }
+.ln { display: grid; grid-template-columns: 128px 80px 1fr; gap: 8px; align-items: start; padding: 2px 0; }
+.ln .q { font-family: M; font-weight: 900; font-size: 8.2pt; color: var(--noche); line-height: 1.25; padding-top: 3px; }
+.ln .et { margin-top: 2px; }
+
+/* cómo se canta */
+.canto-g { font-family: G; font-size: 16pt; line-height: 1.15; color: #7a4f00; }
+.canto-g .nom { font-family: Anton; font-size: 17pt; color: var(--noche); letter-spacing: .02em; }
+.canto-g .pa { font-family: M; font-weight: 900; font-size: 8pt; color: #fff; background: #b07800; border-radius: 9px; padding: 1px 6px; vertical-align: middle; }
+.pasos { counter-reset: p; margin: 0; padding: 0; list-style: none; }
+.pasos li { counter-increment: p; position: relative; padding-left: 30px; margin-bottom: 7px; line-height: 1.36; }
+.pasos li::before { content: counter(p); position: absolute; left: 0; top: 0; width: 21px; height: 21px; border-radius: 50%; background: var(--naranja); color: #fff; font-family: M; font-weight: 900; font-size: 9pt; display: flex; align-items: center; justify-content: center; }
+.dibujos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dibujos figure { margin: 0; }
+.dibujos figcaption { font-size: 7.8pt; color: var(--suave); margin-top: 3px; line-height: 1.25; }
+.dibujos svg { display: block; width: 100%; height: auto; border-radius: 8px; }
+.especial { border-left: 5px solid var(--c, var(--naranja)); background: var(--crema); border-radius: 0 10px 10px 0; padding: 8px 12px; margin-bottom: 8px; font-size: 8.8pt; line-height: 1.34; }
+.especial b.t { font-family: M; font-weight: 900; color: var(--noche); }
+
+/* las hojas recortables */
+.hoja + .hoja { margin-top: 12px; }
+.hoja .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.hoja { border: 2px dashed #b9b0c4; border-radius: 12px; padding: 10px 12px 18px; position: relative; overflow: hidden; font-size: 8.3pt; line-height: 1.3; }
+.hoja .top { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 4px; }
+.hoja .top .ttl { flex: 1; }
+.hoja .top b { display: block; font-family: M; font-weight: 900; font-size: 13pt; color: var(--noche); line-height: 1.05; }
+.hoja .top i { font-style: normal; font-size: 8pt; color: var(--suave); }
+.hoja .top .nom { display: flex; align-items: flex-end; gap: 4px; font-size: 7.6pt; color: var(--suave); margin-top: 5px; }
+.hoja .top .nom div { flex: 1; border-bottom: 1.3px solid #b9b0c4; height: 14px; }
+.hoja .tc { display: flex; gap: 3px; }
+.hoja .tc .mini { width: 40px; margin: 0; }
+.hoja h5 { font-family: M; font-weight: 900; font-size: 7.9pt; letter-spacing: .07em; text-transform: uppercase; margin: 6px 0 3px; color: var(--naranja); }
+.hoja h5.mi { color: var(--morado); }
+.hoja .pz { display: grid; grid-template-columns: 34px 1fr; gap: 3px 6px; align-items: start; }
+.hoja .pz .t { font-family: M; font-weight: 900; font-size: 7.6pt; color: var(--suave); padding-top: 2px; }
+.hoja .pz .l { display: flex; flex-direction: column; gap: 2px; }
+.hoja .pz .r { display: grid; grid-template-columns: 76px 1fr; gap: 5px; align-items: start; }
+.hoja .et { min-width: 74px; font-size: 6.4pt; padding: 1px 5px; margin-top: 1px; }
+.hoja .tx.dice { font-size: 8.4pt; padding: 1px 6px; } .hoja .tx.hace, .hoja .tx.voz, .hoja .tx.canta { padding: 1px 6px; }
+.hoja .tx.canta { font-size: 10.5pt; }
+.tij { position: absolute; right: 10px; bottom: 4px; font-size: 7pt; color: #b9b0c4; }
+</style>
+<script src="loteria.js"></script><script src="dibujos_grabar.js"></script></head><body>
+<div id="raiz"></div>
+<script>
+// ---------- los datos: una sola fuente para todo el libreto ----------
+const CARTA = Object.fromEntries(CARTAS.map(c => [c.n, c]));
+// el canto de cada carta, como se dice: «/» respira, «…» alarga la voz, el nombre fuerte alargando la sílaba que suena más
+const CANTO = {
+  1: ['Si uno se detiene… / se detienen todos…', 'El Trabajo en Equiiipo', 'El Trabajo en Equipo'],
+  2: ['A tiempo, completos… / y sin un rasguño…', 'El Resultaaado', 'El Resultado'],
+  3: ['Lo que se hace con el corazón… / se nota en los detalles…', 'La Pasióoon', 'La Pasión'],
+  4: ['Cruza el techo… / como las rutas del mapa…', 'El Papel Picaaado', 'El Papel Picado'],
+  5: ['Nunca deja sola… / a su caja…', 'El Traaacto', 'El Tracto'],
+  6: ['Por ella se va… / y por ella se regresa…', 'La Carreteeera', 'La Carretera'],
+  7: ['Alumbra el camino… / de los que se adelantaron…', 'La Cruuuz', 'La Cruz'],
+  8: ['Tiene ojos, voz… / y corazón…', 'El ocho setenta y sieeete', 'El 877'],
+  9: ['Mandarina, pan… / y cacahuate…', 'La Ofreeenda', 'La Ofrenda'],
+  10: ['Muy elegante y bien peinada… / pero en carretera ni la invitamos…', 'La Catriiina', 'La Catrina'],
+};
+const PILON = '¡Y de pilón… le tocó doble, porque todo lo ve!';
+const cantoTx = (n, pilon) => `${pilon ? `«${PILON}» ` : ''}«${CANTO[n][0]}» ¡${CANTO[n][1]}!`;
+const nomCarta = n => CANTO[n][2];
+const ROLC = { base: '#c62828', todos: '#7b2ff7' };
+const C = [
+  { a: 'La Base', rol: 'coordina el turno', t: 'T02', cartas: [], color: ROLC.base,
+    pres: '«Aquí Base Centinela: tenemos una misión… y no es de monitoreo.»',
+    reclut: [['hace', 'Sale con la baraja en las manos y la abre en abanico hacia la cámara.'], ['dice', '«Aquí Base Centinela: tenemos una misión… y no es de monitoreo.»'], ['hace', 'Se pone los audífonos y voltea a la cámara. 3 segundos quieta, como foto.']],
+    martes: [['T12', [['hace', 'Baraja la lotería y reparte las cartas boca abajo, una por una, sobre el sarape. Solo salen sus manos, grabadas desde arriba. Sin hablar.']]],
+      ['T13', [['voz', 'Las 7 llamadas de radio y los 10 cantos de la lotería, con la grabadora del celular. No sale a cuadro.']]]],
+    mier: [['T30', [['hace', 'Bajo los letreros de los monitores, los señala.'], ['dice', '«Arriba de cada monitor, un letrero de carretera: Zona de restricción, Zona sin cobertura, Estatus al cliente… Así se vive la ruta desde la cabina.»']]]] },
+  { a: 'Ojo de Halcón', rol: 'monitorea las unidades', t: 'T03', cartas: [1, 4], dice: '«¡Me tocó El Trabajo en Equipo!»',
+    pres: '«Yo veo cada unidad en el mapa, de día y de noche. Ahora también veo cada flor fuera de lugar.»', pose: 'Hace binoculares con las manos',
+    martes: [['T14', [['hace', 'En su lugar de trabajo, de pecho, mirando a la lente.'], ['dice', '«En la cabina cada proceso está enlazado: si falla uno, falla todo el sistema.»']]]],
+    mier: [['T23', [['hace', 'Señala el papel picado del techo. Lo graban desde abajo.'], ['dice', '«El papel picado cruza el techo de pared a pared, como las rutas que seguimos en el mapa.»']]]] },
+  { a: 'La de las Alertas', rol: 'exceso de velocidad y fatiga', t: 'T04', cartas: [6], dice: '«¡Me tocó La Carretera!»',
+    pres: '«Si una unidad pasa de 100, me entero. Si alguien quiere pegar algo con cinta… también.»', pose: 'Señala a la cámara con cara de «¡ni lo pienses!»',
+    martes: [['T15', [['hace', 'En su lugar de trabajo, de pecho, mirando a la lente.'], ['dice', '«Ningún viaje se hace solo: aquí todos jalamos parejo.»']]]],
+    mier: [['T25', [['hace', 'Agachada junto al mantel, señala la carretera.'], ['dice', '«En el mantel va la carretera con sus tractos, y alrededor los señalamientos: el KM 57, Aguascalientes, Saltillo… Es el camino que cuidamos todos los días.»']]]] },
+  { a: 'El Rescatista', rol: 'coordina el rescate carretero', t: 'T05', cartas: [7], dice: '«¡Me tocó La Cruz!»',
+    pres: '«Si algo pasa en el camino, salimos de inmediato. Hoy rescaté tres catrinas y un pan de muerto.»', pose: 'Carga una lápida como si la rescatara',
+    martes: [], mier: [['T26', [['hace', 'De pie junto a la cruz de sal.'], ['dice', '«La cruz de sal purifica el camino, y el cempasúchil y las velas guían de regreso a casa a los que se nos adelantaron.»']]]] },
+  { a: 'Caza Jammers', rol: 'jammers y desvíos de ruta', t: 'T06', cartas: [10], dice: '«¡Me tocó La Catrina!»',
+    pres: '«Ningún jammer se nos esconde… ni de muerto.»', pose: 'Se baja los lentes oscuros, despacio',
+    martes: [], mier: [['T27', [['hace', 'Entre las lápidas del panteón.'], ['dice', '«La Catrina es la reina del panteón, y aquí enterramos los malos hábitos que la cabina detecta: el exceso de velocidad, el celular, la fatiga… y el desvío de ruta, que ese es mío. Aquí se quedan, y no regresan.»']]]] },
+  { a: 'La Voz', rol: 'la voz del 877', t: 'T07', cartas: [8], dice: '«¡Me tocó El 877!»',
+    pres: '«Yo le di voz al cuento… y nos prestaron un tráiler.»', pose: 'Usa el celular como micrófono',
+    martes: [], mier: [['T28', [['hace', 'Junto a la tele, con el 877 en pantalla.'], ['dice', '«En la tele está el 877: un video que hicimos nosotros, con nuestra voz, para que los niños sepan qué hacemos aquí.»']]]] },
+  { a: 'El de la Llamada', rol: 'llama a los operadores', t: 'T08', cartas: [3], dice: '«¡Me tocó La Pasión!»',
+    pres: '«“¿Cómo vas, compañero?” Esa pregunta, a tiempo, salva un viaje.»', pose: 'Teléfono al oído y guiño',
+    martes: [], mier: [['T31', [['hace', 'Frente al altar, con su tarjeta en la mano: la voltea hacia la cámara.'], ['dice', '«¡Me tocó La Pasión!»'], ['dice', '«Lo que se hace con el corazón se nota en los detalles. Por eso hicimos al 877: para llegar al corazón del operador… desde su casa.»']]],
+      ['T32', [['hace', 'Más de cerca. En voz baja y sin prisa, mirando a la lente.'], ['dice', '«En la cabina también hemos vivido días difíciles. Días que nos enseñaron a reinventarnos, todos los días. Por eso nació el 877: para hacer equipo desde casa, porque ahí empieza la prevención.»']]]] },
+  { a: 'La Arquitecta', rol: 'armó el altar', t: 'T09', cartas: [5], dice: '«¡Me tocó El Tracto!»',
+    pres: '«Si coordinamos rutas de miles de kilómetros, ¿cómo no íbamos a armar un tracto de cartón?»', pose: 'Presume el tracto de atrás con las dos manos',
+    martes: [], mier: [['T24', [['hace', 'A un lado del altar, lo presenta con la mano.'], ['dice', '«Nuestro altar es un tracto: la parrilla, los faros y la calavera del 877. Eso es lo que cuidamos: cada unidad que sale y cada operador que regresa.»']]]] },
+  { a: 'Manos de Cempasúchil', rol: 'la ofrenda y las flores', t: 'T10', cartas: [9], dice: '«¡Me tocó La Ofrenda!»',
+    pres: '«Mandarinas, cacahuates, pan y flores… y ni una sola con exceso de velocidad.»', pose: 'Avienta pétalos al aire, sobre la cartulina para no ensuciar',
+    martes: [], mier: [['T29', [['hace', 'Junto a un escritorio con su ofrenda.'], ['dice', '«En cada escritorio pusimos la ofrenda: el sarape de México, mandarinas, cacahuates, pan de muerto, velas y flores.»']]]] },
+  { a: 'El Turno de la Noche', rol: 'el turno nocturno', t: 'T11', cartas: [2], dice: '«¡Me tocó El Resultado!»',
+    pres: '«Mientras todos duermen, aquí seguimos jalando parejo.»', pose: 'Brinda con su taza y dice «¡y sin cachimba!»',
+    martes: [], mier: [['T21', [['hace', 'Frente al altar terminado, de pecho.'], ['dice', '«Empezamos el 19 y quedó lista un día antes, sin un solo clavo ni un pedazo de cinta: llegamos a destino, completos y sin un rasguño.»']]]] },
+];
+// el reclutamiento de cada Centinela, paso por paso: lo que canta La Base, lo que actúa y lo que dice
+C.slice(1).forEach(c => {
+  const r = [['canta', cantoTx(c.cartas[0]), 'La Base']];
+  r.push(['hace', 'Recibe la tarjeta por la derecha y la voltea hacia la cámara, a la altura del pecho, quieta 2 segundos.', c.a], ['dice', c.dice, c.a]);
+  if (c.cartas.length > 1) r.push(['canta', cantoTx(c.cartas[1], true), 'La Base'], ['hace', 'Recibe la segunda y enseña las dos en abanico.', c.a], ['dice', '«¡Y El Papel Picado!»', c.a]);
+  r.push(['dice', c.pres, c.a], ['hace', /«/.test(c.pose) ? c.pose + '. Luego se queda 3 segundos sin moverse, como foto.' : c.pose + ', y se queda 3 segundos sin moverse, como foto.', c.a]);
+  c.reclut = r;
+});
+C[0].reclut = C[0].reclut.map(([k, x]) => [k, x, 'La Base']);
+const RADIO = ['«Base Centinela a todas las unidades… ¿me copian?»', '«Unidad Blindaje Centinela, salida 19 de octubre. Destino: LOMAween.»',
+  '«Base Centinela a Trabajo en Equipo, ¿me copias?»', '«Base Centinela a Enfoque a Resultados, ¿me copias?»', '«Base Centinela a Pasión, ¿me copias?»',
+  '«Unidad Blindaje Centinela: llegó a destino.»', '«Cambio y fuera.»'];
+const ET = { dice: '🗣 DICE', hace: '🎬 HACE', canta: '🎤 CANTA', voz: '📻 SOLO VOZ', imagen: '📷 IMAGEN' };
+const et = k => `<span class="et ${k}">${ET[k]}</span>`;
+const tx = (k, s) => `<span class="tx ${k}">${s}</span>`;
+let kk = 0;
+const mini = (n, w) => `<span class="mini"${w ? ` style="width:${w}px"` : ''}>${cartaSVG(CARTA[n]).replace(/papel(\d+)/g, 'papel$1_' + (++kk)).replace(/cBand/g, 'cBand' + kk)}</span>`;
+const ln = (q, k, s) => `<div class="ln"><div class="q">${q}</div><div>${et(k)}</div><div>${tx(k, s)}</div></div>`;
+const pie = n => `<div class="pie"><span>La 57 de las Ánimas · Libreto de los Centinelas</span><span>${n}</span></div>`;
+const porA = a => C.find(c => c.a === a);
+const toma = (a, t) => porA(a).martes.concat(porA(a).mier).find(x => x[0] === t)[1];
+const lnToma = (a, t) => toma(a, t).map(([k, s]) => ln(a.toUpperCase(), k, s)).join('');
+
+// ---------- hoja 1 · portada, cómo leerlo y reparto ----------
+let paginas = [];
+paginas.push(`<div class="cab"><div class="eyebrow">LOMAween 2026 · Video para el jurado</div><h1>Libreto de los Centinelas</h1>
+  <div class="sub">Lo que se dice, lo que se actúa y cómo se reparte la lotería</div></div>
+  <h3 style="margin-top:0">Cómo se lee este libreto: cinco etiquetas</h3>
+  <div class="leyenda">
+    <div>${et('dice')}<br><b>Se dice en voz alta</b>, mirando a la lente. Va entre comillas.</div>
+    <div>${et('hace')}<br><b>Se actúa, sin hablar.</b> Es lo que hace el cuerpo: dónde se para, qué agarra, la pose.</div>
+    <div>${et('canta')}<br><b>Lo canta La Base</b>, fuera de cuadro, como en la lotería. Hoja 2.</div>
+    <div>${et('voz')}<br><b>No sale a cuadro.</b> Solo se graba la voz, para la radio.</div>
+    <div>${et('imagen')}<br><b>Nadie habla.</b> Se graba el lugar o ya está animado.</div>
+  </div>
+  <div class="caja" style="margin-top:8px"><b style="font-family:M;font-weight:900">Ejemplo: La Arquitecta en su toma (T09)</b>
+    <div class="ejemplo">
+      ${et('hace')}<div>${tx('hace', 'Mira a la cámara y cuenta en silencio: mil uno, mil dos.')}</div>
+      ${et('canta')}<div>${tx('canta', cantoTx(5))}</div>
+      ${et('hace')}<div>${tx('hace', 'Recibe la tarjeta que entra por la derecha y la voltea hacia la cámara.')}</div>
+      ${et('dice')}<div>${tx('dice', '«¡Me tocó El Tracto!»')}</div>
+      ${et('dice')}<div>${tx('dice', C[7].pres)}</div>
+      ${et('hace')}<div>${tx('hace', 'Presume el tracto de atrás con las dos manos. 3 segundos quieta, como foto.')}</div>
+    </div></div>
+  <h3>El reparto</h3>
+  <table class="reparto"><tr><th>Toma</th><th>Centinela</th><th style="width:140px">Nombre real</th><th>Su carta</th><th>Martes 27</th><th>Miércoles 28</th></tr>
+  ${C.map(c => `<tr><td class="n">${c.t}</td><td class="al"><b>${c.a}</b><i>${c.rol}</i></td><td><div class="raya"></div></td>
+    <td><div class="cartas">${c.cartas.length ? c.cartas.map(n => mini(n, 24)).join('') + `<span>${c.cartas.map(nomCarta).join('<br>')}</span>` : '<span style="color:var(--suave)">Reparte las cartas</span>'}</div></td>
+    <td>${[c.t].concat(c.martes.map(m => m[0])).join(', ')}</td><td>${c.mier.map(m => m[0]).join(', ')}</td></tr>`).join('')}
+  </table>
+  <p style="margin-top:6px;font-size:8.2pt;color:var(--suave)">Todos graban además el «¡10-4!» (T01) y el choque de manos (T17) el martes, y el grito final (T35) el miércoles. No es examen: si cambian una palabra para que les salga natural, está bien. Lo que no cambia es el «¡Me tocó…!» con el nombre de su carta.</p>`);
+
+// ---------- hoja 2 · cómo se canta la lotería ----------
+paginas.push(`<h2>Cómo se canta la lotería<small>Como en la feria: no es cantar con melodía, es decirlo con ritmo, fuerte y con gusto. Lo hace La Base, fuera de cuadro</small></h2>
+  <div class="cols" style="margin-top:8px">
+    <div><ol class="pasos">
+      <li><b>Primero el verso</b>, cantadito y sin prisa, como quien cuenta un chisme: la voz sube al principio y baja al final.</li>
+      <li>Donde hay una <b>«/»</b>, respira tantito. Donde hay <b>«…»</b>, alarga la voz.</li>
+      <li><b>Una pausa corta</b>: mil uno.</li>
+      <li><b>El nombre de la carta, fuerte</b>, alargando la sílaba que suena más: ¡El Traaacto!</li>
+      <li>Al mismo tiempo que dices el nombre, <b>entra tu mano</b> con la tarjeta boca abajo.</li>
+    </ol></div>
+    <div class="caja"><b style="font-family:M;font-weight:900">Así suena una</b>
+      <div class="canto-g" style="margin-top:6px">«Nunca deja sola… <span class="pa">respira</span> a su caja…» <span class="pa">mil uno</span><br><span class="nom">¡EL TRAAACTO!</span></div>
+      <p style="margin-top:8px;font-size:8.5pt"><b>Para arrancar</b>, antes de la primera carta (en la grabación de su voz, T13), La Base grita como en la feria: <span class="tx canta">«¡Corre y se va… con la Lotería Centinela!»</span></p></div>
+  </div>
+  <h3>Los 10 cantos, en el orden en que se reparten</h3>
+  <table><tr><th>Toma</th><th>Carta</th><th>Para</th><th style="width:300px">🎤 La Base canta</th><th>🗣 Le contestan</th></tr>
+  ${C.slice(1).map(c => c.cartas.map((n, j) => `<tr><td class="n">${j ? '' : c.t}</td><td>${mini(n, 30)}</td><td class="al"><b>${j ? '' : c.a}</b></td>
+    <td><span class="canto-g" style="font-size:12.5pt">${j ? `«${PILON}»<br>` : ''}«${CANTO[n][0]}» <span class="nom" style="font-size:12pt">¡${CANTO[n][1].toUpperCase()}!</span></span></td>
+    <td style="font-family:M;font-weight:800">${c.cartas.length > 1 ? (j ? '«¡Y El Papel Picado!»' : c.dice) : c.dice}</td></tr>`).join('')).join('')}
+  </table>
+  <p style="margin-top:6px;font-size:8.2pt;color:var(--suave)">Cuando La Base grabe su voz de radio (T13), que grabe también estos 10 cantos y el «¡Corre y se va!», cada uno dos veces, en el mismo cuarto sin eco. Así los pongo limpios en la escena de la lotería, aunque en la toma también se oigan.</p>`);
+
+// ---------- hoja 3 · cómo se entregan las tarjetas ----------
+const orden = C.slice(1).flatMap(c => c.cartas.map(n => [n, c.a]));
+paginas.push(`<h2>Cómo se entregan las tarjetas<small>En el video, La Base es quien reparte la lotería. Si tú eres La Base, la mano que sale en la toma es la tuya</small></h2>
+  <div class="cols" style="margin-top:8px">
+    <div>
+      <h3 style="margin-top:4px">Antes de empezar</h3>
+      <ol class="pasos">
+        <li><b>Arma la baraja en orden</b>, boca abajo, con la primera arriba: ${orden.map(([n, a], i) => `<b>${i + 1}</b> ${nomCarta(n)}`).join(' · ')}.</li>
+        <li><b>Párate del lado derecho</b>, como lo ve el celular: fuera de la toma y a un brazo del Centinela. La baraja en la mano izquierda; entregas con la derecha.</li>
+        <li>Ten a la mano <b>la hoja 2</b>, para leer el canto de cada carta.</li>
+      </ol>
+    </div>
+    <div class="dibujos">
+      <figure>${DG.vineta('entra')}<figcaption>${et('hace')} Solo entra tu mano, por la derecha, con la tarjeta boca abajo.</figcaption></figure>
+      <figure>${DG.vineta('muestra')}<figcaption>${et('dice')} El Centinela la voltea hacia la cámara y dice «¡Me tocó…!».</figcaption></figure>
+    </div>
+  </div>
+  <h3>Cada entrega, paso a paso</h3>
+  <div class="grupo" style="padding:6px 10px">
+    ${ln('QUIEN DIRIGE', 'dice', '«Toma nueve, La Arquitecta, la uno» 👏 y luego «¡Silencio… acción!»')}
+    ${ln('CENTINELA', 'hace', 'Mira a la cámara y cuenta en silencio: mil uno, mil dos.')}
+    ${ln('LA BASE', 'canta', cantoTx(5) + ' <span style="font-family:Inter;font-size:8pt">(desde su lugar, sin entrar a la toma)</span>')}
+    ${ln('LA BASE', 'hace', 'Al decir el nombre, mete la mano por la derecha con la tarjeta boca abajo, a la altura del pecho del Centinela. Solo entran su mano y su brazo, nunca su cara. En cuanto se la toman, saca la mano y ya no se mueve ni habla.')}
+    ${ln('CENTINELA', 'hace', 'Voltea la tarjeta hacia la cámara, a la altura del pecho, quieta 2 segundos.')}
+    ${ln('CENTINELA', 'dice', '«¡Me tocó El Tracto!», y después su presentación.')}
+    ${ln('CENTINELA', 'hace', 'Su pose, y se queda 3 segundos sin moverse, como foto.')}
+    ${ln('QUIEN DIRIGE', 'dice', '«¡Corte!»')}
+    ${ln('CENTINELA', 'hace', 'Le devuelve la tarjeta a La Base, que la pone otra vez arriba. Se repite: la toma dos y la tres. Después de la tercera, la tarjeta va a la pila de «ya salió», boca arriba.')}
+  </div>
+  <h3>Tres casos especiales</h3>
+  <div class="especial" style="--c:#c62828"><b class="t">La Base (T02), la primera.</b> No recibe tarjeta: ella es la que reparte. Sale con la baraja en las manos, la abre en abanico hacia la cámara y dice su presentación. No hay canto en su toma.</div>
+  <div class="especial"><b class="t">Ojo de Halcón (T03) recibe dos.</b> Después de su «¡Me tocó El Trabajo en Equipo!», La Base canta el pilón y entra la segunda: El Papel Picado. Él dice «¡Y El Papel Picado!» y enseña las dos en abanico.</div>
+  <div class="especial" style="--c:#7b2ff7"><b class="t">El de la Llamada (T08).</b> La Pasión no va a la pila: se guarda aparte, porque el miércoles la vuelve a leer frente al altar (T31).</div>
+  <div class="caja"><b>Al terminar los 10:</b> se juntan todas las cartas para las manos barajando (T12): La Base baraja y reparte boca abajo sobre el sarape, sin hablar, mientras la graban desde arriba.</div>`);
+
+// ---------- el guion completo: bloques que se acomodan solos en las hojas ----------
+const B = [];
+const ESC = (n, nom, tiempo, cuando) => `<div class="esc">${n} · <span>${nom}</span><i>${tiempo} · ${cuando}</i></div>`;
+const radio = i => ln('LA BASE', 'voz', RADIO[i] + ' <span style="font-family:Inter;font-weight:500;font-size:8pt">(T13)</span>');
+const img = s => ln('', 'imagen', s);
+const grupo = (titulo, t, cuando, lineas) => `<div class="grupo"><div class="gt">${titulo}<b>${t}</b><i>${cuando}</i></div>${lineas}</div>`;
+B.push(`<h2>El guion completo, escena por escena<small>En el orden del video. A la izquierda quién; luego la etiqueta: si se dice, se actúa, se canta o es solo voz</small></h2>
+  <div class="caja" style="margin-top:6px;font-size:8.6pt">Cada toma empieza igual, aunque aquí no se repite: claqueta, «¡Silencio… acción!» y el Centinela mirando a la lente dos segundos («mil uno, mil dos»). Termina con «¡Corte!». Se graba tres veces.</div>`);
+B.push(ESC(1, 'Apertura', '0:00–0:26', 'ya está animada') + img('Del espacio a TROB Loretito, la Catrina en brasas y el logo Centinela que se enciende.') + radio(0));
+B.push(ESC(2, 'La bitácora', '0:26–0:41', 'martes 11:15') + img('El mapa con la ruta, el expediente, el recorrido del plan y el sello de APROBADO.') + radio(1)
+  + grupo('Cada Centinela', 'T01', 'uno por uno, en su lugar', ln('CADA UNO', 'hace', 'En su lugar de trabajo, con audífonos, voltea a la cámara.') + ln('CADA UNO', 'dice', '«¡10-4!»') + ln('CADA UNO', 'hace', 'Levanta el pulgar y se queda 2 segundos sin moverse.')));
+B.push(ESC(3, 'Reclutamiento', '0:41–1:17', 'martes 9:15 y 10:45') + radio(0).replace(RADIO[0], '«¡Corre y se va… con la Lotería Centinela!»').replace('voz', 'canta').replace('📻 SOLO VOZ', '🎤 CANTA').replace('tx voz', 'tx canta')
+  + grupo('Las manos de La Base', 'T12', 'en la mesa, desde arriba', ln('LA BASE', 'hace', toma('La Base', 'T12')[0][1])));
+C.forEach(c => B.push(grupo(c.a, c.t, c.cartas.length ? `recibe ${c.cartas.map(nomCarta).join(' y ')}` : 'no recibe tarjeta: reparte', c.reclut.map(([k, s, q]) => ln(q.toUpperCase(), k, s)).join(''))));
+B.push(ESC(4, 'Trabajo en Equipo', '1:17–1:42', 'martes 13:00') + radio(2)
+  + grupo('Ojo de Halcón', 'T14', 'en su lugar', lnToma('Ojo de Halcón', 'T14')) + grupo('La de las Alertas', 'T15', 'en su lugar', lnToma('La de las Alertas', 'T15')));
+B.push(img('El armado (T16): los tres equipos imprimiendo, recortando, empalmando la parrilla, colgando letreros y armando la carretera con los tractos de juguete.')
+  + grupo('Todo el turno', 'T17', 'grabado desde arriba', ln('TODOS', 'hace', 'Ponen las manos al centro, una encima de otra.') + ln('TODOS', 'dice', '«¡10-4!»') + ln('TODOS', 'hace', 'Suben las manos al mismo tiempo.')));
+B.push(ESC(5, 'Enfoque a Resultados', '1:42–2:07', 'miércoles 10:45') + radio(3)
+  + img('El «antes» (T18) y el «después» (T19) desde el mismo lugar, y un celular con la fecha y la hora junto al altar terminado (T20).')
+  + grupo('El Turno de la Noche', 'T21', 'frente al altar', lnToma('El Turno de la Noche', 'T21'))
+  + img('La prueba de cero cinta (T22): el nylon de la rejilla, los alfileres en la sábana y los atriles de las lápidas.'));
+B.push(ESC(6, 'Pasión · el recorrido', '2:07–3:05', 'miércoles 9:00') + radio(4));
+[['Ojo de Halcón', 'T23', 'el papel picado'], ['La Arquitecta', 'T24', 'el altar'], ['La de las Alertas', 'T25', 'la carretera'], ['El Rescatista', 'T26', 'la cruz de sal'],
+ ['Caza Jammers', 'T27', 'el panteón'], ['La Voz', 'T28', 'la tele'], ['Manos de Cempasúchil', 'T29', 'la ofrenda'], ['La Base', 'T30', 'los monitores']]
+  .forEach(([a, t, q]) => B.push(grupo(a, t, q, lnToma(a, t))));
+B.push(ESC(6, 'Pasión · el porqué del 877', '', 'miércoles 11:30').replace(' · miércoles', 'miércoles')
+  + grupo('El de la Llamada', 'T31', 'frente al altar', lnToma('El de la Llamada', 'T31')) + grupo('El de la Llamada', 'T32', 'más de cerca', lnToma('El de la Llamada', 'T32'))
+  + img('Alguien viendo al 877 en la tele, de espaldas (T33), y el fragmento del 877.'));
+B.push(ESC(7, 'Llegada a destino', '3:05–3:30', 'miércoles 11:30') + img('El recorrido final, caminando muy despacio de la entrada al altar, los escritorios, la tele y los monitores (T34).') + radio(5)
+  + grupo('Todo el equipo', 'T35', 'frente al altar, tres tomas', ln('TODOS', 'hace', 'Juntos frente al altar, mirando a la cámara.') + ln('TODOS', 'dice', '«¡Desde la cabina, protegemos cada kilómetro!»'))
+  + radio(6) + img('Las tomas falsas (T37): risas, frases trabadas, la tarjeta que se cae. Que nadie las borre.'));
+
+// ---------- las hojas de cada Centinela ----------
+const pz = (t, pasos) => `<div class="t">${t}</div><div class="l">${pasos.map(([k, s]) => `<div class="r">${et(k)}<span class="tx ${k}">${s}</span></div>`).join('')}</div>`;
+const hoja = c => `<div class="hoja"><div class="top"><div class="ttl"><b style="color:${c.color || 'var(--noche)'}">${c.a}</b><i>${c.rol}</i>
+    <div class="nom">Nombre:<div></div></div></div><div class="tc">${c.cartas.map(n => mini(n)).join('')}</div></div>
+  <div class="dos"><div><h5>Martes 27 · ${c.cartas.length ? 'recibe su tarjeta' : 'reparte la lotería'}</h5>
+  <div class="pz">${pz(c.t, c.reclut.map(([k, x, q]) => q === c.a || c.a === 'La Base' ? [k, x] : [k, 'Tu señal: ' + x]))}</div></div>
+  <div>${c.martes.length ? `<h5>Martes 27 · después</h5><div class="pz">${c.martes.map(([t, p]) => pz(t, p)).join('')}</div>` : ''}
+  <h5 class="mi">Miércoles 28</h5>
+  <div class="pz">${c.mier.map(([t, p]) => pz(t, p)).join('')}</div>
+  <h5 style="color:#7b2ff7">Con todos</h5>
+  <div class="pz">${pz('T01 T17', [['dice', '«¡10-4!» el martes, en su lugar y con las manos al centro.']])}${pz('T35', [['dice', '«¡Desde la cabina, protegemos cada kilómetro!»']])}</div></div></div>
+  <div class="tij">✂ recortar</div></div>`;
+const extra = `<div class="hoja" style="border-style:solid;border-color:var(--linea);background:var(--crema)"><div class="top"><div class="ttl"><b style="color:#c62828">La voz de La Base (T13)</b><i>solo se graba la voz, con la grabadora del celular</i></div></div>
+  <div class="pz">${pz('', [['canta', '«¡Corre y se va… con la Lotería Centinela!»']])}${pz('', [['canta', 'Los 10 cantos de la hoja 2, cada uno dos veces.']])}
+  ${RADIO.map((r, i) => pz(i + 1, [['voz', r]])).join('')}</div>
+  <p style="margin-top:8px;font-size:8pt;color:var(--suave)">Cada llamada tres veces, con calma, en un cuarto sin eco y con el celular a un palmo de la boca.</p></div>`;
+const como = `<div class="hoja" style="border-style:solid;border-color:var(--linea)"><div class="top"><div class="ttl"><b>Cómo se dice</b><i>para todos</i></div></div>
+  <ul style="margin:6px 0 0;padding-left:1.2em;font-size:8.6pt;line-height:1.45">
+    <li>${et('dice')} Mirando a la lente, no a la pantalla del celular. Con calma, con una sonrisa y más despacio de lo que crees.</li>
+    <li>${et('hace')} Sin hablar. Se hace en silencio, y al terminar la pose se quedan quietos 3 segundos.</li>
+    <li>Dos segundos quietos antes de hablar: «mil uno, mil dos».</li>
+    <li>Si te trabas, respira y empieza otra vez la frase: no se corta.</li>
+    <li>La tarjeta, a la altura del pecho y sin taparte la cara.</li>
+    <li>Tres tomas de cada frase: normal, con más energía y chistosa.</li></ul></div>`;
+
+// ---------- armar las hojas (cuando ya cargaron las letras, para medir bien) ----------
+Promise.all(['700 10px M', '800 10px M', '900 10px M', '10px G', '10px Anton', '900 10px C'].map(f => document.fonts.load(f))).then(() => {
+const raiz = document.getElementById('raiz');
+let num = 0;
+const nueva = html => { const d = document.createElement('div'); d.className = 'p'; d.innerHTML = `<div class="cuerpo">${html}</div>${pie(++num)}`; raiz.appendChild(d); return d.querySelector('.cuerpo'); };
+paginas.forEach(nueva);
+// el guion: cada bloque entra en la hoja si cabe; si no, pasa a la siguiente
+let cuerpo = nueva('');
+B.forEach(b => { const t = document.createElement('div'); t.innerHTML = b; cuerpo.appendChild(t);
+  if (cuerpo.scrollHeight > cuerpo.clientHeight + 1) { cuerpo.removeChild(t); cuerpo = nueva(''); cuerpo.appendChild(t); } });
+// las hojas de cada Centinela, también acomodadas solas
+cuerpo = nueva('<h2 style="margin-bottom:10px">La hoja de cada Centinela<small>Recórtenlas y denle a cada quien la suya. Escriban su nombre real: va en su tarjeta de personaje del video</small></h2>');
+[hoja(C[0]), extra].concat(C.slice(1).map(hoja)).forEach(b => { const t = document.createElement('div'); t.innerHTML = b; cuerpo.appendChild(t);
+  if (cuerpo.scrollHeight > cuerpo.clientHeight + 1) { cuerpo.removeChild(t); cuerpo = nueva(''); cuerpo.appendChild(t); } });
+// aviso si algo no cupo
+document.querySelectorAll('.cuerpo, .hoja').forEach((e, i) => { if (e.scrollHeight > e.clientHeight + 1) console.log('NO CABE', e.className, i, e.scrollHeight, e.clientHeight, (e.querySelector('b') || {}).textContent); });
+document.body.dataset.listo = 1;
+});
+</script>
+</body></html>
