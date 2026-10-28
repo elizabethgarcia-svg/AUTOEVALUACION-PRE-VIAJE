@@ -37,7 +37,7 @@ def efecto_radio(x):
     X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR)
     X *= ((f > 350) & (f < 3200)).astype(float)
     y = np.fft.irfft(X, len(x))
-    return np.tanh(y * 3.2) / np.tanh(3.2) * 0.52  # un poco abajo de la Narradora
+    return np.tanh(y * 2.0) / np.tanh(2.0) * 0.52  # un poco abajo de la Narradora, con menos saturación
 PAUSA = {".": .75, "!": .6, "?": .7, ":": .35}
 INICIO, COLA = 1.6, 9.0
 
@@ -50,6 +50,7 @@ for escena, texto, pausa, voz_l in LINEAS:
         segs = [{"texto": f["texto"], "inicio": round(t + f["inicio"], 3), "fin": round(t + f["fin"], 3)} for f in g["frases"]]
         partes.append(s); ini = t; t += len(s) / SR
         tl.append({"escena": escena, "inicio": round(ini, 3), "fin": round(t, 3), "texto": texto, "frases": segs, "voz": "narradora", "grabada": True})
+        pausa *= .65  # entre frases de la Narradora, respiros más cortos para que el video no se alargue
         partes.append(np.zeros(int(pausa * SR))); t += pausa
         continue
     frases = [f.strip() for f in re.findall(r"[^.!?:]+[.!?:]+", texto)]

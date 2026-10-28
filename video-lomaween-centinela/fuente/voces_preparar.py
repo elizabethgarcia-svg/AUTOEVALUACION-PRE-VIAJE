@@ -1,20 +1,22 @@
 # Prepara las grabaciones de la Narradora: toma elegida, sin "Frase N", reparación de picos recortados,
-# filtro, compresión suave, pausas internas acotadas y volumen parejo. Alinea el guion con cada tramo de voz.
+# filtro, sin golpes ni chasquidos, un poco más ágil (sin cambiar el tono), compresión suave, pausas internas
+# cortas y volumen parejo. Alinea el guion con cada tramo de voz.
 import json, re, difflib, glob, subprocess, unicodedata
 import numpy as np, soundfile as sf, sherpa_onnx, pyloudnorm as pyln
 from scipy.interpolate import CubicSpline
 from scipy.signal import butter, sosfiltfilt, resample_poly
-# Uso: python3 voces_preparar.py <carpeta con las notas de voz .ogg> <modelo whisper de sherpa-onnx> <salida>
-import sys
+# Uso: python3 voces_preparar.py <carpeta con las notas de voz .ogg> <modelo whisper de sherpa-onnx> <salida> [velocidad]
+import sys, os, tempfile
 UP, M, SAL = sys.argv[1], sys.argv[2], sys.argv[3]
+VEL = float(sys.argv[4]) if len(sys.argv) > 4 else 1.1  # 1.1 = 10 % más ágil, con el mismo tono de voz
 SR0, SR = 48000, 24000
 # frase -> ([(nota de voz, inicio, fin de la toma en s), ...], pausa interna máxima). Varias piezas = tomas unidas en una pausa.
-TOMAS = {3: ([('11.45.40_PM', 4.44, 16.72)], 1.0), 4: ([('11.38.25_PM', 2.78, 15.46)], 1.0), 5: ([('11.47.21_PM', 4.18, 24.30)], 1.0),
-         6: ([('11.48.58_PM', 5.00, 24.18)], 1.0), 7: ([('11.40.12_PM', 3.06, 13.66)], 1.0), 8: ([('11.40.33_PM', 4.46, 15.96)], 1.0),
-         9: ([('11.41.24_PM', 3.96, 16.66)], 1.0),
-         10: ([('8.00.00_AM', 7.44, 28.06), ('8.01.01_AM', 25.08, 27.50), ('8.00.00_AM', 31.86, 34.14)], 1.0),  # "tengas sueño" de la 2.ª toma
-         11: ([('11.43.04_PM', 13.80, 22.74)], 1.0), 12: ([('7.57.12_AM', 6.48, 12.38)], 1.3), 13: ([('7.58.35_AM', 4.28, 19.20)], 1.0),
-         16: ([('7.56.04_AM', 6.50, 15.06), ('7.55.31_AM', 15.60, 18.52)], 1.3)}  # final "los necesitan" de la 2.ª toma
+TOMAS = {3: ([('11.45.40_PM', 4.44, 16.72)], .45), 4: ([('11.38.25_PM', 2.78, 15.46)], .45), 5: ([('11.47.21_PM', 4.18, 24.30)], .45),
+         6: ([('11.48.58_PM', 5.00, 24.18)], .45), 7: ([('11.40.12_PM', 3.06, 13.66)], .45), 8: ([('11.40.33_PM', 4.46, 15.96)], .45),
+         9: ([('11.41.24_PM', 3.96, 16.66)], .45),
+         10: ([('8.00.00_AM', 7.44, 28.06), ('8.01.01_AM', 25.08, 27.50), ('8.00.00_AM', 31.86, 34.14)], .6),  # "tengas sueño" de la 2.ª toma
+         11: ([('11.43.04_PM', 13.80, 22.74)], .45), 12: ([('7.57.12_AM', 6.48, 12.38)], .55), 13: ([('7.58.35_AM', 4.28, 19.20)], .45),
+         16: ([('7.56.04_AM', 6.50, 15.06), ('7.55.31_AM', 15.60, 18.52)], .55)}  # final "los necesitan" de la 2.ª toma
 GUION = {3: "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
   4: "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
   5: "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.",
@@ -32,6 +34,41 @@ rec = sherpa_onnx.OfflineRecognizer.from_whisper(encoder=f'{M}/small-encoder.onn
 def decodificar(f):
     raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', f, '-ac', '1', '-ar', str(SR0), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
     return np.frombuffer(raw, dtype=np.float32).astype(np.float64)
+def desgolpe(x, sr):
+    """Quita golpes y explosiones de «p» y «b»: graves por debajo de 100 Hz fuera, y los graves (100-250 Hz)
+    que de pronto suben más que la voz se bajan solo en ese instante."""
+    x = sosfiltfilt(butter(4, 100, 'highpass', fs=sr, output='sos'), x)
+    bajo = sosfiltfilt(butter(4, [100, 250], 'bandpass', fs=sr, output='sos'), x); resto = x - bajo
+    hop = int(.005 * sr); n = len(x) // hop
+    eb = np.sqrt(np.mean(bajo[:n * hop].reshape(n, hop) ** 2, 1)) + 1e-9
+    er = np.sqrt(np.mean(resto[:n * hop].reshape(n, hop) ** 2, 1)) + 1e-9
+    rel = 20 * np.log10(eb / er); voz = er > np.percentile(er, 60)
+    base = np.median(rel[voz]) if np.any(voz) else np.median(rel)
+    exceso = np.maximum(0, rel - (base + 6))
+    exceso = np.convolve(exceso, np.ones(5) / 5, mode='same')  # suave, sin escalones
+    g = np.repeat(10 ** (-exceso / 20), hop); g = np.pad(g, (0, len(x) - len(g)), constant_values=1)
+    return resto + bajo * g, int(np.sum(exceso > 3) * .005 * 100) / 100
+
+def suavizar_eses(x, sr, margen=9, maximo=8):
+    """Baja las «s» que salen muy fuertes: los agudos (arriba de 4.5 kHz) que pasan de la voz menos `margen` dB
+    se bajan lo que sobra, hasta `maximo` dB, solo en ese instante."""
+    agudo = sosfiltfilt(butter(4, 4500, 'highpass', fs=sr, output='sos'), x); resto = x - agudo
+    hop = int(.005 * sr); n = len(x) // hop
+    ea = 20 * np.log10(np.sqrt(np.mean(agudo[:n * hop].reshape(n, hop) ** 2, 1)) + 1e-9)
+    et = 20 * np.log10(np.sqrt(np.mean(x[:n * hop].reshape(n, hop) ** 2, 1)) + 1e-9)
+    voz = np.median(et[et > np.percentile(et, 60)])
+    baja = np.minimum(np.maximum(0, ea - (voz - margen)), maximo)
+    baja = np.convolve(baja, np.ones(4) / 4, mode='same')
+    g = np.repeat(10 ** (-baja / 20), hop); g = np.pad(g, (0, len(x) - len(g)), constant_values=1)
+    return resto + agudo * g
+
+def ffmpeg_filtro(x, sr, af):
+    """Pasa el audio por un filtro de ffmpeg (quitar chasquidos y cambiar la velocidad sin cambiar el tono)."""
+    with tempfile.TemporaryDirectory() as d:
+        sf.write(f'{d}/a.wav', x.astype(np.float32), sr, subtype='FLOAT')
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', f'{d}/a.wav', '-af', af, '-ar', str(sr), '-c:a', 'pcm_f32le', f'{d}/b.wav'], check=True)
+        y, _ = sf.read(f'{d}/b.wav'); return y.astype(np.float64)
+
 def reparar_picos(x, umbral=.98, k=16):
     c = np.abs(x) >= umbral
     d = np.diff(np.concatenate([[0], c.astype(int), [0]])); ini, fin = np.where(d == 1)[0], np.where(d == -1)[0]
@@ -86,7 +123,8 @@ for n, (lista, pmax) in TOMAS.items():
         x = decodificar(glob.glob(f'{UP}/*{hora}.ogg')[0])
         x = x[int((a - .2) * SR0): int((b + .3) * SR0)]
         x, k = reparar_picos(x); npicos += k
-        x = sosfiltfilt(lp, sosfiltfilt(hp, x))
+        x = sosfiltfilt(lp, x); x, golpes = desgolpe(x, SR0)
+        x = ffmpeg_filtro(x * .5, SR0, f'adeclick,rubberband=tempo={VEL}:transients=mixed:detector=soft:pitchq=quality') * 2
         x = x * (0.1 / voz_rms(x))  # piezas de tomas distintas al mismo nivel antes de unirlas
         segs = tramos(x, SR0)
         # quitar ruidos antes/después de la frase y acotar pausas internas
@@ -97,11 +135,12 @@ for n, (lista, pmax) in TOMAS.items():
                 p = max(p, 0)
                 piezas.append(np.zeros(int(p * SR0))); t += p
             seg = x[int(s0p * SR0): int(s1p * SR0)].copy()
-            fade = int(.008 * SR0); seg[:fade] *= np.linspace(0, 1, fade); seg[-fade:] *= np.linspace(1, 0, fade)
+            fade = int(.015 * SR0); seg[:fade] *= np.linspace(0, 1, fade); seg[-fade:] *= np.linspace(1, 0, fade)
             nuevos.append([t + (s0 - s0p), t + (s0 - s0p) + (s1 - s0)])
             piezas.append(seg); t += len(seg) / SR0; prev_fin = s1p
     y = np.concatenate(piezas)
     y = comprimir(y, SR0)
+    y = suavizar_eses(y, SR0)
     y = resample_poly(y, SR, SR0)
     # volumen parejo: sonoridad integrada de cada frase a -20.5 LUFS (un poco arriba del 877 y de la radio)
     y = y * 10 ** ((-20.5 - pyln.Meter(SR).integrated_loudness(y)) / 20)
@@ -138,5 +177,5 @@ for n, (lista, pmax) in TOMAS.items():
         fz['inicio'], fz['fin'] = round(nuevos[fz['k']][0], 3), round(nuevos[fz['k']][1], 3)
     # tramos sin palabras del guion (respiraciones, ruidos) se quedan como silencio de la frase anterior
     salida[n] = {'archivo': f'frase_{n:02d}.wav', 'dur': round(len(y) / SR, 3), 'picos_reparados': npicos, 'frases': [{k: v for k, v in fz.items() if k != 'k'} for fz in frases]}
-    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
+    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  golpes {golpes:4.2f}s  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
 json.dump(salida, open(f'{SAL}/narradora.json', 'w'), ensure_ascii=False, indent=1)

@@ -214,9 +214,11 @@ for n in [50, 53, 57, 62]: mus.put(t - .3, cuerdas(n, 6.5), .9)
 
 # efectos
 def estatica(d):
-    x = filtro(rng.normal(0, 1, int(d * SR)), lo=1200, hi=6000)
-    x *= 0.5 + 1.5 * (rng.random(len(x)) > 0.997)
-    t = tt(d); return x * np.clip(np.minimum(t / .3, (d - t) / .6), 0, 1) * 0.03
+    # radio limpio: un «chsss» corto al abrir y al cerrar, y casi nada mientras se habla (sin chasquidos)
+    x = filtro(rng.normal(0, 1, int(d * SR)), lo=1500, hi=4200)
+    t = tt(d); golpe = np.exp(-t / .12) + np.exp(-(d - t) / .12) * .8
+    forma = np.clip(np.minimum(t / .02, (d - t) / .05), 0, 1) * (0.22 + 0.78 * np.clip(golpe, 0, 1))
+    return x * forma * 0.022
 
 def roger(t0):
     sfx.put(t0, beep(1850, .12) * 1.2, 1.0); sfx.put(t0 + .13, beep(1450, .12) * 1.2, 1.0)
@@ -250,7 +252,7 @@ sfx.put(fin["despedida"] + .1, claxon(.4), 1.0); sfx.put(fin["despedida"] + .6, 
 sfx.put(fin["radio"] - .5, grillos(ini["camino"] - fin["radio"] + 1.5), 1.0)
 sfx.put(ini["camino"] + 1.5, paso_troca(4.0), 1.0)
 sfx.put(ini["rescate"] + .5, paso_troca(4.5), 1.3)
-sfx.put(ini["final"] - 1.5, grillos(TOTAL - ini["final"] + 1.5), 0.8)
+sfx.put(ini["final"] - 1.0, grillos(TOTAL - ini["final"] + 1.0), 0.35)  # grillos muy bajitos al final
 for frag in ("si un tráiler", "si el operador", "o si se distrae"):
     tb = al_decir("alertas", frag) + .2
     sfx.put(tb, beep(880), 1.0); sfx.put(tb + .18, beep(1320), 1.0)
