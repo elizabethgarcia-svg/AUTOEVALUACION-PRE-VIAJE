@@ -4,8 +4,8 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 | Archivo | Uso | Formato |
 |---|---|---|
-| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:37 · 63 MB |
-| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:37 · 14 MB |
+| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:40 · 65 MB |
+| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:40 · 15 MB |
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
 
