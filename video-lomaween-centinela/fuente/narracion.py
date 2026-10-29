@@ -13,7 +13,7 @@ TROCA = "em_santa"
 LINEAS = [
     ("bienvenida", "¡Hola, hola, amiguitos! Yo soy el ocho setenta y siete. Bienvenidos al área de Blindaje Centinela, donde desde la cabina cuidamos cada kilómetro. ¡Súbanse conmigo, vamos a dar un recorrido para que conozcan lo que hacemos!", 3.9, TROCA),
     ("radio",   "¡Atención, atención! Aquí Base Centinela, llamando a todas las familias de nuestros diez veintiocho. ¿Nos copian?", 1.6, RADIO),
-    ("espera",  "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.", 1.5, None),
+    ("espera",  "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regresen de la carretera.", 1.5, None),
     ("camino",  "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.", 1.3, None),
     ("equipo",  "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.", 1.2, None),
     ("descanso", "Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro.", 1.2, None),

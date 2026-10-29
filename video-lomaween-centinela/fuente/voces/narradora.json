@@ -1,445 +1,420 @@
 {
  "3": {
   "archivo": "frase_03.wav",
-  "dur": 11.05,
-  "picos_reparados": 10,
+  "dur": 11.11,
+  "picos_reparados": 0,
   "frases": [
    {
-    "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma,",
+    "texto": "Cada noche,",
     "inicio": 0.06,
-    "fin": 4.09
+    "fin": 0.83
+   },
+   {
+    "texto": "en muchas casas de nuestra gran familia Grupo Loma,",
+    "inicio": 1.42,
+    "fin": 4.44
    },
    {
     "texto": "alguien mira por la ventana,",
-    "inicio": 4.7,
-    "fin": 6.05
+    "inicio": 5.05,
+    "fin": 6.34
    },
    {
-    "texto": "esperando a que papá o mamá regrese",
-    "inicio": 6.66,
-    "fin": 8.98
+    "texto": "esperando a que papá o mamá",
+    "inicio": 6.95,
+    "fin": 9.34
    },
    {
-    "texto": "de la carretera.",
-    "inicio": 9.49,
-    "fin": 10.95
+    "texto": "regresen de la carretera.",
+    "inicio": 9.68,
+    "fin": 11.01
    }
   ]
  },
  "4": {
   "archivo": "frase_04.wav",
-  "dur": 11.01,
-  "picos_reparados": 13,
+  "dur": 13.69,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "En Día de Muertos,",
     "inicio": 0.06,
-    "fin": 1.05
+    "fin": 1.28
    },
    {
-    "texto": "los pétalos de cempasúchil marcan el camino de regreso a casa.",
-    "inicio": 1.51,
-    "fin": 4.93
+    "texto": "los pétalos de cempasúchil",
+    "inicio": 1.78,
+    "fin": 3.51
    },
    {
-    "texto": "En la cabina Centinela, nosotros también cuidamos ese camino,",
-    "inicio": 5.54,
-    "fin": 9.05
+    "texto": "marcan el camino de regreso a casa.",
+    "inicio": 3.98,
+    "fin": 6.21
+   },
+   {
+    "texto": "En la cabina Centinela,",
+    "inicio": 6.82,
+    "fin": 8.19
+   },
+   {
+    "texto": "nosotros también cuidamos ese camino,",
+    "inicio": 8.63,
+    "fin": 11.18
    },
    {
     "texto": "kilómetro a kilómetro.",
-    "inicio": 9.38,
-    "fin": 10.91
+    "inicio": 11.77,
+    "fin": 13.59
    }
   ]
  },
  "5": {
   "archivo": "frase_05.wav",
-  "dur": 18.35,
-  "picos_reparados": 90,
+  "dur": 20.1,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "Somos los Centinelas:",
     "inicio": 0.06,
-    "fin": 1.37
+    "fin": 1.6
    },
    {
-    "texto": "un equipo que,",
-    "inicio": 1.98,
-    "fin": 2.71
-   },
-   {
-    "texto": "desde una cabina llena de pantallas,",
-    "inicio": 3.2,
-    "fin": 5.26
+    "texto": "un equipo que, desde una cabina llena de pantallas,",
+    "inicio": 2.21,
+    "fin": 5.75
    },
    {
     "texto": "acompaña a cada operador en su viaje,",
-    "inicio": 5.66,
-    "fin": 7.8
+    "inicio": 6.2,
+    "fin": 8.36
    },
    {
-    "texto": "de día",
-    "inicio": 8.32,
-    "fin": 8.89
-   },
-   {
-    "texto": "y de noche.",
-    "inicio": 9.44,
-    "fin": 10.02
+    "texto": "de día y de noche.",
+    "inicio": 8.97,
+    "fin": 10.66
    },
    {
     "texto": "Centinelas de Ruta,",
-    "inicio": 10.63,
-    "fin": 11.85
+    "inicio": 11.27,
+    "fin": 12.75
    },
    {
-    "texto": "Centinelas de Seguridad y Rescates Carreteros:",
-    "inicio": 12.35,
-    "fin": 15.19
+    "texto": "Centinelas de Seguridad",
+    "inicio": 13.1,
+    "fin": 14.74
+   },
+   {
+    "texto": "y Rescates Carreteros:",
+    "inicio": 15.07,
+    "fin": 16.54
    },
    {
     "texto": "siempre atentos,",
-    "inicio": 15.67,
-    "fin": 16.73
+    "inicio": 17.06,
+    "fin": 18.38
    },
    {
     "texto": "siempre listos.",
-    "inicio": 17.21,
-    "fin": 18.25
+    "inicio": 18.81,
+    "fin": 20.0
    }
   ]
  },
  "6": {
   "archivo": "frase_06.wav",
-  "dur": 16.79,
+  "dur": 18.71,
   "picos_reparados": 0,
   "frases": [
    {
     "texto": "Y para manejar seguro,",
     "inicio": 0.06,
-    "fin": 1.15
+    "fin": 1.45
    },
    {
     "texto": "lo más importante es descansar.",
-    "inicio": 1.53,
-    "fin": 3.04
+    "inicio": 1.97,
+    "fin": 5.21
    },
    {
     "texto": "Dormir sus horas completas,",
-    "inicio": 4.93,
-    "fin": 6.62
+    "inicio": 5.82,
+    "fin": 7.59
    },
    {
     "texto": "hacer pausas en el camino,",
-    "inicio": 7.1,
-    "fin": 8.69
+    "inicio": 8.2,
+    "fin": 10.0
    },
    {
     "texto": "y si le da sueño,",
-    "inicio": 9.3,
-    "fin": 10.52
+    "inicio": 10.61,
+    "fin": 11.91
    },
    {
     "texto": "detenerse en un lugar seguro.",
-    "inicio": 10.88,
-    "fin": 12.22
+    "inicio": 12.34,
+    "fin": 14.25
    },
    {
     "texto": "Porque un operador descansado",
-    "inicio": 12.83,
-    "fin": 14.49
+    "inicio": 14.86,
+    "fin": 16.52
    },
    {
     "texto": "es un operador seguro.",
-    "inicio": 15.08,
-    "fin": 16.69
+    "inicio": 16.99,
+    "fin": 18.61
    }
   ]
  },
  "7": {
   "archivo": "frase_07.wav",
-  "dur": 9.26,
+  "dur": 10.02,
   "picos_reparados": 0,
   "frases": [
    {
-    "texto": "Nuestras pantallas",
+    "texto": "Nuestras pantallas nos avisan",
     "inicio": 0.06,
-    "fin": 1.21
+    "fin": 2.06
    },
    {
-    "texto": "nos avisan si un tráiler va demasiado rápido,",
-    "inicio": 1.72,
-    "fin": 4.28
+    "texto": "si un tráiler va demasiado rápido,",
+    "inicio": 2.44,
+    "fin": 4.61
    },
    {
     "texto": "y si el operador tiene sueño,",
-    "inicio": 4.86,
-    "fin": 6.64
+    "inicio": 5.22,
+    "fin": 6.77
    },
    {
-    "texto": "o si se distrae con el celular.",
-    "inicio": 7.25,
-    "fin": 9.16
+    "texto": "o",
+    "inicio": 7.38,
+    "fin": 7.71
+   },
+   {
+    "texto": "si se distrae con el celular.",
+    "inicio": 8.17,
+    "fin": 9.92
    }
   ]
  },
  "8": {
   "archivo": "frase_08.wav",
-  "dur": 10.04,
-  "picos_reparados": 41,
+  "dur": 9.71,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "Entonces llamamos:",
     "inicio": 0.06,
-    "fin": 1.95
+    "fin": 1.48
    },
    {
     "texto": "¿cómo vas, compañero?",
-    "inicio": 3.02,
-    "fin": 4.03
+    "inicio": 2.09,
+    "fin": 3.26
    },
    {
     "texto": "A veces, solo necesita descansar un poco.",
-    "inicio": 4.64,
-    "fin": 7.49
+    "inicio": 3.87,
+    "fin": 7.22
    },
    {
-    "texto": "Y eso",
-    "inicio": 8.05,
-    "fin": 8.49
-   },
-   {
-    "texto": "también es cuidarlo.",
-    "inicio": 9.01,
-    "fin": 9.94
+    "texto": "Y eso también es cuidarlo.",
+    "inicio": 7.83,
+    "fin": 9.61
    }
   ]
  },
  "9": {
   "archivo": "frase_09.wav",
-  "dur": 11.59,
+  "dur": 10.95,
   "picos_reparados": 0,
   "frases": [
    {
     "texto": "Y si algo pasa en el camino,",
     "inicio": 0.06,
-    "fin": 1.71
+    "fin": 2.08
    },
    {
     "texto": "nuestros Rescates Carreteros salen de inmediato a ayudar.",
-    "inicio": 2.24,
-    "fin": 6.2
+    "inicio": 2.63,
+    "fin": 6.22
    },
    {
-    "texto": "Porque en esta familia,",
-    "inicio": 6.81,
-    "fin": 8.3
-   },
-   {
-    "texto": "nadie se queda solo",
-    "inicio": 8.88,
-    "fin": 10.47
-   },
-   {
-    "texto": "en la carretera.",
-    "inicio": 10.89,
-    "fin": 11.49
+    "texto": "Porque en esta familia, nadie se queda solo en la carretera.",
+    "inicio": 6.83,
+    "fin": 10.85
    }
   ]
  },
  "10": {
   "archivo": "frase_10.wav",
-  "dur": 22.88,
-  "picos_reparados": 48,
+  "dur": 21.39,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "Pero el cuidado más importante",
     "inicio": 0.06,
-    "fin": 2.78
+    "fin": 1.99
    },
    {
     "texto": "empieza en casa.",
-    "inicio": 3.54,
-    "fin": 4.4
+    "inicio": 2.64,
+    "fin": 3.63
    },
    {
     "texto": "Por eso hoy",
-    "inicio": 5.16,
-    "fin": 5.79
+    "inicio": 4.39,
+    "fin": 5.21
    },
    {
-    "texto": "te pedimos",
-    "inicio": 6.44,
-    "fin": 7.36
+    "texto": "te pedimos algo muy especial:",
+    "inicio": 5.8,
+    "fin": 8.07
    },
    {
-    "texto": "algo muy especial:",
-    "inicio": 7.7,
-    "fin": 9.18
-   },
-   {
-    "texto": "cuando abraces a papá",
-    "inicio": 9.94,
-    "fin": 11.54
-   },
-   {
-    "texto": "o a mamá,",
-    "inicio": 11.94,
-    "fin": 12.45
+    "texto": "cuando abraces a papá o a mamá,",
+    "inicio": 8.83,
+    "fin": 11.09
    },
    {
     "texto": "recuérdale tres cosas.",
-    "inicio": 14.14,
-    "fin": 15.07
+    "inicio": 11.73,
+    "fin": 13.77
    },
    {
     "texto": "Maneja con calma.",
-    "inicio": 15.83,
-    "fin": 17.0
+    "inicio": 14.53,
+    "fin": 15.83
    },
    {
     "texto": "Descansa cuando tengas sueño.",
-    "inicio": 17.76,
-    "fin": 19.97
+    "inicio": 16.59,
+    "fin": 18.42
    },
    {
     "texto": "Y el celular,",
-    "inicio": 20.73,
-    "fin": 21.41
+    "inicio": 19.0,
+    "fin": 19.89
    },
    {
     "texto": "guárdalo.",
-    "inicio": 22.17,
-    "fin": 22.78
+    "inicio": 20.65,
+    "fin": 21.29
    }
   ]
  },
  "11": {
   "archivo": "frase_11.wav",
-  "dur": 8.06,
-  "picos_reparados": 2,
+  "dur": 8.5,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "Desde hoy,",
     "inicio": 0.06,
-    "fin": 0.85
+    "fin": 0.76
    },
    {
     "texto": "tú también eres un Mini Centinela.",
-    "inicio": 1.17,
-    "fin": 3.71
+    "inicio": 1.37,
+    "fin": 3.67
    },
    {
-    "texto": "Tu misión",
-    "inicio": 4.32,
-    "fin": 4.97
+    "texto": "Tu misión es recordárselo",
+    "inicio": 4.28,
+    "fin": 6.27
    },
    {
-    "texto": "es recordárselo cada vez que salga de casa.",
-    "inicio": 5.45,
-    "fin": 7.96
+    "texto": "cada vez que salga de casa.",
+    "inicio": 6.88,
+    "fin": 8.4
    }
   ]
  },
  "12": {
   "archivo": "frase_12.wav",
-  "dur": 5.44,
+  "dur": 5.17,
   "picos_reparados": 0,
   "frases": [
    {
     "texto": "Y dile",
     "inicio": 0.06,
-    "fin": 0.65
+    "fin": 0.74
    },
    {
-    "texto": "que tú eres su razón más grande para regresar.",
-    "inicio": 1.36,
-    "fin": 5.34
+    "texto": "que tú eres",
+    "inicio": 1.38,
+    "fin": 2.17
+   },
+   {
+    "texto": "su razón más grande para regresar.",
+    "inicio": 2.54,
+    "fin": 5.07
    }
   ]
  },
  "13": {
   "archivo": "frase_13.wav",
-  "dur": 13.12,
-  "picos_reparados": 44,
+  "dur": 12.39,
+  "picos_reparados": 0,
   "frases": [
    {
-    "texto": "Recordemos a quienes",
+    "texto": "Recordemos a quienes se fueron,",
     "inicio": 0.06,
-    "fin": 0.97
+    "fin": 2.09
    },
    {
-    "texto": "se fueron,",
-    "inicio": 1.34,
-    "fin": 2.27
-   },
-   {
-    "texto": "y cuidemos a quienes",
-    "inicio": 2.88,
-    "fin": 3.75
-   },
-   {
-    "texto": "regresan.",
-    "inicio": 4.11,
-    "fin": 5.08
+    "texto": "y cuidemos a quienes regresan.",
+    "inicio": 2.75,
+    "fin": 4.67
    },
    {
     "texto": "Desde la cabina,",
-    "inicio": 5.69,
-    "fin": 6.49
+    "inicio": 5.33,
+    "fin": 6.35
    },
    {
-    "texto": "protegemos",
-    "inicio": 6.99,
-    "fin": 7.58
-   },
-   {
-    "texto": "cada kilómetro,",
-    "inicio": 7.91,
-    "fin": 8.95
+    "texto": "protegemos cada kilómetro,",
+    "inicio": 7.01,
+    "fin": 8.82
    },
    {
     "texto": "para que cada noche,",
-    "inicio": 9.56,
-    "fin": 10.49
+    "inicio": 9.31,
+    "fin": 10.46
    },
    {
     "texto": "la familia esté completa.",
-    "inicio": 11.01,
-    "fin": 13.02
+    "inicio": 10.99,
+    "fin": 12.29
    }
   ]
  },
  "16": {
   "archivo": "frase_16.wav",
-  "dur": 10.54,
-  "picos_reparados": 61,
+  "dur": 8.52,
+  "picos_reparados": 0,
   "frases": [
    {
     "texto": "Porque el viaje más importante",
     "inicio": 0.06,
-    "fin": 2.35
+    "fin": 2.11
    },
    {
     "texto": "es el regreso a casa,",
-    "inicio": 3.06,
-    "fin": 4.3
+    "inicio": 2.76,
+    "fin": 3.88
    },
    {
-    "texto": "donde pueden sentir el calor de quienes",
-    "inicio": 5.01,
-    "fin": 7.03
+    "texto": "donde pueden sentir el calor",
+    "inicio": 4.59,
+    "fin": 6.19
    },
    {
-    "texto": "más",
-    "inicio": 7.74,
-    "fin": 8.72
-   },
-   {
-    "texto": "los necesitan.",
-    "inicio": 9.26,
-    "fin": 10.44
+    "texto": "de quienes más los necesitan.",
+    "inicio": 6.8,
+    "fin": 8.42
    }
   ]
  }

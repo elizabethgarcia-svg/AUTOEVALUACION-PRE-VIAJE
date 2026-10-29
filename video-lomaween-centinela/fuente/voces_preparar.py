@@ -8,16 +8,17 @@ from scipy.signal import butter, sosfiltfilt, resample_poly
 # Uso: python3 voces_preparar.py <carpeta con las notas de voz .ogg> <modelo whisper de sherpa-onnx> <salida> [velocidad]
 import sys, os, tempfile
 UP, M, SAL = sys.argv[1], sys.argv[2], sys.argv[3]
-VEL = float(sys.argv[4]) if len(sys.argv) > 4 else 1.1  # 1.1 = 10 % más ágil (la que se usa), con el mismo tono de voz
+VEL = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0  # 1.0 = sin acelerar (la grabación del 29 ya va a buen ritmo); 1.1 = 10 % más ágil
 SR0, SR = 48000, 24000
 # frase -> ([(nota de voz, inicio, fin de la toma en s), ...], pausa interna máxima). Varias piezas = tomas unidas en una pausa.
-TOMAS = {3: ([('11.45.40_PM', 4.44, 16.72)], .45), 4: ([('11.38.25_PM', 2.78, 15.46)], .45), 5: ([('11.47.21_PM', 4.18, 24.30)], .45),
-         6: ([('11.48.58_PM', 5.00, 24.18)], .45), 7: ([('11.40.12_PM', 3.06, 13.66)], .45), 8: ([('11.40.33_PM', 4.46, 15.96)], .45),
-         9: ([('11.41.24_PM', 3.96, 16.66)], .45),
-         10: ([('8.00.00_AM', 7.44, 28.06), ('8.01.01_AM', 25.08, 27.50), ('8.00.00_AM', 31.86, 34.14)], .6),  # "tengas sueño" de la 2.ª toma
-         11: ([('11.43.04_PM', 13.80, 22.74)], .45), 12: ([('7.57.12_AM', 6.48, 12.38)], .55), 13: ([('7.58.35_AM', 4.28, 19.20)], .45),
-         16: ([('7.56.04_AM', 6.50, 15.06), ('7.55.31_AM', 15.60, 18.52)], .55)}  # final "los necesitan" de la 2.ª toma
-GUION = {3: "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera.",
+# Grabación nueva del 29 de octubre (tres notas de voz corridas, sin saturar). Toma elegida de cada frase:
+# la que dice el guion y mejor se expresa (variación de tono e intensidad, ritmo de acuerdo con la emoción, sin golpes).
+A, B, C = '8.03.01_AM', '8.06.41_AM', '8.14.47_AM'
+TOMAS = {3: ([(A, 4.2, 15.7)], .45), 4: ([(A, 47.3, 61.2)], .45), 5: ([(A, 87.6, 109.8)], .45), 6: ([(A, 111.5, 131.2)], .45),
+         7: ([(B, 14.7, 24.9)], .45), 8: ([(B, 26.5, 36.9)], .45), 9: ([(B, 52.7, 58.9), (B, 60.4, 64.4)], .45),
+         10: ([(C, 30.5, 53.5)], .6), 11: ([(C, 70.3, 79.3)], .45), 12: ([(C, 113.1, 118.1)], .55),
+         13: ([(C, 141.1, 147.6), (C, 148.8, 156.1)], .5), 16: ([(C, 190.9, 199.7)], .55)}
+GUION = {3: "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regresen de la carretera.",
   4: "En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
   5: "Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos.",
   6: "Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro.",
@@ -36,7 +37,7 @@ def decodificar(f):
     return np.frombuffer(raw, dtype=np.float32).astype(np.float64)
 def desgolpe(x, sr):
     """Quita golpes y explosiones de «p» y «b»: graves por debajo de 100 Hz fuera, y los graves (100-250 Hz)
-    que de pronto suben más que la voz se bajan solo en ese instante."""
+    que de pronto suben 12 dB más que de costumbre se bajan solo en ese instante."""
     x = sosfiltfilt(butter(4, 100, 'highpass', fs=sr, output='sos'), x)
     bajo = sosfiltfilt(butter(4, [100, 250], 'bandpass', fs=sr, output='sos'), x); resto = x - bajo
     hop = int(.005 * sr); n = len(x) // hop
@@ -44,12 +45,12 @@ def desgolpe(x, sr):
     er = np.sqrt(np.mean(resto[:n * hop].reshape(n, hop) ** 2, 1)) + 1e-9
     rel = 20 * np.log10(eb / er); voz = er > np.percentile(er, 60)
     base = np.median(rel[voz]) if np.any(voz) else np.median(rel)
-    exceso = np.maximum(0, rel - (base + 6))
+    exceso = np.maximum(0, rel - (base + 12))  # solo golpes de verdad: las vocales graves no se tocan
     exceso = np.convolve(exceso, np.ones(5) / 5, mode='same')  # suave, sin escalones
     g = np.repeat(10 ** (-exceso / 20), hop); g = np.pad(g, (0, len(x) - len(g)), constant_values=1)
     return resto + bajo * g, int(np.sum(exceso > 3) * .005 * 100) / 100
 
-def suavizar_eses(x, sr, margen=9, maximo=8):
+def suavizar_eses(x, sr, margen=12, maximo=10):
     """Baja las «s» que salen muy fuertes: los agudos (arriba de 4.5 kHz) que pasan de la voz menos `margen` dB
     se bajan lo que sobra, hasta `maximo` dB, solo en ese instante."""
     agudo = sosfiltfilt(butter(4, 4500, 'highpass', fs=sr, output='sos'), x); resto = x - agudo
@@ -206,7 +207,7 @@ def voz_rms(x):
 for n, (lista, pmax) in TOMAS.items():
     piezas, t, nuevos, npicos = [], 0.0, [], 0
     for j, (hora, a, b) in enumerate(lista):
-        x = decodificar(glob.glob(f'{UP}/*{hora}.ogg')[0])
+        x = decodificar(glob.glob(f'{UP}/*{hora}.*')[0])
         x = x[int((a - .2) * SR0): int((b + .3) * SR0)]
         x, k = reparar_picos(x); npicos += k
         x = sosfiltfilt(lp, x); x, golpes = desgolpe(x, SR0); x, estallidos = quitar_estallidos(x, SR0)

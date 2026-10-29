@@ -1,0 +1,682 @@
+{
+ "3": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      4.2,
+      15.7
+     ]
+    ],
+    "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regresen de la carretera.",
+    "acierto": 0.96,
+    "tono_rango": 12.2,
+    "tono_mov": 0.94,
+    "intensidad": 8.0,
+    "nivel": -18.9,
+    "palabras_seg": 2.26,
+    "clics": 9,
+    "calificacion": 7.46
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      18.4,
+      28.7
+     ]
+    ],
+    "texto": "Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regresen de la carretera.",
+    "acierto": 0.96,
+    "tono_rango": 7.4,
+    "tono_mov": 0.89,
+    "intensidad": 8.4,
+    "nivel": -17.9,
+    "palabras_seg": 2.52,
+    "clics": 8,
+    "calificacion": 4.06
+   }
+  ],
+  "elegida": 1
+ },
+ "4": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      30.6,
+      37.4
+     ],
+     [
+      "8.03.01_AM",
+      38.6,
+      45.2
+     ]
+    ],
+    "texto": "En Día de Muertos, los pétalos de Senpasuchil marcan el camino de regreso a casa. En la cabina sentinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
+    "acierto": 1.0,
+    "tono_rango": 14.8,
+    "tono_mov": 0.96,
+    "intensidad": 8.4,
+    "nivel": -18.8,
+    "palabras_seg": 2.01,
+    "clics": 8,
+    "calificacion": 5.7
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      47.3,
+      61.2
+     ]
+    ],
+    "texto": "En Día de Muertos, los pétalos de Senpasuchil marcan el camino de regreso a casa. En la cabina sentinela, nosotros también cuidamos ese camino, kilómetro a kilómetro.",
+    "acierto": 1.0,
+    "tono_rango": 15.6,
+    "tono_mov": 0.86,
+    "intensidad": 7.9,
+    "nivel": -19.5,
+    "palabras_seg": 1.94,
+    "clics": 1,
+    "calificacion": 6.3
+   }
+  ],
+  "elegida": 2
+ },
+ "5": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      63.8,
+      85.8
+     ]
+    ],
+    "texto": "Somos los sentinelas, un equipo que desde la cabina llena de pantallas acompaña a cada operador en su viaje de día y de noche. Sentinelas de ruta, sentinelas de seguridad y rescates carreteros. Siempre atentos, siempre listos.",
+    "acierto": 0.97,
+    "tono_rango": 14.9,
+    "tono_mov": 1.26,
+    "intensidad": 8.7,
+    "nivel": -17.6,
+    "palabras_seg": 1.68,
+    "clics": 5,
+    "calificacion": 8.32
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      87.6,
+      109.8
+     ]
+    ],
+    "texto": "Somos los Sentinelas, un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Sentinelas de ruta, sentinelas de seguridad y rescates carreteros. Siempre atentos, siempre listos.",
+    "acierto": 1.0,
+    "tono_rango": 15.3,
+    "tono_mov": 1.0,
+    "intensidad": 8.3,
+    "nivel": -18.4,
+    "palabras_seg": 1.67,
+    "clics": 6,
+    "calificacion": 3.5
+   }
+  ],
+  "elegida": 1
+ },
+ "6": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.03.01_AM",
+      111.5,
+      131.2
+     ]
+    ],
+    "texto": "Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino y si le da sueño detenerse en un lugar seguro. Porque un operador descansado es un operador seguro.",
+    "acierto": 1.0,
+    "tono_rango": 15.8,
+    "tono_mov": 1.26,
+    "intensidad": 8.1,
+    "nivel": -18.7,
+    "palabras_seg": 1.83,
+    "clics": 9,
+    "calificacion": 6.0
+   }
+  ],
+  "elegida": 1
+ },
+ "7": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      2.6,
+      9.4
+     ],
+     [
+      "8.06.41_AM",
+      10.6,
+      12.5
+     ]
+    ],
+    "texto": "Nuestras pantallas nos avisan si un trailer va demasiado rápido y si el operador tiene sueño o si se distrae con el celular.",
+    "acierto": 1.0,
+    "tono_rango": 8.2,
+    "tono_mov": 0.75,
+    "intensidad": 8.0,
+    "nivel": -20.4,
+    "palabras_seg": 2.64,
+    "clics": 6,
+    "calificacion": 4.5
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      14.7,
+      24.9
+     ]
+    ],
+    "texto": "Nuestras pantallas nos avisan si un trailer va demasiado rápido y si el operador tiene sueño o si se distrae con el celular.",
+    "acierto": 1.0,
+    "tono_rango": 16.4,
+    "tono_mov": 1.07,
+    "intensidad": 7.9,
+    "nivel": -19.7,
+    "palabras_seg": 2.25,
+    "clics": 2,
+    "calificacion": 7.5
+   }
+  ],
+  "elegida": 2
+ },
+ "8": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      26.5,
+      36.9
+     ]
+    ],
+    "texto": "Entonces llamamos. ¿Cómo vas compañero? A veces solo necesita descansar un poco y eso también es cuidarlo.",
+    "acierto": 1.0,
+    "tono_rango": 15.3,
+    "tono_mov": 1.12,
+    "intensidad": 8.1,
+    "nivel": -19.0,
+    "palabras_seg": 1.63,
+    "clics": 5,
+    "calificacion": 7.3
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      39.8,
+      50.9
+     ]
+    ],
+    "texto": "Entonces llamamos. ¿Cómo vas compañero? A veces solo necesita descansar un poco y eso también es cuidarlo.",
+    "acierto": 1.0,
+    "tono_rango": 14.8,
+    "tono_mov": 1.19,
+    "intensidad": 8.0,
+    "nivel": -18.8,
+    "palabras_seg": 1.53,
+    "clics": 10,
+    "calificacion": 4.7
+   }
+  ],
+  "elegida": 1
+ },
+ "9": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      52.7,
+      58.9
+     ],
+     [
+      "8.06.41_AM",
+      60.4,
+      64.4
+     ]
+    ],
+    "texto": "Y si algo pasa en el camino nuestros rescates carreteros salen de inmediato a ayudar porque en esta familia nadie se queda solo en la carretera.",
+    "acierto": 1.0,
+    "tono_rango": 9.7,
+    "tono_mov": 0.87,
+    "intensidad": 8.0,
+    "nivel": -19.0,
+    "palabras_seg": 2.55,
+    "clics": 2,
+    "calificacion": 6.5
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      66.2,
+      72.1
+     ],
+     [
+      "8.06.41_AM",
+      73.3,
+      77.5
+     ]
+    ],
+    "texto": "y si algo pasa en el camino nuestros rescates carreteros salen de inmediato a ayudar porque en esta familia nadie se queda solo en la carretera",
+    "acierto": 1.0,
+    "tono_rango": 8.3,
+    "tono_mov": 0.77,
+    "intensidad": 8.2,
+    "nivel": -18.8,
+    "palabras_seg": 2.57,
+    "clics": 10,
+    "calificacion": 5.5
+   }
+  ],
+  "elegida": 1
+ },
+ "10": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.06.41_AM",
+      81.5,
+      102.6
+     ]
+    ],
+    "texto": "pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial. Cuando abraces a papá o a mamá, recuerda tres cosas. Maneja con calma, descansa cuando tengas sueño y el celular, guárdalo.",
+    "acierto": 0.97,
+    "tono_rango": 16.4,
+    "tono_mov": 1.32,
+    "intensidad": 8.3,
+    "nivel": -17.5,
+    "palabras_seg": 1.75,
+    "clics": 15,
+    "calificacion": 7.52
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      5.0,
+      18.7
+     ],
+     [
+      "8.14.47_AM",
+      19.9,
+      21.1
+     ],
+     [
+      "8.14.47_AM",
+      22.2,
+      27.0
+     ]
+    ],
+    "texto": "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial. Cuando abraces a papá o mamá, recuerdale tres cosas. Maneja con calma, descansa cuando tengas sueño y el celular, guárdalo.",
+    "acierto": 0.97,
+    "tono_rango": 15.3,
+    "tono_mov": 1.16,
+    "intensidad": 8.6,
+    "nivel": -19.1,
+    "palabras_seg": 1.88,
+    "clics": 14,
+    "calificacion": 6.49
+   },
+   {
+    "toma": 3,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      30.5,
+      53.5
+     ]
+    ],
+    "texto": "pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial. Cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma, descansa cuando tengas sueño y el celular, guárdalo.",
+    "acierto": 1.0,
+    "tono_rango": 14.6,
+    "tono_mov": 1.11,
+    "intensidad": 8.4,
+    "nivel": -19.3,
+    "palabras_seg": 1.61,
+    "clics": 17,
+    "calificacion": 3.63
+   }
+  ],
+  "elegida": 1
+ },
+ "11": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      58.4,
+      68.6
+     ]
+    ],
+    "texto": "Desde hoy, tú también eres un mini sentinela. Tu misión es recordárselo cada vez que salga de casa.",
+    "acierto": 1.0,
+    "tono_rango": 16.8,
+    "tono_mov": 1.26,
+    "intensidad": 8.6,
+    "nivel": -16.6,
+    "palabras_seg": 1.76,
+    "clics": 1,
+    "calificacion": 5.83
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      70.3,
+      79.3
+     ]
+    ],
+    "texto": "Desde hoy, tú también eres un mini sentinela. Tu misión es recordárselo cada vez que salga de casa.",
+    "acierto": 1.0,
+    "tono_rango": 17.2,
+    "tono_mov": 0.97,
+    "intensidad": 7.7,
+    "nivel": -15.8,
+    "palabras_seg": 2.0,
+    "clics": 4,
+    "calificacion": 8.25
+   },
+   {
+    "toma": 3,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      92.1,
+      102.7
+     ]
+    ],
+    "texto": "Desde hoy, tú también eres un mini sentinela. Tu misión es recordárselo cada vez que salga de casa.",
+    "acierto": 1.0,
+    "tono_rango": 16.3,
+    "tono_mov": 1.21,
+    "intensidad": 8.3,
+    "nivel": -16.1,
+    "palabras_seg": 1.7,
+    "clics": 9,
+    "calificacion": 3.92
+   }
+  ],
+  "elegida": 2
+ },
+ "12": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      105.5,
+      110.3
+     ]
+    ],
+    "texto": "y dile que tú eres su razón más grande para regresar.",
+    "acierto": 1.0,
+    "tono_rango": 15.4,
+    "tono_mov": 0.91,
+    "intensidad": 8.3,
+    "nivel": -17.8,
+    "palabras_seg": 2.29,
+    "clics": 0,
+    "calificacion": 4.72
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      113.1,
+      118.1
+     ]
+    ],
+    "texto": "y dile que tú eres su razón más grande para regresar.",
+    "acierto": 1.0,
+    "tono_rango": 15.7,
+    "tono_mov": 1.54,
+    "intensidad": 7.5,
+    "nivel": -20.0,
+    "palabras_seg": 2.2,
+    "clics": 3,
+    "calificacion": 7.49
+   },
+   {
+    "toma": 3,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      121.4,
+      127.3
+     ]
+    ],
+    "texto": "y dile que tú eres su razón más grande para regresar.",
+    "acierto": 1.0,
+    "tono_rango": 13.4,
+    "tono_mov": 1.08,
+    "intensidad": 7.6,
+    "nivel": -18.8,
+    "palabras_seg": 1.86,
+    "clics": 1,
+    "calificacion": 4.49
+   },
+   {
+    "toma": 4,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      130.6,
+      138.5
+     ]
+    ],
+    "texto": "y dile que tú eres su razón más grande para regresar.",
+    "acierto": 1.0,
+    "tono_rango": 13.6,
+    "tono_mov": 0.81,
+    "intensidad": 8.5,
+    "nivel": -19.2,
+    "palabras_seg": 1.39,
+    "clics": 0,
+    "calificacion": 7.31
+   }
+  ],
+  "elegida": 2
+ },
+ "13": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      141.1,
+      147.6
+     ],
+     [
+      "8.14.47_AM",
+      148.8,
+      156.1
+     ]
+    ],
+    "texto": "Recordemos a quienes se fueron y cuidemos a quienes regresan desde la cabina. Protegemos cada kilómetro para que cada noche la familia esté completa.",
+    "acierto": 1.0,
+    "tono_rango": 13.7,
+    "tono_mov": 1.06,
+    "intensidad": 9.4,
+    "nivel": -20.4,
+    "palabras_seg": 1.74,
+    "clics": 8,
+    "calificacion": 8.42
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      159.8,
+      172.6
+     ]
+    ],
+    "texto": "Recordemos a quienes se fueron y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro para que cada noche la familia esté completa.",
+    "acierto": 1.0,
+    "tono_rango": 12.0,
+    "tono_mov": 0.93,
+    "intensidad": 9.1,
+    "nivel": -21.9,
+    "palabras_seg": 1.88,
+    "clics": 1,
+    "calificacion": 4.23
+   },
+   {
+    "toma": 3,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      174.6,
+      187.7
+     ]
+    ],
+    "texto": "Recordemos a quienes se fueron y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro para que cada noche la familia esté completa.",
+    "acierto": 1.0,
+    "tono_rango": 12.2,
+    "tono_mov": 0.92,
+    "intensidad": 9.3,
+    "nivel": -22.0,
+    "palabras_seg": 1.83,
+    "clics": 8,
+    "calificacion": 5.35
+   }
+  ],
+  "elegida": 1
+ },
+ "16": {
+  "tomas": [
+   {
+    "toma": 1,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      190.9,
+      199.7
+     ]
+    ],
+    "texto": "porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
+    "acierto": 1.0,
+    "tono_rango": 13.9,
+    "tono_mov": 0.97,
+    "intensidad": 8.5,
+    "nivel": -20.6,
+    "palabras_seg": 2.27,
+    "clics": 3,
+    "calificacion": 6.24
+   },
+   {
+    "toma": 2,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      206.9,
+      209.6
+     ],
+     [
+      "8.14.47_AM",
+      210.8,
+      212.0
+     ],
+     [
+      "8.14.47_AM",
+      213.2,
+      218.0
+     ]
+    ],
+    "texto": "porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
+    "acierto": 1.0,
+    "tono_rango": 12.9,
+    "tono_mov": 0.83,
+    "intensidad": 8.6,
+    "nivel": -20.7,
+    "palabras_seg": 2.3,
+    "clics": 3,
+    "calificacion": 4.79
+   },
+   {
+    "toma": 3,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      221.4,
+      231.6
+     ]
+    ],
+    "texto": "porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más lo necesiten.",
+    "acierto": 0.9,
+    "tono_rango": 12.7,
+    "tono_mov": 0.91,
+    "intensidad": 8.8,
+    "nivel": -20.9,
+    "palabras_seg": 1.96,
+    "clics": 3,
+    "calificacion": null
+   },
+   {
+    "toma": 4,
+    "piezas": [
+     [
+      "8.14.47_AM",
+      234.7,
+      238.9
+     ],
+     [
+      "8.14.47_AM",
+      240.2,
+      244.8
+     ]
+    ],
+    "texto": "porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
+    "acierto": 1.0,
+    "tono_rango": 15.1,
+    "tono_mov": 0.76,
+    "intensidad": 8.5,
+    "nivel": -20.3,
+    "palabras_seg": 2.27,
+    "clics": 4,
+    "calificacion": 3.61
+   }
+  ],
+  "elegida": 1
+ }
+}
