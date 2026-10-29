@@ -8,7 +8,7 @@ from scipy.signal import butter, sosfiltfilt, resample_poly
 # Uso: python3 voces_preparar.py <carpeta con las notas de voz .ogg> <modelo whisper de sherpa-onnx> <salida> [velocidad]
 import sys, os, tempfile
 UP, M, SAL = sys.argv[1], sys.argv[2], sys.argv[3]
-VEL = float(sys.argv[4]) if len(sys.argv) > 4 else 1.1  # 1.1 = 10 % más ágil, con el mismo tono de voz
+VEL = float(sys.argv[4]) if len(sys.argv) > 4 else 1.1  # 1.1 = 10 % más ágil (la que se usa), con el mismo tono de voz
 SR0, SR = 48000, 24000
 # frase -> ([(nota de voz, inicio, fin de la toma en s), ...], pausa interna máxima). Varias piezas = tomas unidas en una pausa.
 TOMAS = {3: ([('11.45.40_PM', 4.44, 16.72)], .45), 4: ([('11.38.25_PM', 2.78, 15.46)], .45), 5: ([('11.47.21_PM', 4.18, 24.30)], .45),

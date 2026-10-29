@@ -4,8 +4,8 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 | Archivo | Uso | Formato |
 |---|---|---|
-| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:33 · 53 MB |
-| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:33 · 12 MB |
+| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:38 · 53 MB |
+| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:38 · 12 MB |
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
 
@@ -18,18 +18,18 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 | 0:20 | Radio de Base Centinela; el 877 (propuesta de tractocamión del equipo) rueda por la Carretera 57 de noche | *(Base Centinela, por radio)* ¡Atención, atención! Aquí Base Centinela, llamando a todas las familias de nuestros 10-28. ¿Nos copian? |
 | 0:30 | Casa de noche, un niño espera en la ventana | Cada noche, en muchas casas de nuestra gran familia Grupo Loma, alguien mira por la ventana, esperando a que papá o mamá regrese de la carretera. |
 | 0:42 | El 877 por la carretera con pétalos de cempasúchil | En Día de Muertos, los pétalos de cempasúchil marcan el camino de regreso a casa. En la cabina Centinela, nosotros también cuidamos ese camino, kilómetro a kilómetro. |
-| 0:53 | Pantalla grande con **tomas reales de la cabina** | Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos. |
-| 1:11 | El 877 duerme en la zona de descanso (ojos cerrados y "Zzz") y aparecen 3 tarjetas: dormir sus horas, hacer pausas, si da sueño detenerse | Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro. |
-| 1:28 | Command Center con 3 alertas, tomas reales de fondo | Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular. |
-| 1:38 | Videollamada: Centinela de Seguridad ↔ operador de la unidad 877 | Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo. |
-| 1:48 | La Unidad de Asistencia Móvil (propuesta de camioneta del equipo) llega con torreta al 877 detenido con intermitentes | Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera. |
-| 2:00 | Pizarrón con las 3 notas | Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo. |
-| 2:24 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
-| 2:32 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
-| 2:38 | Logo Centinela con veladoras LED | Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa. |
-| 2:52 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
-| 3:04 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
-| 3:13 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
+| 0:54 | Pantalla grande con **tomas reales de la cabina** | Somos los Centinelas: un equipo que, desde una cabina llena de pantallas, acompaña a cada operador en su viaje, de día y de noche. Centinelas de Ruta, Centinelas de Seguridad y Rescates Carreteros: siempre atentos, siempre listos. |
+| 1:13 | El 877 duerme en la zona de descanso (ojos cerrados y "Zzz") y aparecen 3 tarjetas: dormir sus horas, hacer pausas, si da sueño detenerse | Y para manejar seguro, lo más importante es descansar. Dormir sus horas completas, hacer pausas en el camino, y si le da sueño, detenerse en un lugar seguro. Porque un operador descansado es un operador seguro. |
+| 1:30 | Command Center con 3 alertas, tomas reales de fondo | Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular. |
+| 1:40 | Videollamada: Centinela de Seguridad ↔ operador de la unidad 877 | Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo. |
+| 1:51 | La Unidad de Asistencia Móvil (propuesta de camioneta del equipo) llega con torreta al 877 detenido con intermitentes | Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera. |
+| 2:04 | Pizarrón con las 3 notas | Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo. |
+| 2:28 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
+| 2:37 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
+| 2:43 | Logo Centinela con veladoras LED | Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa. |
+| 2:58 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
+| 3:10 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
+| 3:18 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
 
 ## Notas de producción
 
@@ -38,7 +38,7 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 - **Descanso en lugar de autoevaluación:** la escena de la Autoevaluación Pre-Viaje se cambió por la importancia de descansar, porque la autoevaluación todavía no se usa.
 - **Ilustración final:** estilo Pixar, generada con IA en Canva a partir de la idea que compartió el equipo (niños corriendo a abrazar a su papá). No usa la imagen de referencia, que es de otro creador y trae su marca de agua. En el video tiene un acercamiento lento, pétalos de cempasúchil y corazones.
 - **Voces:** la Narradora es una voz real del equipo de la cabina, grabada en notas de voz de WhatsApp. Se eligió la mejor toma de cada frase (en las frases 10 y 16 se unieron dos tomas en una pausa), se quitó el "Frase N" del inicio, se repararon los picos saturados y cada frase se llevó a la misma sonoridad (-20.5 LUFS), un poco arriba del 877 y de la radio, (`fuente/voces_preparar.py`; las frases ya procesadas están en `fuente/voces/`). El 877 (`em_santa`) y Base Centinela (`em_alex`, con filtro de radio) siguen con voz sintetizada en español latino (Kokoro TTS).
-- **Versión más ágil (28 de octubre):** la voz de la Narradora va 15 % más rápida sin cambiar el tono (Rubber Band), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos, y se suavizaron las «s» muy fuertes. La estática del radio ahora es un «chsss» corto al abrir y al cerrar, sin chasquidos, y los grillos del final van más bajos. El video pasó de 4:03 a 3:33.
+- **Versión más ágil (28 de octubre):** la voz de la Narradora va 10 % más rápida sin cambiar el tono (Rubber Band), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos, y se suavizaron las «s» muy fuertes. La estática del radio ahora es un «chsss» corto al abrir y al cerrar, sin chasquidos, y los grillos del final van más bajos. El video pasó de 4:03 a 3:38.
 - **Música y efectos:** composición original generada por código, libre de derechos. Piano, guitarra, caja de música y cuerdas; radio, grillos, alertas, timbre de llamada y claxon.
 - **Tipografías:** Anton, Montserrat, Gochi Hand, Patrick Hand y Playfair Display (SIL Open Font License).
 
