@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Guion para grabar · La Narradora del 877</title>
+<style>
+@font-face { font-family: M; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: M; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: M; font-weight: 900; src: url(fonts/montserrat-latin-900-normal.woff2); }
+@font-face { font-family: C; font-weight: 900; src: url(fonts/cinzel-latin-900-normal.woff2); }
+@font-face { font-family: G; src: url(fonts/gochi-hand-latin-400-normal.woff2); }
+:root { --noche: #1a0e28; --naranja: #ff6a00; --oro: #ffb300; --rojo: #c62828; --tinta: #221a2c; --suave: #5d5468; --linea: #e4dfe9; --crema: #fbf6ee; --morado: #7b2ff7; }
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 9.4pt; line-height: 1.38; color: var(--tinta); }
+.p { width: 816px; height: 1056px; padding: 40px 46px 50px; position: relative; overflow: hidden; page-break-after: always; background: #fff; }
+.p:last-child { page-break-after: auto; }
+.cuerpo { height: 956px; overflow: hidden; }
+.cuerpo:has(.cab) { overflow: visible; }
+.cab { background: var(--noche); color: #fff; margin: -40px -46px 14px; padding: 20px 46px 16px; }
+.cab .eyebrow { font-family: M; font-weight: 800; font-size: 8.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--oro); }
+.cab h1 { font-family: C; font-weight: 900; font-size: 27pt; line-height: 1.05; margin: 6px 0 4px; }
+.cab .sub { font-family: M; font-weight: 800; font-size: 11.5pt; color: var(--naranja); }
+h2 { font-family: M; font-size: 19pt; font-weight: 900; color: var(--noche); line-height: 1.1; margin: 0 0 4px; }
+h2 small { display: block; font-size: 10pt; font-weight: 700; color: var(--suave); margin-top: 4px; }
+h3 { font-family: M; font-size: 9.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--naranja); margin: 12px 0 6px; }
+.pie { position: absolute; left: 46px; right: 46px; bottom: 20px; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 5px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.caja { background: var(--crema); border-radius: 10px; padding: 10px 13px; }
+.caja b.t { display: block; font-family: M; font-weight: 900; color: var(--noche); margin-bottom: 4px; }
+ul.ch { margin: 0; padding-left: 1.25em; } ul.ch li { margin-bottom: 4px; list-style: none; position: relative; }
+ul.ch li::before { content: ''; position: absolute; left: -17px; top: 2px; width: 10px; height: 10px; border: 1.6px solid var(--naranja); border-radius: 2px; }
+.si { color: #1e7a4a; font-weight: 700; } .no { color: var(--rojo); font-weight: 700; }
+.marcas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
+.marcas div { background: #fff; border: 1.5px solid var(--linea); border-radius: 9px; padding: 7px 9px; font-size: 8.4pt; line-height: 1.3; }
+.marcas b { font-family: M; font-weight: 900; font-size: 13pt; color: var(--naranja); margin-right: 4px; }
+.orden { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.orden span { font-family: M; font-weight: 800; font-size: 8.4pt; border-radius: 14px; padding: 3px 10px; background: #fff; border: 1.5px solid var(--linea); }
+.orden span.pri { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+/* las frases */
+.fr { border: 2px solid var(--linea); border-radius: 12px; padding: 9px 13px 10px; margin-bottom: 10px; position: relative; }
+.fr.pri { border-color: #f2b8b8; }
+.fr .top { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+.fr .num { display: inline-flex; width: 38px; height: 38px; flex: none; border-radius: 50%; background: var(--naranja); color: #fff; font-family: M; font-weight: 900; font-size: 15pt; align-items: center; justify-content: center; }
+.fr.pri .num { background: var(--rojo); }
+.fr .esc { flex: 1; font-size: 8.2pt; color: var(--suave); line-height: 1.3; }
+.fr .esc b { display: block; font-family: M; font-weight: 900; font-size: 10pt; color: var(--noche); }
+.fr .dura { text-align: right; font-family: M; font-weight: 800; font-size: 8.4pt; color: var(--suave); line-height: 1.25; }
+.fr .dura b { display: block; font-size: 13pt; color: var(--noche); }
+.fr .tag { display: inline-block; font-family: M; font-weight: 900; font-size: 7.2pt; letter-spacing: .05em; color: #fff; background: var(--rojo); border-radius: 10px; padding: 1px 7px; margin-left: 6px; vertical-align: middle; }
+.fr .texto { font-family: M; font-weight: 800; font-size: 14.5pt; line-height: 1.42; color: var(--tinta); margin: 4px 0 6px; }
+.fr .texto i { font-style: normal; color: var(--naranja); font-weight: 900; padding: 0 3px; }
+.fr .texto u { text-decoration: none; border-bottom: 3px solid var(--oro); }
+.fr .como { display: flex; gap: 8px; align-items: baseline; font-size: 8.8pt; line-height: 1.35; }
+.fr .como em { font-style: normal; font-family: G; font-size: 13pt; color: var(--morado); white-space: nowrap; }
+.fr .ok { position: absolute; right: 12px; bottom: 9px; font-size: 7.8pt; color: var(--suave); display: flex; gap: 5px; align-items: center; }
+.fr .ok::before { content: ''; width: 12px; height: 12px; border: 1.6px solid var(--naranja); border-radius: 3px; }
+</style></head><body>
+<div id="raiz"></div>
+<script>
+// Las 12 frases de la Narradora. «/» = respira tantito · «…» = alarga la voz · subrayado = la palabra que se apoya
+const F = [
+  { n: 3, esc: 'Casa de noche, un niño espera en la ventana', t: '0:30', s: 11, pri: false, emo: 'con ternura',
+    como: 'Suave, como quien empieza a contar un cuento antes de dormir.',
+    texto: 'Cada noche, / en muchas casas de nuestra gran familia <u>Grupo Loma</u>, / alguien mira por la ventana, / esperando a que papá o mamá / regrese de la carretera.' },
+  { n: 4, esc: 'El 877 por la carretera, con pétalos de cempasúchil', t: '0:42', s: 11, pri: false, emo: 'cálida',
+    como: 'Con calidez y un poco de orgullo en la segunda parte.',
+    texto: 'En Día de Muertos, / los pétalos de cempasúchil marcan el <u>camino de regreso</u> a casa. / En la cabina Centinela, / nosotros también cuidamos ese camino, / kilómetro a kilómetro.' },
+  { n: 5, esc: 'Tomas reales de la cabina', t: '0:54', s: 18, pri: true, emo: 'con orgullo',
+    como: 'Con más energía y una sonrisa. Los tres nombres de equipo, bien separados.',
+    texto: '<u>Somos los Centinelas</u>: / un equipo que, desde una cabina llena de pantallas, / acompaña a cada operador en su viaje, / de día y de noche. / Centinelas de Ruta, / Centinelas de Seguridad / y Rescates Carreteros: / siempre atentos, / siempre listos.' },
+  { n: 6, esc: 'El 877 duerme en la zona de descanso', t: '1:13', s: 17, pri: false, emo: 'como un consejo',
+    como: 'Tranquila, como un consejo cariñoso. La última frase, más despacio.',
+    texto: 'Y para manejar seguro, / lo más importante es <u>descansar</u>. / Dormir sus horas completas, / hacer pausas en el camino, / y si le da sueño, / detenerse en un lugar seguro. / Porque un operador descansado / es un operador seguro.' },
+  { n: 7, esc: 'Las pantallas con 3 alertas', t: '1:30', s: 9, pri: false, emo: 'explicando',
+    como: 'Clara, como quien enseña algo interesante. Una pequeña pausa antes de cada «si».',
+    texto: 'Nuestras pantallas <u>nos avisan</u> / si un tráiler va demasiado rápido, / y si el operador tiene sueño, / o si se distrae con el celular.' },
+  { n: 8, esc: 'Videollamada con el operador de la unidad 877', t: '1:40', s: 10, pri: true, emo: 'de verdad',
+    como: '«¿Cómo vas, compañero?» dicho como en una llamada real, con cariño.',
+    texto: 'Entonces llamamos: / <u>¿cómo vas, compañero?</u> / A veces, / solo necesita descansar un poco. / Y eso también es cuidarlo.' },
+  { n: 9, esc: 'La Unidad de Asistencia Móvil llega con torreta', t: '1:51', s: 11.5, pri: false, emo: 'firme',
+    como: 'Firme y segura, que dé confianza.',
+    texto: 'Y si algo pasa en el camino, / nuestros Rescates Carreteros salen de inmediato a ayudar. / Porque en esta familia, / <u>nadie se queda solo</u> en la carretera.' },
+  { n: 10, esc: 'El pizarrón con las 3 notas', t: '2:04', s: 23, pri: true, emo: 'la más importante',
+    como: 'Hablándole directo al niño. Las tres cosas, despacio y con un respiro entre cada una. Cuidado con la «p» de «empieza»: el celular de lado, no de frente a la boca.',
+    texto: 'Pero el cuidado más importante / <u>empieza en casa</u>. / Por eso hoy te pedimos algo muy especial: / cuando abraces a papá o a mamá, / recuérdale tres cosas. / Maneja con calma. / Descansa cuando tengas sueño. / Y el celular, / guárdalo.' },
+  { n: 11, esc: 'La placa de Mini Centinela', t: '2:27', s: 8, pri: false, emo: 'con alegría',
+    como: 'Emocionada, como quien da un nombramiento.',
+    texto: 'Desde hoy, / tú también eres un <u>Mini Centinela</u>. / Tu misión / es recordárselo cada vez que salga de casa.' },
+  { n: 12, esc: 'El dibujo con crayones de la familia', t: '2:36', s: 5.5, pri: false, emo: 'casi en secreto',
+    como: 'Muy suave y despacio, como un secreto que se dice al oído.',
+    texto: 'Y dile / que tú eres su <u>razón más grande</u> para regresar.' },
+  { n: 13, esc: 'El logo Centinela con veladoras', t: '2:43', s: 13, pri: true, emo: 'solemne',
+    como: 'Pausada y con el corazón. Es la frase del Día de Muertos: sin prisa.',
+    texto: 'Recordemos a quienes se fueron, / y cuidemos a quienes regresan. / Desde la cabina, <u>protegemos cada kilómetro</u>, / para que cada noche, / la familia esté completa.' },
+  { n: 16, esc: 'Final: los niños corren a abrazar a su papá', t: '3:17', s: 10.5, pri: true, emo: 'emotiva',
+    como: 'La última frase del video. Lenta, cálida, y dejando que la última palabra se apague sola.',
+    texto: 'Porque el viaje más importante / es el <u>regreso a casa</u>, / donde pueden sentir el calor / de quienes más los necesitan.' },
+];
+const fmt = s => s.replace(/ \/ /g, ' <i>/</i> ').replace(/…/g, '<i>…</i>');
+const tarjeta = f => `<div class="fr${f.pri ? ' pri' : ''}"><div class="top"><span class="num">${f.n}</span>
+  <div class="esc"><b>Frase ${f.n}${f.pri ? '<span class="tag">PRIORIDAD</span>' : ''}</b>Se ve: ${f.esc} (${f.t})</div>
+  <div class="dura">dura unos<b>${String(f.s).replace('.', ',')} s</b></div></div>
+  <div class="texto">${fmt(f.texto)}</div>
+  <div class="como"><em>${f.emo}</em><span>${f.como}</span></div>
+  <div class="ok">grabada</div></div>`;
+const pie = n => `<div class="pie"><span>Video del 877 · Guion para grabar la voz de la Narradora</span><span>${n}</span></div>`;
+let h = `<div class="p"><div class="cuerpo"><div class="cab"><div class="eyebrow">LOMAween 2026 · Video del 877 para los niños</div><h1>Guion para grabar la voz</h1>
+  <div class="sub">Las 12 frases de la Narradora: cómo se dicen, cuánto duran y cómo grabarlas sin ruido</div></div>
+  <div class="cols">
+    <div class="caja"><b class="t">El lugar</b><ul class="ch">
+      <li>Un cuarto callado y con cosas suaves. <span class="si">Un clóset con ropa es ideal.</span></li>
+      <li>Apaguen ventilador, aire, tele y refri si se oye.</li>
+      <li>Celular en <b>modo avión</b>, para que no entre una llamada ni un timbre.</li></ul></div>
+    <div class="caja"><b class="t">El celular</b><ul class="ch">
+      <li><b>Sobre una mesa, encima de una toalla.</b> <span class="no">No en la mano</span>: los dedos hacen golpes.</li>
+      <li><b>A un palmo de la boca (20 a 30 cm) y un poco de lado</b>, no de frente: así las «p» y las «b» no revientan.</li>
+      <li>Si grabas con <b>nota de voz de WhatsApp</b>, desliza el candado hacia arriba para que siga grabando sola y deja el celular en la mesa. Si puedes, mejor la <b>grabadora del celular</b> (Notas de voz en iPhone, Grabadora en Android): suena más limpia.</li></ul></div>
+  </div>
+  <h3>Una sola nota de voz, corrida</h3>
+  <div class="cols">
+    <div class="caja"><ul class="ch">
+      <li>Las 12 frases <b>en orden</b>, de la 3 a la 16, en una sola grabación. Yo las corto.</li>
+      <li><b>Entre una frase y otra, cuenta 3 segundos en silencio</b>. Así sé dónde termina cada una.</li>
+      <li>Si te equivocas, <b>no pares</b>: calla 2 segundos y repite esa frase completa. Yo me quedo con la buena.</li>
+      <li><span class="no">No digas los números</span> («frase 5») ni comentarios: solo las frases.</li>
+      <li>Si te sobra energía, al final repite las de prioridad otra vez. Así tengo de dónde escoger.</li></ul></div>
+    <div class="caja"><ul class="ch">
+      <li><b>Toma aire antes de empezar, con la boca lejos del celular</b>, y luego habla. Las respiraciones cerca del micrófono son las que sonaban como «shhh».</li>
+      <li><b>Sonriendo.</b> La sonrisa se oye.</li>
+      <li><b>A ritmo de plática</b>, ni lento ni rápido. Cada frase dice cuánto debe durar: si te tardas un poco más, no pasa nada.</li>
+      <li>Misma distancia y mismo volumen en todas. Graben todas el mismo día y en el mismo lugar.</li></ul></div>
+  </div>
+  <h3>Cómo leer cada frase</h3>
+  <div class="marcas">
+    <div><b>/</b>Respira tantito. Una pausa corta, no un silencio largo.</div>
+    <div><b style="border-bottom:3px solid var(--oro);color:var(--tinta)">palabra</b>La palabra que se apoya: un poquito más clara.</div>
+    <div><b style="font-family:G;color:var(--morado);font-weight:400">ternura</b>Con qué sentimiento se dice esa frase.</div>
+  </div>
+  <h3>Cuáles grabar</h3>
+  <p style="margin:0">Lo ideal es grabar <b>las 12</b>, el mismo día y en el mismo lugar, para que tu voz suene igual en todo el video (unos 20 minutos). Si no da tiempo, empieza por las de <b style="color:var(--rojo)">prioridad</b>: en la grabación anterior se saturaron, y aunque ya no truenan, una toma nueva va a sonar mucho más limpia.</p>
+  <div class="orden">${F.map(f => `<span class="${f.pri ? 'pri' : ''}">Frase ${f.n}</span>`).join('')}</div>
+  <div class="caja" style="margin-top:12px"><b class="t">Cómo mandármela</b>Si es nota de voz de WhatsApp, mándamela tal cual. Si la grabaste con la grabadora del celular, mándala <b>como documento</b> (clip › Documento) para que no pierda calidad. Yo la corto, la limpio, la pongo en el video y te lo regreso.</div>
+</div>${pie(1)}</div>`;
+let n = 2;
+for (let i = 0; i < F.length; i += 4) {
+  h += `<div class="p"><div class="cuerpo">${i === 0 ? '<h2 style="margin-bottom:10px">Las frases<small>En el orden del video. Al lado de cada una: qué se ve en ese momento, cuánto debe durar y con qué sentimiento se dice</small></h2>' : ''}${F.slice(i, i + 4).map(tarjeta).join('')}</div>${pie(n++)}</div>`;
+}
+document.getElementById('raiz').innerHTML = h;
+Promise.all(['700 10px M', '800 10px M', '900 10px M', '10px G', '900 10px C'].map(f => document.fonts.load(f))).then(() => {
+  document.querySelectorAll('.cuerpo').forEach((e, i) => { if (e.scrollHeight > e.clientHeight + 1 && !e.querySelector('.cab')) console.log('NO CABE hoja', i + 1, e.scrollHeight, e.clientHeight); });
+  document.body.dataset.listo = 1;
+});
+</script></body></html>

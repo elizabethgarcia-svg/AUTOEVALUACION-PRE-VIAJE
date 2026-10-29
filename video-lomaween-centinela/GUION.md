@@ -9,6 +9,8 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
 
+`Guion_Grabacion_Narradora_877.pdf` (4 hojas) es el guion para volver a grabar la voz de la Narradora: cómo preparar el lugar y el celular para que no salgan golpes ni respiraciones, cómo grabar todo en una sola nota de voz corrida (3 segundos de silencio entre frases), y las 12 frases con dónde respirar, la palabra que se apoya, el sentimiento y cuánto debe durar cada una. Marca como prioridad las frases 5, 8, 10, 13 y 16, que se saturaron en la grabación anterior. Sale de `fuente/guion_narradora.html` con `node pdf.js`.
+
 ## Guion
 
 | Tiempo | Escena | Voz |
