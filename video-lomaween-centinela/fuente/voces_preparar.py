@@ -62,6 +62,57 @@ def suavizar_eses(x, sr, margen=9, maximo=8):
     g = np.repeat(10 ** (-baja / 20), hop); g = np.pad(g, (0, len(x) - len(g)), constant_values=1)
     return resto + agudo * g
 
+def periodicidad(x, sr, hop, W):
+    """Qué tan «cantado» es cada cuadro (1 = voz con tono, 0 = soplido o ruido), por autocorrelación."""
+    n = len(x) // hop; per = np.zeros(n); L = 1 << int(np.ceil(np.log2(2 * W)))
+    lo, hi = int(sr / 400), int(sr / 80)
+    for i in range(n):
+        s = x[i * hop: i * hop + W]
+        if len(s) < W or np.max(np.abs(s)) < 1e-5: continue
+        s = (s - s.mean()) * np.hanning(W); X = np.fft.rfft(s, L); ac = np.fft.irfft(np.abs(X) ** 2)[:W]
+        per[i] = ac[lo:hi].max() / (ac[0] + 1e-12)
+    return per
+
+def quitar_respiraciones(x, sr, bajar_db=18):
+    """Respiraciones y chasquidos que quedan antes o después de las palabras (suenan como un «shhh» o un
+    «rebobineo» al entrar la voz): los pedacitos sueltos sin voz se quitan, y las respiraciones pegadas
+    a una frase se bajan `bajar_db` dB. Las «s» no se tocan (son más agudas) y se respetan 100 ms de
+    consonante antes de cada palabra."""
+    hop, W = int(.01 * sr), int(.03 * sr); n = len(x) // hop
+    fr = x[:n * hop].reshape(n, hop); db = 20 * np.log10(np.sqrt(np.mean(fr ** 2, 1)) + 1e-12)
+    S = np.abs(np.fft.rfft(fr * np.hanning(hop), axis=1)); f = np.fft.rfftfreq(hop, 1 / sr)
+    cen = (S * f).sum(1) / (S.sum(1) + 1e-12)
+    per = periodicidad(x, sr, hop, W)
+    vivo = db > -90; vmed = np.median(db[vivo & (db > np.percentile(db[vivo], 40))])
+    voz = (per > .5) & (db > vmed - 30)
+    g = np.ones(n); quitados = bajados = 0
+    def bajar(a, b, k):
+        if b > a: g[a:b] = np.minimum(g[a:b], k)
+    i = 0
+    while i < n:
+        if not vivo[i]: i += 1; continue
+        j = i
+        while j < n and vivo[j]: j += 1
+        v = np.where(voz[i:j])[0]
+        if len(v) < max(2, .15 * (j - i)) and (j - i) < 50:  # pedacito suelto sin voz: fuera
+            bajar(i, j, 0); quitados += 1
+        elif len(v):
+            a, b = i + v[0], i + v[-1]
+            if a - i > 14 and np.median(cen[i:a]) < 4500: bajar(i, a - 10, 10 ** (-bajar_db / 20)); bajados += 1
+            if j - b > 20 and np.median(cen[b:j]) < 4500: bajar(b + 12, j, 10 ** (-bajar_db / 20)); bajados += 1
+            # respiraciones en medio de una frase (pausa muy corta que no alcanzó a separarla)
+            hueco = np.where(~voz[a:b])[0] + a; k = 0
+            while k < len(hueco):
+                m = k
+                while m + 1 < len(hueco) and hueco[m + 1] == hueco[m] + 1: m += 1
+                h0, h1 = hueco[k], hueco[m] + 1
+                if h1 - h0 > 30 and np.median(cen[h0:h1]) < 4000: bajar(h0 + 8, h1 - 10, 10 ** (-bajar_db / 20)); bajados += 1
+                k = m + 1
+        i = j
+    gs = np.convolve(np.repeat(g, hop), np.ones(int(.02 * sr)) / int(.02 * sr), mode='same')  # rampas de 20 ms
+    gs = np.pad(gs, (0, len(x) - len(gs)), constant_values=1)[:len(x)]
+    return x * gs, quitados, bajados
+
 def ffmpeg_filtro(x, sr, af):
     """Pasa el audio por un filtro de ffmpeg (quitar chasquidos y cambiar la velocidad sin cambiar el tono)."""
     with tempfile.TemporaryDirectory() as d:
@@ -139,6 +190,7 @@ for n, (lista, pmax) in TOMAS.items():
             nuevos.append([t + (s0 - s0p), t + (s0 - s0p) + (s1 - s0)])
             piezas.append(seg); t += len(seg) / SR0; prev_fin = s1p
     y = np.concatenate(piezas)
+    y, sueltos, resp = quitar_respiraciones(y, SR0)
     y = comprimir(y, SR0)
     y = suavizar_eses(y, SR0)
     y = resample_poly(y, SR, SR0)
@@ -177,5 +229,5 @@ for n, (lista, pmax) in TOMAS.items():
         fz['inicio'], fz['fin'] = round(nuevos[fz['k']][0], 3), round(nuevos[fz['k']][1], 3)
     # tramos sin palabras del guion (respiraciones, ruidos) se quedan como silencio de la frase anterior
     salida[n] = {'archivo': f'frase_{n:02d}.wav', 'dur': round(len(y) / SR, 3), 'picos_reparados': npicos, 'frases': [{k: v for k, v in fz.items() if k != 'k'} for fz in frases]}
-    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  golpes {golpes:4.2f}s  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
+    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  golpes {golpes:4.2f}s  ruidos sueltos {sueltos}  respiraciones {resp}  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
 json.dump(salida, open(f'{SAL}/narradora.json', 'w'), ensure_ascii=False, indent=1)

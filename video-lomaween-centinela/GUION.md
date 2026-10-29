@@ -4,7 +4,7 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 | Archivo | Uso | Formato |
 |---|---|---|
-| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:38 · 53 MB |
+| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:38 · 54 MB |
 | `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:38 · 12 MB |
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
@@ -38,7 +38,7 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 - **Descanso en lugar de autoevaluación:** la escena de la Autoevaluación Pre-Viaje se cambió por la importancia de descansar, porque la autoevaluación todavía no se usa.
 - **Ilustración final:** estilo Pixar, generada con IA en Canva a partir de la idea que compartió el equipo (niños corriendo a abrazar a su papá). No usa la imagen de referencia, que es de otro creador y trae su marca de agua. En el video tiene un acercamiento lento, pétalos de cempasúchil y corazones.
 - **Voces:** la Narradora es una voz real del equipo de la cabina, grabada en notas de voz de WhatsApp. Se eligió la mejor toma de cada frase (en las frases 10 y 16 se unieron dos tomas en una pausa), se quitó el "Frase N" del inicio, se repararon los picos saturados y cada frase se llevó a la misma sonoridad (-20.5 LUFS), un poco arriba del 877 y de la radio, (`fuente/voces_preparar.py`; las frases ya procesadas están en `fuente/voces/`). El 877 (`em_santa`) y Base Centinela (`em_alex`, con filtro de radio) siguen con voz sintetizada en español latino (Kokoro TTS).
-- **Versión más ágil (28 de octubre):** la voz de la Narradora va 10 % más rápida sin cambiar el tono (Rubber Band), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos, y se suavizaron las «s» muy fuertes. La estática del radio ahora es un «chsss» corto al abrir y al cerrar, sin chasquidos, y los grillos del final van más bajos. El video pasó de 4:03 a 3:38.
+- **Versión más ágil (28 de octubre):** la voz de la Narradora va 10 % más rápida sin cambiar el tono (Rubber Band), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos y los ruiditos sueltos entre frases; se bajaron las respiraciones antes de cada frase (sonaban como un «rebobineo» al entrar la voz) y se suavizaron las «s» muy fuertes. La música se queda abajo en las pausas cortas, para que no suba y baje con cada frase. La estática del radio ahora es un «chsss» corto al abrir y al cerrar, sin chasquidos, y los grillos del final van más bajos. El video pasó de 4:03 a 3:38.
 - **Música y efectos:** composición original generada por código, libre de derechos. Piano, guitarra, caja de música y cuerdas; radio, grillos, alertas, timbre de llamada y claxon.
 - **Tipografías:** Anton, Montserrat, Gochi Hand, Patrick Hand y Playfair Display (SIL Open Font License).
 

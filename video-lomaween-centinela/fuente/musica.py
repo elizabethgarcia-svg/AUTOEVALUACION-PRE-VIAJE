@@ -276,7 +276,11 @@ voz = np.pad(voz, (0, max(0, N - len(voz))))[:N]
 w = int(.3 * SR)
 envv = np.convolve(np.abs(voz), np.ones(w) / w, mode="same")
 envv = np.clip(envv / (np.percentile(envv[envv > 1e-4], 90) + 1e-9), 0, 1)
-duck = np.convolve(1 - 0.72 * envv, np.ones(int(.2 * SR)) / int(.2 * SR), mode="same")
+# la música se queda abajo en las pausas cortas (menos de 0.9 s) y baja un poco antes de que entre la voz,
+# para que no suba y baje de golpe con cada frase
+from scipy.ndimage import maximum_filter1d
+envv = maximum_filter1d(envv, int(.9 * SR))
+duck = np.convolve(1 - 0.72 * envv, np.ones(int(.35 * SR)) / int(.35 * SR), mode="same")
 fondo = musica * duck * 0.25 + reverb(sfx.x, 1.2, .25) * (0.5 + 0.5 * duck)
 mezcla = voz + fondo
 nf = int(TOTAL * SR); mezcla = mezcla[:nf]
