@@ -62,6 +62,41 @@ def suavizar_eses(x, sr, margen=9, maximo=8):
     g = np.repeat(10 ** (-baja / 20), hop); g = np.pad(g, (0, len(x) - len(g)), constant_values=1)
     return resto + agudo * g
 
+def limitador(y, sr, techo=.89, antes_ms=5, suelta_ms=60):
+    """Limitador con anticipación: baja el volumen unos milisegundos antes de un pico y lo regresa despacio,
+    en vez de aplastar la onda (que suena a tronido)."""
+    from scipy.ndimage import minimum_filter1d
+    g0 = np.minimum(1, techo / (np.abs(y) + 1e-9))       # lo que hace falta bajar en cada muestra
+    L = int(antes_ms / 1000 * sr) | 1
+    g = minimum_filter1d(g0, L, origin=-(L // 2), mode='nearest')  # empieza a bajar antes del pico
+    a = np.exp(-1 / (suelta_ms / 1000 * sr)); out = np.empty_like(g); v = 1.0
+    for i, gi in enumerate(g):
+        v = gi if gi < v else a * v + (1 - a) * gi       # baja de inmediato, sube despacio
+        out[i] = v
+    k = int(.001 * sr) | 1; out = np.convolve(np.pad(out, k // 2, mode='edge'), np.ones(k) / k, mode='valid')
+    return y * np.minimum(out, g0)
+
+def quitar_estallidos(x, sr, umbral_db=6, max_ms=40):
+    """Estallidos cortos (una «p» que revienta el micrófono, un golpe): picos de menos de `max_ms` que pasan
+    `umbral_db` dB por encima de los picos normales de la voz (el 95 % más alto de la frase) se bajan a ese
+    nivel, con rampas de 3 ms. Las sílabas normales no se tocan."""
+    hop = int(.002 * sr); n = len(x) // hop
+    pk = np.abs(x[:n * hop]).reshape(n, hop).max(1) + 1e-9
+    ref = np.percentile(pk[pk > .01 * pk.max()], 95)
+    marca = pk > ref * 10 ** (umbral_db / 20)
+    g = np.ones(n); cuantos = 0; i = 0
+    while i < n:
+        if not marca[i]: i += 1; continue
+        j = i
+        while j < n and marca[j]: j += 1
+        if (j - i) * 2 <= max_ms:
+            a, b = max(0, i - 2), min(n, j + 2)
+            g[a:b] = np.minimum(g[a:b], ref / pk[i:j].max()); cuantos += 1
+        i = j
+    gs = np.repeat(g, hop); k = int(.003 * sr); gs = np.convolve(gs, np.ones(k) / k, mode='same')
+    gs = np.pad(gs, (0, len(x) - len(gs)), constant_values=1)[:len(x)]
+    return x * np.minimum(gs, 1), cuantos
+
 def periodicidad(x, sr, hop, W):
     """Qué tan «cantado» es cada cuadro (1 = voz con tono, 0 = soplido o ruido), por autocorrelación."""
     n = len(x) // hop; per = np.zeros(n); L = 1 << int(np.ceil(np.log2(2 * W)))
@@ -174,8 +209,8 @@ for n, (lista, pmax) in TOMAS.items():
         x = decodificar(glob.glob(f'{UP}/*{hora}.ogg')[0])
         x = x[int((a - .2) * SR0): int((b + .3) * SR0)]
         x, k = reparar_picos(x); npicos += k
-        x = sosfiltfilt(lp, x); x, golpes = desgolpe(x, SR0)
-        x = ffmpeg_filtro(x * .5, SR0, f'adeclick,rubberband=tempo={VEL}:transients=mixed:detector=soft:pitchq=quality') * 2
+        x = sosfiltfilt(lp, x); x, golpes = desgolpe(x, SR0); x, estallidos = quitar_estallidos(x, SR0)
+        x = ffmpeg_filtro(x * .5, SR0, f'adeclick,atempo={VEL}') * 2
         x = x * (0.1 / voz_rms(x))  # piezas de tomas distintas al mismo nivel antes de unirlas
         segs = tramos(x, SR0)
         # quitar ruidos antes/después de la frase y acotar pausas internas
@@ -196,8 +231,7 @@ for n, (lista, pmax) in TOMAS.items():
     y = resample_poly(y, SR, SR0)
     # volumen parejo: sonoridad integrada de cada frase a -20.5 LUFS (un poco arriba del 877 y de la radio)
     y = y * 10 ** ((-20.5 - pyln.Meter(SR).integrated_loudness(y)) / 20)
-    u = .9; m = np.abs(y) > u  # limitador suave para los picos que queden arriba de 0.9
-    y[m] = np.sign(y[m]) * (u + (1 - u) * np.tanh((np.abs(y[m]) - u) / (1 - u)))
+    y = limitador(y, SR)  # los picos que queden arriba de 0.89 se bajan sin deformar la onda
     sf.write(f'{SAL}/frase_{n:02d}.wav', y.astype(np.float32), SR)
     # transcribir cada tramo y alinear el guion palabra por palabra
     asr = []
@@ -229,5 +263,5 @@ for n, (lista, pmax) in TOMAS.items():
         fz['inicio'], fz['fin'] = round(nuevos[fz['k']][0], 3), round(nuevos[fz['k']][1], 3)
     # tramos sin palabras del guion (respiraciones, ruidos) se quedan como silencio de la frase anterior
     salida[n] = {'archivo': f'frase_{n:02d}.wav', 'dur': round(len(y) / SR, 3), 'picos_reparados': npicos, 'frases': [{k: v for k, v in fz.items() if k != 'k'} for fz in frases]}
-    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  golpes {golpes:4.2f}s  ruidos sueltos {sueltos}  respiraciones {resp}  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
+    print(f"F{n:2d} {len(y)/SR:5.1f}s  picos {npicos:3d}  golpes {golpes:4.2f}s  ruidos sueltos {sueltos}  respiraciones {resp}  estallidos {estallidos}  " + ' | '.join(f"[{fz['inicio']:.1f}] {fz['texto']}" for fz in frases))
 json.dump(salida, open(f'{SAL}/narradora.json', 'w'), ensure_ascii=False, indent=1)

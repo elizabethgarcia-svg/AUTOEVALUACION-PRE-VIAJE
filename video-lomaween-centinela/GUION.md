@@ -4,8 +4,8 @@ Video para la **tele de la cabina** durante la visita de los hijos de los colabo
 
 | Archivo | Uso | Formato |
 |---|---|---|
-| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:38 · 54 MB |
-| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:38 · 12 MB |
+| `Centinela_LOMAween_TV_1080p.mp4` | Tele de la cabina (USB, laptop por HDMI) | 1920×1080 · 3:37 · 63 MB |
+| `Centinela_LOMAween_WhatsApp.mp4` | Compartir por WhatsApp | 960×540 · 3:37 · 14 MB |
 
 Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (excepto la frase final, que aparece en grande), para que se entienda aunque haya ruido sin tapar la imagen. Se puede repetir en loop.
 
@@ -24,12 +24,12 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 | 1:40 | Videollamada: Centinela de Seguridad ↔ operador de la unidad 877 | Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo. |
 | 1:51 | La Unidad de Asistencia Móvil (propuesta de camioneta del equipo) llega con torreta al 877 detenido con intermitentes | Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera. |
 | 2:04 | Pizarrón con las 3 notas | Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo. |
-| 2:28 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
-| 2:37 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
+| 2:27 | Placa "Mini Centinela" | Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa. |
+| 2:36 | Dibujo con crayones de la familia | Y dile que tú eres su razón más grande para regresar. |
 | 2:43 | Logo Centinela con veladoras LED | Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa. |
-| 2:58 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
-| 3:10 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
-| 3:18 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
+| 2:57 | El 877 se despide y toca el claxon | *(877)* ¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera! |
+| 3:09 | Radio de cierre | *(Base Centinela, por radio)* Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera. |
+| 3:17 | Ilustración estilo Pixar: dos niños corren a abrazar a su papá operador frente al tractor, al atardecer | Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan. |
 
 ## Notas de producción
 
@@ -38,12 +38,12 @@ Lleva **subtítulos discretos** en una sola línea al pie de la pantalla (except
 - **Descanso en lugar de autoevaluación:** la escena de la Autoevaluación Pre-Viaje se cambió por la importancia de descansar, porque la autoevaluación todavía no se usa.
 - **Ilustración final:** estilo Pixar, generada con IA en Canva a partir de la idea que compartió el equipo (niños corriendo a abrazar a su papá). No usa la imagen de referencia, que es de otro creador y trae su marca de agua. En el video tiene un acercamiento lento, pétalos de cempasúchil y corazones.
 - **Voces:** la Narradora es una voz real del equipo de la cabina, grabada en notas de voz de WhatsApp. Se eligió la mejor toma de cada frase (en las frases 10 y 16 se unieron dos tomas en una pausa), se quitó el "Frase N" del inicio, se repararon los picos saturados y cada frase se llevó a la misma sonoridad (-20.5 LUFS), un poco arriba del 877 y de la radio, (`fuente/voces_preparar.py`; las frases ya procesadas están en `fuente/voces/`). El 877 (`em_santa`) y Base Centinela (`em_alex`, con filtro de radio) siguen con voz sintetizada en español latino (Kokoro TTS).
-- **Versión más ágil (28 de octubre):** la voz de la Narradora va 10 % más rápida sin cambiar el tono (Rubber Band), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos y los ruiditos sueltos entre frases; se bajaron las respiraciones antes de cada frase (sonaban como un «rebobineo» al entrar la voz) y se suavizaron las «s» muy fuertes. La música se queda abajo en las pausas cortas, para que no suba y baje con cada frase. La estática del radio ahora es un «chsss» corto al abrir y al cerrar, sin chasquidos, y los grillos del final van más bajos. El video pasó de 4:03 a 3:38.
+- **Versión más ágil y limpia (29 de octubre):** la voz de la Narradora va 10 % más rápida sin cambiar el tono (`atempo` de ffmpeg, que no «barre» el arranque de las palabras como el estiramiento por fase que daba un sonido de rebobineo), con pausas internas de máximo 0.45 s (0.6 s en la lista de tres cosas) y respiros más cortos entre frases. Se le quitaron los golpes graves y las explosiones de «p» y «b», los chasquidos, los estallidos cortos y los ruiditos sueltos entre frases; se bajaron las respiraciones antes de cada frase y se suavizaron las «s» muy fuertes. Los picos ya no se aplastan: un limitador con anticipación baja el volumen unos milisegundos antes, sin deformar la onda. El radio solo tiene un «ksh» corto al abrir (sin siseo mientras se habla ni al cerrar), con su voz al nivel de las demás. La música se queda abajo en las pausas cortas, los grillos del final van muy bajos y la mezcla final queda en -16 LUFS con picos reales de -1.5 dBTP (`fuente/masterizar.py`). El video pasó de 4:03 a 3:37.
 - **Música y efectos:** composición original generada por código, libre de derechos. Piano, guitarra, caja de música y cuerdas; radio, grillos, alertas, timbre de llamada y claxon.
 - **Tipografías:** Anton, Montserrat, Gochi Hand, Patrick Hand y Playfair Display (SIL Open Font License).
 
 ## Cómo volver a generarlo
 
-En `fuente/`: `extraer_tomas.py` (tomas reales) → `voces_preparar.py` (grabaciones de la Narradora) → `narracion.py` (voces y tiempos) → `exportar.py` (datos para la animación) → `musica.py` (música y mezcla) → `render.js` (cuadros 1920×1080 con Chromium y ffmpeg).
+En `fuente/`: `extraer_tomas.py` (tomas reales) → `voces_preparar.py` (grabaciones de la Narradora) → `narracion.py` (voces y tiempos) → `exportar.py` (datos para la animación) → `musica.py` (música y mezcla) → `masterizar.py` (volumen final) → `render.js` (cuadros 1920×1080 con Chromium y ffmpeg).
 
 La escena final usa `fuente/img/pixar.jpg`, que se activa en `fuente/pixar.js`. Si se borra `pixar.js`, la escena usa la ilustración vectorial.

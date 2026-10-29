@@ -37,7 +37,7 @@ def efecto_radio(x):
     X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR)
     X *= ((f > 350) & (f < 3200)).astype(float)
     y = np.fft.irfft(X, len(x))
-    return np.tanh(y * 2.0) / np.tanh(2.0) * 0.52  # un poco abajo de la Narradora, con menos saturación
+    return np.tanh(y * 2.0) / np.tanh(2.0) * 0.70  # un poco abajo de la Narradora, con menos saturación
 PAUSA = {".": .75, "!": .6, "?": .7, ":": .35}
 INICIO, COLA = 1.6, 9.0
 

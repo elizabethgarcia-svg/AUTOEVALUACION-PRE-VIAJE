@@ -214,11 +214,10 @@ for n in [50, 53, 57, 62]: mus.put(t - .3, cuerdas(n, 6.5), .9)
 
 # efectos
 def estatica(d):
-    # radio limpio: un «chsss» corto al abrir y al cerrar, y casi nada mientras se habla (sin chasquidos)
-    x = filtro(rng.normal(0, 1, int(d * SR)), lo=1500, hi=4200)
-    t = tt(d); golpe = np.exp(-t / .12) + np.exp(-(d - t) / .12) * .8
-    forma = np.clip(np.minimum(t / .02, (d - t) / .05), 0, 1) * (0.22 + 0.78 * np.clip(golpe, 0, 1))
-    return x * forma * 0.022
+    # radio limpio: solo un «ksh» corto al abrir el canal; mientras se habla y al cerrar no hay siseo (al cerrar
+    # quedan los dos pitidos del cambio). Así no se oye ruido antes de la Narradora.
+    t = tt(.22); x = filtro(rng.normal(0, 1, len(t)), lo=1800, hi=3800)
+    return x * np.clip(t / .01, 0, 1) * np.exp(-t / .06) * 0.02
 
 def roger(t0):
     sfx.put(t0, beep(1850, .12) * 1.2, 1.0); sfx.put(t0 + .13, beep(1450, .12) * 1.2, 1.0)
