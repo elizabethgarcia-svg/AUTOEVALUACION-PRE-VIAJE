@@ -33,13 +33,18 @@ def nivel_voz(x):
 
 voz = np.zeros((N, 2)); amb = np.zeros((N, 2)); anim = np.zeros((N, 2)); tv = np.zeros((N, 2))
 habla = np.zeros(N)
-LIMPIA = 'highpass=f=85,lowpass=f=11500,afftdn=nr=14:nf=-42:tn=1,deesser=i=0.35,acompressor=threshold=-26dB:ratio=3:attack=6:release=140:makeup=1'
+LIMPIA = ('highpass=f=85,lowpass=f=11500,afftdn=nr=14:nf=-42:tn=1,equalizer=f=230:t=q:w=1:g=-2,equalizer=f=3200:t=q:w=1.2:g=3.5,'
+          'deesser=i=0.35,acompressor=threshold=-28dB:ratio=3.5:attack=6:release=140:makeup=1')  # más presencia para la voz del celular
 for e in TL['audio']:
     i = int(e['t0'] * SR)
     if e['tipo'] in ('voz', 'amb'):
         x = leer(B + 'raw/' + mapa[e['src']], e['ini'], e['fin'], LIMPIA if e['tipo'] == 'voz' else 'highpass=f=120,afftdn=nr=10:nf=-40')
         if e['tipo'] == 'voz':
-            x *= 10 ** ((-17.5 - nivel_voz(x)) / 20)  # todas las voces al mismo nivel
+            # todas las voces al mismo volumen percibido (LUFS); las muy cortas, por su nivel de voz
+            lu = meter.integrated_loudness(np.repeat(x, 2, axis=1) * np.sqrt(.5)) if len(x) > .5 * SR else -99
+            x *= 10 ** (((-15.5 - lu) if lu > -60 else (-16.0 - nivel_voz(x))) / 20)
+            pk = np.abs(x).max()
+            if pk > .9: x *= .9 / pk
             x = bordes(x, .03, .05) * e['gan']
             pista = voz
             # dónde hay voz, para bajar la música
@@ -67,13 +72,17 @@ mus, sr = sf.read('musica_final.wav'); mus = resample_poly(mus, 160, 147, axis=0
 sfx, sr = sf.read('sfx_final.wav'); sfx = resample_poly(sfx, 160, 147, axis=0)[:N]
 mus = np.pad(mus, ((0, N - len(mus)), (0, 0))); sfx = np.pad(sfx, ((0, N - len(sfx)), (0, 0)))
 h = maximum_filter1d(habla, int(.7 * SR)); h = uniform_filter1d(h, int(.3 * SR))
-duck = 1 - .74 * h
+duck = 1 - .8 * h
 mute = np.ones(N)
 for x in TL['tomas']:
     if x['src'].startswith('anim_') or x['src'] == '877':
         a, b = int((x['t0'] + .25) * SR), int((x['t0'] + x['dur'] - .1) * SR); mute[a:b] = 0
 mute = uniform_filter1d(mute, int(.5 * SR))
-musica = mus * (duck * mute)[:, None] * .62
+sube = np.ones(N)  # en las tarjetas de los objetivos, el resumen y el final la música va al frente
+for x in TL['tomas']:
+    if x['src'] in ('obj1', 'obj2', 'obj3', 'resumen', 'fin'): sube[int(x['t0'] * SR):int((x['t0'] + x['dur']) * SR)] = 1.8
+sube = uniform_filter1d(sube, int(.3 * SR))
+musica = mus * (duck * mute * sube)[:, None] * .62
 efectos = sfx * .8
 mezcla = voz + amb + anim + tv + musica + efectos
 fin = int(TL['total'] * SR); mezcla = mezcla[:fin]

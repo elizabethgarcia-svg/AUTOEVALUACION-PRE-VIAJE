@@ -15,8 +15,15 @@ def luz(clip, a, b):
         if r.stdout: vals.append(sum(r.stdout) / len(r.stdout) / 255)
     return sum(vals) / len(vals) if vals else .45
 
+GENERADAS = ('vhs', 'fin', 'logo', 'titulo', 'resumen', 'obj1', 'obj2', 'obj3')
+def carpeta(tm):
+    """Carpeta de cuadros según lo que es la toma (no su lugar en la lista), para reutilizarla si no cambia."""
+    k = f"{tm['src'].replace(':', '-')}_{tm['ini']}_{tm['fin']}_v{tm['vel']}_r{tm.get('rot', 0)}_{tm['grade']}"
+    return os.path.join(D, 'frames', k.replace(',', '_'))
+
 def sacar(tm):
-    out = os.path.join(D, 'frames', tm['id']); os.makedirs(out, exist_ok=True)
+    if tm['src'] in GENERADAS: return tm['id'], 'generada'
+    out = carpeta(tm); os.makedirs(out, exist_ok=True)
     n = round(tm['dur'] * 30)
     if len([f for f in os.listdir(out) if f.startswith('f_')]) >= n: return tm['id'], 'ya'
     src, a, b = tm['src'], tm['ini'], tm['fin']
@@ -29,13 +36,11 @@ def sacar(tm):
         f = os.path.join(B, 'fotos', src[5:] + '.jpg')
         cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f, '-vf', 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=contrast=1.04:saturation=1.06',
                '-q:v', '2', '-frames:v', '1', os.path.join(out, 'f_00001.jpg')]
-    elif src in ('vhs', 'fin'):
-        return tm['id'], 'generada'
     else:
-        clip = B + 'raw/' + mapa[src]
+        clip = os.path.join(os.path.dirname(B.rstrip('/')), 'jurado', 'material', src[4:] + '.mp4') if src.startswith('mat:') else B + 'raw/' + mapa[src]
         br, co, sa, te = map(float, tm['grade'].split(','))
         br += max(-.07, min(.07, (.47 - luz(clip, a, b)) * .55))  # acerca cada toma a la misma exposición
-        pre = 'transpose=2,' if tm.get('rot') == -90 else ''
+        pre = ('transpose=2,' if tm.get('rot') == -90 else '') + (f"setpts=PTS/{tm['vel']}," if tm['vel'] != 1 else '')
         grade = (f'hqdn3d=1.5:1.5:4:4,eq=brightness={br:.3f}:contrast={co}:saturation={sa},'
                  f'colorbalance=rs={.05 * te:.3f}:bs={-.05 * te:.3f}:rm={.03 * te:.3f}:bm={-.03 * te:.3f}')
         if tm.get('rot'):  # vertical: al centro, con el mismo cuadro desenfocado de fondo
@@ -43,7 +48,7 @@ def sacar(tm):
                   f'[b]scale=-2:1080:flags=lanczos,cas=.4[c];[f][c]overlay=(W-w)/2:0')
             cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', str(a), '-i', clip, '-filter_complex', vf] + jpg
         else:
-            vf = f'fps=30,{grade},scale=1920:1080:flags=lanczos,cas=0.5'
+            vf = f'{pre}fps=30,{grade},scale=1920:1080:flags=lanczos,cas=0.5'
             cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', str(a), '-i', clip, '-vf', vf] + jpg
     subprocess.run(cmd, check=True)
     return tm['id'], len([f for f in os.listdir(out) if f.startswith('f_')])

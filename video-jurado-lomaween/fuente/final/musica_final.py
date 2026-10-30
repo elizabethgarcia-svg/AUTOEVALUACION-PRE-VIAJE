@@ -48,12 +48,14 @@ for k in range(8): sfx.put(a + 3.7 + k * .17, carta(1.0), 1.0, (k % 5 - 2) * .2)
 golpe_final(b - .05, .7)
 
 # ---------- el ¡10-4! ----------
-a2, b2 = [x for x in T if x['src'] == 'c09'][0]['t0'], sec('bitacora')[1]
-for c in range(2): compas(a2 + c * 4 * BEAT, 'Dm', 'Gm', 'full', None, c, relleno=(c == 1))
+a2, b2 = [x for x in T if x['sec'] == 'bitacora' and not x['src'].startswith('anim')][0]['t0'], sec('bitacora')[1]
+for c in range(int((b2 - a2) / (4 * BEAT)) + 1): compas(a2 + c * 4 * BEAT, TEMA['A'][c % 4], TEMA['A'][(c + 1) % 4], 'full', 'A', c % 4, relleno=(c % 4 == 3))
+golpe_final(b2 - .05, .6)
 
 # ---------- Trabajo en Equipo: swing (suave mientras hablan, completo en el armado) ----------
 a, b = sec('pc1'); a += 3.0  # después del mapa
-arm = [x for x in T if x['src'] == 'foto:armado_silicon'][0]['t0']; arm1 = [x for x in T if x['src'] == 'foto:armado_altar'][0]['t0'] + 1.3
+arm = [x for x in T if x['src'] == 'mat:video_armado_2'][0]['t0']; f = [x for x in T if x['src'] == 'foto:armado_silicon'][0]; arm1 = f['t0'] + f['dur']
+sfx.put(arm - .1, subida(.6), .9)  # la cinta se acelera
 n_c = int((b - a) / (4 * BEAT)) + 1
 plan = []
 for c in range(n_c):
@@ -98,6 +100,12 @@ for x in T:
         sfx.put(x['t0'] - .05, rayon(1.0), 1.0); sfx.put(x['t0'] + .1, zumbido(.35, False), .8)
 sfx.put(b - .3, trombon_triste(), 1.0)
 
+# ---------- los tres objetivos, juntos ----------
+a, b = sec('resumen')
+for n in (50, 57, 62, 66, 69): mus.put(a, cuerdas(n, b - a + 1.2, .8, 1.4), 1.0)
+for j in range(3): mus.put(a + .5 + j * .5, campana(74 + 5 * j, 2.4), .45, (j - 1) * .4); sfx.put(a + .5 + j * .5, volteo(1.0), .9)
+mus.put(a, timbal(38, 1.6), .9); mus.put(a, platillo(2.2), .6)
+
 # ---------- final: acorde y cajita ----------
 a, b = sec('fin')
 for n in (50, 57, 62, 66, 69): mus.put(a, cuerdas(n, b - a + .5, .6, 1.6), 1.1)
@@ -114,6 +122,10 @@ for c in CAP:
     if c['tipo'] == 'pieza' and not any(o['tipo'] == 'pieza' and o['n'] == c['n'] and o is not c and o['t0'] < c['t0'] for o in CAP):
         sfx.put(c['t0'], campana(86, 1.2), .35, -.3)
     if c['tipo'] in ('valor', 'seccion'): sfx.put(c['t0'], timbal(38, 1.0), .9); sfx.put(c['t0'], platillo(1.4), .45)
+for x in T:
+    if x['src'].startswith('obj'):  # tarjeta de cada objetivo: golpe, carta que se voltea y campanita
+        sfx.put(x['t0'], timbal(38, 1.4), 1.1); sfx.put(x['t0'], platillo(1.8), .6); sfx.put(x['t0'] + .2, volteo(1.2), 1.0)
+        mus.put(x['t0'] + .6, campana(81, 2.0), .45); sfx.put(x['t0'] + .55, zumbido(.4), .7)
     if c['tipo'] == 'pasion':
         sfx.put(c['t0'] + .3, volteo(1.2), 1.0); sfx.put(c['t0'] + .3, zumbido(.6), .6)
 

@@ -2,28 +2,28 @@
 
 ## Video final
 
-`La57_de_las_Animas_Video_Jurado_1080p.mp4` es el video que se entrega al jurado (4:36, 1080p). `La57_de_las_Animas_Video_Jurado_WhatsApp.mp4` es la misma versión, más ligera, para mandar por WhatsApp.
+`La57_de_las_Animas_Video_Jurado_1080p.mp4` es el video que se entrega al jurado (versión 2, 5:14, 1080p). `La57_de_las_Animas_Video_Jurado_WhatsApp.mp4` es la misma versión, más ligera, para mandar por WhatsApp.
 
 Lleva las grabaciones del equipo, con la mejor toma de cada quien, y lo animado de la muestra 4 (sin la marca de MUESTRA). Va así:
 
-1. Apertura: del espacio a TROB Loretito, la Catrina en brasas y el título.
+1. Apertura: del espacio a TROB Loretito y la Catrina en brasas. Luego el logo nuevo de Centinela y el título.
 2. La lotería: La Base baraja y reparte. Siete Centinelas cantan su carta y dicen «¡Me tocó…!», cada uno con su nombre y sus cartas en pantalla.
-3. La bitácora, con el plan y el sello de APROBADO, y el «¡10-4!».
-4. Trabajo en Equipo: Ojo de Halcón explica el valor sobre tomas del armado. Sigue «Aquí ningún viaje se hace solo» y el choque de manos.
-5. Enfoque a Resultados: El Turno de la Noche y «Hoy terminamos esta misión con otro deseo…».
-6. Pasión y el recorrido. La carta de La Pasión y su frase van en pantalla sobre las ofrendas. Luego vienen siete piezas: papel picado, tracto, carretera, cruz de sal, panteón de los malos hábitos, ofrendas de los escritorios y letreros de la cabina. Cierra con un fragmento del 877 (bienvenida, «tu razón más grande para regresar» y «Recordemos a quienes se fueron…»).
-7. Llegada a destino, el grito «¡Desde la cabina, protegemos cada kilómetro!» y «Cambio y fuera».
-8. Tomas falsas en estilo VHS y tarjeta final.
+3. La bitácora, con el plan y el sello de APROBADO, y el «¡10-4!» de nueve compañeros de la cabina.
+4. Objetivo 1 · Trabajo en Equipo: tarjeta del objetivo, Ojo de Halcón explica el valor, el armado en cámara rápida, «Aquí ningún viaje se hace solo» y el choque de manos.
+5. Objetivo 2 · Enfoque a Resultados: tarjeta del objetivo, El Turno de la Noche y «Hoy terminamos esta misión con otro deseo…».
+6. Objetivo 3 · Pasión y el recorrido. Va la tarjeta del objetivo y la frase de Pasión en pantalla sobre las ofrendas. Luego vienen siete piezas: papel picado, tracto, carretera, cruz de sal, panteón de los malos hábitos, ofrendas de los escritorios y letreros de la cabina. Cierra con un fragmento del 877 (bienvenida, «tu razón más grande para regresar» y «Recordemos a quienes se fueron…»).
+7. «Tres objetivos · un solo equipo», la llegada a destino, el grito «¡Desde la cabina, protegemos cada kilómetro!» y «Cambio y fuera».
+8. Detrás de cámaras, en estilo VHS, y la tarjeta final con el logo nuevo.
 
-Lo que dice cada quien va con subtítulos, escritos como lo dijeron en la grabación. Las pantallas de la cabina (mapas, WhatsApp, tablas) van difuminadas en todas las tomas. La música y los efectos son originales, sintetizados para el video.
+Cada objetivo tiene su color (verde azulado, dorado y morado), su tarjeta de pantalla completa y una insignia en la esquina mientras dura su sección. Sus frases van resaltadas en ese color. Lo que dice cada quien va con subtítulos, escritos como lo dijeron en la grabación. Las pantallas de la cabina se ven tal cual, como pidió el equipo. Las voces van niveladas al mismo volumen y la voz de quien graba («una, dos, tres») no se escucha. La música y los efectos son originales, sintetizados para el video.
 
 Cómo se arma (`fuente/final/`):
 
-- `herramientas/`: identifica los clips sin nombre. Transcribe con Whisper (`jur_transcribir.py`), mide cada toma candidata (`analizar.py`, `rafagas.py`) y saca hojas de cuadros (`tiras.py`, `rejilla.py`) para elegir la mejor y medir las pantallas que hay que difuminar.
+- `herramientas/`: identifica los clips sin nombre. Transcribe con Whisper (`jur_transcribir.py`), mide cada toma candidata (`analizar.py`, `rafagas.py`) y saca hojas de cuadros (`tiras.py`, `rejilla.py`) para elegir la mejor toma.
 - `hacer_final4.sh` y `render_anim.sh` renderizan en HD lo animado de la muestra 4 con `render_hd.js`.
-- `edl.py` es la lista de cortes: tomas, subtítulos, nombres, títulos y transiciones. Genera `timeline.json`.
+- `edl.py` es la lista de cortes: tomas, subtítulos, nombres, títulos, objetivos y transiciones. Genera `timeline.json`. `edl_v1.py` es la versión 1 (4:36).
 - `extraer_todo.py` saca los cuadros de cada toma con el color emparejado. `hacer_tljs.py` pasa el timeline a la página.
-- `comp.html` y `comp.js` componen cada cuadro: movimientos de cámara, difuminado de pantallas, cartas, subtítulos y VHS. `render_todo.sh` lo graba en 4 partes con `render_comp.js`.
+- `comp.html` y `comp.js` componen cada cuadro: movimientos de cámara, cartas, tarjetas de los objetivos, subtítulos, logo y VHS. El logo nuevo está en `img/logo_nuevo.webp`. `render_todo.sh` lo graba en 4 partes con `render_comp.js`.
 - `musica_final.py` compone la música y los efectos. `mezcla_final.py` limpia y empareja las voces, baja la música cuando alguien habla y mete el audio de las animaciones y del 877. Se masteriza con `video-lomaween-centinela/fuente/masterizar.py` (-16 LUFS).
 - `exportar.sh` une imagen y sonido en las dos versiones.
 
