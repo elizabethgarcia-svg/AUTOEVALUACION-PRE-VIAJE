@@ -169,35 +169,31 @@
  },
  "7": {
   "archivo": "frase_07.wav",
-  "dur": 10.02,
+  "dur": 9.26,
   "picos_reparados": 0,
   "frases": [
    {
-    "texto": "Nuestras pantallas nos avisan",
+    "texto": "Nuestras pantallas",
     "inicio": 0.06,
-    "fin": 2.06
+    "fin": 1.21
    },
    {
-    "texto": "si un tráiler va demasiado rápido,",
-    "inicio": 2.44,
-    "fin": 4.61
+    "texto": "nos avisan si un tráiler va demasiado rápido,",
+    "inicio": 1.72,
+    "fin": 4.28
    },
    {
     "texto": "y si el operador tiene sueño,",
-    "inicio": 5.22,
-    "fin": 6.77
+    "inicio": 4.86,
+    "fin": 6.64
    },
    {
-    "texto": "o",
-    "inicio": 7.38,
-    "fin": 7.71
-   },
-   {
-    "texto": "si se distrae con el celular.",
-    "inicio": 8.17,
-    "fin": 9.92
+    "texto": "o si se distrae con el celular.",
+    "inicio": 7.25,
+    "fin": 9.16
    }
-  ]
+  ],
+  "igualada_con": "voces_n3"
  },
  "8": {
   "archivo": "frase_08.wav",
@@ -228,25 +224,36 @@
  },
  "9": {
   "archivo": "frase_09.wav",
-  "dur": 10.95,
+  "dur": 11.59,
   "picos_reparados": 0,
   "frases": [
    {
     "texto": "Y si algo pasa en el camino,",
     "inicio": 0.06,
-    "fin": 2.08
+    "fin": 1.71
    },
    {
     "texto": "nuestros Rescates Carreteros salen de inmediato a ayudar.",
-    "inicio": 2.63,
-    "fin": 6.22
+    "inicio": 2.24,
+    "fin": 6.2
    },
    {
-    "texto": "Porque en esta familia, nadie se queda solo en la carretera.",
-    "inicio": 6.83,
-    "fin": 10.85
+    "texto": "Porque en esta familia,",
+    "inicio": 6.81,
+    "fin": 8.3
+   },
+   {
+    "texto": "nadie se queda solo",
+    "inicio": 8.88,
+    "fin": 10.47
+   },
+   {
+    "texto": "en la carretera.",
+    "inicio": 10.89,
+    "fin": 11.49
    }
-  ]
+  ],
+  "igualada_con": "voces_n3"
  },
  "10": {
   "archivo": "frase_10.wav",

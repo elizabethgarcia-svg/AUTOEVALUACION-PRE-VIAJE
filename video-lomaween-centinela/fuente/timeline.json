@@ -1,5 +1,5 @@
 {
- "total": 219.615,
+ "total": 219.495,
  "lineas": [
   {
    "escena": "bienvenida",
@@ -237,33 +237,28 @@
   {
    "escena": "alertas",
    "inicio": 97.203,
-   "fin": 107.223,
+   "fin": 106.463,
    "texto": "Nuestras pantallas nos avisan si un tráiler va demasiado rápido, y si el operador tiene sueño, o si se distrae con el celular.",
    "frases": [
     {
-     "texto": "Nuestras pantallas nos avisan",
+     "texto": "Nuestras pantallas",
      "inicio": 97.263,
-     "fin": 99.263
+     "fin": 98.413
     },
     {
-     "texto": "si un tráiler va demasiado rápido,",
-     "inicio": 99.643,
-     "fin": 101.813
+     "texto": "nos avisan si un tráiler va demasiado rápido,",
+     "inicio": 98.923,
+     "fin": 101.483
     },
     {
      "texto": "y si el operador tiene sueño,",
-     "inicio": 102.423,
-     "fin": 103.973
+     "inicio": 102.063,
+     "fin": 103.843
     },
     {
-     "texto": "o",
-     "inicio": 104.583,
-     "fin": 104.913
-    },
-    {
-     "texto": "si se distrae con el celular.",
-     "inicio": 105.373,
-     "fin": 107.123
+     "texto": "o si se distrae con el celular.",
+     "inicio": 104.453,
+     "fin": 106.363
     }
    ],
    "voz": "narradora",
@@ -271,29 +266,29 @@
   },
   {
    "escena": "cabina",
-   "inicio": 107.873,
-   "fin": 117.583,
+   "inicio": 107.113,
+   "fin": 116.823,
    "texto": "Entonces llamamos: ¿cómo vas, compañero? A veces, solo necesita descansar un poco. Y eso también es cuidarlo.",
    "frases": [
     {
      "texto": "Entonces llamamos:",
-     "inicio": 107.933,
-     "fin": 109.353
+     "inicio": 107.173,
+     "fin": 108.593
     },
     {
      "texto": "¿cómo vas, compañero?",
-     "inicio": 109.963,
-     "fin": 111.133
+     "inicio": 109.203,
+     "fin": 110.373
     },
     {
      "texto": "A veces, solo necesita descansar un poco.",
-     "inicio": 111.743,
-     "fin": 115.093
+     "inicio": 110.983,
+     "fin": 114.333
     },
     {
      "texto": "Y eso también es cuidarlo.",
-     "inicio": 115.703,
-     "fin": 117.483
+     "inicio": 114.943,
+     "fin": 116.723
     }
    ],
    "voz": "narradora",
@@ -301,24 +296,34 @@
   },
   {
    "escena": "rescate",
-   "inicio": 118.428,
-   "fin": 129.378,
+   "inicio": 117.668,
+   "fin": 129.258,
    "texto": "Y si algo pasa en el camino, nuestros Rescates Carreteros salen de inmediato a ayudar. Porque en esta familia, nadie se queda solo en la carretera.",
    "frases": [
     {
      "texto": "Y si algo pasa en el camino,",
-     "inicio": 118.488,
-     "fin": 120.508
+     "inicio": 117.728,
+     "fin": 119.378
     },
     {
      "texto": "nuestros Rescates Carreteros salen de inmediato a ayudar.",
-     "inicio": 121.058,
-     "fin": 124.648
+     "inicio": 119.908,
+     "fin": 123.868
     },
     {
-     "texto": "Porque en esta familia, nadie se queda solo en la carretera.",
-     "inicio": 125.258,
-     "fin": 129.278
+     "texto": "Porque en esta familia,",
+     "inicio": 124.478,
+     "fin": 125.968
+    },
+    {
+     "texto": "nadie se queda solo",
+     "inicio": 126.548,
+     "fin": 128.138
+    },
+    {
+     "texto": "en la carretera.",
+     "inicio": 128.558,
+     "fin": 129.158
     }
    ],
    "voz": "narradora",
@@ -326,59 +331,59 @@
   },
   {
    "escena": "mensaje",
-   "inicio": 130.223,
-   "fin": 151.613,
+   "inicio": 130.103,
+   "fin": 151.493,
    "texto": "Pero el cuidado más importante empieza en casa. Por eso hoy te pedimos algo muy especial: cuando abraces a papá o a mamá, recuérdale tres cosas. Maneja con calma. Descansa cuando tengas sueño. Y el celular, guárdalo.",
    "frases": [
     {
      "texto": "Pero el cuidado más importante",
-     "inicio": 130.283,
-     "fin": 132.213
+     "inicio": 130.163,
+     "fin": 132.093
     },
     {
      "texto": "empieza en casa.",
-     "inicio": 132.863,
-     "fin": 133.853
+     "inicio": 132.743,
+     "fin": 133.733
     },
     {
      "texto": "Por eso hoy",
-     "inicio": 134.613,
-     "fin": 135.433
+     "inicio": 134.493,
+     "fin": 135.313
     },
     {
      "texto": "te pedimos algo muy especial:",
-     "inicio": 136.023,
-     "fin": 138.293
+     "inicio": 135.903,
+     "fin": 138.173
     },
     {
      "texto": "cuando abraces a papá o a mamá,",
-     "inicio": 139.053,
-     "fin": 141.313
+     "inicio": 138.933,
+     "fin": 141.193
     },
     {
      "texto": "recuérdale tres cosas.",
-     "inicio": 141.953,
-     "fin": 143.993
+     "inicio": 141.833,
+     "fin": 143.873
     },
     {
      "texto": "Maneja con calma.",
-     "inicio": 144.753,
-     "fin": 146.053
+     "inicio": 144.633,
+     "fin": 145.933
     },
     {
      "texto": "Descansa cuando tengas sueño.",
-     "inicio": 146.813,
-     "fin": 148.643
+     "inicio": 146.693,
+     "fin": 148.523
     },
     {
      "texto": "Y el celular,",
-     "inicio": 149.223,
-     "fin": 150.113
+     "inicio": 149.103,
+     "fin": 149.993
     },
     {
      "texto": "guárdalo.",
-     "inicio": 150.873,
-     "fin": 151.513
+     "inicio": 150.753,
+     "fin": 151.393
     }
    ],
    "voz": "narradora",
@@ -386,29 +391,29 @@
   },
   {
    "escena": "mini",
-   "inicio": 152.393,
-   "fin": 160.893,
+   "inicio": 152.273,
+   "fin": 160.773,
    "texto": "Desde hoy, tú también eres un Mini Centinela. Tu misión es recordárselo cada vez que salga de casa.",
    "frases": [
     {
      "texto": "Desde hoy,",
-     "inicio": 152.453,
-     "fin": 153.153
+     "inicio": 152.333,
+     "fin": 153.033
     },
     {
      "texto": "tú también eres un Mini Centinela.",
-     "inicio": 153.763,
-     "fin": 156.063
+     "inicio": 153.643,
+     "fin": 155.943
     },
     {
      "texto": "Tu misión es recordárselo",
-     "inicio": 156.673,
-     "fin": 158.663
+     "inicio": 156.553,
+     "fin": 158.543
     },
     {
      "texto": "cada vez que salga de casa.",
-     "inicio": 159.273,
-     "fin": 160.793
+     "inicio": 159.153,
+     "fin": 160.673
     }
    ],
    "voz": "narradora",
@@ -416,24 +421,24 @@
   },
   {
    "escena": "razon",
-   "inicio": 161.673,
-   "fin": 166.843,
+   "inicio": 161.553,
+   "fin": 166.723,
    "texto": "Y dile que tú eres su razón más grande para regresar.",
    "frases": [
     {
      "texto": "Y dile",
-     "inicio": 161.733,
-     "fin": 162.413
+     "inicio": 161.613,
+     "fin": 162.293
     },
     {
      "texto": "que tú eres",
-     "inicio": 163.053,
-     "fin": 163.843
+     "inicio": 162.933,
+     "fin": 163.723
     },
     {
      "texto": "su razón más grande para regresar.",
-     "inicio": 164.213,
-     "fin": 166.743
+     "inicio": 164.093,
+     "fin": 166.623
     }
    ],
    "voz": "narradora",
@@ -441,39 +446,39 @@
   },
   {
    "escena": "cierre",
-   "inicio": 167.883,
-   "fin": 180.273,
+   "inicio": 167.763,
+   "fin": 180.153,
    "texto": "Recordemos a quienes se fueron, y cuidemos a quienes regresan. Desde la cabina, protegemos cada kilómetro, para que cada noche, la familia esté completa.",
    "frases": [
     {
      "texto": "Recordemos a quienes se fueron,",
-     "inicio": 167.943,
-     "fin": 169.973
+     "inicio": 167.823,
+     "fin": 169.853
     },
     {
      "texto": "y cuidemos a quienes regresan.",
-     "inicio": 170.633,
-     "fin": 172.553
+     "inicio": 170.513,
+     "fin": 172.433
     },
     {
      "texto": "Desde la cabina,",
-     "inicio": 173.213,
-     "fin": 174.233
+     "inicio": 173.093,
+     "fin": 174.113
     },
     {
      "texto": "protegemos cada kilómetro,",
-     "inicio": 174.893,
-     "fin": 176.703
+     "inicio": 174.773,
+     "fin": 176.583
     },
     {
      "texto": "para que cada noche,",
-     "inicio": 177.193,
-     "fin": 178.343
+     "inicio": 177.073,
+     "fin": 178.223
     },
     {
      "texto": "la familia esté completa.",
-     "inicio": 178.873,
-     "fin": 180.173
+     "inicio": 178.753,
+     "fin": 180.053
     }
    ],
    "voz": "narradora",
@@ -481,82 +486,82 @@
   },
   {
    "escena": "despedida",
-   "inicio": 181.313,
-   "fin": 191.322,
+   "inicio": 181.193,
+   "fin": 191.202,
    "texto": "¡Gracias por acompañarme, Mini Centinelas! No olviden su misión: con calma, con descanso, y el celular, guardado. ¡Nos vemos en la carretera!",
    "frases": [
     {
      "texto": "¡Gracias por acompañarme, Mini Centinelas!",
-     "inicio": 181.313,
-     "fin": 183.825
+     "inicio": 181.193,
+     "fin": 183.705
     },
     {
      "texto": "No olviden su misión:",
-     "inicio": 184.425,
-     "fin": 185.799
+     "inicio": 184.305,
+     "fin": 185.679
     },
     {
      "texto": "con calma, con descanso, y el celular, guardado.",
-     "inicio": 186.149,
-     "fin": 188.955
+     "inicio": 186.029,
+     "fin": 188.835
     },
     {
      "texto": "¡Nos vemos en la carretera!",
-     "inicio": 189.705,
-     "fin": 191.322
+     "inicio": 189.585,
+     "fin": 191.202
     }
    ],
    "voz": "troca"
   },
   {
    "escena": "cambio",
-   "inicio": 193.522,
-   "fin": 200.095,
+   "inicio": 193.402,
+   "fin": 199.975,
    "texto": "Base Centinela a todas las familias: gracias por cuidarlos con nosotros. Cambio y fuera.",
    "frases": [
     {
      "texto": "Base Centinela a todas las familias:",
-     "inicio": 193.522,
-     "fin": 195.864
+     "inicio": 193.402,
+     "fin": 195.744
     },
     {
      "texto": "gracias por cuidarlos con nosotros.",
-     "inicio": 196.214,
-     "fin": 198.333
+     "inicio": 196.094,
+     "fin": 198.213
     },
     {
      "texto": "Cambio y fuera.",
-     "inicio": 199.083,
-     "fin": 200.095
+     "inicio": 198.963,
+     "fin": 199.975
     }
    ],
    "voz": "radio"
   },
   {
    "escena": "final",
-   "inicio": 202.095,
-   "fin": 210.615,
+   "inicio": 201.975,
+   "fin": 210.495,
    "texto": "Porque el viaje más importante es el regreso a casa, donde pueden sentir el calor de quienes más los necesitan.",
    "frases": [
     {
      "texto": "Porque el viaje más importante",
-     "inicio": 202.155,
-     "fin": 204.205
+     "inicio": 202.035,
+     "fin": 204.085
     },
     {
      "texto": "es el regreso a casa,",
-     "inicio": 204.855,
-     "fin": 205.975
+     "inicio": 204.735,
+     "fin": 205.855
     },
     {
      "texto": "donde pueden sentir el calor",
-     "inicio": 206.685,
-     "fin": 208.285
+     "inicio": 206.565,
+     "fin": 208.165
     },
     {
      "texto": "de quienes más los necesitan.",
-     "inicio": 208.895,
-     "fin": 210.515
+     "inicio": 208.775,
+     "fin": 210.395
     }
    ],
    "voz": "narradora",
