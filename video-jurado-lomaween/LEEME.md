@@ -1,8 +1,37 @@
 # Video para el jurado · Centinelas: Misión LOMAween
 
+## Video final
+
+`La57_de_las_Animas_Video_Jurado_1080p.mp4` es el video que se entrega al jurado (4:36, 1080p). `La57_de_las_Animas_Video_Jurado_WhatsApp.mp4` es la misma versión, más ligera, para mandar por WhatsApp.
+
+Lleva las grabaciones del equipo, con la mejor toma de cada quien, y lo animado de la muestra 4 (sin la marca de MUESTRA). Va así:
+
+1. Apertura: del espacio a TROB Loretito, la Catrina en brasas y el título.
+2. La lotería: La Base baraja y reparte. Siete Centinelas cantan su carta y dicen «¡Me tocó…!», cada uno con su nombre y sus cartas en pantalla.
+3. La bitácora, con el plan y el sello de APROBADO, y el «¡10-4!».
+4. Trabajo en Equipo: Ojo de Halcón explica el valor sobre tomas del armado. Sigue «Aquí ningún viaje se hace solo» y el choque de manos.
+5. Enfoque a Resultados: El Turno de la Noche y «Hoy terminamos esta misión con otro deseo…».
+6. Pasión y el recorrido. La carta de La Pasión y su frase van en pantalla sobre las ofrendas. Luego vienen siete piezas: papel picado, tracto, carretera, cruz de sal, panteón de los malos hábitos, ofrendas de los escritorios y letreros de la cabina. Cierra con un fragmento del 877 (bienvenida, «tu razón más grande para regresar» y «Recordemos a quienes se fueron…»).
+7. Llegada a destino, el grito «¡Desde la cabina, protegemos cada kilómetro!» y «Cambio y fuera».
+8. Tomas falsas en estilo VHS y tarjeta final.
+
+Lo que dice cada quien va con subtítulos, escritos como lo dijeron en la grabación. Las pantallas de la cabina (mapas, WhatsApp, tablas) van difuminadas en todas las tomas. La música y los efectos son originales, sintetizados para el video.
+
+Cómo se arma (`fuente/final/`):
+
+- `herramientas/`: identifica los clips sin nombre. Transcribe con Whisper (`jur_transcribir.py`), mide cada toma candidata (`analizar.py`, `rafagas.py`) y saca hojas de cuadros (`tiras.py`, `rejilla.py`) para elegir la mejor y medir las pantallas que hay que difuminar.
+- `hacer_final4.sh` y `render_anim.sh` renderizan en HD lo animado de la muestra 4 con `render_hd.js`.
+- `edl.py` es la lista de cortes: tomas, subtítulos, nombres, títulos y transiciones. Genera `timeline.json`.
+- `extraer_todo.py` saca los cuadros de cada toma con el color emparejado. `hacer_tljs.py` pasa el timeline a la página.
+- `comp.html` y `comp.js` componen cada cuadro: movimientos de cámara, difuminado de pantallas, cartas, subtítulos y VHS. `render_todo.sh` lo graba en 4 partes con `render_comp.js`.
+- `musica_final.py` compone la música y los efectos. `mezcla_final.py` limpia y empareja las voces, baja la música cuando alguien habla y mete el audio de las animaciones y del 877. Se masteriza con `video-lomaween-centinela/fuente/masterizar.py` (-16 LUFS).
+- `exportar.sh` une imagen y sonido en las dos versiones.
+
+## Muestras anteriores
+
 `Muestra_Completa_Video_Jurado.mp4` (3:27) junta la muestra 4 y las tomas falsas en un solo video.
 
-`Muestra4_Video_Jurado_Centinelas_WhatsApp.mp4` es la muestra vigente (2:50). Va así:
+`Muestra4_Video_Jurado_Centinelas_WhatsApp.mp4` es la muestra 4 (2:50). Va así:
 
 1. La Catrina que se quema en brasas y el logo Centinela en 3D que se enciende con chispas.
 2. La bitácora con el recorrido del plan antes del sello de APROBADO: el boceto del altar se dibuja a lápiz, se llena de color y se hojea el plan maestro.

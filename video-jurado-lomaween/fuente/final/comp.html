@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>La 57 de las Ánimas · video del jurado</title>
+<style>
+@font-face{font-family:Anton;src:url(../../build2/fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(../../build2/fonts/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(../../build2/fonts/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:900;src:url(../../build2/fonts/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:400;src:url(../../build2/fonts/playfair-display-latin-400-italic.woff2)}
+@font-face{font-family:PF;font-style:italic;font-weight:700;src:url(../../build2/fonts/playfair-display-latin-700-italic.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000;color:#fff;font-family:M,sans-serif}
+.ab{position:absolute}
+.full{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#cuadro{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden}
+#lienzo{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:50% 50%}
+#lienzo img{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.borr{position:absolute;backdrop-filter:blur(26px) saturate(.7);-webkit-backdrop-filter:blur(26px);border-radius:10px}
+#prev{position:absolute;left:0;top:0;width:1920px;height:1080px;opacity:0}
+#vina{background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 55%,rgba(0,0,0,.42) 100%)}
+#grano{background:url(../muestra/grano.png);background-size:960px 540px;mix-blend-mode:overlay;opacity:.13}
+#flash{background:#fff;opacity:0}
+#negro{background:#000;opacity:0}
+.A{font-family:Anton;letter-spacing:1.5px;line-height:1}
+.PF{font-family:PF;font-style:italic}
+.glo{text-shadow:0 0 22px rgba(255,90,0,.85),0 0 60px rgba(255,90,0,.5),0 6px 0 rgba(0,0,0,.45)}
+.sh{text-shadow:0 3px 0 rgba(0,0,0,.5),0 0 30px rgba(0,0,0,.8)}
+.chip{display:inline-block;padding:9px 22px;border-radius:999px;font-family:M;font-weight:900;font-size:21px;letter-spacing:4px;color:#fff;background:#FF5A00}
+.capa{position:absolute;visibility:hidden}
+/* subtítulos */
+#sub{left:160px;width:1600px;bottom:58px;text-align:center}
+#sub span{display:inline-block;max-width:1600px;padding:10px 28px 12px;border-radius:14px;background:rgba(8,6,16,.62);font-family:M;font-weight:800;font-size:44px;line-height:1.22;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+/* tercio: quién habla y sus cartas */
+#ter{left:84px;bottom:190px;display:flex;align-items:flex-end;gap:26px}
+#terCartas{display:flex;gap:12px}
+#terCartas .c{width:96px;height:141px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+#terCartas svg{width:100%;height:100%;display:block}
+#terTxt{padding-bottom:4px}
+#terNum{font-size:17px;padding:6px 16px;letter-spacing:4px}
+#terAlias{font-size:86px;margin-top:10px}
+#terRol{font-family:M;font-weight:800;font-size:26px;color:#FFE2CC;margin-top:10px;letter-spacing:.5px}
+#terBar{height:5px;width:0;background:linear-gradient(90deg,#FF5A00,#FFB300);margin-top:12px;border-radius:3px}
+/* sección */
+#sec{left:0;top:0;width:1920px;height:1080px;background:linear-gradient(0deg,rgba(6,4,14,.0),rgba(6,4,14,.62) 38%,rgba(6,4,14,.62) 62%,rgba(6,4,14,0));text-align:center}
+#secIn{position:absolute;left:0;width:1920px;top:360px}
+#secT{font-size:132px;margin-top:22px}
+#secS{font-family:M;font-weight:800;font-size:32px;color:#FFD2B8;margin-top:22px;letter-spacing:1px}
+/* valor y pieza: arriba a la izquierda */
+#val,#pie{left:84px;top:78px}
+#valK,#pieK{font-size:20px}
+#valV{font-size:108px;margin-top:14px}
+#pieN{font-size:72px;margin-top:12px}
+#valLinea,#pieLinea{height:6px;background:linear-gradient(90deg,#FF5A00,#FFB300,rgba(255,179,0,0));margin-top:14px;width:0;border-radius:3px}
+/* lema, chip, sello, grito, cita */
+#lema{left:0;width:1920px;top:430px;text-align:center}
+#lema div{display:inline-block;font-size:84px;color:#FFB300;letter-spacing:6px;padding:18px 40px;background:rgba(6,4,14,.55);border-radius:18px}
+#chp{left:0;width:1920px;top:64px;text-align:center}
+#chp span{font-size:24px;padding:12px 28px;background:rgba(10,8,20,.82);border:3px solid #FF8A3D}
+#sel{left:150px;top:170px;transform-origin:50% 50%}
+#sel div{font-family:Anton;font-size:250px;color:#FF6A00;border:14px solid #FF6A00;border-radius:30px;padding:0 40px 14px;text-shadow:0 0 30px rgba(255,90,0,.6);background:rgba(10,6,4,.25)}
+#gri{left:100px;width:1720px;top:140px;text-align:center}
+#gri .w{display:inline-block;font-family:Anton;font-size:128px;line-height:1.05;margin:0 14px;color:#fff}
+#gri .w.o{color:#FFB300}
+#cit{left:0;width:1920px;top:770px;text-align:center}
+#cit div{display:inline-block;font-family:PF;font-style:italic;font-weight:700;font-size:58px;color:#FFE2CC;padding:10px 34px;background:rgba(6,4,14,.5);border-radius:14px}
+/* pasión: la carta y la frase sobre el recorrido de las ofrendas */
+#pas{left:0;top:0;width:1920px;height:1080px}
+#pasOsc{background:radial-gradient(ellipse at 40% 50%,rgba(14,6,30,.55),rgba(4,2,10,.9))}
+#pasCarta{left:190px;top:250px;width:390px;height:572px;transform-style:preserve-3d;filter:drop-shadow(0 30px 40px rgba(0,0,0,.7))}
+#pasCarta svg{width:100%;height:100%}
+#pasTxt{left:690px;top:250px;width:1100px}
+#pasK{font-size:20px}
+#pasV{font-size:120px;margin-top:16px}
+#pasVerso{font-family:PF;font-style:italic;font-weight:700;font-size:50px;color:#FFB300;margin-top:20px;line-height:1.2}
+#pasCita{margin-top:34px}
+#pasCita div{font-family:PF;font-style:italic;font-weight:400;font-size:46px;line-height:1.32;color:#fff}
+/* la tele */
+#tel{left:84px;top:78px}
+#telT{font-size:84px;margin-top:12px}
+#telS{font-family:M;font-weight:800;font-size:28px;color:#FFE2CC;margin-top:14px;max-width:880px;line-height:1.3}
+/* VHS de las tomas falsas */
+#vhs{left:0;top:0;width:1920px;height:1080px;font-family:'Courier New',monospace;font-weight:700;color:#fff;text-shadow:3px 0 0 rgba(255,0,60,.55),-3px 0 0 rgba(0,200,255,.55)}
+#vhsPlay{left:70px;top:56px;font-size:46px}
+#vhsRec{right:80px;top:56px;font-size:46px}
+#vhsTc{right:80px;top:122px;font-size:36px}
+#vhsToma{left:70px;top:122px;font-size:36px}
+#vhsLin{background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 2px,rgba(0,0,0,0) 2px 5px);mix-blend-mode:multiply}
+#reb{left:0;top:0;width:1920px;height:1080px}
+#rebT{left:0;width:1920px;top:470px;text-align:center;font-family:'Courier New',monospace;font-weight:700;font-size:84px;color:#fff;text-shadow:4px 0 0 rgba(255,0,60,.7),-4px 0 0 rgba(0,200,255,.7)}
+/* escenas generadas */
+#gVhs{background:#1530C8}
+#gVhsT{left:0;width:1920px;top:380px;text-align:center;font-family:'Courier New',monospace;font-weight:700;color:#fff}
+#gFin{background:radial-gradient(ellipse at 50% 42%,#1E1033,#050409 72%)}
+</style>
+<script src="../muestra/loteria.js"></script><script src="../muestra/logo.js"></script><script src="timeline.js"></script>
+</head><body>
+<div id="cuadro"><div id="lienzo"><img id="img"><div id="borrs"></div></div><img id="prev"></div>
+<div class="full" id="gVhs" style="visibility:hidden"><div class="ab" id="gVhsT"><div style="font-size:120px">TOMAS FALSAS</div><div style="font-size:38px;margin-top:24px;letter-spacing:6px">LA 57 DE LAS ÁNIMAS · DETRÁS DE CÁMARAS</div><div style="font-size:34px;margin-top:60px">▶ PLAY</div></div></div>
+<div class="full" id="gFin" style="visibility:hidden">
+  <svg class="ab" width="1920" height="1080" style="left:0;top:0;overflow:visible"><g id="finLogo" transform="translate(960,330) scale(.78)"></g></svg>
+  <div class="ab" style="left:0;width:1920px;top:560px;text-align:center">
+    <div class="A glo" id="finT" style="font-size:118px">LA 57 DE LAS ÁNIMAS</div>
+    <div id="finS" style="font-family:M;font-weight:900;font-size:30px;letter-spacing:9px;color:#FFB300;margin-top:22px">ÁREA DE BLINDAJE CENTINELA · EQUIPO 2</div>
+    <div id="finG" style="font-family:M;font-weight:800;font-size:26px;letter-spacing:6px;color:#C9D3EA;margin-top:26px">TROB · GRUPO LOMA · LOMAWEEN 2026</div>
+  </div>
+</div>
+<div class="full" id="vina"></div>
+<div class="full" id="grano"></div>
+<div class="capa" id="pas"><div class="full" id="pasOsc"></div><div class="ab" id="pasCarta"></div>
+  <div class="ab" id="pasTxt"><span class="chip" id="pasK" style="background:#6A2BD9">PUNTO DE CONTROL 3</span><div class="A glo" id="pasV">PASIÓN</div>
+    <div id="pasVerso">«Lo que se hace con el corazón… se nota en los detalles.»</div>
+    <div id="pasCita"><div>Entre llamadas y pendientes,</div><div>le hicimos un lugar a nuestros recuerdos.</div><div>Cada detalle de este altar lleva el cariño</div><div>con el que acompañamos a quienes siguen en ruta.</div></div></div></div>
+<div class="capa" id="sec"><div id="secIn"><span class="chip" id="secK"></span><div class="A glo" id="secT"></div><div id="secS"></div></div></div>
+<div class="capa" id="val"><span class="chip" id="valK"></span><div class="A glo" id="valV"></div><div id="valLinea"></div></div>
+<div class="capa" id="pie"><span class="chip" id="pieK" style="background:rgba(10,8,20,.82);border:3px solid #FF8A3D"></span><div class="A glo" id="pieN"></div><div id="pieLinea"></div></div>
+<div class="capa" id="tel"><span class="chip" style="background:#0098AE">EN LA TELE DE LA CABINA</span><div class="A glo" id="telT">EL 877</div><div id="telS">Un video que hicimos nosotros, con nuestra voz, para que los niños conozcan la cabina.</div></div>
+<div class="capa" id="ter"><div id="terCartas"></div><div id="terTxt"><span class="chip" id="terNum"></span><div class="A glo" id="terAlias"></div><div id="terRol"></div><div id="terBar"></div></div></div>
+<div class="capa" id="lema"><div class="A"></div></div>
+<div class="capa" id="chp"><span class="chip"></span></div>
+<div class="capa" id="sel"><div>¡10-4!</div></div>
+<div class="capa" id="gri"></div>
+<div class="capa" id="cit"><div></div></div>
+<div class="capa" id="vhs"><div class="full" id="vhsLin"></div><div class="ab" id="vhsPlay">▶ PLAY</div><div class="ab" id="vhsRec">● REC</div><div class="ab" id="vhsTc"></div><div class="ab" id="vhsToma"></div></div>
+<div class="capa" id="reb"><div class="ab" id="rebT">◀◀ REBOBINANDO</div></div>
+<div class="capa" id="sub"><span></span></div>
+<div class="full" id="flash"></div>
+<div class="full" id="negro"></div>
+<script src="comp.js"></script>
+</body></html>
