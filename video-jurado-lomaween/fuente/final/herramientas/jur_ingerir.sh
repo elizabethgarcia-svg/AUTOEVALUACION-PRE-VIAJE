@@ -1,14 +1,14 @@
 #!/bin/bash
 # Copia los videos nuevos del jurado, los numera por hora y saca audio + tira de 4 cuadros.
 S=/tmp/claude-0/-home-user-AUTOEVALUACION-PRE-VIAJE/b599cfc6-b7b2-58da-82fa-6d7dac97df15/scratchpad/jurado_clips; U=/root/.claude/uploads/b599cfc6-b7b2-58da-82fa-6d7dac97df15
-cp --update=none $U/*Video_2026-10-30* $S/raw/
+cp --update=none $U/*Video_2026-10-3* $S/raw/
 cd $S/raw; i=$(wc -l < $S/mapa.txt)
 for f in $(ls | python3 -c "
 import sys,re
 fs=sys.stdin.read().split()
 done=set(l.split()[1] for l in open('$S/mapa.txt'))
 def k(f):
-    m=re.search(r'at_(\d+)\.(\d+)\.(\d+)_AM(?:_(\d))?',f); return (int(m[1])%12,int(m[2]),int(m[3]),int(m[4]) if m[4] else -1)
+    m=re.search(r'(\d{4}-\d\d-\d\d)_at_(\d+)\.(\d+)\.(\d+)_(AM|PM)(?:_(\d))?',f); return (m[1],int(m[2])%12+(12 if m[5]=='PM' else 0),int(m[3]),int(m[4]),int(m[6]) if m[6] else -1)
 print('\n'.join(sorted([f for f in fs if f not in done],key=k)))"); do
   i=$((i+1)); n=$(printf "c%02d" $i); echo "$n $f" >> $S/mapa.txt
   ffmpeg -nostdin -v error -y -i "$f" -ac 1 -ar 16000 $S/wav2/$n.wav

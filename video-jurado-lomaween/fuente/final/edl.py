@@ -59,7 +59,7 @@ toma('titulo', 0, 2.6, sec='apertura', aud='mudo', trans='fundido')
 # ---------- 2 · la lotería ----------
 t = toma('c27', 4.1, 7.7, sec='loteria', aud='amb', gan=.5, trans='flash')
 capa('seccion', t + .2, t + 5.6, chip='RECLUTAMIENTO', titulo='LA LOTERÍA DE LAS MISIONES', sub='La Base baraja y reparte una carta a cada Centinela')
-toma('c28', 10.6, 13.0, sec='loteria', aud='amb', gan=.5)
+toma('c28', 10.6, 13.0, sec='loteria', aud='mudo')
 
 # cada Centinela recibe su carta, la canta y dice «¡Me tocó…!»
 t = toma('c34', 5.8, 10.5, sec='loteria', subs=[(6.3, 8.2, 'Si uno se detiene… nos detenemos todos.'), (8.2, 10.28, '¡A mí me tocó el Trabajo en Equipo!')])
@@ -77,7 +77,7 @@ t = toma('c32', 19.3, 24.9, sec='loteria', trans='latigo', subs=[(19.71, 22.1, '
 tercio(t + .4, T[0] - .1, 'MANOS DE CEMPASÚCHIL', 'La ofrenda y las flores', [9], 'CENTINELA 6')
 t = toma('c46', 71.6, 77.6, sec='loteria', trans='latigo', aud_fin=76.65, subs=[(71.96, 74.1, 'A tiempo, completos… y sin ningún rasguño.'), (74.1, 75.8, '¡A mí me tocó el Resultado!')])
 tercio(t + .4, T[0] - .1, 'EL TURNO DE LA NOCHE', 'Monitorea en el turno nocturno', [2], 'CENTINELA 7')
-t = toma('c28', 21.2, 24.4, sec='loteria', aud='amb', gan=.4, trans='latigo')
+t = toma('c28', 21.2, 24.4, sec='loteria', aud='mudo', trans='latigo')
 capa('lema', t + .2, t + 3.2, txt='10 CARTAS · 10 MISIONES · UN SOLO EQUIPO')
 
 # ---------- 3 · la bitácora y el ¡10-4! de toda la cabina ----------
@@ -118,8 +118,8 @@ ini2 = objetivo(2, 'pc2')
 t = toma('c49', 3.85, 13.2, sec='pc2', zoom=(1.04, 1.12), centro=(.62, .4), trans='flash', enf=2,
          subs=[(3.97, 8.1, 'Atender cada alerta y estar al pendiente de cada estatus es un propósito:'), (9.0, 11.2, 'para llegar a casa y decir que todo está bien,'), (11.5, 13.1, 'al final de cada viaje.')])
 tercio(t + 4.3, T[0] - .2, 'EL TURNO DE LA NOCHE', 'Monitorea en el turno nocturno', [2])
-toma('c53', 3.55, 14.5, sec='pc2', zoom=(1.03, 1.1), centro=(.62, .4), aud_ini=3.62, enf=2,
-     subs=[(3.82, 5.4, 'Hoy terminamos esta misión…'), (6.1, 8.45, '…con otro deseo: que recordar a quienes se fueron'), (9.3, 14.45, 'nos inspire a cuidar a quienes siguen en el camino.')])
+toma('c57', 7.5, 12.7, sec='pc2', zoom=(1.04, 1.12), centro=(.35, .4), enf=2,
+     subs=[(7.69, 8.75, 'Hoy termina esta misión…'), (8.9, 10.95, '…que recordar a quienes se fueron nos inspire'), (11.1, 12.5, 'a cuidar a quienes siguen en el camino.')])
 toma('c29', 10.0, 12.6, sec='pc2', aud='mudo', trans='fundido')
 insignia(2, ini2, T[0])
 
@@ -161,6 +161,14 @@ toma('877', 161.35, 166.95, sec='877', aud='877', trans='fundido')
 toma('877', 167.55, 172.9, sec='877', aud='877', trans='fundido')
 insignia(3, ini3, T[0] - 16.4)  # la insignia se quita durante el fragmento del 877
 
+# ---------- 30 de octubre: los Mini Centinelas en la cabina y el área encendida ----------
+t = toma('foto:visita_ninos', 0, 3.6, sec='visita', aud='mudo', zoom=(1.0, 1.08), centro=(.5, .5), trans='flash', datos=dict(recorte=[120, 70, 1040, 418]))
+capa('seccion', t + .2, t + 3.5, chip='30 DE OCTUBRE · LOMAWEEN', titulo='LOS MINI CENTINELAS LLEGARON', sub='La cabina, encendida para recibirlos')
+toma('c65', 4.6, 8.6, sec='visita', aud='mudo', trans='fundido')
+toma('foto:selfie_catrinas', 0, 2.6, sec='visita', aud='mudo', zoom=(1.0, 1.06), centro=(.5, .4), trans='fundido', datos=dict(recorte=[0, 262, 572, 754]))  # solo la foto, sin la pantalla de la historia
+toma('c66', 0.4, 4.0, sec='visita', aud='mudo', trans='fundido')
+toma('c66', 9.6, 12.6, sec='visita', aud='mudo', trans='fundido')
+
 # ---------- 7 · los tres objetivos, juntos, y la llegada ----------
 toma('resumen', 0, 6.4, sec='resumen', aud='mudo', trans='flash')
 toma('anim_LL', 0.35, 4.0, sec='llegada', aud='anim', trans='flash')
@@ -171,15 +179,16 @@ toma('anim_CI', 0.35, 6.4, sec='cierre', aud='anim', trans='flash')
 # ---------- 8 · detrás de cámaras ----------
 t = toma('vhs', 0, 2.2, sec='tomas', aud='mudo', trans='corte')
 TF = T[0]
-toma('c56', 16.8, 18.7, sec='tomas', trans='rebobina', subs=[(16.9, 18.6, '¿Ya se me olvidó…?')])
-toma('c56', 24.1, 26.7, sec='tomas')
-toma('c46', 41.2, 47.0, sec='tomas', trans='rebobina', subs=[(41.25, 45.0, '…trata de agarrarla así, que se vea la esquina…'), (45.6, 46.95, '¡CORTE!')])
-toma('c22', 6.3, 9.9, sec='tomas', trans='rebobina', subs=[(6.4, 9.8, '¡Fuerte, fuerte, fuerte!')])
-toma('c50', 8.6, 12.5, sec='tomas', trans='rebobina', subs=[(8.74, 10.45, '¿Qué tan nervioso…?'), (11.9, 12.4, 'Respira.')])
-toma('c19', 5.9, 9.5, sec='tomas', trans='rebobina')
-toma('c61', 1.6, 5.4, sec='tomas', trans='rebobina')
-capa('chip', T[0] - 3.6, T[0] - .2, txt='¡SE CAYÓ EL CELULAR!')
-toma('c20', 9.5, 11.2, sec='tomas', trans='rebobina')
+toma('c38', 0.5, 3.4, sec='tomas', trans='rebobina')                 # Ojo de Halcón se traba con el papel picado
+toma('c38', 6.9, 9.6, sec='tomas')                                   # … y se ríe
+toma('c10', 9.1, 12.7, sec='tomas', trans='rebobina')                # La de las Alertas
+toma('c32', 6.0, 8.4, sec='tomas', trans='rebobina')                 # Manos de Cempasúchil, a toda velocidad
+toma('c56', 16.85, 18.3, sec='tomas', trans='rebobina', subs=[(16.9, 18.2, '¿Ya se me olvidó…?')])  # Ricardo
+toma('c45', 10.9, 15.4, sec='tomas', trans='rebobina')               # La Rescatista
+toma('c19', 5.9, 9.5, sec='tomas', trans='rebobina')                 # Caza Jammers
+toma('c20', 9.5, 11.2, sec='tomas')
+toma('c61', 1.6, 5.0, sec='tomas', aud='mudo', trans='rebobina')
+capa('chip', T[0] - 3.2, T[0] - .2, txt='¡SE CAYÓ EL CELULAR!')
 toma('c41', 3.5, 6.1, sec='tomas', rot=-90, trans='rebobina')
 capa('vhs', TF, T[0])
 toma('fin', 0, 5.0, sec='fin', aud='mudo', trans='fundido')

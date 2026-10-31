@@ -100,6 +100,11 @@ for x in T:
         sfx.put(x['t0'] - .05, rayon(1.0), 1.0); sfx.put(x['t0'] + .1, zumbido(.35, False), .8)
 sfx.put(b - .3, trombon_triste(), 1.0)
 
+# ---------- 30 de octubre: la visita, con piano y cuerdas ----------
+a, b = sec('visita')
+piano_tramo(a, int((b - a) / 2.1) + 1, 2.1, .95)
+mus.put(a, platillo(1.8), .5); mus.put(a + .3, cajita(86, 2.2), .5); mus.put(a + 4.5, cajita(81, 2.2), .45)
+
 # ---------- los tres objetivos, juntos ----------
 a, b = sec('resumen')
 for n in (50, 57, 62, 66, 69): mus.put(a, cuerdas(n, b - a + 1.2, .8, 1.4), 1.0)

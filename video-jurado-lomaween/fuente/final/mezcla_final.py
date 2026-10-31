@@ -81,6 +81,7 @@ mute = uniform_filter1d(mute, int(.5 * SR))
 sube = np.ones(N)  # en las tarjetas de los objetivos, el resumen y el final la música va al frente
 for x in TL['tomas']:
     if x['src'] in ('obj1', 'obj2', 'obj3', 'resumen', 'fin'): sube[int(x['t0'] * SR):int((x['t0'] + x['dur']) * SR)] = 1.8
+    if x['sec'] == 'visita': sube[int(x['t0'] * SR):int((x['t0'] + x['dur']) * SR)] = 1.6
 sube = uniform_filter1d(sube, int(.3 * SR))
 musica = mus * (duck * mute * sube)[:, None] * .62
 efectos = sfx * .8

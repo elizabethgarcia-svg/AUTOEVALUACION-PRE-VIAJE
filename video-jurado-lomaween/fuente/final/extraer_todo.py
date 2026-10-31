@@ -15,6 +15,10 @@ def luz(clip, a, b):
         if r.stdout: vals.append(sum(r.stdout) / len(r.stdout) / 255)
     return sum(vals) / len(vals) if vals else .45
 
+def tamano(f):
+    r = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', f], capture_output=True, text=True)
+    return tuple(map(int, r.stdout.strip().split(',')[:2]))
+
 GENERADAS = ('vhs', 'fin', 'logo', 'titulo', 'resumen', 'obj1', 'obj2', 'obj3')
 def carpeta(tm):
     """Carpeta de cuadros según lo que es la toma (no su lugar en la lista), para reutilizarla si no cambia."""
@@ -34,8 +38,17 @@ def sacar(tm):
         cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', str(a), '-i', TL['tv877'], '-vf', 'fps=30,scale=1920:1080'] + jpg
     elif src.startswith('foto:'):
         f = os.path.join(B, 'fotos', src[5:] + '.jpg')
-        cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f, '-vf', 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=contrast=1.04:saturation=1.06',
-               '-q:v', '2', '-frames:v', '1', os.path.join(out, 'f_00001.jpg')]
+        w, h = tamano(f); rc = (tm.get('datos') or {}).get('recorte')
+        rec = f'crop={rc[2]}:{rc[3]}:{rc[0]}:{rc[1]},' if rc else ''
+        if rc: w, h = rc[2], rc[3]
+        if 1.6 <= w / h <= 1.95:  # casi 16:9: llena la pantalla
+            vf = f'{rec}scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=contrast=1.04:saturation=1.06'
+            cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f, '-vf', vf]
+        else:  # vertical o muy panorámica: completa, sobre la misma foto desenfocada
+            vf = (f'[0:v]{rec}split[a][b];[a]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=30:3,eq=brightness=-.15[f];'
+                  f'[b]scale=1920:1080:force_original_aspect_ratio=decrease:flags=lanczos,eq=contrast=1.04:saturation=1.06[c];[f][c]overlay=(W-w)/2:(H-h)/2')
+            cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f, '-filter_complex', vf]
+        cmd += ['-q:v', '2', '-frames:v', '1', os.path.join(out, 'f_00001.jpg')]
     else:
         clip = os.path.join(os.path.dirname(B.rstrip('/')), 'jurado', 'material', src[4:] + '.mp4') if src.startswith('mat:') else B + 'raw/' + mapa[src]
         br, co, sa, te = map(float, tm['grade'].split(','))
@@ -43,7 +56,8 @@ def sacar(tm):
         pre = ('transpose=2,' if tm.get('rot') == -90 else '') + (f"setpts=PTS/{tm['vel']}," if tm['vel'] != 1 else '')
         grade = (f'hqdn3d=1.5:1.5:4:4,eq=brightness={br:.3f}:contrast={co}:saturation={sa},'
                  f'colorbalance=rs={.05 * te:.3f}:bs={-.05 * te:.3f}:rm={.03 * te:.3f}:bm={-.03 * te:.3f}')
-        if tm.get('rot'):  # vertical: al centro, con el mismo cuadro desenfocado de fondo
+        w, h = tamano(clip)
+        if tm.get('rot') or h > w:  # vertical: al centro, con el mismo cuadro desenfocado de fondo
             vf = (f'[0:v]{pre}fps=30,{grade},split[a][b];[a]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=30:3,eq=brightness=-.12[f];'
                   f'[b]scale=-2:1080:flags=lanczos,cas=.4[c];[f][c]overlay=(W-w)/2:0')
             cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', str(a), '-i', clip, '-filter_complex', vf] + jpg

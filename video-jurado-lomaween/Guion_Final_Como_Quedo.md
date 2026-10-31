@@ -40,7 +40,7 @@ Tarjeta en pantalla completa: «Cada turno suma: aquí nadie llega solo». Duran
 Tarjeta en pantalla completa: «Cada alerta atendida es alguien que regresa a casa».
 
 - El Turno de la Noche, en su lugar: «Atender cada alerta y estar al pendiente de cada estatus es un propósito: para llegar a casa y decir que todo está bien, al final de cada viaje.»
-- Una compañera de la cabina, en la toma donde le salió completa: «Hoy terminamos esta misión… con otro deseo: que recordar a quienes se fueron nos inspire a cuidar a quienes siguen en el camino.»
+- Ricardo, en su lugar: «Hoy termina esta misión… que recordar a quienes se fueron nos inspire a cuidar a quienes siguen en el camino.»
 
 ## 6 · Objetivo 3 de 3 · Pasión y el recorrido
 
@@ -56,7 +56,11 @@ Tarjeta en pantalla completa: «Lo que se hace con el corazón se nota en los de
 - Pieza 7 · Los letreros de la cabina. La de las Alertas: «Cada letrero es una alerta que atendemos a diario: zona de restricción, parada no autorizada, estatus al cliente y zona sin cobertura.»
 - La tele de la cabina con el 877, y un fragmento del video: «¡Hola, hola, amiguitos! Yo soy el ocho setenta y siete», «Y dile que tú eres su razón más grande para regresar», «Recordemos a quienes se fueron, y cuidemos a quienes regresan».
 
-## 7 · Los tres objetivos y la llegada
+## 7 · 30 de octubre: los Mini Centinelas llegaron
+
+La visita de los niños a la cabina, la carretera con las velas encendidas, la selfie con maquillaje de catrina, la Catrina gigante y el papel picado. Va con piano y cuerdas.
+
+## 8 · Los tres objetivos y la llegada
 
 Tarjeta «Tres objetivos · un solo equipo»:
 
@@ -66,6 +70,14 @@ Tarjeta «Tres objetivos · un solo equipo»:
 
 La radio dice «Unidad Blindaje Centinela: llegó a destino». Todo el equipo grita: «¡Desde la cabina, protegemos cada kilómetro!», sin el conteo de quien graba. Cierra «Cambio y fuera» con el tracto 501.
 
-## 8 · Detrás de cámaras
+## 9 · Detrás de cámaras
 
-En estilo VHS: «¿Ya se me olvidó…?», «¡Corte!», «¡Fuerte, fuerte, fuerte!», «¿Qué tan nervioso…? Respira», las risas y el celular que se cae. Al final va la tarjeta con el logo nuevo de Centinela.
+En estilo VHS, los tropiezos y las risas de los Centinelas, sin la voz de quien graba:
+
+- Ojo de Halcón se traba con el papel picado y se ríe.
+- La de las Alertas se equivoca con la carretera.
+- Manos de Cempasúchil dice su verso a toda velocidad.
+- Ricardo: «¿Ya se me olvidó…?».
+- La Rescatista y Caza Jammers se ríen.
+- Se cae el celular.
+- El equipo se despide. Al final va la tarjeta con el logo nuevo de Centinela.

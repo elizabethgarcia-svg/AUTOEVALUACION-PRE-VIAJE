@@ -2,7 +2,7 @@
 
 ## Video final
 
-`La57_de_las_Animas_Video_Jurado_1080p.mp4` es el video que se entrega al jurado (versión 2, 5:14, 1080p). `La57_de_las_Animas_Video_Jurado_WhatsApp.mp4` es la misma versión, más ligera, para mandar por WhatsApp.
+`La57_de_las_Animas_Video_Jurado_1080p.mp4` es el video que se entrega al jurado (versión 3, 5:24, 1080p). `La57_de_las_Animas_Video_Jurado_WhatsApp.mp4` es la misma versión, más ligera, para mandar por WhatsApp.
 
 Lleva las grabaciones del equipo, con la mejor toma de cada quien, y lo animado de la muestra 4 (sin la marca de MUESTRA). Va así:
 
@@ -10,18 +10,19 @@ Lleva las grabaciones del equipo, con la mejor toma de cada quien, y lo animado 
 2. La lotería: La Base baraja y reparte. Siete Centinelas cantan su carta y dicen «¡Me tocó…!», cada uno con su nombre y sus cartas en pantalla.
 3. La bitácora, con el plan y el sello de APROBADO, y el «¡10-4!» de nueve compañeros de la cabina.
 4. Objetivo 1 · Trabajo en Equipo: tarjeta del objetivo, Ojo de Halcón explica el valor, el armado en cámara rápida, «Aquí ningún viaje se hace solo» y el choque de manos.
-5. Objetivo 2 · Enfoque a Resultados: tarjeta del objetivo, El Turno de la Noche y «Hoy terminamos esta misión con otro deseo…».
+5. Objetivo 2 · Enfoque a Resultados: tarjeta del objetivo, El Turno de la Noche y Ricardo con «Hoy termina esta misión…».
 6. Objetivo 3 · Pasión y el recorrido. Va la tarjeta del objetivo y la frase de Pasión en pantalla sobre las ofrendas. Luego vienen siete piezas: papel picado, tracto, carretera, cruz de sal, panteón de los malos hábitos, ofrendas de los escritorios y letreros de la cabina. Cierra con un fragmento del 877 (bienvenida, «tu razón más grande para regresar» y «Recordemos a quienes se fueron…»).
-7. «Tres objetivos · un solo equipo», la llegada a destino, el grito «¡Desde la cabina, protegemos cada kilómetro!» y «Cambio y fuera».
-8. Detrás de cámaras, en estilo VHS, y la tarjeta final con el logo nuevo.
+7. 30 de octubre: la visita de los Mini Centinelas y el área encendida.
+8. «Tres objetivos · un solo equipo», la llegada a destino, el grito «¡Desde la cabina, protegemos cada kilómetro!» y «Cambio y fuera».
+9. Detrás de cámaras, en estilo VHS, con los tropiezos y risas de los Centinelas, y la tarjeta final con el logo nuevo.
 
-Cada objetivo tiene su color (verde azulado, dorado y morado), su tarjeta de pantalla completa y una insignia en la esquina mientras dura su sección. Sus frases van resaltadas en ese color. Lo que dice cada quien va con subtítulos, escritos como lo dijeron en la grabación. Las pantallas de la cabina se ven tal cual, como pidió el equipo. Las voces van niveladas al mismo volumen y la voz de quien graba («una, dos, tres») no se escucha. La música y los efectos son originales, sintetizados para el video.
+Cada objetivo tiene su color (verde azulado, dorado y morado), su tarjeta de pantalla completa y una insignia en la esquina mientras dura su sección. Sus frases van resaltadas en ese color. Lo que dice cada quien va con subtítulos, escritos como lo dijeron en la grabación. Las pantallas de la cabina se ven tal cual, como pidió el equipo. Las voces van niveladas al mismo volumen y la voz de quien graba («una, dos, tres», las indicaciones) no se escucha. La música y los efectos son originales, sintetizados para el video.
 
 Cómo se arma (`fuente/final/`):
 
 - `herramientas/`: identifica los clips sin nombre. Transcribe con Whisper (`jur_transcribir.py`), mide cada toma candidata (`analizar.py`, `rafagas.py`) y saca hojas de cuadros (`tiras.py`, `rejilla.py`) para elegir la mejor toma.
 - `hacer_final4.sh` y `render_anim.sh` renderizan en HD lo animado de la muestra 4 con `render_hd.js`.
-- `edl.py` es la lista de cortes: tomas, subtítulos, nombres, títulos, objetivos y transiciones. Genera `timeline.json`. `edl_v1.py` es la versión 1 (4:36).
+- `edl.py` es la lista de cortes: tomas, subtítulos, nombres, títulos, objetivos y transiciones. Genera `timeline.json`. `edl_v1.py` y `edl_v2.py` son las versiones anteriores (4:36 y 5:14). `render_cola.sh` vuelve a renderizar solo desde donde cambió el video.
 - `extraer_todo.py` saca los cuadros de cada toma con el color emparejado. `hacer_tljs.py` pasa el timeline a la página.
 - `comp.html` y `comp.js` componen cada cuadro: movimientos de cámara, cartas, tarjetas de los objetivos, subtítulos, logo y VHS. El logo nuevo está en `img/logo_nuevo.webp`. `render_todo.sh` lo graba en 4 partes con `render_comp.js`.
 - `musica_final.py` compone la música y los efectos. `mezcla_final.py` limpia y empareja las voces, baja la música cuando alguien habla y mete el audio de las animaciones y del 877. Se masteriza con `video-lomaween-centinela/fuente/masterizar.py` (-16 LUFS).
